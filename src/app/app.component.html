@@ -5,9 +5,9 @@ template="<img class='flip-image' width='150' src='assets/images/logo.png'>">
 </ngx-spinner>
 
 
-<h1 style="color: red;">{{ 'GENERAL' | translate}}</h1>
+<!-- <h1 style="color: red;">{{ 'GENERAL' | translate}}</h1> -->
 
-<p-select [options]="langOptions" [(ngModel)]="selectedLang" (onChange)="onLangChange()"
+<!-- <p-select [options]="langOptions" [(ngModel)]="selectedLang" (onChange)="onLangChange()"
 optionLabel="name" optionValue="code">
 <ng-template let-lang pTemplate="selectedItem">
   <div class="selected-lang">
@@ -21,6 +21,6 @@ optionLabel="name" optionValue="code">
     <div>{{ lang.name }}</div>
   </div>
 </ng-template>
-</p-select>
+</p-select> -->
 
 <p-toast [position]="selectedLang == 'ar' ? 'top-left' : 'top-right'"></p-toast>

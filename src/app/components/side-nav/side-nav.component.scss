@@ -2,6 +2,7 @@
    background-color: #fff;
    height: 100%;
    width:250px;
+   padding:25px 0px;
    box-shadow: 0 0 21px #59667a1a;
  .header{
     padding: 10px;
@@ -21,12 +22,9 @@
 }
 
 .items-nav{
-    height: 100vh;
-    position: relative;
+ 
     .item{
         cursor: pointer;
-        padding: 10px 0;
-        margin:0px 5%;
     }
     .btn-link {
         text-decoration: none;
@@ -35,19 +33,20 @@
             margin: 0px 10px;
         }
       }
-      .btn-link:hover {
-       background-color: #E9EFEF;
-      }
-      .active {
+  
+      .active,.btn-link:hover  {
         background-color: #E9EFEF;
+        padding:10px;
+        border-radius: 16px;
        }
 
    .nav-footer{
-    position: absolute;
-    bottom: 135px;
+    // position: absolute;
+    // bottom: 135px;
     cursor: pointer;
-        width:90%;
-        margin:0px 5%;
+    .user-img {
+padding-bottom: 10px;
+    } 
    }    
    hr{
     color: #ada5a5;
@@ -56,12 +55,58 @@
 
 .w-90{
     width:90%;
+    margin: 5%;
+    border-radius: 16px;
+
+}
+
+ .nav-container{
+    background-color: #f6f9f9;
+    
+    // height: 100vh;
+    width: 80%;
+    margin:0px 10%;
+border-radius: 16px;
 }
 .item-close{
-    width: 50%;
-    margin: 0px 25%;
+    width: 70%;
+    margin: 0px 15%;
     padding: 5px 10px 10px 10px;
-    border-radius: 5px;
-    border:1px solid  #b3e2e2
+    border-radius: 16px;
+    .item{
+          background-color: unset;
+    }
+   
+ }
+
+ .close-collabse{
+display: none
+ }
+
+//  @media screen and (max-width: 500px) {
+//     .content {
+//      display: none;
+//     }
+//     .show-menu{
+//         // pointer-events: none;
+        
+//     }
+//   }
+
+//   @media screen and (min-width: 500px) {
+
+//     .collapse-menu{
+//         display: none;
+//     }
+//     .show-menu{
+//         display: block;
+//         overflow-y: unset!important;
+//      }
+//   }
+  .show-menu{
+    display: block;
+    overflow-y: scroll;
+    height: 100%;
 
  }
+  

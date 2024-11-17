@@ -3,54 +3,68 @@
 <p-button label="Success" severity="success" /><br>
 
 <button class="btn btn-primary">Bootstrap Button</button> -->
-<div class="content" [ngClass]="{'close-menu':closeMenu}"(mouseover)="onMouseOver()"(mouseleave)="onMouseLeave()">
+@if(showCollabseMenu){
+    <img src="assets/images/collapse-menu.png" class="collapse-menu" width="50px"  (click)="collapse_menu()">
+
+}
+@else {
+    <div class="content" [ngClass]="{'close-menu':closeMenu}" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
+   
+
+    
         @if(!closeMenu){
-            <div class="header d-flex justify-content-between">
+        <div class="header d-flex justify-content-between">
             <div class="logo">
-               <img src="assets/images/smallLogo.svg">
-            
-            </div>   
-            <span class="bold pointer"(click)="close()">x</span>
-        </div>
-        }
-
-        @else {
-            <div class="header text-center">
-                <img src="assets/images/logo.png">
-
+                <img src="assets/images/smallLogo.svg">
+    
             </div>
-        }
-
-        <div class="items-nav mt-5">
-           <div>
-            @for (item of menu; track $index) {
-                <div class="item d-flex justify-content-start"  >
-
-                    <button class="btn btn-link w-90 text-center"  [class.item-close]="closeMenu" [routerLink]="[item.path]" routerLinkActive="active">
-                        @if(closeMenu){
-                            <img src="assets/images/logo.png" width="20px">
-                        }    
-                        @if(!closeMenu){
-                            <img src="assets/images/logo.png" width="20px">
-                            <span>  {{item.name}}</span>
-                        }  
-                    </button>
-                </div>
-            }
-           </div>
-           <div class="nav-footer mt-5">
-            
-             <div class="setting text-center">
-                <img src="assets/images/logo.png" width="20px">
-                @if(!closeMenu){ <span>  {{'setting'}}</span>}
-             </div>
-             <div class="mt-3 text-center">
-                <hr>
-                <img src="assets/images/user.png" width="50px">
-
-             </div>
-           </div>
-            <p-tree [value]="asd" styleClass="w-full md:w-[30rem]" />
+            <span class="bold pointer" (click)="close()">x</span>
         </div>
-           
-</div>
+      
+        }
+       
+            <div class="nav-container" [class.item-close]="closeMenu">
+                @if(closeMenu) {
+            
+                    <div class="header text-center">
+                        <img src="assets/images/logo.png">
+                
+                    </div>
+                    }
+                <div class="items-nav mt-5">
+                        <ng-container>
+                            @for (item of menu; track $index) {
+                            <div class="item d-flex justify-content-start">
+            
+                                <button class="btn btn-link w-90 text-center" [routerLink]="[item.path]" routerLinkActive="active">
+                                    @if(closeMenu){
+                                    <img src="assets/images/logo.png" width="20px">
+                                    }
+                                    @if(!closeMenu){
+                                    <img src="assets/images/logo.png" width="20px">
+                                    <span> {{item.name}}</span>
+                                    }
+                                </button>
+                            </div>
+                            }
+                        </ng-container>
+                        <div class="nav-footer mt-5">
+            
+                            <div class="setting text-center">
+                                <img src="assets/images/logo.png" width="20px">
+                                @if(!closeMenu){ <span> {{'setting'}}</span>}
+                            </div>
+                            <div class="user-img text-center">
+                                <hr>
+                                <img src="assets/images/user.png" width="50px">
+            
+                            </div>
+                        </div>
+                    
+            
+                </div>
+            </div>
+        
+    
+    </div>
+}

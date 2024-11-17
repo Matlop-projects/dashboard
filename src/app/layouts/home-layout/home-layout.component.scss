@@ -1,6 +1,19 @@
-.side-nav{
-    height: 100vh;
-}
-div.home-content{
-    margin:0 10px
+
+.container-page{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    .side-nav{
+       position: absolute;
+       top: 0;
+       left:0;
+       bottom: 0;
+       margin: 0;
+       padding: 0;
+    }
+    div.home-content{
+        margin:0 10px
+    }
 }
