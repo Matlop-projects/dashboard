@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Toast } from 'primeng/toast';
 import { LanguageService } from '../../services/language.service';
 import { ToasterService } from '../../services/toaster.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-home-layout',
   standalone: true,
-  imports: [RouterOutlet , Toast],
+  imports: [RouterOutlet , Toast , ButtonModule],
   templateUrl: './home-layout.component.html',
   styleUrl: './home-layout.component.scss'
 })
