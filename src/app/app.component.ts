@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ToasterService } from './services/toaster.service';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
+import { PrimeNG } from 'primeng/config';
 
 
 @Component({
@@ -17,7 +18,7 @@ import { Toast } from 'primeng/toast';
   imports: [RouterOutlet, NgxSpinnerModule, Select , FormsModule , TranslateModule , Toast],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [MessageService , ToasterService]
+  providers: [MessageService , ToasterService , PrimeNG]
 })
 
 
@@ -33,9 +34,10 @@ export class AppComponent {
   languageService = inject(LanguageService);
   toaster = inject(ToasterService);
 
-  constructor(@Inject(DOCUMENT) private document: Document,) { }
+  constructor(@Inject(DOCUMENT) private document: Document,private primeng: PrimeNG) { }
 
   ngOnInit(): void {
+    this.primeng.ripple.set(true);
     this.initAppTranslation();
     this.toaster.successToaster('GENERAL');
   }

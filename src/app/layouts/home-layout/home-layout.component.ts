@@ -4,7 +4,6 @@ import { Toast } from 'primeng/toast';
 import { LanguageService } from '../../services/language.service';
 import { ToasterService } from '../../services/toaster.service';
 import { SideNavComponent } from '../../components/side-nav/side-nav.component';
-
 @Component({
   selector: 'app-home-layout',
   standalone: true,

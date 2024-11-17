@@ -28,8 +28,16 @@ export const appConfig: ApplicationConfig = {
     withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     providePrimeNG({
-        theme: Aura
-    }),
+      ripple: true,
+      theme: {
+          preset: Aura,
+          options: {
+              prefix: 'p',
+              darkModeSelector: 'system',
+              cssLayer: false
+          },
+      }
+  }),
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     importProvidersFrom([TranslateModule.forRoot({
       loader: {
