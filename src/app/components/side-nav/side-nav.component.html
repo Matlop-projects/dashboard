@@ -7,8 +7,8 @@
         @if(!closeMenu){
             <div class="header d-flex justify-content-between">
             <div class="logo">
-                <!-- Matl <img src="../../../assets/icons/icons8-menu.png">p -->
-                 <span class="bold">MATLOP</span>
+               <img src="assets/images/smallLogo.svg">
+            
             </div>   
             <span class="bold pointer"(click)="close()">x</span>
         </div>
@@ -16,11 +16,41 @@
 
         @else {
             <div class="header text-center">
-                <span class="bold">M</span>
+                <img src="assets/images/logo.png">
 
             </div>
         }
-          <ng-container>
+
+        <div class="items-nav mt-5">
+           <div>
+            @for (item of menu; track $index) {
+                <div class="item d-flex justify-content-start"  >
+
+                    <button class="btn btn-link w-90 text-center"  [class.item-close]="closeMenu" [routerLink]="[item.path]" routerLinkActive="active">
+                        @if(closeMenu){
+                            <img src="assets/images/logo.png" width="20px">
+                        }    
+                        @if(!closeMenu){
+                            <img src="assets/images/logo.png" width="20px">
+                            <span>  {{item.name}}</span>
+                        }  
+                    </button>
+                </div>
+            }
+           </div>
+           <div class="nav-footer mt-5">
+            
+             <div class="setting text-center">
+                <img src="assets/images/logo.png" width="20px">
+                @if(!closeMenu){ <span>  {{'setting'}}</span>}
+             </div>
+             <div class="mt-3 text-center">
+                <hr>
+                <img src="assets/images/user.png" width="50px">
+
+             </div>
+           </div>
+            <p-tree [value]="asd" styleClass="w-full md:w-[30rem]" />
+        </div>
            
-          </ng-container>
 </div>
