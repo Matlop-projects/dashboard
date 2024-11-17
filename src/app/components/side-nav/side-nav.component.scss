@@ -1,0 +1,20 @@
+.content{
+   background-color: #fff;
+   height: 100%;
+   width:250px;
+   box-shadow: 0 0 21px #59667a1a;
+ .header{
+    padding: 10px;
+    .logo{
+        span{
+            color:var(--main-text-color);
+            letter-spacing: 8px;
+        }
+       }
+ }
+
+}
+
+.close-menu{
+    width:100px;
+}

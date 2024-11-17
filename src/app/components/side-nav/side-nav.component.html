@@ -1,0 +1,26 @@
+<!-- <p>side-nav works!</p>
+<p-inputnumber inputId="integeronly"  />
+<p-button label="Success" severity="success" /><br>
+
+<button class="btn btn-primary">Bootstrap Button</button> -->
+<div class="content" [ngClass]="{'close-menu':closeMenu}"(mouseover)="onMouseOver()"(mouseleave)="onMouseLeave()">
+        @if(!closeMenu){
+            <div class="header d-flex justify-content-between">
+            <div class="logo">
+                <!-- Matl <img src="../../../assets/icons/icons8-menu.png">p -->
+                 <span class="bold">MATLOP</span>
+            </div>   
+            <span class="bold pointer"(click)="close()">x</span>
+        </div>
+        }
+
+        @else {
+            <div class="header text-center">
+                <span class="bold">M</span>
+
+            </div>
+        }
+          <ng-container>
+           
+          </ng-container>
+</div>
