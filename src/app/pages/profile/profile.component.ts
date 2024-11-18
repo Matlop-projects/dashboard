@@ -20,7 +20,6 @@ export class ProfileComponent {
         label: 'Profile',
       },
     ]
-
   }
 
 }
