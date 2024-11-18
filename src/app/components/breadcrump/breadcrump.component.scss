@@ -1,5 +1,15 @@
 ::ng-deep {
   .breadcrump-container {
-
+    p-breadcrumb {
+      .p-breadcrumb {
+        .p-breadcrumb-list {
+          .p-breadcrumb-separator {
+            &:lang(ar) {
+              transform: rotate(180deg) !important;
+          }
+          }
+        }
+      }
+    }
   }
 }
