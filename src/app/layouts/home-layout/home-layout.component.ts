@@ -4,10 +4,12 @@ import { Toast } from 'primeng/toast';
 import { LanguageService } from '../../services/language.service';
 import { ToasterService } from '../../services/toaster.service';
 import { SideNavComponent } from '../../components/side-nav/side-nav.component';
+import { SidebarComponent } from "../../components/sidebar/sidebar.component";
+import { NavbarComponent } from "../../components/navbar/navbar.component";
 @Component({
   selector: 'app-home-layout',
   standalone: true,
-  imports: [RouterOutlet , Toast ,SideNavComponent],
+  imports: [RouterOutlet, Toast, SideNavComponent, SidebarComponent, NavbarComponent],
   templateUrl: './home-layout.component.html',
   styleUrl: './home-layout.component.scss'
 })
@@ -22,7 +24,6 @@ export class HomeLayoutComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.toaster.successToaster('GENERAL');
     })
   }
 

@@ -1,13 +1,17 @@
-<div class="container-page">
+<div class="layout-container">
+  <div class="content d-flex justify-content-start gap-10">
+    <div class="side-nav">
+      <!-- <app-side-nav></app-side-nav> -->
+      <app-sidebar></app-sidebar>
+    </div>
+  <div class="main-home-content">
+    <app-navbar></app-navbar>
+    <div class="home-content">
 
-    <div class="layout d-flex justify-content-start">
-        <div class="side-nav">
-            <app-side-nav></app-side-nav>
-        </div>
-        <div class="home-content">
-            <p>home-layout works!</p>
-        </div>
-        </div>
-        <router-outlet />
-        <p-toast [position]="selectedLang == 'ar' ? 'top-left' : 'top-right'"></p-toast>
+      <router-outlet />
+    </div>
+  </div>
+  </div>
 </div>
+
+<p-toast [position]="selectedLang == 'ar' ? 'top-left' : 'top-right'"></p-toast>

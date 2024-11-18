@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import "primeicons/primeicons.css";
 
 :root{
     --main-text-color:redF2F3E;
 }
 body{
-    background-color: #F5F5F5;
-    
+    // background-color: #F5F5F5;
+
 }
 .bold{
     font-weight: bold;
