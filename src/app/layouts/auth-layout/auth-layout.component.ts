@@ -21,7 +21,7 @@ export class AuthLayoutComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.toaster.successToaster('GENERAL');
+      // this.toaster.successToaster('GENERAL');
     })
   }
 }
