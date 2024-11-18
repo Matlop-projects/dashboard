@@ -14,17 +14,21 @@ import { NavbarComponent } from "../../components/navbar/navbar.component";
   styleUrl: './home-layout.component.scss'
 })
 export class HomeLayoutComponent {
-
+  showMenuIcon:boolean=false
   selectedLang: any;
   languageService = inject(LanguageService);
   toaster = inject(ToasterService);
-
-
+ 
   ngOnInit(): void {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
     })
+  }
+
+  onClickMenuIcon(event:boolean){
+     this.showMenuIcon=event
+     console.log("HomeLayoutComponent  onClickMenuIcon   this.showMenuIcon:",  this.showMenuIcon)
   }
 
 }

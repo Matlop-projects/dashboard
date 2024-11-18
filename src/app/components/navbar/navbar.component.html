@@ -1,8 +1,11 @@
 <div class="navbar-container">
   <div class="content">
-    <div class="search-section">
-      <p-autocomplete [placeholder]="'Search Pages'" [(ngModel)]="value" [suggestions]="items"
-        (completeMethod)="search($event)" />
+    <div class="d-flex justify-content-between w-100">
+      <div class="search-section">
+        <p-autocomplete [placeholder]="'Search Pages'" [(ngModel)]="value" [suggestions]="items"
+          (completeMethod)="search($event)" />
+      </div>
+      <img  class="menu-grid-icon" src="assets/images/menu-navigation-grid.svg" width="20px" alt="menu" (click)="onToggleMenu()">
     </div>
 
     <div class="option-section">

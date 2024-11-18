@@ -1,4 +1,4 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, EventEmitter, Inject, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -28,7 +28,7 @@ interface AutoCompleteCompleteEvent {
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  @Output()openMenu=new EventEmitter()
   items: any;
   value: any;
   langOptions = [
@@ -36,7 +36,7 @@ export class NavbarComponent {
     { name: 'العربية', code: 'ar', icon: 'assets/images/icons/ar-lang.png' },
   ];
   selectedLang: string = localStorage.getItem('lang') || 'en';
-
+  toggleMenu:boolean=false
   languageService = inject(LanguageService);
   toaster = inject(ToasterService);
 
@@ -69,4 +69,9 @@ export class NavbarComponent {
 
   }
 
+ onToggleMenu(){
+  this.toggleMenu=!this.toggleMenu
+  console.log(this.toggleMenu)
+  this.openMenu.emit(this.toggleMenu)
+ }
 }

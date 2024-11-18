@@ -1,63 +1,31 @@
-<!-- <p>side-nav works!</p>
-<p-inputnumber inputId="integeronly"  />
-<p-button label="Success" severity="success" /><br>
 
-<button class="btn btn-primary">Bootstrap Button</button> -->
-@if(showCollabseMenu){
-    <img src="assets/images/collapse-menu.png" class="collapse-menu" width="50px"  (click)="collapse_menu()">
 
-}
-@else {
-    <div class="content" [ngClass]="{'close-menu':closeMenu}" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
-   
-
-    
-        @if(!closeMenu){
-        <div class="header d-flex justify-content-between">
-            <div class="logo">
+    <!-- <div class="content">
+            <div class="logo text-center">
                 <img src="assets/images/smallLogo.svg">
-    
             </div>
-            <span class="bold pointer" (click)="close()">x</span>
-        </div>
-      
-        }
-       
-            <div class="nav-container" [class.item-close]="closeMenu">
-                @if(closeMenu) {
-            
+            <div class="nav-container">
                     <div class="header text-center">
                         <img src="assets/images/logo.png">
-                
                     </div>
-                    }
                 <div class="items-nav mt-5">
                         <ng-container>
                             @for (item of menu; track $index) {
                             <div class="item d-flex justify-content-start">
-            
                                 <button class="btn btn-link w-90 text-center" [routerLink]="[item.path]" routerLinkActive="active">
-                                    @if(closeMenu){
                                     <img src="assets/images/logo.png" width="20px">
-                                    }
-                                    @if(!closeMenu){
-                                    <img src="assets/images/logo.png" width="20px">
-                                    <span> {{item.name}}</span>
-                                    }
                                 </button>
                             </div>
                             }
                         </ng-container>
                         <div class="nav-footer mt-5">
-            
                             <div class="setting text-center">
                                 <img src="assets/images/logo.png" width="20px">
-                                @if(!closeMenu){ <span> {{'setting'}}</span>}
+                                <span> {{'setting'}}</span>
                             </div>
                             <div class="user-img text-center">
                                 <hr>
                                 <img src="assets/images/user.png" width="50px">
-            
                             </div>
                         </div>
                     
@@ -66,5 +34,35 @@
             </div>
         
     
-    </div>
-}
+    </div> -->
+    <div class="sidebar-container">
+        <div class="content">
+          <div class="logo-section" routerLink="/dashboard">
+            <img  src="assets/images/smallLogo.svg" alt="matlop-logo">
+          </div>
+          <div class="routing-section mt-5">
+            <div class="pages-routing-section section-color">
+              <ng-container *ngFor="let route of routingList">
+                <div [routerLink]="route.route" class="routing-action w-100" routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }" [pTooltip]="route.label | translate"
+                  [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
+                  <span [class]="route.icon"></span>
+                  <span> {{route.label|titlecase}}</span>
+                </div>
+              </ng-container>
+      
+            </div>
+            <div class="setting-section section-color w-100">
+              <div routerLink="/settings" class="routing-action" routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }" [pTooltip]="'SETTINGS' | translate"
+                  [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
+                  <span class="pi pi-cog"></span>
+                </div>
+                <div class="user-image-section" routerLink="/profile" [pTooltip]="'Profile' | translate" [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
+                  <img src="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" alt="user-image">
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
