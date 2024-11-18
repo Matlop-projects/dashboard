@@ -72,6 +72,15 @@
 
 
   }
+
+  .side-nav-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transition: flex-basis 0.3s ease, width 0.3s ease!important;
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -103,6 +112,11 @@
         margin-left: 0;
         padding-top: 60px;
       }
+    }
+     .side-nav-bar{
+       display: block;
+       transition: flex-basis 0.3s ease, width 0.3s ease!important;
+
     }
   }
 }
