@@ -5,7 +5,7 @@
       <app-sidebar></app-sidebar>
     </div>
   <div class="main-home-content">
-    <app-navbar (openMenu)="onClickMenuIcon($event)"></app-navbar>
+    <app-navbar (openMenu)="onClickMenuIcon($event);"></app-navbar>
     <div class="home-content">
 
       <router-outlet />
@@ -13,7 +13,7 @@
   </div>
   </div>
   @if (showMenuIcon) {
-    <div class="side-nav-bar">
+    <div class="side-nav-bar"appClickOutside>
       <app-side-nav></app-side-nav>
     </div>
   }

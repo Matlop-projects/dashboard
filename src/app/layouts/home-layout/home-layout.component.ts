@@ -6,10 +6,11 @@ import { ToasterService } from '../../services/toaster.service';
 import { SideNavComponent } from '../../components/side-nav/side-nav.component';
 import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 @Component({
   selector: 'app-home-layout',
   standalone: true,
-  imports: [RouterOutlet, Toast, SideNavComponent, SidebarComponent, NavbarComponent],
+  imports: [RouterOutlet, Toast, SideNavComponent, SidebarComponent, NavbarComponent,ClickOutsideDirective],
   templateUrl: './home-layout.component.html',
   styleUrl: './home-layout.component.scss'
 })
@@ -28,7 +29,6 @@ export class HomeLayoutComponent {
 
   onClickMenuIcon(event:boolean){
      this.showMenuIcon=event
-     console.log("HomeLayoutComponent  onClickMenuIcon   this.showMenuIcon:",  this.showMenuIcon)
   }
 
 }

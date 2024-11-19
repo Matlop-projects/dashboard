@@ -4,7 +4,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { LanguageService } from '../../services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
-import { menuItems } from '../../contants';
+import { menuItems } from '../../conts';
 @Component({
   selector: 'app-side-nav',
   standalone: true,
