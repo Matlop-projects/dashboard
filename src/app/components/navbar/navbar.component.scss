@@ -12,13 +12,8 @@
       margin-bottom: 20px;
       background: #f8fafc;
       margin-top: 4px;
-      img.menu-grid-icon{
-        display: none;
-        cursor: pointer;
-     }
       .search-section {
         flex-basis: 40%;
-
         // p-autocomplete {
         //   width: 80%;
         //   .p-autocomplete {
@@ -47,10 +42,4 @@
       }
     }
   }
-}
-
-@media (max-width: 768px) {
-  img.menu-grid-icon{
-   display: block!important;
- }
 }

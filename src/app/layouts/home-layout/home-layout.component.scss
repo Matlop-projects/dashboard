@@ -81,7 +81,13 @@
     transition: flex-basis 0.3s ease, width 0.3s ease!important;
     display: none;
   }
- 
+img.menu-grid-icon{
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  top: 55px;
+  left: 40px;
+}
 }
 
 @media (max-width: 768px) {
@@ -117,7 +123,9 @@
      .side-nav-bar{
        display: block;
        transition: flex-basis 0.3s ease, width 0.3s ease!important;
-
+    }
+    img.menu-grid-icon{
+      display: block;
     }
   }
 }

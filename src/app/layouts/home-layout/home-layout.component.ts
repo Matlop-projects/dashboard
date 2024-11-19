@@ -27,8 +27,13 @@ export class HomeLayoutComponent {
     })
   }
 
-  onClickMenuIcon(event:boolean){
-     this.showMenuIcon=event
+  onClickMenuIcon(){
+    this.showMenuIcon=!this.showMenuIcon
+  }
+
+  onClickOutSideCompleted(event:boolean){
+   if(event)
+     this.showMenuIcon=false
   }
 
 }
