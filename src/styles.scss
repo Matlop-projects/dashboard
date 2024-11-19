@@ -18,9 +18,15 @@ body{
        }
 }
 
-.bold{
+.bold {
     font-weight: bold;
 }
-.pointer{
+.pointer {
     cursor: pointer;
+}
+
+
+small {
+  color: red;
+  font-size: 12px;
 }

@@ -1,0 +1,68 @@
+::ng-deep {
+  .login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    .content {
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      height: 500px;
+      flex-basis: 100%;
+      display: flex;
+      border-radius: 8px;
+
+      .form-section {
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          .details {
+            gap: 10px;
+          }
+
+          .d-flex {
+            display: flex;
+          }
+
+          .flex-col {
+            flex-direction: column;
+          }
+
+          input {
+            width: 30rem !important;
+          }
+
+          button {
+            padding: 0.5rem 2rem !important;
+          }
+
+        }
+      }
+
+      .details-section {
+        flex-basis: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #13c7d6;
+        border-start-end-radius: 8px;
+        border-end-end-radius: 8px;
+      }
+    }
+  }
+
+}
