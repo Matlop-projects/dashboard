@@ -1,0 +1,26 @@
+<p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template #header let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+               <span *ngIf="col.type=='text'"> {{ rowData[col.display]? rowData[col.display]:'-' }}</span>
+               <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.display]" width="60px" height="auto" alt="image">
+               <div>
+                <span *ngIf="col.type=='object'">
+                    <img class="rounded"  [src]="rowData[col.display][col.obj.img]" width="60px" height="auto" alt="image">
+                    <span> {{ rowData[col.display][col.obj.text]?rowData[col.display][col.obj.text]:'-'}}</span>
+                </span>
+                <span *ngIf="col.type=='status'">
+                    <button [class]="rowData[col.display]" > {{ rowData[col.display]}}</button>
+                </span>
+               </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

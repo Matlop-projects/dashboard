@@ -1,0 +1,20 @@
+@mixin status($text-color, $bg-color, $border-color) {
+    color: $text-color;
+    background-color: $bg-color;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 5px;
+    width: 100px;
+  }
+  .complete {
+    @include status(green, #e3f5e3, #90d290);
+  }
+  
+  .inProgress {
+    @include status(blue, #d7d7f2, #6f6fd5);
+  }
+  
+  .cancel {
+    @include status(red, #ffd1d1, #d59595);
+  }
+  
