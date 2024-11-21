@@ -42,6 +42,7 @@ export class TableComponent implements OnInit ,OnChanges{
   // }
 ngOnInit() {
   this.filterdRecords=this.records
+  console.log("TableComponent  ngOnInit   this.filterdRecords:",  this.filterdRecords)
   // console.log("'''''---------'''''")
   //    if(this.hasPaginator)
   //     this.filterdRecords=  this.paginateArray(this.records,{
