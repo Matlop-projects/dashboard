@@ -1,27 +1,32 @@
+
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { NgIf } from '@angular/common';
-import { ToasterService } from '../../services/toaster.service';
+import { ToasterService } from '../../services/toaster.service'; // Import here
+import { ApiService } from '../../services/api.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule , InputTextModule , PasswordModule ,ButtonModule ],
+  imports: [NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule , RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  providers:[ApiService]
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  toaster = inject(ToasterService);
+  toaster = inject(ToasterService)  ;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private api: ApiService, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
+      userName: ['superadmin@admin.com', [Validators.required]],
+      password: ['Admin@VL', [Validators.required]],
+      loginMethod: [2]
     });
   }
 
@@ -34,6 +39,16 @@ export class LoginComponent {
     }
   }
 
-  onLogin(loginfrom:any) {}
+  onLogin(loginfrom: any) {
+    this.api.login(loginfrom).subscribe((res: any) => {
+      localStorage.setItem('token', res.data.accessToken);
+      this.router.navigate(['/dashboard']);
+    },
+      err => {
+        localStorage.removeItem('token');
+        console.log(err);
+        this.toaster.errorToaster(err.message)
+      })
+  }
 
 }

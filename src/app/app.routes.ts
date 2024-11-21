@@ -12,6 +12,7 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
 import { WorkingHoursComponent } from './pages/working-hours/working-hours.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { authGuard } from './core/auth.guard';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,7 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeLayoutComponent,
+    canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'clients', component: ClientsComponent },

@@ -2,7 +2,6 @@ import { Component, Inject, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Tooltip } from 'primeng/tooltip';
 import { AutoComplete } from 'primeng/autocomplete';
 import { Select } from 'primeng/select';
 import { LanguageService } from '../../services/language.service';
@@ -23,7 +22,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [Tooltip , TranslateModule , RouterModule , AutoComplete, FormsModule , Select ,Popover, InputGroup, InputTextModule , NgFor],
+  imports: [ TranslateModule , RouterModule , AutoComplete, FormsModule , Select ,Popover, InputGroup, InputTextModule , NgFor],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -64,6 +63,11 @@ export class NavbarComponent {
     this.selectedLang === 'en'
       ? document.getElementsByTagName('html')[0].setAttribute('lang', 'en')
       : document.getElementsByTagName('html')[0].setAttribute('lang', 'ar');
+
+  }
+
+  logout() {
+    localStorage.removeItem('token');
 
   }
 }

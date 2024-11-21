@@ -6,10 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ToasterService } from '../services/toaster.service';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-    const router = inject(Router);
+  const router = inject(Router);
     const tosater = inject(ToasterService);
-
-
     return next(req).pipe(
         catchError((error: HttpErrorResponse) => {
             console.log(error.status);
@@ -21,7 +19,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                 // router.navigate(['/not-found']);
             } else if (error.status == 400) {
               tosater.errorToaster(error.error.message);
-            }else if (error.status == 403) {
+            } else if (error.status == 403) {
               tosater.errorToaster(error.error.message);
             }
 

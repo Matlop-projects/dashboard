@@ -13,6 +13,8 @@ import { spinnerInterceptor } from './core/spinner.interceptor';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ToasterService } from './services/toaster.service';
+import { MessageService } from 'primeng/api';
 
 
 
@@ -45,6 +47,8 @@ export const appConfig: ApplicationConfig = {
         useFactory: httpLoaderFactory,
         deps: [HttpClient],
       },
-    })])
+    })]),
+    ToasterService,
+    MessageService
   ]
 };
