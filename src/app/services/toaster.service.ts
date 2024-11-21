@@ -8,10 +8,10 @@ import { LanguageService } from './language.service';
 export class ToasterService {
 
 
-  messageService = inject(MessageService);
+  // messageService = inject(MessageService);
   languageService = inject(LanguageService);
 
-  constructor() { }
+  constructor(private messageService :MessageService) { }
 
   successToaster(message: string) {
     console.log(message);
