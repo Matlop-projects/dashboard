@@ -1,0 +1,4 @@
+
+<span class="pointer" (click)="addFAQS()">+</span>
+<app-table  [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true"></app-table>
+    <app-paginator  [paginatorOptions]="paginatorOptions" [records]="faqsList" (onPageChangeValue)="onPageChange($event)"></app-paginator>

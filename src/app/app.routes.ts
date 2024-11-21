@@ -13,6 +13,8 @@ import { ProvidersComponent } from './pages/providers/providers.component';
 import { WorkingHoursComponent } from './pages/working-hours/working-hours.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
+import { FaqsComponent } from './pages/fAQs/faqs/faqs.component';
+import { FagsDetailsComponent } from './pages/fAQs/fags-details/fags-details.component';
 
 export const routes: Routes = [
   {
@@ -41,6 +43,11 @@ export const routes: Routes = [
       { path: 'working_hours', component: WorkingHoursComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'profile', component: ProfileComponent },
+      { path: 'faqs', component: FaqsComponent },
+      { path: 'faqs/add', component: FagsDetailsComponent },
+      { path: 'faqs/edit:id', component: FagsDetailsComponent },
+      { path: 'faqs/details', component: FagsDetailsComponent },
+
     ]
   },
   {path: '**', component: NotFoundComponent}
