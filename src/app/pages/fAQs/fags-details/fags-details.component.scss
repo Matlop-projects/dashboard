@@ -1,15 +1,31 @@
-form {
-    width:70%;
-    margin: auto;
-    input {
-      width: 30rem;
+div.form{
+    min-width: 300px;
+    width: 50%;
+    background-color: #F8FAFC;
+    padding: 20px;
+    border: 8px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    div.header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 19px;
+        font-weight: bolder;
+        border-radius: 8px;
+        letter-spacing: 8px;
+        color: #54c42c;
+        margin: 21px 0px;
     }
-.w-70{
-    width:70%
-}
-.w-90{
-    width:95%
-}
-   
+    form {
 
-  }
+    .w-70{
+        width:70%
+    }
+    .w-90{
+        width:95%
+    }
+       
+    
+      }
+}
+
