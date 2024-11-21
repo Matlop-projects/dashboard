@@ -1,2 +1,5 @@
 <p>dashboard works!</p>
-<app-table></app-table>
+<app-table  [colsHeader]="columns" [records]="data" [showrecordIndex]="true"></app-table>
+<div class="mt-3" *ngIf="data.length>0">
+    <app-paginator  [paginatorOptions]="paginatorOptions" (onPageChangeValue)="onPageChange($event)"></app-paginator>
+</div>

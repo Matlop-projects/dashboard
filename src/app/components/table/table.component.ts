@@ -1,76 +1,67 @@
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import {  NgFor, NgIf } from '@angular/common';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { TableModule } from 'primeng/table';
+import { IPaignatotValue } from '../paginator/paginator.component';
+
+export enum EType {
+  text="text",
+  image="image",
+  object="object",
+  status="status",
+  index="index"
+}
+interface INested{
+  img:string,
+  text:string
+}
+export interface IcolHeader {
+    header:string,
+     keyName:string,
+     type:EType,
+     nested?:INested
+}
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule,NgFor,NgIf,JsonPipe],
+  imports: [TableModule,NgFor,NgIf],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
-export class TableComponent {
-  cols = [
-    { display: 'code', header: 'Code',type:'text'},
-    { display: 'name', header: 'Name',type:'text' },
-    { display: 'category', header: 'Category',type:'text' },
-    { display: 'imaged', header: 'imag',type:'image' },
-    { display: 'asd', header: 'prod',type:'object' ,obj:{img:'image',text:'name'}},
-    { display: 'status', header: 'prod',type:'status'},
+
+export class TableComponent implements OnInit ,OnChanges{
+  @Input()showrecordIndex=false
+  @Input({required:true})records:any=[]
+  @Input()hasPaginator:boolean=true
+  filterdRecords:any=[]
+  @Input({required:true})colsHeader:IcolHeader[]=[]
+  // @Input()paginatorValue:IPaignatotValue={
+  //     first:0,
+  //     page:0,
+  //     pageCount:0,
+  //     rows:0
+  // }
+ngOnInit() {
+  this.filterdRecords=this.records
+  // console.log("'''''---------'''''")
+  //    if(this.hasPaginator)
+  //     this.filterdRecords=  this.paginateArray(this.records,{
+  //       first:0,
+  //       page:1,
+  //       pageCount:0,
+  //       rows:5
+  //     })
+ }
+ngOnChanges() {
+  this.filterdRecords=this.records
+  // console.log("''''''''''")
+  //   this.filterdRecords=  this.paginateArray(this.records,this.paginatorValue)
 
 
-    
-];
-products=[
-  {
-    id: '1000',
-    code: 'f230fh0g3',
-    name: 'Bamboo Watch',
-    description: 'Product Description',
-    imaged: 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg',
-    asd:{
-         name:'aaaa',
-         image:'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg'
-    },
-    price: 65,
-    category: 'Accessories',
-    quantity: 24,
-    inventoryStatus: 'INSTOCK',
-    rating: 5,
-    status:'complete'
-},
-{
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  imaged: 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5,
-  status:'inProgress',
-  asd:{
-    name:'mmm',
-    image:'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg'
-},
-},
-{
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  imaged: 'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK',
-  rating: 5,
-  status:'cancel',
-  asd:{
-    name:'ccc',
-    image:'https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg'
-},
-},
-]
+}
+// //  { page, first, rows }: { page: number; first: number; rows: number }
+//  paginateArray(array: any[],paginatorValue:any ) {
+//   const startIndex = (paginatorValue.first) + (paginatorValue.page + 1) * paginatorValue.rows;
+//   console.log("dd", startIndex,'------------------', startIndex + paginatorValue.rows)
+//   return array.slice(startIndex, startIndex + paginatorValue.rows);
+// }
 }

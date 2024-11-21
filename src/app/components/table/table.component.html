@@ -1,4 +1,4 @@
-<p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+<p-table [columns]="colsHeader" [value]="filterdRecords" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template #header let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -8,19 +8,25 @@
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
         <tr>
-            <td *ngFor="let col of columns">
-               <span *ngIf="col.type=='text'"> {{ rowData[col.display]? rowData[col.display]:'-' }}</span>
-               <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.display]" width="60px" height="auto" alt="image">
+            <td *ngFor="let col of columns;let index = index">
+                <div *ngIf="!showrecordIndex">
+                    <span *ngIf="col.type=='index'">
+                        {{index+1}}
+                    </span>
+                </div>
+               <span *ngIf="col.type=='text'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
+               <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.keyName]" width="60px" height="auto" alt="image">
                <div>
                 <span *ngIf="col.type=='object'">
-                    <img class="rounded"  [src]="rowData[col.display][col.obj.img]" width="60px" height="auto" alt="image">
-                    <span> {{ rowData[col.display][col.obj.text]?rowData[col.display][col.obj.text]:'-'}}</span>
+                    <img class="rounded"  [src]="rowData[col.keyName][col.nested.img]" width="60px" height="auto" alt="image">
+                    <span> {{ rowData[col.keyName][col.nested.text]?rowData[col.keyName][col.nested.text]:'-'}}</span>
                 </span>
                 <span *ngIf="col.type=='status'">
-                    <button [class]="rowData[col.display]" > {{ rowData[col.display]}}</button>
+                    <button [class]="rowData[col.keyName]" > {{ rowData[col.keyName]}}</button>
                 </span>
                </div>
             </td>
         </tr>
     </ng-template>
 </p-table>
+
