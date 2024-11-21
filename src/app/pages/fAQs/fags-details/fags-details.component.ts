@@ -25,7 +25,10 @@ export class FagsDetailsComponent {
   })
 
   onSubmit(){
-    const payload =this.form.value
+    const payload ={
+      ...this.form.value,
+      userType: 2
+    }
     console.log("FagsDetailsComponent  onSubmit  payload:", payload)
     this.ApiService.post(environment.baseUrl,'FAQs/Create',payload,{showAlert:true,message:'Add FAQS Successfuly'}).subscribe(res=>{
       if(res)
