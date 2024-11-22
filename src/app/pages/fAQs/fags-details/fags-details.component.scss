@@ -28,4 +28,9 @@ div.form{
     
       }
 }
-
+.disabled-view{
+     cursor: not-allowed;
+  pointer-events: none;
+  background-color: #F9F9F9;
+  color: #a5a0a0;
+}

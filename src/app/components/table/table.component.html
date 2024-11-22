@@ -15,6 +15,7 @@
                             {{index+1}}
                         </span>
                     </div>
+                    <span *ngIf="col.type=='id'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
                    <span *ngIf="col.type=='text'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
                    <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.keyName]" width="60px" height="auto" alt="image">
                    <div>
@@ -25,6 +26,16 @@
                     <span *ngIf="col.type=='status'">
                         <button [class]="rowData[col.keyName]" > {{ rowData[col.keyName]}}</button>
                     </span>
+                    <div class="d-flex" *ngIf="col.type=='actions'">
+                        <div *ngFor="let action of col.actions">
+                            <div class="actions-icon" (click)="onAction(action,rowData)">
+                                <span *ngIf="action.name==='view'" class="pi pi-eye "></span>
+                                <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square"></span>
+                                <span *ngIf="action.name==='delete'" class="pi pi-trash"></span>
+                            </div>
+                        </div>
+                    </div>
+                  
                    </div>
                 </td>
             </tr>

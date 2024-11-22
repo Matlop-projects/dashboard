@@ -1,14 +1,27 @@
-import {  NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {  JsonPipe, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { IPaignatotValue } from '../paginator/paginator.component';
+import { ApiService } from '../../services/api.service';
+import { Router } from '@angular/router';
 
+export enum EAction {
+  delete="delete",
+  view="view",
+  edit="edit"
+}
+export interface ITableAction{
+    name:EAction,
+    apiName_or_route:string,
+    autoCall:boolean
+}
 export enum EType {
+  id="id",
   text="text",
   image="image",
   object="object",
   status="status",
-  index="index"
+  index="index",
+  actions="actions"
 }
 interface INested{
   img:string,
@@ -18,12 +31,13 @@ export interface IcolHeader {
     header:string,
      keyName:string,
      type:EType,
-     nested?:INested
+     nested?:INested,
+     actions?:any[]
 }
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule,NgFor,NgIf],
+  imports: [TableModule,NgFor,NgIf,JsonPipe],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -34,35 +48,44 @@ export class TableComponent implements OnInit ,OnChanges{
   @Input()hasPaginator:boolean=true
   filterdRecords:any=[]
   @Input({required:true})colsHeader:IcolHeader[]=[]
-  // @Input()paginatorValue:IPaignatotValue={
-  //     first:0,
-  //     page:0,
-  //     pageCount:0,
-  //     rows:0
-  // }
+  @Input()actions:any[]=[]
+  @Output()onActionCliked=new EventEmitter()
+
+  ApiService =inject(ApiService)
+  router=inject(Router)
+  
 ngOnInit() {
   this.filterdRecords=this.records
-  console.log("TableComponent  ngOnInit   this.filterdRecords:",  this.filterdRecords)
-  // console.log("'''''---------'''''")
-  //    if(this.hasPaginator)
-  //     this.filterdRecords=  this.paginateArray(this.records,{
-  //       first:0,
-  //       page:1,
-  //       pageCount:0,
-  //       rows:5
-  //     })
  }
 ngOnChanges() {
   this.filterdRecords=this.records
-  // console.log("''''''''''")
-  //   this.filterdRecords=  this.paginateArray(this.records,this.paginatorValue)
-
-
 }
-// //  { page, first, rows }: { page: number; first: number; rows: number }
-//  paginateArray(array: any[],paginatorValue:any ) {
-//   const startIndex = (paginatorValue.first) + (paginatorValue.page + 1) * paginatorValue.rows;
-//   console.log("dd", startIndex,'------------------', startIndex + paginatorValue.rows)
-//   return array.slice(startIndex, startIndex + paginatorValue.rows);
-// }
+onAction(action:ITableAction,item:any){      
+      this.onActionCliked.emit({action:action,record:item})
+      this.autoCallActions(action,item)
+}
+
+getNameOfIDHeader(){
+  let idName =this.colsHeader.filter(item=>item.type==EType.id)
+  return idName[0].keyName
+}
+
+
+autoCallActions(action:ITableAction,record:any){
+  let recordId =record[this.getNameOfIDHeader()]
+  if(action.name==EAction.delete && action.autoCall){
+       this.callDeleteAction(action,recordId)
+  }else if((action.name==EAction.edit||action.name==EAction.view) && action.autoCall){
+    console.log("TableComponent  autoCallActions  action.apiName_or_route+'/'+recordId:", action.apiName_or_route+'/'+recordId)
+    this.router.navigateByUrl(action.apiName_or_route+'/'+recordId)
+  }
+}
+
+callDeleteAction(action:ITableAction,id:any){
+    this.ApiService.delete(action.apiName_or_route,id).subscribe(res => {
+      if(res)
+      this.filterdRecords= this.filterdRecords.filter((item:any) => item[this.getNameOfIDHeader()]!=id)
+    })
+}
+
 }

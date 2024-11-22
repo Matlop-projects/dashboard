@@ -25,7 +25,7 @@ export class ApiService {
     );
   }
 
-  post<T>(baseUrl:string,APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
+  post<T>(APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
     console.log(body);
     
     return this.http
@@ -40,20 +40,7 @@ export class ApiService {
       );
   }
 
-  updateRequest<T>(baseUrl:string,APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
-    return this.http
-      .put(`${baseUrl}${APIName}`, body)
-      .pipe(
-        take(1),
-        map((res: any) => {
-          options.showAlert ?   this.toaster.successToaster(options.message) :''
-          return res;
-        })
-
-      );
-  }
-
-  get<T>(baseUrl:string,APIName: string, params?: any,options:IOptions={showAlert:false,message:''}): Observable<T> {
+  get<T>(APIName: string, params?: any,options:IOptions={showAlert:false,message:''}): Observable<T> {
     let queryParams: any = [];
     if (params) {
       for (const key in params) {
@@ -72,9 +59,22 @@ export class ApiService {
   }
 
 
-  put<T>(baseUrl:string,APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
+  put<T>(APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
     return this.http
       .put(`${baseUrl}${APIName}`, body)
+      .pipe(
+        take(1),
+        map((res: any) => {
+          options.showAlert ?   this.toaster.successToaster(options.message) :''
+          return res;
+        })
+
+      );
+  }
+
+  delete<T>(APIName: string, id: string ,options:IOptions={showAlert:false,message:''}): Observable<T> {
+    return this.http
+      .delete(`${baseUrl}${APIName}=${id}`)
       .pipe(
         take(1),
         map((res: any) => {

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { EType, IcolHeader, TableComponent } from '../../../components/table/table.component';
+import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
 import { environment } from '../../../../environments/environment';
@@ -23,7 +23,23 @@ import { Card } from 'primeng/card';
   styleUrl: './faqs.component.scss'
 })
 export class FaqsComponent {
-
+  tableActions:ITableAction[]=[
+    {
+      name:EAction.delete,
+      apiName_or_route:'FAQs/Delete?requestId',
+      autoCall:false
+    },
+    {
+      name:EAction.view,
+      apiName_or_route:'faqs/details',
+      autoCall:false
+    },
+    {
+      name:EAction.edit,
+      apiName_or_route:'faqs/edit',
+      autoCall:true
+    }
+  ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   paginatorOptions: IPaginator = {
@@ -54,12 +70,14 @@ export class FaqsComponent {
 
   faqsList: any = []
   columns: IcolHeader[] = [
-    { keyName: 'questionId', header: 'Id', type: EType.text },
+    { keyName: 'questionId', header: 'Id', type: EType.id },
     { keyName: 'enTitle', header: 'Question (en)', type: EType.text },
     { keyName: 'arTitle', header: 'Question (ar)', type: EType.text },
     { keyName: 'enDescription', header: 'Answer (en)', type: EType.text },
     { keyName: 'enTitle', header: 'Answer (Ar)', type: EType.text },
+    { keyName: '', header: 'Actions', type: EType.actions,actions:this.tableActions },
   ];
+
 
   selectedLang: any;
   languageService = inject(LanguageService);
@@ -75,7 +93,7 @@ export class FaqsComponent {
   }
 
   getAllFAQS() {
-    this.ApiService.get(environment.baseUrl, 'FAQs/GetAll').subscribe((res: any) => {
+    this.ApiService.get('FAQs/GetAll').subscribe((res: any) => {
       if (res) {
         this.faqsList = res.data;
         this.filteredData = [...this.faqsList]; // Initialize filtered data

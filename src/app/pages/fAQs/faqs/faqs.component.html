@@ -14,7 +14,7 @@
         <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/>
       </div>
      <div class="table-view">
-      <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true"></app-table>
+      <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
      </div>
      <div class="responsive-accordions">
       @for (data of faqsList; track data.arTitle) {

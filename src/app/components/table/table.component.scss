@@ -28,6 +28,21 @@
     .p-datatable-tbody {
       tr {
         transition: background-color 0.3s ease;
+        div.actions-icon{
+          span{
+            margin:0px 5px;
+            cursor: pointer;
+          }
+          .pi-trash{
+            color:#f76262
+          }
+          .pi-pen-to-square{
+            color:#28a745;
+          }
+          .pi-eye{
+            color:#6060e7;
+          }
+        }
 
         &:nth-child(even) {
           background-color: #f9f9f9;
