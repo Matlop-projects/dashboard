@@ -17,18 +17,9 @@
       <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
      </div>
      <div class="responsive-accordions">
-      @for (data of faqsList; track data.arTitle) {
-      <p-card>
-        <p-accordion [value]="0">
-          <p-accordion-panel [value]="data.questionId">
-            <p-accordion-header>{{ selectedLang == 'ar' ? data.arTitle : data.enTitle }}</p-accordion-header>
-            <p-accordion-content>
-              <p class="m-0"> {{ selectedLang == 'ar' ? data.arDescription : data.enDescription }}</p>
-            </p-accordion-content>
-          </p-accordion-panel>
-        </p-accordion>
-      </p-card>
-      }
+        <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="faqsList"  [actions]="tableActions">
+          
+        </app-table-small-screen>
     </div>
       <app-paginator [paginatorOptions]="paginatorOptions" [records]="faqsList"
         (onPageChangeValue)="onPageChange($event)"></app-paginator>

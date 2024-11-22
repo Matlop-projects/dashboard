@@ -13,31 +13,33 @@ import { NgFor } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
 import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from 'primeng/accordion';
 import { Card } from 'primeng/card';
+import { AccordionComponent } from "../../../components/accordion/accordion.component";
+import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 
 
 @Component({
   selector: 'app-faqs',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, Card, NgFor, Accordion, AccordionHeader, AccordionPanel, AccordionContent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule],
+  imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './faqs.component.html',
   styleUrl: './faqs.component.scss'
 })
 export class FaqsComponent {
-  tableActions:ITableAction[]=[
+  tableActions: ITableAction[] = [
     {
-      name:EAction.delete,
-      apiName_or_route:'FAQs/Delete?requestId',
-      autoCall:false
+      name: EAction.delete,
+      apiName_or_route: 'FAQs/Delete?requestId',
+      autoCall: true
     },
     {
-      name:EAction.view,
-      apiName_or_route:'faqs/details',
-      autoCall:false
+      name: EAction.view,
+      apiName_or_route: 'faqs/view',
+      autoCall: true
     },
     {
-      name:EAction.edit,
-      apiName_or_route:'faqs/edit',
-      autoCall:true
+      name: EAction.edit,
+      apiName_or_route: 'faqs/edit',
+      autoCall: true
     }
   ]
   private ApiService = inject(ApiService)
@@ -70,14 +72,19 @@ export class FaqsComponent {
 
   faqsList: any = []
   columns: IcolHeader[] = [
-    { keyName: 'questionId', header: 'Id', type: EType.id },
-    { keyName: 'enTitle', header: 'Question (en)', type: EType.text },
-    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text },
-    { keyName: 'enDescription', header: 'Answer (en)', type: EType.text },
-    { keyName: 'enTitle', header: 'Answer (Ar)', type: EType.text },
-    { keyName: '', header: 'Actions', type: EType.actions,actions:this.tableActions },
+    { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
+    { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
+    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
+    { keyName: 'enDescription', header: 'Answer (en)', type: EType.text, show: true },
+    { keyName: 'enTitle', header: 'Answer (Ar)', type: EType.text, show: true },
+    { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
   ];
 
+  columnsSmallTable: IcolHeaderSmallTable[] = [
+    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
+    { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
+    { keyName: 'enTitle', header: 'Question (en)', type: EType.text, showAs: ETableShow.content }
+  ];
 
   selectedLang: any;
   languageService = inject(LanguageService);
@@ -130,8 +137,4 @@ export class FaqsComponent {
     );
   }
 
-  // paginateArray(array: any[], { page, first, rows }: { page: number; first: number; rows: number }) {
-  //   const startIndex = (first) + (page + 1) * rows;
-  //   return array.slice(startIndex, startIndex + rows);
-  // }
 }

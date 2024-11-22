@@ -32,7 +32,8 @@ export interface IcolHeader {
      keyName:string,
      type:EType,
      nested?:INested,
-     actions?:any[]
+     actions?:any[],
+     show?:boolean
 }
 @Component({
   selector: 'app-table',
