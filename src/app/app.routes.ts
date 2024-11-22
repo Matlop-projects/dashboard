@@ -46,8 +46,7 @@ export const routes: Routes = [
       { path: 'faqs', component: FaqsComponent },
       { path: 'faqs/add', component: FagsDetailsComponent },
       { path: 'faqs/edit:id', component: FagsDetailsComponent },
-      { path: 'faqs/details', component: FagsDetailsComponent },
-
+      { path: 'faqs/details', component: FagsDetailsComponent }
     ]
   },
   {path: '**', component: NotFoundComponent}

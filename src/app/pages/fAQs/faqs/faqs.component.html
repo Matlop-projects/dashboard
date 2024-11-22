@@ -1,4 +1,40 @@
+<div class="faqs-container">
+  <div class="content">
+    <div class="title-bredcrumb-section">
+      <div class="title">
+        <h2>FAQs List</h2>
+      </div>
+      <div class="breadcrumb">
+        <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+      </div>
+    </div>
+    <div class="details-container">
+      <div class="actions">
+        <a routerLink="/faqs/add"> + Add New Question</a>
+        <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/>
+      </div>
+     <div class="table-view">
+      <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true"></app-table>
+     </div>
+     <div class="responsive-accordions">
+      @for (data of faqsList; track data.arTitle) {
+      <p-card>
+        <p-accordion [value]="0">
+          <p-accordion-panel [value]="data.questionId">
+            <p-accordion-header>{{ selectedLang == 'ar' ? data.arTitle : data.enTitle }}</p-accordion-header>
+            <p-accordion-content>
+              <p class="m-0"> {{ selectedLang == 'ar' ? data.arDescription : data.enDescription }}</p>
+            </p-accordion-content>
+          </p-accordion-panel>
+        </p-accordion>
+      </p-card>
+      }
+    </div>
+      <app-paginator [paginatorOptions]="paginatorOptions" [records]="faqsList"
+        (onPageChangeValue)="onPageChange($event)"></app-paginator>
+    </div>
+  </div>
+</div>
 
-<span class="pointer" (click)="addFAQS()">+</span>
-<app-table  [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true"></app-table>
-    <app-paginator  [paginatorOptions]="paginatorOptions" [records]="faqsList" (onPageChangeValue)="onPageChange($event)"></app-paginator>
+
+

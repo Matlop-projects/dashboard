@@ -12,9 +12,9 @@ export interface IPaginator {
   displayItem: number;
 }
 export interface IPaignatotValue{
-  page: number, 
-  first: number, 
-  rows: number, 
+  page: number,
+  first: number,
+  rows: number,
   pageCount:number
 }
 @Component({
@@ -33,23 +33,23 @@ export class PaginatorComponent implements OnInit ,OnChanges{
      label:'Item per page',
      showFirstLastIcon:false
   }
-  
+
   first: number = 0;
 ngOnInit() {
-  console.log("Paginator innnnnt:", this.records)
+  // console.log("Paginator innnnnt:", this.records)
 
 }
 ngOnChanges(){
   this.paginatorOptions.totalRecords=this.records.length
-  console.log("Paginator innnnnt:", this.records)
+  // console.log("Paginator innnnnt:", this.records)
 
 }
   onPageChange(event: any) {
-      console.log("PaginatorComponent  onPageChange  event:", event)
+      // console.log("PaginatorComponent  onPageChange  event:", event)
       this.first = event.first;
       this.paginatorOptions.displayItem = event.rows;
       this.onPageChangeValue.emit(event)
   }
 
- 
+
 }
