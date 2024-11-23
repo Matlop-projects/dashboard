@@ -2,18 +2,12 @@ import { Component, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
-import { environment } from '../../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { Panel } from 'primeng/panel';
-import { NgFor } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
-import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from 'primeng/accordion';
-import { Card } from 'primeng/card';
-import { AccordionComponent } from "../../../components/accordion/accordion.component";
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 
 
