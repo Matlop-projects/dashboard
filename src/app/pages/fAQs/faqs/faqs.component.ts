@@ -15,6 +15,7 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from 'pr
 import { Card } from 'primeng/card';
 import { AccordionComponent } from "../../../components/accordion/accordion.component";
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -69,26 +70,26 @@ export class FaqsComponent {
 
   searchValue: any = '';
   filteredData: any;
-
+  translateService=inject(TranslateService)
+  currentLang =this.translateService.currentLang
   faqsList: any = []
   columns: IcolHeader[] = [
     { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
     { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
     { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
     { keyName: 'enDescription', header: 'Answer (en)', type: EType.text, show: true },
-    { keyName: 'enTitle', header: 'Answer (Ar)', type: EType.text, show: true },
+    { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.text, show: true },
     { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
   ];
 
   columnsSmallTable: IcolHeaderSmallTable[] = [
-    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
+    { keyName: this.currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
     { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-    { keyName: 'enTitle', header: 'Question (en)', type: EType.text, showAs: ETableShow.content }
+    { keyName: this.currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.text, showAs: ETableShow.content }
   ];
 
   selectedLang: any;
   languageService = inject(LanguageService);
-
   ngOnInit() {
     this.getAllFAQS();
     this.selectedLang = this.languageService.translationService.currentLang;
