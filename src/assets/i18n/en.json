@@ -1,3 +1,13 @@
 {
-  "GENERAL": "General"
+  "GENERAL": "General",
+  "faqs":{
+    "validation_english_title":"title is only english"
+  },
+  "validation_message":{
+    "minlength_validation":"length should be more than",
+    "maxlength_validation":"length should be more less than",
+    "required_validation":"field is required",
+    "arabic_only_validation":"accept only arablic char",
+    "english_only_validation":"accept only english char"
+  }
 }

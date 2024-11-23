@@ -1,0 +1,7 @@
+<div>
+    <label class="block" for="enTitle">{{label}}</label>
+    <input class="w-100" pInputText id="enTitle" [formControl]="control" [readOnly]="readOnly"  [disabled]="disabled" />
+    <div  *ngIf="control.errors && control.touched">
+       <span class="text-danger"> {{control.errors|validationHandlerPipe}}</span>
+    </div>
+</div>

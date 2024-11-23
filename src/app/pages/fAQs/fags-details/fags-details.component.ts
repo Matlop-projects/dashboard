@@ -3,13 +3,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Validations } from '../../../validations';
+import { InputTextComponent } from '../../../components/input-text/input-text.component';
+import { EditorComponent } from '../../../components/editor/editor.component';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, ButtonModule, NgIf],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,EditorComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
@@ -18,10 +21,28 @@ export class FagsDetailsComponent implements OnInit {
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   form = new FormGroup({
-    enTitle: new FormControl('', Validators.required),
-    arTitle: new FormControl('', Validators.required),
-    enDescription: new FormControl('', Validators.required),
-    arDescription: new FormControl('', Validators.required),
+    enTitle: new FormControl('',{
+      validators: [
+        Validators.required,
+        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validators.minLength(3)
+      ],
+    }),
+    arTitle: new FormControl('', {
+      validators:[
+        Validations.arabicCharsValidator('isArabic')
+      ]
+    }),
+    enDescription: new FormControl('', {
+      validators:[
+        Validations.englishCharsValidator('faqs.validation_english_title'),
+      ]
+    }),
+    arDescription: new FormControl('', {
+      validators:[
+        Validations.arabicCharsValidator('isArabic')
+      ]
+    }),
   })
 
   get faqsID() {
@@ -30,6 +51,7 @@ export class FagsDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.router.url)
+    if(this.tyepMode()!=='add')
     this.getFaqsDetails()
   }
 
