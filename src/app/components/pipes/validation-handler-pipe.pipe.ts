@@ -9,6 +9,7 @@ export class ValidationHandlerPipePipe implements PipeTransform {
   translate=inject(TranslateService)
 
   transform(value: any) {
+    console.log("ValidationHandlerPipePipe  transform  value:", value)
     let result = '';
     let requiredLength=''
     const matches = this.getErrorKey(value) ||''  

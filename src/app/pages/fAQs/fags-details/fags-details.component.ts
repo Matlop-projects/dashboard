@@ -7,11 +7,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
+import { EditorComponent } from '../../../components/editor/editor.component';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,EditorComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
@@ -29,12 +30,12 @@ export class FagsDetailsComponent implements OnInit {
     }),
     arTitle: new FormControl('', {
       validators:[
-        Validations.arabicCharsValidator()
+        Validations.arabicCharsValidator('isArabic')
       ]
     }),
     enDescription: new FormControl('', {
       validators:[
-        Validations.englishCharsValidator('isEnglish')
+        Validations.englishCharsValidator('faqs.validation_english_title'),
       ]
     }),
     arDescription: new FormControl('', {
