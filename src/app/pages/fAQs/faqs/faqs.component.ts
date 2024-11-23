@@ -2,20 +2,13 @@ import { Component, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
-import { environment } from '../../../../environments/environment';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { Panel } from 'primeng/panel';
-import { NgFor } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
-import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from 'primeng/accordion';
-import { Card } from 'primeng/card';
-import { AccordionComponent } from "../../../components/accordion/accordion.component";
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
-import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -70,8 +63,6 @@ export class FaqsComponent {
 
   searchValue: any = '';
   filteredData: any;
-  translateService=inject(TranslateService)
-  currentLang =this.translateService.currentLang
   faqsList: any = []
   columns: IcolHeader[] = [
     { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
@@ -82,11 +73,7 @@ export class FaqsComponent {
     { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
   ];
 
-  columnsSmallTable: IcolHeaderSmallTable[] = [
-    { keyName: this.currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
-    { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-    { keyName: this.currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.text, showAs: ETableShow.content }
-  ];
+  columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
   languageService = inject(LanguageService);
@@ -95,11 +82,19 @@ export class FaqsComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
+      this.displaySmallTableCols(this.selectedLang)
     })
     // this.data=products
     // this.paginatorOptions.totalRecords=this.data.length
   }
 
+  displaySmallTableCols(currentLang:string){
+    this.columnsSmallTable =[
+      { keyName: currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
+      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.text, showAs: ETableShow.content }
+    ];
+  }
   getAllFAQS() {
     this.ApiService.get('FAQs/GetAll').subscribe((res: any) => {
       if (res) {
