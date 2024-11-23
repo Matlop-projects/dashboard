@@ -10,21 +10,20 @@ export class ValidationHandlerPipePipe implements PipeTransform {
 
   transform(value: any) {
     let result = '';
-    const matches = this.getErrorKey(value)   
-    console.log("ValidationHandlerPipePipe  transform  value:", value)
+    let requiredLength=''
+    const matches = this.getErrorKey(value) ||''  
     let customMessage: string = '';
-    if(value.minlength?.requiredLength)
-      customMessage=`this field should be more than or equal (${value.minlength?.requiredLength})`
-      console.log("ValidationHandlerPipePipe  transform  value:", value)
-    if(value.english_only)
+    if(matches=='minlength')
+      requiredLength=value.minlength?.requiredLength
+    if(matches=='maxlength')
+      requiredLength=value.maxlength?.requiredLength
+    if(matches=='english_only')
       customMessage=value.english_only
-    console.log("ValidationHandlerPipePipe  transform  value:", value)
-    if(value.arabic_only)
-      customMessage='accept ar'
+    if(matches=='value.arabic_only')
+      customMessage=value.arabic_only
     this.translate.get(`validation_message.${matches}_validation`).subscribe((translationWord) => {
-      result = customMessage? this.translate.instant(customMessage) :  translationWord
-      // result =  translationWord + (customMessage ? '(' + customMessage + ')' : '');
-      console.log("ValidationHandlerPipePipe  this.translate.get  result:", result)
+      result = customMessage? this.translate.instant(customMessage) : 
+       (['minlength','maxlength'].includes(matches)?`${translationWord} (${requiredLength})`:translationWord)
     });
 
     return result;
