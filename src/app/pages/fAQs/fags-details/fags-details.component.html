@@ -5,12 +5,10 @@
         </div>
         <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
              <div class="w-100">
-                 <label class="block" for="enTitle">Title (en)</label>
-                 <input class="w-100" pInputText id="enTitle" formControlName="enTitle"[class.disabled-view]="tyepMode()==='view'" />
+                <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (en)'" [inputControl]="form.get('enTitle')"></app-input-text>
              </div>
              <div class="w-100">
-                 <label class="block" for="arTitle">Title (ar)</label>
-                 <input class="w-100" pInputText id="arTitle" formControlName="arTitle" [class.disabled-view]="tyepMode()==='view'" />
+                <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (ar)'" [inputControl]="form.get('arTitle')"></app-input-text>
              </div>
              <div class=" mt-2">
                  <label class="block" for="enDescription">Description (en)</label>
@@ -25,7 +23,7 @@
                  </div>
              </div>
              <div class="actions w-100 mt-5 text-center"*ngIf="tyepMode()!=='view'">
-                 <button type="submit" class="btn btn-success w-100">
+                 <button type="submit" class="btn btn-success w-100" [disabled]="!form.invalid">
                    <span *ngIf="tyepMode()==='add'"> Add FAQS </span>
                    <span *ngIf="tyepMode()==='edit'"> Edit FAQS </span>
 
