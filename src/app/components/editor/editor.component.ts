@@ -2,7 +2,7 @@ import { JsonPipe, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Editor } from 'primeng/editor';
-import { ValidationHandlerPipePipe } from '../pipes/validation-handler-pipe.pipe';
+import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 @Component({
   selector: 'app-editor',
   standalone: true,
