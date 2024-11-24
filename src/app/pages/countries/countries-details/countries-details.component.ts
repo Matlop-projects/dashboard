@@ -8,6 +8,7 @@ import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectComponent } from '../../../components/select/select.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
@@ -16,7 +17,13 @@ import { SelectComponent } from '../../../components/select/select.component';
   styleUrl: './countries-details.component.scss'
 })
 export class CountriesDetailsComponent implements OnInit {
-  asd=[]
+  asd=[
+    {name: 'New York', code: 'NY'},
+    {name: 'Rome', code: 'RM'},
+    {name: 'London', code: 'LDN'},
+    {name: 'Istanbul', code: 'IST'},
+    {name: 'Paris', code: 'PRS'}
+  ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -84,6 +91,7 @@ export class CountriesDetailsComponent implements OnInit {
       validators:[
       ]
     }),
+    aas:new FormControl('')
   })
 
   get faqsID() {
@@ -113,15 +121,16 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.form.value
     const payload = {
       ...this.form.value,
       questionId: this.faqsID,
       userType: 1
     }
-    if (this.tyepMode() === 'add')
-      this.addFQS(payload)
-    else
-      this.editFQS(payload)
+    // if (this.tyepMode() === 'add')
+    //   this.addFQS(payload)
+    // else
+    //   this.editFQS(payload)
 
   }
 
