@@ -1,0 +1,54 @@
+
+<div class="form">
+    <div class="header">
+        <span class="">Add Country</span>
+    </div>
+    <form [formGroup]="form" class="w-100 d-flex justify-content-between flex-wrap" (ngSubmit)="onSubmit()">
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Name (en)'" [control]="form.get('enName')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Description (en)'" [control]="form.get('enDescription')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Description (en)'" [control]="form.get('arDescription')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'currency'" [control]="form.get('currency')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Nationality'" [control]="form.get('nationality')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'phoneLength'" [control]="form.get('phoneLength')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'phoneCode'" [control]="form.get('phoneCode')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'ShortName'" [control]="form.get('shortName')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Content'" [control]="form.get('content')"></app-input-text>
+         </div>
+         <div class="input w-48">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'" [control]="form.get('status')"></app-input-text>
+         </div>
+         <app-select [list]="asd"></app-select>
+         <div class="d-flex justify-content-between actions-btn w-100 mt-5 text-center"*ngIf="tyepMode()!=='view'">
+             <button type="submit" class="btn btn-success w-48" [disabled]="!form.invalid">
+               <span *ngIf="tyepMode()==='add'"> Add Country </span>
+               <span *ngIf="tyepMode()==='edit'"> Edit Country </span>
+               <span class="pi pi-plus-circle"></span>
+             </button>
+             <button type="button" class="btn btn-danger w-48">
+                <span>  Back </span>
+                <span class="pi pi-plus-circle"></span>
+              </button>
+           </div>
+       </form>
+</div>
+

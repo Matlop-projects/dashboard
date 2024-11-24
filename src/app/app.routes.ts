@@ -15,6 +15,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
 import { FaqsComponent } from './pages/fAQs/faqs/faqs.component';
 import { FagsDetailsComponent } from './pages/fAQs/fags-details/fags-details.component';
+import { CountriesComponent } from './pages/countries/countries/countries.component';
+import { CountriesDetailsComponent } from './pages/countries/countries-details/countries-details.component';
 
 export const routes: Routes = [
   {
@@ -46,7 +48,12 @@ export const routes: Routes = [
       { path: 'faqs', component: FaqsComponent },
       { path: 'faqs/add', component: FagsDetailsComponent },
       { path: 'faqs/edit/:id', component: FagsDetailsComponent },
-      { path: 'faqs/view/:id', component: FagsDetailsComponent }
+      { path: 'faqs/view/:id', component: FagsDetailsComponent },
+      { path: 'country', component: CountriesComponent },
+      { path: 'country/add', component: CountriesDetailsComponent },
+      { path: 'country/view/:id', component: CountriesDetailsComponent },
+      { path: 'country/view/:id', component: CountriesDetailsComponent },
+
     ]
   },
   {path: '**', component: NotFoundComponent}

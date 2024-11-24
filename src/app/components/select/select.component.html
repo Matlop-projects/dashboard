@@ -1,0 +1,10 @@
+<p-multiselect [options]="list" [group]="true" [placeholder]="placeholder" [maxSelectedLabels]="3"  scrollHeight="250px" display="chip" styleClass="w-full md:w-80">
+    <ng-template let-group pTemplate="group">
+        <div class="flex items-center">
+            <img *ngIf="showImage"
+                [src]="group.image"
+                style="width: 20px" />
+            <span>{{ group.label }}</span>
+        </div>
+    </ng-template>
+</p-multiselect>

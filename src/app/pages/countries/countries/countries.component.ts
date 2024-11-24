@@ -12,13 +12,13 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 
 
 @Component({
-  selector: 'app-faqs',
+  selector: 'app-countries',
   standalone: true,
   imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './faqs.component.html',
-  styleUrl: './faqs.component.scss'
+  templateUrl: './countries.component.html',
+  styleUrl: './countries.component.scss'
 })
-export class FaqsComponent {
+export class CountriesComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -56,7 +56,7 @@ export class FaqsComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'FAQs',
+        label: 'Countries',
       },
     ]
   }
@@ -64,44 +64,45 @@ export class FaqsComponent {
   searchValue: any = '';
   filteredData: any;
   faqsList: any = []
-  columns: IcolHeader[] = [
-    { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
-    { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
-    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
-    { keyName: 'enDescription', header: 'Answer (en)', type: EType.text, show: true },
-    { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.text, show: true },
-    { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-  ];
+  columns: IcolHeader[] = [];
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
   languageService = inject(LanguageService);
   ngOnInit() {
-    this.getAllFAQS();
+    this.getAllCountries();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displaySmallTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang)
     })
-    // this.data=products
-    // this.paginatorOptions.totalRecords=this.data.length
   }
 
-  displaySmallTableCols(currentLang:string){
+  displayTableCols(currentLang:string){
+    this.columns = [
+      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'img', header: 'image', type: EType.image, show: true },
+      { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
+      { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
+      { keyName: 'phoneCode', header: 'Phone Code', type: EType.text, show: true },
+      { keyName: 'shortName', header: 'Short Name', type: EType.text, show: true },
+      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+    ];
+
     this.columnsSmallTable =[
-      { keyName: currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.text, showAs: ETableShow.content }
+      { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
+      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.text, showAs: ETableShow.content }
     ];
   }
-  getAllFAQS() {
-    this.ApiService.get('FAQs/GetAll').subscribe((res: any) => {
+
+  getAllCountries() {
+    this.ApiService.get('Country/GetAllCountry').subscribe((res: any) => {
       if (res) {
         this.faqsList = res.data;
         this.filteredData = [...this.faqsList]; // Initialize filtered data
         this.paginatorOptions.totalRecords = res.data.length;
-        console.log('FAQs loaded:', this.faqsList);
       }
 
     })
@@ -132,5 +133,4 @@ export class FaqsComponent {
       item.arDescription.toLowerCase().includes(search)
     );
   }
-
 }
