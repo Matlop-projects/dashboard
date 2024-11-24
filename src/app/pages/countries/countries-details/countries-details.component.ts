@@ -7,14 +7,16 @@ import { NgIf } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { SelectComponent } from '../../../components/select/select.component';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextModule,InputTextComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,SelectComponent],
   templateUrl: './countries-details.component.html',
   styleUrl: './countries-details.component.scss'
 })
 export class CountriesDetailsComponent implements OnInit {
+  asd=[]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)

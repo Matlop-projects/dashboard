@@ -37,6 +37,7 @@
          <div class="input w-48">
             <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'" [control]="form.get('status')"></app-input-text>
          </div>
+         <app-select [list]="asd"></app-select>
          <div class="d-flex justify-content-between actions-btn w-100 mt-5 text-center"*ngIf="tyepMode()!=='view'">
              <button type="submit" class="btn btn-success w-48" [disabled]="!form.invalid">
                <span *ngIf="tyepMode()==='add'"> Add Country </span>
