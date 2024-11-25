@@ -68,8 +68,8 @@ export class FaqsTableComponent {
     { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
     { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
     { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
-    { keyName: 'enDescription', header: 'Answer (en)', type: EType.text, show: true },
-    { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.text, show: true },
+    { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
+    { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
     { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
   ];
 
@@ -92,7 +92,7 @@ export class FaqsTableComponent {
     this.columnsSmallTable =[
       { keyName: currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
       { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.text, showAs: ETableShow.content }
+      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
     ];
   }
   getAllFAQS() {

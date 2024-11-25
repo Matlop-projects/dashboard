@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CountriesComponent } from './countries.component';
+import { CountriesTableComponent } from './countries-table.component';
 
-describe('CountriesComponent', () => {
-  let component: CountriesComponent;
-  let fixture: ComponentFixture<CountriesComponent>;
+describe('CountriesTableComponent', () => {
+  let component: CountriesTableComponent;
+  let fixture: ComponentFixture<CountriesTableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CountriesComponent]
+      imports: [CountriesTableComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CountriesComponent);
+    fixture = TestBed.createComponent(CountriesTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
