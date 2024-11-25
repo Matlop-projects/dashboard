@@ -8,6 +8,8 @@ import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.c
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { DatePickerComponent } from "../../../components/time-picker/time-picker.component";
 import { ToasterService } from '../../../services/toaster.service';
+import { parseISO } from 'date-fns';
+
 
 @Component({
   selector: 'app-working-hours-details',
@@ -78,41 +80,42 @@ export class WorkingHoursDetailsComponent {
       if (res && res.data) {
         const { startDate, endDate, ...otherData } = res.data;
 
-        // Convert the time strings to Date objects
-        const startDateObj = this.convertTimeToDate(startDate);
-        const endDateObj = this.convertTimeToDate(endDate);
+        const startDateObj = parseISO(startDate);
+        const endDateObj = parseISO(endDate);
 
-        console.log('Converted Start Date:', startDateObj);
-        console.log('Converted End Date:', endDateObj);
+        console.log('Final Start Date:', startDateObj);
+        console.log('Final End Date:', endDateObj);
 
-        // Patch the form with Date objects
         this.form.patchValue({
           ...otherData,
-          startDate: startDateObj,  // Date object
-          endDate: endDateObj       // Date object
+          startDate: startDateObj,
+          endDate: endDateObj,
         });
       }
     });
   }
 
   onSubmit() {
-    console.log(this.form.value);
-
     if (this.form.valid) {
+      const formValues = this.form.value;
+
       const payload = {
-        startDate: this.form.value.startDate, // String in "hh:mm:AM/PM" format
-        endDate: this.form.value.endDate, // String in "hh:mm:AM/PM" format
-        workTimeId: this.workingHoursId
+        ...formValues,
+        startDate: this.convertToLocalISOString(formValues.startDate),
+        endDate: this.convertToLocalISOString(formValues.endDate),
+        workTimeId: this.workingHoursId,
       };
+
       if (this.tyepMode() === 'add') {
         this.addWorkingHour(payload);
       } else {
         this.editWorkingHours(payload);
       }
     } else {
-      this.toaster.errorToaster('Please Complete All form Fields');
+      this.toaster.errorToaster('Please Complete All form Feilds');
     }
   }
+
 
 
   addWorkingHour(payload: any) {
@@ -130,23 +133,20 @@ export class WorkingHoursDetailsComponent {
   }
 
 
-// Helper function to convert "hh:mm AM/PM" to Date object
-convertTimeToDate(timeString: string): Date {
-  const timeParts = timeString.match(/(\d{1,2}):(\d{2}) (AM|PM)/);
-  if (timeParts) {
-    let hours = parseInt(timeParts[1], 10);
-    const minutes = parseInt(timeParts[2], 10);
-    const period = timeParts[3];
+  convertTimeToDate(isoString: string): Date {
+    const utcDate = new Date(isoString);
+    const hours = utcDate.getUTCHours();
+    const minutes = utcDate.getUTCMinutes();
 
-    // Convert 12-hour format to 24-hour format
-    if (period === 'PM' && hours < 12) hours += 12;
-    if (period === 'AM' && hours === 12) hours = 0;
+    const localDate = new Date();
+    localDate.setHours(hours, minutes, 0, 0);
 
-    const date = new Date();
-    date.setHours(hours, minutes, 0, 0);  // Set the hours and minutes
-    return date;
-  } else {
-    return new Date();  // If no match, return current date
+    return localDate;
   }
-}
+
+  convertToLocalISOString(date: any): string {
+    const offsetMs = date.getTimezoneOffset() * 60 * 1000;
+    const localTime = new Date(date.getTime() - offsetMs);
+    return localTime.toISOString().slice(0, -1);
+  }
 }
