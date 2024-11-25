@@ -18,6 +18,8 @@
                     <span *ngIf="col.type=='id'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
                    <span *ngIf="col.type=='text'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
                    <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.keyName]" width="60px" height="auto" alt="image">
+                   <span *ngIf="col.type =='date'">{{convertDate( rowData[col.keyName]? rowData[col.keyName]:'-' )}}</span>
+                   <span *ngIf="col.type =='time'">{{getCurrentTime( rowData[col.keyName]? rowData[col.keyName]:'-' )}}</span>
                    <div>
                     <span *ngIf="col.type=='object'">
                         <img class="rounded"  [src]="rowData[col.keyName][col.nested.img]" width="60px" height="auto" alt="image">
@@ -29,13 +31,13 @@
                     <div class="d-flex" *ngIf="col.type=='actions'">
                         <div *ngFor="let action of col.actions">
                             <div class="actions-icon" (click)="onAction(action,rowData)">
-                                <span *ngIf="action.name==='view'" class="pi pi-eye "></span>
-                                <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square"></span>
-                                <span *ngIf="action.name==='delete'" class="pi pi-trash"></span>
+                                <span *ngIf="action.name==='view'" class="pi pi-eye" pTooltip="View" tooltipPosition="top"></span>
+                                <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square" pTooltip="Edit" tooltipPosition="top"></span>
+                                <span *ngIf="action.name==='delete'" class="pi pi-trash" pTooltip="Delete" tooltipPosition="top"></span>
                             </div>
                         </div>
                     </div>
-                  
+
                    </div>
                 </td>
             </tr>

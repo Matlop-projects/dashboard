@@ -1,31 +1,44 @@
-
-    <div class="form">
-        <div class="header">
-            <span class="">Add FAQS</span>
-        </div>
-        <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
-             <div class="w-100">
-                <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (en)'" [control]="form.get('enTitle')"></app-input-text>
-             </div>
-             <div class="w-100">
-                <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (ar)'" [control]="form.get('arTitle')"></app-input-text>
-             </div>
-             <div class=" mt-2">
-                <app-editor  [label]="'Description (en)'" [control]="form.get('enDescription')"></app-editor>
-             </div>
-             <div class=" mt-2">
-                <app-editor [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-editor>
-
-             </div>
-             <div class="actions w-100 mt-5 text-center"*ngIf="tyepMode()!=='view'">
-                 <button type="submit" class="btn btn-success w-100" [disabled]="!form.invalid">
-                   <span *ngIf="tyepMode()==='add'"> Add FAQS </span>
-                   <span *ngIf="tyepMode()==='edit'"> Edit FAQS </span>
-
-                   
-                   <span class="pi pi-plus-circle p-3"></span>
-                 </button>
-               </div>
-           </form>
+<div class="faqs-form-container container-fluid">
+  <div class="row">
+    <div class="page-details mb-3">
+      <div class="title">
+        <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} FAQs</h2>
+      </div>
+      <div class="breadcrumb">
+        <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+      </div>
     </div>
-
+  </div>
+  <div class=" form-container">
+    <div class="reactive-form">
+      <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (en)'"
+              [control]="form.get('enTitle')"></app-input-text>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (ar)'"
+              [control]="form.get('arTitle')"></app-input-text>
+          </div>
+          <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-editor [label]="'Description (en)'" [control]="form.get('enDescription')"></app-editor>
+          </div>
+          <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-editor [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-editor>
+          </div>
+          <div class="actions mt-5 text-center" >
+            <button type="submit" class="submit-btn" [disabled]="!form.invalid" *ngIf="tyepMode()!=='view'">
+              <span *ngIf="tyepMode()==='add'">Add</span>
+              <span *ngIf="tyepMode()==='edit'">Edit</span>
+              <!-- <span class="pi pi-plus-circle p-3"></span> -->
+            </button>
+            <button type="button" class="cancel-btn" routerLink="/faqs">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

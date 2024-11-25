@@ -1,27 +1,30 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
+import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.component";
+import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,EditorComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
+
 export class FagsDetailsComponent implements OnInit {
+
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   form = new FormGroup({
-    enTitle: new FormControl('',{
+    enTitle: new FormControl('', {
       validators: [
         Validators.required,
         Validations.englishCharsValidator('faqs.validation_english_title'),
@@ -29,21 +32,33 @@ export class FagsDetailsComponent implements OnInit {
       ],
     }),
     arTitle: new FormControl('', {
-      validators:[
+      validators: [
         Validations.arabicCharsValidator('isArabic')
       ]
     }),
     enDescription: new FormControl('', {
-      validators:[
+      validators: [
         Validations.englishCharsValidator('faqs.validation_english_title'),
       ]
     }),
     arDescription: new FormControl('', {
-      validators:[
+      validators: [
         Validations.arabicCharsValidator('isArabic')
       ]
     }),
   })
+
+  bredCrumb: IBreadcrumb = {
+    crumbs: [
+      {
+        label: 'Home',
+        routerLink: '/dashboard',
+      },
+      {
+        label: 'FAQs',
+      },
+    ]
+  }
 
   get faqsID() {
     return this.route.snapshot.params['id']
@@ -51,17 +66,21 @@ export class FagsDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.router.url)
-    if(this.tyepMode()!=='add')
-    this.getFaqsDetails()
+    if (this.tyepMode() !== 'add')
+      this.getFaqsDetails()
   }
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit'))
+    if (url.includes('edit')) {
+      this.bredCrumb.crumbs[1].label = 'Edit FAQs';
       return 'edit'
-    else if (url.includes('view'))
+    } else if (url.includes('view')) {
+      this.bredCrumb.crumbs[1].label = 'View FAQs';
       return 'view'
-    else return 'add'
+    } else  {
+      this.bredCrumb.crumbs[1].label = 'Add FAQs';
+      return 'add'}
 
   }
   getFaqsDetails() {

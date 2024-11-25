@@ -15,10 +15,10 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
   selector: 'app-faqs',
   standalone: true,
   imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './faqs.component.html',
-  styleUrl: './faqs.component.scss'
+  templateUrl: './faqs-table.component.html',
+  styleUrl: './faqs-table.component.scss'
 })
-export class FaqsComponent {
+export class FaqsTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,

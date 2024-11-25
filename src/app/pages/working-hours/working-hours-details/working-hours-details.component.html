@@ -1,0 +1,38 @@
+<div class="working-hours-form-container container-fluid">
+  <div class="row">
+    <div class="page-details mb-3">
+      <div class="title">
+        <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} Working Hours</h2>
+      </div>
+      <div class="breadcrumb">
+        <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+      </div>
+    </div>
+  </div>
+  <div class=" form-container">
+    <div class="reactive-form">
+      <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-time-picker [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Start Date'"
+              [control]="form.get('startDate')"></app-time-picker>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-time-picker [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'End Date'"
+              [control]="form.get('endDate')"></app-time-picker>
+          </div>
+          <div class="actions mt-5 text-center" >
+            <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
+              <span *ngIf="tyepMode()==='add'">Add</span>
+              <span *ngIf="tyepMode()==='edit'">Edit</span>
+              <!-- <span class="pi pi-plus-circle p-3"></span> -->
+            </button>
+            <button type="button" class="cancel-btn" routerLink="/working_hours">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -10,13 +10,14 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
-import { WorkingHoursComponent } from './pages/working-hours/working-hours.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
-import { FaqsComponent } from './pages/fAQs/faqs/faqs.component';
+import { FaqsTableComponent } from './pages/fAQs/faqs-table/faqs-table.component';
 import { FagsDetailsComponent } from './pages/fAQs/fags-details/fags-details.component';
 import { CountriesComponent } from './pages/countries/countries/countries.component';
 import { CountriesDetailsComponent } from './pages/countries/countries-details/countries-details.component';
+import { WorkingHoursTableComponent } from './pages/working-hours/working-hours-table/working-hours-table.component';
+import { WorkingHoursDetailsComponent } from './pages/working-hours/working-hours-details/working-hours-details.component';
 
 export const routes: Routes = [
   {
@@ -42,10 +43,13 @@ export const routes: Routes = [
       { path: 'clients', component: ClientsComponent },
       { path: 'orders', component: OrdersComponent },
       { path: 'providers', component: ProvidersComponent },
-      { path: 'working_hours', component: WorkingHoursComponent },
+      { path: 'working_hours', component: WorkingHoursTableComponent },
+      { path: 'working_hours/add', component: WorkingHoursDetailsComponent },
+      { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
+      { path: 'working_hours/view/:id', component: WorkingHoursDetailsComponent },
       { path: 'settings', component: SettingsComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'faqs', component: FaqsComponent },
+      { path: 'faqs', component: FaqsTableComponent },
       { path: 'faqs/add', component: FagsDetailsComponent },
       { path: 'faqs/edit/:id', component: FagsDetailsComponent },
       { path: 'faqs/view/:id', component: FagsDetailsComponent },

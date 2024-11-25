@@ -1,25 +1,29 @@
-import { JsonPipe, NgIf } from '@angular/common';
+import {  NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { InputTextModule } from 'primeng/inputtext';
+import { DatePicker } from 'primeng/datepicker';
 
 @Component({
-  selector: 'app-input-text',
+  selector: 'app-time-picker',
   standalone: true,
   imports: [
     NgIf,
     ReactiveFormsModule,
     ValidationHandlerPipePipe,
-    InputTextModule
+    InputTextModule,
+    DatePicker
   ],
-  templateUrl: './input-text.component.html',
-  styleUrl: './input-text.component.scss'
+  templateUrl: './time-picker.component.html',
+  styleUrl: './time-picker.component.scss'
 })
-export class InputTextComponent {
+export class DatePickerComponent {
+
   @Input() label!: string;
   @Input() readOnly: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
   @Input() control: any = new FormControl();
+
 }
