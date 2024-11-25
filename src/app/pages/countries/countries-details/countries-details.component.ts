@@ -17,7 +17,13 @@ import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.c
   styleUrl: './countries-details.component.scss'
 })
 export class CountriesDetailsComponent implements OnInit {
-  asd=[]
+  asd=[
+    {name: 'New York', code: 'NY'},
+    {name: 'Rome', code: 'RM'},
+    {name: 'London', code: 'LDN'},
+    {name: 'Istanbul', code: 'IST'},
+    {name: 'Paris', code: 'PRS'}
+  ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -85,6 +91,7 @@ export class CountriesDetailsComponent implements OnInit {
       validators:[
       ]
     }),
+    aas:new FormControl('')
   })
 
   bredCrumb: IBreadcrumb = {
@@ -126,15 +133,16 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.form.value
     const payload = {
       ...this.form.value,
       questionId: this.faqsID,
       userType: 1
     }
-    if (this.tyepMode() === 'add')
-      this.addFQS(payload)
-    else
-      this.editFQS(payload)
+    // if (this.tyepMode() === 'add')
+    //   this.addFQS(payload)
+    // else
+    //   this.editFQS(payload)
 
   }
 
