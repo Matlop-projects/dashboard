@@ -62,7 +62,7 @@ export class CityDetailsComponent {
         Validators.required,
       ]
     }),
-    status: new FormControl('', {
+    status: new FormControl <boolean>(false, {
       validators:[
         Validators.required,
       ]

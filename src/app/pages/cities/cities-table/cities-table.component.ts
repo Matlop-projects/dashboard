@@ -102,10 +102,10 @@ export class CitiesTableComponent {
 
   getAllCountries() {
     this.ApiService.get('City/GetAll').subscribe((res: any) => {
-      if (res) {
+      if (res.data) {
         this.citiesList = res.data;
         this.filteredData = [...this.citiesList]; // Initialize filtered data
-        this.paginatorOptions.totalRecords = res.data.length;
+        this.paginatorOptions.totalRecords = res.data?.length|0;
       }
     })
   }
