@@ -10,29 +10,28 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 
-
 @Component({
-  selector: 'app-countries-table',
+  selector: 'app-cities-table',
   standalone: true,
   imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './countries-table.component.html',
-  styleUrl: './countries-table.component.scss'
+  templateUrl: './cities-table.component.html',
+  styleUrl: './cities-table.component.scss'
 })
-export class CountriesTableComponent {
+export class CitiesTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'Country/DeleteCountry?id',
+      apiName_or_route: 'City/Delete?requestId',
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route: 'country/view',
+      apiName_or_route: 'city/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: 'country/edit',
+      apiName_or_route: 'city/edit',
       autoCall: true
     }
   ]
@@ -56,14 +55,14 @@ export class CountriesTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'Countries',
+        label: 'Cities',
       },
     ]
   }
 
   searchValue: any = '';
   filteredData: any;
-  countriesList: any = []
+  citiesList: any = []
   columns: IcolHeader[] = [];
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
@@ -82,7 +81,7 @@ export class CountriesTableComponent {
 
   displayTableCols(currentLang:string){
     this.columns = [
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'cityId', header: 'Id', type: EType.id, show: false },
       { keyName: 'img', header: 'image', type: EType.image, show: false },
       { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
       { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
@@ -93,16 +92,16 @@ export class CountriesTableComponent {
 
     this.columnsSmallTable =[
       { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'cityId', header: 'Id', type: EType.id, show: false },
       { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.text, showAs: ETableShow.content }
     ];
   }
 
   getAllCountries() {
-    this.ApiService.get('Country/GetAllCountry').subscribe((res: any) => {
+    this.ApiService.get('City/GetAll').subscribe((res: any) => {
       if (res) {
-        this.countriesList = res.data;
-        this.filteredData = [...this.countriesList]; // Initialize filtered data
+        this.citiesList = res.data;
+        this.filteredData = [...this.citiesList]; // Initialize filtered data
         this.paginatorOptions.totalRecords = res.data.length;
       }
     })
@@ -115,18 +114,18 @@ export class CountriesTableComponent {
   }
 
   filterData() {
-    this.countriesList = this.filteredData;
+    this.citiesList = this.filteredData;
     const search = this.searchValue.toLowerCase();
     console.log(search);
     console.log(this.searchValue.length);
 
 
     if (this.searchValue.length == 1) {
-      this.countriesList = this.filteredData;
+      this.citiesList = this.filteredData;
       return;
     }
 
-    this.countriesList = this.countriesList.filter((item: any) =>
+    this.citiesList = this.citiesList.filter((item: any) =>
       item.enTitle.toLowerCase().includes(search) ||
       item.arTitle.toLowerCase().includes(search) ||
       item.enDescription.toLowerCase().includes(search) ||

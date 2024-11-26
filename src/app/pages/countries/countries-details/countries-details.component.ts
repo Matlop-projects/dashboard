@@ -17,13 +17,6 @@ import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.c
   styleUrl: './countries-details.component.scss'
 })
 export class CountriesDetailsComponent implements OnInit {
-  asd=[
-    {name: 'New York', code: 'NY'},
-    {name: 'Rome', code: 'RM'},
-    {name: 'London', code: 'LDN'},
-    {name: 'Istanbul', code: 'IST'},
-    {name: 'Paris', code: 'PRS'}
-  ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -106,14 +99,14 @@ export class CountriesDetailsComponent implements OnInit {
     ]
   }
 
-  get faqsID() {
+  get countryID() {
     return this.route.snapshot.params['id']
   }
 
   ngOnInit() {
     console.log(this.router.url)
     if(this.tyepMode()!=='add')
-    this.getFaqsDetails()
+    this.getCountryDetails()
   }
 
   tyepMode() {
@@ -125,37 +118,37 @@ export class CountriesDetailsComponent implements OnInit {
     else return 'add'
 
   }
-  getFaqsDetails() {
-    this.ApiService.get(`FAQs/GetById/${this.faqsID}`).subscribe((res: any) => {
+  getCountryDetails() {
+    this.ApiService.get(`Country/GetCountry/${this.countryID}`).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
   }
 
   onSubmit() {
-    this.form.value
+    console.log('ff',this.form.value)
     const payload = {
       ...this.form.value,
-      questionId: this.faqsID,
+      countryId: this.countryID,
       userType: 1
     }
-    // if (this.tyepMode() === 'add')
-    //   this.addFQS(payload)
-    // else
-    //   this.editFQS(payload)
+    if (this.tyepMode() === 'add')
+      this.addCountry(payload)
+    else
+      this.editCountry(payload)
 
   }
 
-  addFQS(payload: any) {
-    this.ApiService.post('FAQs/Create', payload, { showAlert: true, message: 'Add FAQS Successfuly' }).subscribe(res => {
+  addCountry(payload: any) {
+    this.ApiService.post('Country/CreateCountry', payload, { showAlert: true, message: 'Add country Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.router.navigateByUrl('country')
     })
   }
-  editFQS(payload: any) {
-    this.ApiService.put('FAQs/Update', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
+  editCountry(payload: any) {
+    this.ApiService.put('Country/UpdateCountry', payload, { showAlert: true, message: 'update country Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.router.navigateByUrl('country')
     })
   }
 }
