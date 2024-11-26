@@ -4,9 +4,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToasterService } from './services/toaster.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { PrimeNG } from 'primeng/config';
+import { ConfirmMsgService } from './services/confirm-msg.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { PrimeNG } from 'primeng/config';
   imports: [RouterOutlet, NgxSpinnerModule , FormsModule , TranslateModule , Toast],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers: [MessageService , ToasterService , PrimeNG]
+  providers: [MessageService , ToasterService , PrimeNG,ConfirmMsgService,ConfirmationService]
 })
 
 

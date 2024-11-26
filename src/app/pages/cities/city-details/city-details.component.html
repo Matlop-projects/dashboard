@@ -44,17 +44,21 @@
                   <app-check-box [label]="'status'" [control]="form.get('status')"></app-check-box>
               </div>
                 <div class="actions mt-5 text-center">
-                   <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
+                   <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
                       <span *ngIf="tyepMode()==='add'">Add</span>
                       <span *ngIf="tyepMode()==='edit'">Edit</span>
                    </button>
-                   <button type="button" class="cancel-btn" routerLink="/city">
-                      Cancel
-                   </button>
+                   <button type="button" class="cancel-btn" (click)="cancel($event)">
+                     Cancel
+                  </button>
                 </div>
              </div>
           </form>
        </div>
     </div>
  </div>
- 
+ <div class="card flex justify-center gap-2">
+
+ <p-toast />
+    <p-confirmdialog />
+   </div>

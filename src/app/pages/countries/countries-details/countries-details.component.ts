@@ -24,25 +24,25 @@ export class CountriesDetailsComponent implements OnInit {
     enName: new FormControl('',{
       validators: [
         Validators.required,
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validations.englishCharsValidator(),
       ],
     }),
     arName: new FormControl('', {
       validators:[
         Validators.required,
-        Validations.arabicCharsValidator('isArabic')
+        Validations.arabicCharsValidator()
       ]
     }),
     enDescription: new FormControl('', {
       validators:[
         Validators.required,
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validations.englishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators:[
         Validators.required,
-        Validations.arabicCharsValidator('isArabic')
+        Validations.arabicCharsValidator()
       ]
     }),
     currency: new FormControl('', {
@@ -84,7 +84,7 @@ export class CountriesDetailsComponent implements OnInit {
       validators:[
       ]
     }),
-    aas:new FormControl('')
+   
   })
 
   bredCrumb: IBreadcrumb = {
@@ -150,5 +150,9 @@ export class CountriesDetailsComponent implements OnInit {
       if (res)
         this.router.navigateByUrl('country')
     })
+  }
+
+  cancel(){
+    this.router.navigateByUrl('/country')
   }
 }

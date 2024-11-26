@@ -28,22 +28,24 @@ export class FagsDetailsComponent implements OnInit {
       validators: [
         Validators.required,
         Validations.englishCharsValidator('faqs.validation_english_title'),
-        Validators.minLength(3)
       ],
     }),
     arTitle: new FormControl('', {
       validators: [
+        Validators.required,
         Validations.arabicCharsValidator('isArabic')
       ]
     }),
     enDescription: new FormControl('', {
       validators: [
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        // Validators.required,
+        // Validations.englishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-        Validations.arabicCharsValidator('isArabic')
+        // Validators.required,
+        // Validations.arabicCharsValidator()
       ]
     }),
   })
@@ -100,7 +102,10 @@ export class FagsDetailsComponent implements OnInit {
       this.addFQS(payload)
     else
       this.editFQS(payload)
+  }
 
+  cancel(){
+    this.router.navigateByUrl('/faqs')
   }
 
   addFQS(payload: any) {

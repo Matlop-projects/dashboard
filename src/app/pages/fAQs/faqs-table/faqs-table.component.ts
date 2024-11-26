@@ -64,14 +64,7 @@ export class FaqsTableComponent {
   searchValue: any = '';
   filteredData: any;
   faqsList: any = []
-  columns: IcolHeader[] = [
-    { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
-    { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
-    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
-    { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
-    { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
-    { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-  ];
+  columns: IcolHeader[] = [];
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
@@ -80,15 +73,23 @@ export class FaqsTableComponent {
   ngOnInit() {
     this.getAllFAQS();
     this.selectedLang = this.languageService.translationService.currentLang;
+    this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displaySmallTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang)
     })
-    // this.data=products
-    // this.paginatorOptions.totalRecords=this.data.length
   }
 
-  displaySmallTableCols(currentLang:string){
+  displayTableCols(currentLang:string){
+    this.columns=[
+      { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
+      { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
+      { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
+      { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
+      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+    
+    ]
     this.columnsSmallTable =[
       { keyName: currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
       { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
