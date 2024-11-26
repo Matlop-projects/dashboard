@@ -46,6 +46,7 @@ export class CityDetailsComponent {
     postalCode: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     shortCut: new FormControl('', {
@@ -56,11 +57,13 @@ export class CityDetailsComponent {
     latitude: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.decimalNumberValidators()
       ]
     }),
     longitude: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.decimalNumberValidators()
       ]
     }),
     countryId: new FormControl('', {

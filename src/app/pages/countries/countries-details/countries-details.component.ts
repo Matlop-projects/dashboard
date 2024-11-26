@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { Validations } from '../../../validations';
+import { Validations, isChar } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { SelectComponent } from '../../../components/select/select.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -24,13 +24,13 @@ export class CountriesDetailsComponent implements OnInit {
     enName: new FormControl('',{
       validators: [
         Validators.required,
-        Validations.englishCharsValidator(),
+        Validations.onlyEnglishValidators(),
       ],
     }),
     arName: new FormControl('', {
       validators:[
         Validators.required,
-        Validations.arabicCharsValidator()
+        Validations.onlyArabicValidators()
       ]
     }),
     enDescription: new FormControl('', {
@@ -48,21 +48,25 @@ export class CountriesDetailsComponent implements OnInit {
     currency: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.onlyCharacterValidator()
       ]
     }),
     nationality: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.onlyCharacterValidator()
       ]
     }),
     phoneLength: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     phoneCode: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     shortName: new FormControl('', {

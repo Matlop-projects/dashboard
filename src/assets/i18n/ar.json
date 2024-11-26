@@ -7,7 +7,12 @@
   "minlength_validation":"لا يقل عن ",
     "maxlength_validation":"لا يزيد عن",
     "required_validation":"هذا الحقل اجباري",
-    "arabic_only_validation":"يقبل الحروف العربية فقط",
-    "english_only_validation":"يقبل الحروف الانجليزية الانجليزية فقط"
+    "arabic_only_validation":"يقبل الحروف العربية ",
+    "english_only_validation":"يقبل الحروف الانجليزية الانجليزية ",
+    "arabic_char_only_validation":"يقبل الحروف العربية فقط",
+    "english_char_only_validation":"يقبل الحروف الانجليزية الانجليزية فقط",
+    "decimal_number":"يقبل الارقام",
+    "only_number":"يقبل الارقام الصحيحة فقط",
+    "only_char":"يقبل الحروف "
   }
 }
