@@ -38,7 +38,10 @@ body {
 .pointer {
     cursor: pointer;
 }
-
+.dialog-close-btn{
+  border: 1px solid #dddddd;
+  margin: 0px 5px;
+}
 .page-form-container{
   .page-details {
     display: flex;
@@ -229,6 +232,11 @@ small {
         font-size: 20px;
         &:hover {
           background: #196919;
+        }
+        &:disabled{
+          background: rgba(48, 171, 48,.1);
+          color:#b8b5b5;
+          border: 1px solid #cac6c6;
         }
       }
 

@@ -1,60 +1,64 @@
 <div class="page-form-container container-fluid">
-    <div class="row">
-       <div class="page-details mb-3">
+   <div class="row">
+      <div class="page-details mb-3">
          <div class="title">
-           <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} city</h2>
+            <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} city</h2>
          </div>
          <div class="breadcrumb">
-           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+            <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
          </div>
-       </div>
-     </div>
-    <div class=" form-container">
-       <div class="reactive-form">
-          <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
-             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                      [label]="'Name (en)'" [control]="form.get('enName')"></app-input-text>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                      [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                    <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                       [label]="'Postal Code'" [control]="form.get('postalCode')"></app-input-text>
-                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                      [label]="'ShortName'" [control]="form.get('shortCut')"></app-input-text>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                    <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                       [label]="'latitude'" [control]="form.get('latitude')"></app-input-text>
-                 </div>
-                 <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                    <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                       [label]="'longitude'" [control]="form.get('longitude')"></app-input-text>
-                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                   <app-select class="w-100" [list]="countries" [label]="'country'"  [control]="form.get('countryId')"></app-select>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
+      </div>
+   </div>
+   <div class=" form-container">
+      <div class="reactive-form">
+         <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+            <div class="row">
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Name (en)'" [control]="form.get('enName')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Postal Code'" [control]="form.get('postalCode')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'ShortName'" [control]="form.get('shortCut')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'latitude'"
+                     [control]="form.get('latitude')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'longitude'" [control]="form.get('longitude')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-select class="w-100" [list]="countries" [label]="'country'"
+                     [control]="form.get('countryId')"></app-select>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                   <app-check-box [label]="'status'" [control]="form.get('status')"></app-check-box>
-              </div>
-                <div class="actions mt-5 text-center">
-                   <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
-                      <span *ngIf="tyepMode()==='add'">Add</span>
-                      <span *ngIf="tyepMode()==='edit'">Edit</span>
-                   </button>
-                   <button type="button" class="cancel-btn" routerLink="/city">
-                      Cancel
-                   </button>
-                </div>
-             </div>
-          </form>
-       </div>
-    </div>
- </div>
- 
+               </div>
+               <div class="actions mt-5 text-center">
+                  <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
+                     <span *ngIf="tyepMode()==='add'">Add</span>
+                     <span *ngIf="tyepMode()==='edit'">Edit</span>
+                  </button>
+                  <button type="button" class="cancel-btn" (click)="cancel()">
+                     Cancel
+                  </button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
+</div>
+<app-dialog  [visible]="showConfirmMessage">
+   <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> Close</button>
+   <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Confirm</button>
+</app-dialog>

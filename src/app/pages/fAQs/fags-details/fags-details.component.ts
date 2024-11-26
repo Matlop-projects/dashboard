@@ -9,11 +9,13 @@ import { InputTextComponent } from '../../../components/input-text/input-text.co
 import { EditorComponent } from '../../../components/editor/editor.component';
 import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.component";
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
+import { ConfirmMsgService } from '../../../services/confirm-msg.service';
+import { DialogComponent } from '../../../components/dialog/dialog.component';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf,DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
@@ -23,27 +25,31 @@ export class FagsDetailsComponent implements OnInit {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  showConfirmMessage: boolean = false
+  private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
     enTitle: new FormControl('', {
       validators: [
         Validators.required,
         Validations.englishCharsValidator('faqs.validation_english_title'),
-        Validators.minLength(3)
       ],
     }),
     arTitle: new FormControl('', {
       validators: [
+        Validators.required,
         Validations.arabicCharsValidator('isArabic')
       ]
     }),
     enDescription: new FormControl('', {
       validators: [
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        // Validators.required,
+        // Validations.englishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-        Validations.arabicCharsValidator('isArabic')
+        // Validators.required,
+        // Validations.arabicCharsValidator()
       ]
     }),
   })
@@ -78,9 +84,10 @@ export class FagsDetailsComponent implements OnInit {
     } else if (url.includes('view')) {
       this.bredCrumb.crumbs[1].label = 'View FAQs';
       return 'view'
-    } else  {
+    } else {
       this.bredCrumb.crumbs[1].label = 'Add FAQs';
-      return 'add'}
+      return 'add'
+    }
 
   }
   getFaqsDetails() {
@@ -100,6 +107,19 @@ export class FagsDetailsComponent implements OnInit {
       this.addFQS(payload)
     else
       this.editFQS(payload)
+  }
+
+
+  cancel() {
+    const confirmed = this.confirm.formHasValue(this.form)
+    if (confirmed)
+      this.showConfirmMessage = !this.showConfirmMessage
+    else
+      this.router.navigateByUrl('/faqs')
+
+  }
+  onConfirmMessage() {
+    this.router.navigateByUrl('/faqs')
 
   }
 

@@ -57,16 +57,12 @@
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'"
                      [control]="form.get('status')"></app-input-text>
                </div>
-               <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-select class="w-100" [list]="asd" [label]="'select'"  [control]="form.get('aas')"></app-select>
-               </div> -->
                <div class="actions mt-5 text-center">
-                  <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
+                  <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
                      <span *ngIf="tyepMode()==='add'">Add</span>
                      <span *ngIf="tyepMode()==='edit'">Edit</span>
-                     <!-- <span class="pi pi-plus-circle p-3"></span> -->
                   </button>
-                  <button type="button" class="cancel-btn" routerLink="/working_hours">
+                  <button type="button" class="cancel-btn" (click)="cancel()">
                      Cancel
                   </button>
                </div>
@@ -75,3 +71,8 @@
       </div>
    </div>
 </div>
+
+<app-dialog  [visible]="showConfirmMessage">
+   <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> Close</button>
+   <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Confirm</button>
+</app-dialog>

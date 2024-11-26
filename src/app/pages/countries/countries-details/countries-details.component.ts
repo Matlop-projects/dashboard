@@ -4,15 +4,17 @@ import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { Validations } from '../../../validations';
+import { Validations, isChar } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { SelectComponent } from '../../../components/select/select.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
+import { ConfirmMsgService } from '../../../services/confirm-msg.service';
+import { DialogComponent } from '../../../components/dialog/dialog.component';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
-  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,SelectComponent],
+  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule, NgIf, InputTextComponent,DialogComponent],
   templateUrl: './countries-details.component.html',
   styleUrl: './countries-details.component.scss'
 })
@@ -20,71 +22,77 @@ export class CountriesDetailsComponent implements OnInit {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  showConfirmMessage: boolean = false
+  private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
-    enName: new FormControl('',{
+    enName: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validations.onlyEnglishValidators(),
       ],
     }),
     arName: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
-        Validations.arabicCharsValidator('isArabic')
+        Validations.onlyArabicValidators()
       ]
     }),
     enDescription: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validations.englishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
-        Validations.arabicCharsValidator('isArabic')
+        Validations.arabicCharsValidator()
       ]
     }),
     currency: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
+        Validations.onlyCharacterValidator()
       ]
     }),
     nationality: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
+        Validations.onlyCharacterValidator()
       ]
     }),
     phoneLength: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     phoneCode: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     shortName: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
       ]
     }),
     content: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
       ]
     }),
     status: new FormControl('', {
-      validators:[
+      validators: [
         Validators.required,
       ]
     }),
     img: new FormControl('', {
-      validators:[
+      validators: [
       ]
     }),
-    aas:new FormControl('')
+
   })
 
   bredCrumb: IBreadcrumb = {
@@ -105,8 +113,8 @@ export class CountriesDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.router.url)
-    if(this.tyepMode()!=='add')
-    this.getCountryDetails()
+    if (this.tyepMode() !== 'add')
+      this.getCountryDetails()
   }
 
   tyepMode() {
@@ -126,7 +134,7 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('ff',this.form.value)
+    console.log('ff', this.form.value)
     const payload = {
       ...this.form.value,
       countryId: this.countryID,
@@ -150,5 +158,17 @@ export class CountriesDetailsComponent implements OnInit {
       if (res)
         this.router.navigateByUrl('country')
     })
+  }
+
+
+  cancel() {
+    const confirmed = this.confirm.formHasValue(this.form)
+    if (confirmed)
+      this.showConfirmMessage = !this.showConfirmMessage
+    else
+      this.router.navigateByUrl('/country')
+  }
+  onConfirmMessage() {
+    this.router.navigateByUrl('/country')
   }
 }
