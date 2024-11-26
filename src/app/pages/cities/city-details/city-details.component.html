@@ -38,12 +38,11 @@
                        [label]="'longitude'" [control]="form.get('longitude')"></app-input-text>
                  </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'"
-                      [control]="form.get('status')"></app-input-text>
+                   <app-select class="w-100" [list]="countries" [label]="'country'"  [control]="form.get('countryId')"></app-select>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                   <app-select class="w-100" [list]="countries" [label]="'country'"  [control]="form.get('aas')"></app-select>
-                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
+                  <app-check-box [label]="'status'" [control]="form.get('status')"></app-check-box>
+              </div>
                 <div class="actions mt-5 text-center">
                    <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
                       <span *ngIf="tyepMode()==='add'">Add</span>

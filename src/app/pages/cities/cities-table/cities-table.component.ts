@@ -82,18 +82,21 @@ export class CitiesTableComponent {
   displayTableCols(currentLang:string){
     this.columns = [
       { keyName: 'cityId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'img', header: 'image', type: EType.image, show: false },
       { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
-      { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
-      { keyName: 'phoneCode', header: 'Phone Code', type: EType.text, show: true },
-      { keyName: 'shortName', header: 'Short Name', type: EType.text, show: true },
+      { keyName: 'postalCode', header: 'Postal Code', type: EType.text, show: true },
+      { keyName: 'latitude', header: 'latitude', type: EType.text, show: true },
+      { keyName: 'longitude', header: 'longitude', type: EType.text, show: true },
+      { keyName: 'shortCut', header: 'Short Name', type: EType.text, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
     ];
 
     this.columnsSmallTable =[
       { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
       { keyName: 'cityId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.text, showAs: ETableShow.content }
+      { keyName: 'postalCode', header: 'postalCode', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'latitude', header: 'latitude', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'longitude', header: 'longitude', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'shortCut', header: 'Short Name', type: EType.text, showAs: ETableShow.content }
     ];
   }
 

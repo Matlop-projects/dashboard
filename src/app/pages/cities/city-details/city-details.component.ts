@@ -9,19 +9,23 @@ import { InputTextComponent } from '../../../components/input-text/input-text.co
 import { SelectComponent } from '../../../components/select/select.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
+import { LanguageService } from '../../../services/language.service';
+import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 
 @Component({
   selector: 'app-city-details',
   standalone: true,
-  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,SelectComponent],
+  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
   templateUrl: './city-details.component.html',
   styleUrl: './city-details.component.scss'
 })
 export class CityDetailsComponent {
-  countries=[]
+  countries:any=[]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  selectedLang: any;
+  languageService = inject(LanguageService);
   form = new FormGroup({
     enName: new FormControl('',{
       validators: [
@@ -80,13 +84,33 @@ export class CityDetailsComponent {
   get cityID() {
     return this.route.snapshot.params['id']
   }
+  
 
   ngOnInit() {
+    this.getAllCountries()
+    this.selectedLang = this.languageService.translationService.currentLang;
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      console.log("CityDetailsComponent  this.languageService.translationService.onLangChange.subscribe   this.selectedLang:",  this.selectedLang)
+      this.getAllCountries()
+
+    })
     console.log(this.router.url)
     if(this.tyepMode()!=='add')
     this.getCityDetails()
   }
-
+getAllCountries(){
+  this.ApiService.get('Country/GetAllCountry').subscribe((res: any) => {
+    if (res) {
+     res.data.map((country:any)=>{
+         this.countries.push({
+          name:this.selectedLang=='en'?country.enName :country.arName,
+          code:country.countryId
+         })
+     })
+    }
+  })
+}
   tyepMode() {
     const url = this.router.url;
     if (url.includes('edit'))
@@ -107,7 +131,7 @@ export class CityDetailsComponent {
     console.log('ff',this.form.value)
     const payload = {
       ...this.form.value,
-      cityId: this.cityID,
+      cityId: this.cityID|0,
       userType: 1
     }
     if (this.tyepMode() === 'add')
