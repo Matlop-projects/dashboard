@@ -14,11 +14,12 @@ import { CheckBoxComponent } from '../../../components/check-box/check-box.compo
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
+import { DialogComponent } from '../../../components/dialog/dialog.component';
 
 @Component({
   selector: 'app-city-details',
   standalone: true,
-  imports: [BreadcrumpComponent, ReactiveFormsModule,ToastModule,ConfirmDialog, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
+  imports: [BreadcrumpComponent, ReactiveFormsModule,ToastModule,ConfirmDialog,DialogComponent, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
   templateUrl: './city-details.component.html',
   styleUrl: './city-details.component.scss'
 })
@@ -27,6 +28,7 @@ export class CityDetailsComponent {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  showConfirmMessage:boolean=false
   private confirm = inject(ConfirmMsgService)
   selectedLang: any;
   languageService = inject(LanguageService);
@@ -163,8 +165,14 @@ getAllCountries(){
     })
   }
 
-  cancel(event:any){
-    this.router.navigateByUrl('/city')
-    // this.confirm.confirm(event)
+  cancel(){
+   const confirmed=  this.confirm.formHasValue(this.form)
+      if(confirmed)
+        this.showConfirmMessage=!this.showConfirmMessage
+      else
+      this.router.navigateByUrl('city')
+  }
+  onConfirmMessage(){
+    this.router.navigateByUrl('city')
   }
 }

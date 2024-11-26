@@ -38,7 +38,10 @@ body {
 .pointer {
     cursor: pointer;
 }
-
+.dialog-close-btn{
+  border: 1px solid #dddddd;
+  margin: 0px 5px;
+}
 .page-form-container{
   .page-details {
     display: flex;

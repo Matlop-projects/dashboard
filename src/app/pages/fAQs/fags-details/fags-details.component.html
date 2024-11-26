@@ -42,3 +42,8 @@
     </div>
   </div>
 </div>
+
+<app-dialog  [visible]="showConfirmMessage">
+  <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> Close</button>
+  <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Confirm</button>
+</app-dialog>
