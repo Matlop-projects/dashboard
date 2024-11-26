@@ -27,7 +27,7 @@
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'Description (en)'" [control]="form.get('arDescription')"></app-input-text>
+                     [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'currency'"
@@ -57,10 +57,9 @@
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'"
                      [control]="form.get('status')"></app-input-text>
                </div>
-               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+               <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-select class="w-100" [list]="asd" [label]="'select'"  [control]="form.get('aas')"></app-select>
-                  <!-- <app-select [list]="asd" [label]="'asdS'"></app-select> -->
-               </div>
+               </div> -->
                <div class="actions mt-5 text-center">
                   <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
                      <span *ngIf="tyepMode()==='add'">Add</span>

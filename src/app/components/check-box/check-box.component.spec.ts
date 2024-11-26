@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CitiesComponent } from './cities.component';
+import { CheckBoxComponent } from './check-box.component';
 
-describe('CitiesComponent', () => {
-  let component: CitiesComponent;
-  let fixture: ComponentFixture<CitiesComponent>;
+describe('CheckBoxComponent', () => {
+  let component: CheckBoxComponent;
+  let fixture: ComponentFixture<CheckBoxComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CitiesComponent]
+      imports: [CheckBoxComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CitiesComponent);
+    fixture = TestBed.createComponent(CheckBoxComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

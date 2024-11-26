@@ -18,6 +18,8 @@ import { CountriesDetailsComponent } from './pages/countries/countries-details/c
 import { WorkingHoursTableComponent } from './pages/working-hours/working-hours-table/working-hours-table.component';
 import { WorkingHoursDetailsComponent } from './pages/working-hours/working-hours-details/working-hours-details.component';
 import { CountriesTableComponent } from './pages/countries/countries-table/countries-table.component';
+import { CityDetailsComponent } from './pages/cities/city-details/city-details.component';
+import { CitiesTableComponent } from './pages/cities/cities-table/cities-table.component';
 
 export const routes: Routes = [
   {
@@ -56,7 +58,11 @@ export const routes: Routes = [
       { path: 'country', component: CountriesTableComponent },
       { path: 'country/add', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },
-      { path: 'country/view/:id', component: CountriesDetailsComponent },
+      { path: 'country/edit/:id', component: CountriesDetailsComponent },
+      { path: 'city', component: CitiesTableComponent },
+      { path: 'city/add', component: CityDetailsComponent },
+      { path: 'city/view/:id', component: CityDetailsComponent },
+      { path: 'city/edit/:id', component: CityDetailsComponent },
 
     ]
   },

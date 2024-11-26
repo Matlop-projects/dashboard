@@ -2,7 +2,7 @@
     <div class="content">
       <div class="title-bredcrumb-section">
         <div class="title">
-          <h2>Countries List</h2>
+          <h2>City List</h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,18 +10,18 @@
       </div>
       <div class="details-container">
         <div class="actions">
-          <a routerLink="/country/add"> + Add New Country</a>
+          <a routerLink="/city/add"> + Add New City</a>
           <input (keydown)="filterData()" type="text" pInputText placeholder="Search country" [(ngModel)]="searchValue" class="search-input"/>
         </div>
        <div class="table-view">
-        <app-table [colsHeader]="columns" [records]="countriesList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
+        <app-table [colsHeader]="columns" [records]="citiesList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
        </div>
        <div class="responsive-accordions">
-          <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="countriesList"  [actions]="tableActions">
+          <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="citiesList"  [actions]="tableActions">
             
           </app-table-small-screen>
       </div>
-        <app-paginator [paginatorOptions]="paginatorOptions" [records]="countriesList"
+        <app-paginator [paginatorOptions]="paginatorOptions" [records]="citiesList"
           (onPageChangeValue)="onPageChange($event)"></app-paginator>
       </div>
     </div>
