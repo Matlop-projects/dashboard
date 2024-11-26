@@ -237,6 +237,7 @@ small {
           background: rgba(48, 171, 48,.1);
           color:#b8b5b5;
           border: 1px solid #cac6c6;
+          cursor: not-allowed;
         }
       }
 
@@ -268,3 +269,7 @@ small {
   }
 }
 // End of form code
+
+.d-grid {
+  display: grid !important;
+}
