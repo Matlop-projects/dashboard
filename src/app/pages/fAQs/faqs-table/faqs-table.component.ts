@@ -9,16 +9,18 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { DrawerComponent } from '../../../components/drawer/drawer.component';
 
 
 @Component({
   selector: 'app-faqs',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginatorComponent, FormsModule,DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './faqs-table.component.html',
   styleUrl: './faqs-table.component.scss'
 })
 export class FaqsTableComponent {
+  showFilter:boolean=false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -95,6 +97,13 @@ export class FaqsTableComponent {
       { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
       { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
     ];
+  }
+
+  openFilter(){
+    this.showFilter=true
+ }
+  onCloseFilter(event:any){
+    this.showFilter=false
   }
   getAllFAQS() {
     this.ApiService.get('FAQs/GetAll').subscribe((res: any) => {

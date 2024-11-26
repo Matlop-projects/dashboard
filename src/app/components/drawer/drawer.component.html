@@ -1,0 +1,6 @@
+<p-drawer [(visible)]="visible" (onHide)="onHide($event)" [styleClass]="'rtl-drawer'" [closeOnEscape]="false"
+   [position]="position" position="full" [header]="header">
+   <ng-content select="[header]"></ng-content>
+   <ng-content></ng-content>
+   <ng-content select="[footer]"></ng-content>
+</p-drawer>

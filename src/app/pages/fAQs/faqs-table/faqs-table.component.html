@@ -13,6 +13,9 @@
         <a routerLink="/faqs/add"> + Add New Question</a>
         <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/>
       </div>
+      <div (click)="openFilter()">
+        filter
+      </div>
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
      </div>
@@ -26,6 +29,9 @@
     </div>
   </div>
 </div>
+<app-drawer [visible]="showFilter" [header]="'Filter FAQS'" (onClose)="onCloseFilter($event)">
+  <h1>hello Drawer</h1>
+</app-drawer>
 
 
 
