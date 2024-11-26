@@ -24,7 +24,8 @@ export enum EType {
   time = "time",
   status = "status",
   index = "index",
-  actions = "actions"
+  actions = "actions",
+  editor='editor'
 }
 interface INested {
   img: string,

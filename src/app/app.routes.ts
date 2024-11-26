@@ -14,10 +14,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
 import { FaqsTableComponent } from './pages/fAQs/faqs-table/faqs-table.component';
 import { FagsDetailsComponent } from './pages/fAQs/fags-details/fags-details.component';
-import { CountriesComponent } from './pages/countries/countries/countries.component';
 import { CountriesDetailsComponent } from './pages/countries/countries-details/countries-details.component';
 import { WorkingHoursTableComponent } from './pages/working-hours/working-hours-table/working-hours-table.component';
 import { WorkingHoursDetailsComponent } from './pages/working-hours/working-hours-details/working-hours-details.component';
+import { CountriesTableComponent } from './pages/countries/countries-table/countries-table.component';
 
 export const routes: Routes = [
   {
@@ -53,7 +53,7 @@ export const routes: Routes = [
       { path: 'faqs/add', component: FagsDetailsComponent },
       { path: 'faqs/edit/:id', component: FagsDetailsComponent },
       { path: 'faqs/view/:id', component: FagsDetailsComponent },
-      { path: 'country', component: CountriesComponent },
+      { path: 'country', component: CountriesTableComponent },
       { path: 'country/add', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },

@@ -1,10 +1,29 @@
-<p-multiselect [options]="list" [group]="true" [placeholder]="placeholder" [maxSelectedLabels]="3"  scrollHeight="250px" display="chip" styleClass="w-full md:w-80">
-    <ng-template let-group pTemplate="group">
-        <div class="flex items-center">
-            <img *ngIf="showImage"
-                [src]="group.image"
-                style="width: 20px" />
-            <span>{{ group.label }}</span>
-        </div>
-    </ng-template>
-</p-multiselect>
+    <label>{{label}}</label>
+    <p-multiselect  class="w-100" [options]="list" 
+      [formControl]="control" 
+      optionLabel="name"  
+       (onChange)="onChange($event)" 
+       [placeholder]="placeholder"
+        [filter]="false" 
+        display="chip"
+        styleClass="w-full md:w-80" >
+        <ng-template let-list pTemplate="item">
+            <div class="flex items-center gap-2">
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + list.code.toLowerCase()"
+                    style="width: 18px"
+                />
+                <div>{{ list.name }}</div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="dropdownicon">
+            <i class="pi pi-map"></i>
+        </ng-template>
+        <ng-template pTemplate="filtericon">
+            <i class="pi pi-map-marker"></i>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <div class="font-medium px-3 py-2">Available Countries</div>
+        </ng-template>
+    </p-multiselect>

@@ -1,54 +1,78 @@
-
-<div class="form">
-    <div class="header">
-        <span class="">Add Country</span>
+<div class="page-form-container container-fluid">
+   <div class="row">
+      <div class="page-details mb-3">
+        <div class="title">
+          <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} country</h2>
+        </div>
+        <div class="breadcrumb">
+          <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+        </div>
+      </div>
     </div>
-    <form [formGroup]="form" class="w-100 d-flex justify-content-between flex-wrap" (ngSubmit)="onSubmit()">
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Name (en)'" [control]="form.get('enName')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Description (en)'" [control]="form.get('enDescription')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Description (en)'" [control]="form.get('arDescription')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'currency'" [control]="form.get('currency')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Nationality'" [control]="form.get('nationality')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'phoneLength'" [control]="form.get('phoneLength')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'phoneCode'" [control]="form.get('phoneCode')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'ShortName'" [control]="form.get('shortName')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Content'" [control]="form.get('content')"></app-input-text>
-         </div>
-         <div class="input w-48">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'" [control]="form.get('status')"></app-input-text>
-         </div>
-         <app-select [list]="asd"></app-select>
-         <div class="d-flex justify-content-between actions-btn w-100 mt-5 text-center"*ngIf="tyepMode()!=='view'">
-             <button type="submit" class="btn btn-success w-48" [disabled]="!form.invalid">
-               <span *ngIf="tyepMode()==='add'"> Add Country </span>
-               <span *ngIf="tyepMode()==='edit'"> Edit Country </span>
-               <span class="pi pi-plus-circle"></span>
-             </button>
-             <button type="button" class="btn btn-danger w-48">
-                <span>  Back </span>
-                <span class="pi pi-plus-circle"></span>
-              </button>
-           </div>
-       </form>
+   <div class=" form-container">
+      <div class="reactive-form">
+         <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+            <div class="row">
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Name (en)'" [control]="form.get('enName')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Description (en)'" [control]="form.get('enDescription')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Description (en)'" [control]="form.get('arDescription')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'currency'"
+                     [control]="form.get('currency')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'Nationality'" [control]="form.get('nationality')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'phoneLength'" [control]="form.get('phoneLength')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'phoneCode'" [control]="form.get('phoneCode')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                     [label]="'ShortName'" [control]="form.get('shortName')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Content'"
+                     [control]="form.get('content')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'"
+                     [control]="form.get('status')"></app-input-text>
+               </div>
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-select class="w-100" [list]="asd" [label]="'select'"  [control]="form.get('aas')"></app-select>
+                  <!-- <app-select [list]="asd" [label]="'asdS'"></app-select> -->
+               </div>
+               <div class="actions mt-5 text-center">
+                  <button type="submit" class="submit-btn" *ngIf="tyepMode()!=='view'">
+                     <span *ngIf="tyepMode()==='add'">Add</span>
+                     <span *ngIf="tyepMode()==='edit'">Edit</span>
+                     <!-- <span class="pi pi-plus-circle p-3"></span> -->
+                  </button>
+                  <button type="button" class="cancel-btn" routerLink="/working_hours">
+                     Cancel
+                  </button>
+               </div>
+            </div>
+         </form>
+      </div>
+   </div>
 </div>
-

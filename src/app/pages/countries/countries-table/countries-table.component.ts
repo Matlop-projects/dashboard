@@ -12,13 +12,13 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 
 
 @Component({
-  selector: 'app-countries',
+  selector: 'app-countries-table',
   standalone: true,
   imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './countries.component.html',
-  styleUrl: './countries.component.scss'
+  templateUrl: './countries-table.component.html',
+  styleUrl: './countries-table.component.scss'
 })
-export class CountriesComponent {
+export class CountriesTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,

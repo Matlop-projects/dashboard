@@ -6,17 +6,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
-import { InputTextModule } from 'primeng/inputtext';
 import { SelectComponent } from '../../../components/select/select.component';
+import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
+import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,SelectComponent],
+  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule, NgIf,InputTextComponent,SelectComponent],
   templateUrl: './countries-details.component.html',
   styleUrl: './countries-details.component.scss'
 })
 export class CountriesDetailsComponent implements OnInit {
-  asd=[]
+  asd=[
+    {name: 'New York', code: 'NY'},
+    {name: 'Rome', code: 'RM'},
+    {name: 'London', code: 'LDN'},
+    {name: 'Istanbul', code: 'IST'},
+    {name: 'Paris', code: 'PRS'}
+  ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -84,7 +91,20 @@ export class CountriesDetailsComponent implements OnInit {
       validators:[
       ]
     }),
+    aas:new FormControl('')
   })
+
+  bredCrumb: IBreadcrumb = {
+    crumbs: [
+      {
+        label: 'Home',
+        routerLink: '/dashboard',
+      },
+      {
+        label: 'Add Country',
+      },
+    ]
+  }
 
   get faqsID() {
     return this.route.snapshot.params['id']
@@ -113,15 +133,16 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.form.value
     const payload = {
       ...this.form.value,
       questionId: this.faqsID,
       userType: 1
     }
-    if (this.tyepMode() === 'add')
-      this.addFQS(payload)
-    else
-      this.editFQS(payload)
+    // if (this.tyepMode() === 'add')
+    //   this.addFQS(payload)
+    // else
+    //   this.editFQS(payload)
 
   }
 
