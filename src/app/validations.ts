@@ -4,7 +4,7 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
  const englishCharsRegex = /^[A-Za-z0-9!@#\$%\^\& *\)\(+=._-]+]*$/;
  const charsRegex = /^[A-Za-zء-ي!@#\$%\^\& *\)\(+=._-]+]*$/;
  export const onlyArabicChar = /^[ء-ي]*$/;
-export const onlyEnglishChar = /^[A-Za-z]*$/;
+ export const onlyEnglishChar = /^[A-Za-z]*$/;
  const urlRegex = /^((?:https?|ftp):\/\/[^\s/$.?#].[^\s]*)$/;
  const onlyNumbersRegex = /^[0-9]*$/
  const decimalNumber = /^[0-9]*\.?[0-9]*$/
@@ -16,7 +16,7 @@ export const onlyEnglishChar = /^[A-Za-z]*$/;
           return isValid ? null : { arabic_char_only: errorMessage };
         };
       }
-    
+
       static englishCharsValidator(errorMessage?: string): ValidatorFn {
         return (control: AbstractControl<string>) => {
           var isValid = isEnglish(control.value);
@@ -29,7 +29,7 @@ export const onlyEnglishChar = /^[A-Za-z]*$/;
           return isValid ? null : { arabic_only: errorMessage };
         };
       }
-    
+
       static onlyEnglishValidators(errorMessage?: string): ValidatorFn {
         return (control: AbstractControl<string>) => {
           var isValid = isOnlyEnglish(control.value);
@@ -99,7 +99,7 @@ export const onlyEnglishChar = /^[A-Za-z]*$/;
       return true;
     }
   }
-  
+
   export function isDecimal(value: string): boolean {
     if (value) {
       return decimalNumber.test(value);
