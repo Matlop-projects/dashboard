@@ -11,11 +11,12 @@ import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.c
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
+import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf,DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
@@ -51,7 +52,7 @@ export class FagsDetailsComponent implements OnInit {
         // Validators.required,
         // Validations.arabicCharsValidator()
       ]
-    }),
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -71,7 +72,6 @@ export class FagsDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.url)
     if (this.tyepMode() !== 'add')
       this.getFaqsDetails()
   }
@@ -88,8 +88,8 @@ export class FagsDetailsComponent implements OnInit {
       this.bredCrumb.crumbs[1].label = 'Add FAQs';
       return 'add'
     }
-
   }
+
   getFaqsDetails() {
     this.ApiService.get(`FAQs/GetById/${this.faqsID}`).subscribe((res: any) => {
       if (res)
@@ -118,6 +118,7 @@ export class FagsDetailsComponent implements OnInit {
       this.router.navigateByUrl('/faqs')
 
   }
+
   onConfirmMessage() {
     this.router.navigateByUrl('/faqs')
 
@@ -129,10 +130,13 @@ export class FagsDetailsComponent implements OnInit {
         this.router.navigateByUrl('faqs')
     })
   }
+
   editFQS(payload: any) {
     this.ApiService.put('FAQs/Update', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
       if (res)
         this.router.navigateByUrl('faqs')
     })
   }
+
+
 }

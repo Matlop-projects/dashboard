@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
@@ -10,17 +10,18 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 
 @Component({
   selector: 'app-faqs',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, FormsModule,DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './faqs-table.component.html',
   styleUrl: './faqs-table.component.scss'
 })
 export class FaqsTableComponent {
-  showFilter:boolean=false
+  showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -40,16 +41,7 @@ export class FaqsTableComponent {
   ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
-  paginatorOptions: IPaginator = {
-    displayItem: 5,
-    totalRecords: 0,
-  }
-  paginatorValue: IPaignatotValue = {
-    first: 0,
-    page: 1,
-    pageCount: 0,
-    rows: 0
-  }
+
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -62,6 +54,17 @@ export class FaqsTableComponent {
       },
     ]
   }
+
+  faqSearchCreteria = {
+    "pageNumber": 1,
+    "pageSize": 8,
+    "sortingExpression": "",
+    "sortingDirection": 0,
+    "enTitle": "",
+    "arTitle": ""
+  }
+
+  totalCount: number = 0;
 
   searchValue: any = '';
   filteredData: any;
@@ -82,35 +85,37 @@ export class FaqsTableComponent {
     })
   }
 
-  displayTableCols(currentLang:string){
-    this.columns=[
+  displayTableCols(currentLang: string) {
+    this.columns = [
       { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
       { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
       { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
       { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
       { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-    
+
     ]
-    this.columnsSmallTable =[
-      { keyName: currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
+    this.columnsSmallTable = [
+      { keyName: currentLang == 'ar' ? 'arTitle' : 'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
       { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
     ];
   }
 
-  openFilter(){
-    this.showFilter=true
- }
-  onCloseFilter(event:any){
-    this.showFilter=false
+  openFilter() {
+    this.showFilter = true
   }
+
+  onCloseFilter(event: any) {
+    this.showFilter = false
+  }
+
   getAllFAQS() {
-    this.ApiService.get('FAQs/GetAll').subscribe((res: any) => {
+    this.ApiService.post('FAQs/GetAll' ,this.faqSearchCreteria).subscribe((res: any) => {
       if (res) {
-        this.faqsList = res.data;
-        this.filteredData = [...this.faqsList]; // Initialize filtered data
-        this.paginatorOptions.totalRecords = res.data.length;
+        this.faqsList = res.data.dataList;
+        this.totalCount =  res.data.totalCount;
+        this.filteredData = [...this.faqsList];
         console.log('FAQs loaded:', this.faqsList);
       }
 
@@ -118,9 +123,8 @@ export class FaqsTableComponent {
   }
 
   onPageChange(event: any) {
-    this.paginatorValue = event
-    // console.log("DashboardComponent  onPageChange  this.paginatorValue:", this.paginatorValue)
-    // this.datafilterd =this.paginateArray(this.data,event)
+    console.log(event);
+
   }
 
   filterData() {

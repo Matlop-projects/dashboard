@@ -49,7 +49,9 @@ export const routes: Routes = [
       { path: 'working_hours/add', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/view/:id', component: WorkingHoursDetailsComponent },
-      { path: 'settings', component: SettingsComponent },
+      { path: 'settings', component: SettingsComponent ,
+        children: []
+      },
       { path: 'profile', component: ProfileComponent },
       { path: 'faqs', component: FaqsTableComponent },
       { path: 'faqs/add', component: FagsDetailsComponent },
