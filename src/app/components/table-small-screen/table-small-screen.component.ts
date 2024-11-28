@@ -36,8 +36,9 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
     this.filterdRecords = this.records
 
   }
-  onAction(action: ITableAction, item: any) {
 
+  onAction(action: ITableAction, item: any,event:MouseEvent) {
+    event.stopPropagation() //not work
     let valueEmit = { action: action, record: item }
     this.onActionCliked.emit(valueEmit)
     this.autoCallActions(action, item)
@@ -57,7 +58,7 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
       this.router.navigateByUrl(action.apiName_or_route + '/' + recordId)
     }
   }
-  
+
 
   callDeleteAction(action: ITableAction, id: any) {
     this.ApiService.delete(action.apiName_or_route, id).subscribe(res => {

@@ -1,6 +1,15 @@
 <ng-container *ngFor="let record of filterdRecords">
     <p-card>
         <p-accordion [value]="0">
+          <div class="d-flex justify-content-end actions-icon" *ngIf="actions">
+            <div *ngFor="let action of actions">
+                <div class="" (click)="onAction(action,record,$event)">
+                    <span *ngIf="action.name==='view'" class="pi pi-eye "></span>
+                    <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square"></span>
+                    <span *ngIf="action.name==='delete'" class="pi pi-trash"></span>
+                </div>
+            </div>
+        </div>
           <p-accordion-panel [value]="record">
             <p-accordion-header>
                <div class="d-flex justify-content-between w-100">
@@ -10,15 +19,6 @@
                         <span>{{record[item.keyName]}}</span>
                        }
                    </div>
-                  <div class="d-flex actions-icon" *ngIf="actions">
-                    <div *ngFor="let action of actions">
-                        <div class="" (click)="onAction(action,record)">
-                            <span *ngIf="action.name==='view'" class="pi pi-eye "></span>
-                            <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square"></span>
-                            <span *ngIf="action.name==='delete'" class="pi pi-trash"></span>
-                        </div>
-                    </div>
-                </div>
                </div>
             </p-accordion-header>
             <p-accordion-content>
