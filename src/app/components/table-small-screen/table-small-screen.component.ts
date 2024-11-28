@@ -5,6 +5,7 @@ import { Card } from 'primeng/card';
 import { EAction, EType, IcolHeader, ITableAction } from '../table/table.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { DialogComponent } from '../dialog/dialog.component';
 export enum ETableShow {
   header = "header",
   content = "content"
@@ -15,7 +16,7 @@ export interface IcolHeaderSmallTable extends IcolHeader {
 @Component({
   selector: 'app-table-small-screen',
   standalone: true,
-  imports: [Card, Accordion, AccordionHeader, AccordionPanel, AccordionContent, NgIf, NgFor, JsonPipe],
+  imports: [Card, Accordion, AccordionHeader,DialogComponent, AccordionPanel, AccordionContent, NgIf, NgFor, JsonPipe],
   templateUrl: './table-small-screen.component.html',
   styleUrl: './table-small-screen.component.scss'
 })
@@ -25,10 +26,11 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
   @Input({ required: true }) records: any = []
   @Input() actions: ITableAction[] = []
   @Output() onActionCliked = new EventEmitter()
-
+  showConfirmMessage:boolean=false
   ApiService = inject(ApiService)
   router = inject(Router)
   filterdRecords: any[] = []
+  eventEmitValue:any={action:{},record:{}}
   ngOnInit() {
     this.filterdRecords = this.records
   }
@@ -38,32 +40,38 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
   }
 
   onAction(action: ITableAction, item: any,event:MouseEvent) {
-    event.stopPropagation() //not work
-    let valueEmit = { action: action, record: item }
-    this.onActionCliked.emit(valueEmit)
+    event.stopPropagation() //not work;
+    this.eventEmitValue.action=action;
+    this.eventEmitValue.record=item;
+    this.onActionCliked.emit(this.eventEmitValue)
     this.autoCallActions(action, item)
   }
 
-  getNameOfIDHeader(headerType: EType) {
-    let idName = this.colsHeaderSmallTable.filter(item => item.type == headerType)
+  getNameOfIDHeader() {
+    let idName = this.colsHeaderSmallTable.filter(item => item.type == EType.id)
     return idName[0].keyName
   }
 
 
   autoCallActions(action: ITableAction, record: any) {
-    let recordId = record[this.getNameOfIDHeader(EType.id)]
+    let recordId = record[this.getNameOfIDHeader()]
     if (action.name == EAction.delete && action.autoCall) {
-      this.callDeleteAction(action, recordId)
+      this.showConfirmMessage=!this.showConfirmMessage
     } else if ((action.name == EAction.edit || action.name == EAction.view) && action.autoCall) {
       this.router.navigateByUrl(action.apiName_or_route + '/' + recordId)
     }
   }
 
-
+  onConfirmMessage(){
+    let action =this.eventEmitValue.action;
+    let recordId =this.eventEmitValue.record[this.getNameOfIDHeader()] ;
+    this.showConfirmMessage=false
+    this.callDeleteAction(action, recordId);
+  }
   callDeleteAction(action: ITableAction, id: any) {
     this.ApiService.delete(action.apiName_or_route, id).subscribe(res => {
       if (res)
-        this.filterdRecords = this.records.filter((item: any) => item[this.getNameOfIDHeader(EType.id)] != id)
+        this.filterdRecords = this.records.filter((item: any) => item[this.getNameOfIDHeader()] != id)
     })
   }
 }
