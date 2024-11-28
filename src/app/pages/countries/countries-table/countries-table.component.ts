@@ -9,12 +9,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 
 @Component({
   selector: 'app-countries-table',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './countries-table.component.html',
   styleUrl: './countries-table.component.scss'
 })
@@ -65,6 +66,7 @@ export class CountriesTableComponent {
   filteredData: any;
   countriesList: any = []
   columns: IcolHeader[] = [];
+  totalCount: number = 0;
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
@@ -110,6 +112,7 @@ export class CountriesTableComponent {
     this.ApiService.post('Country/GetAllCountry',payload).subscribe((res: any) => {
       if (res) {
         this.countriesList = res.data.dataList;
+        this.totalCount = res.data.totalCount;
         this.filteredData = [...this.countriesList]; // Initialize filtered data
         this.paginatorOptions.totalRecords = res.data.length;
       }

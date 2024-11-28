@@ -66,6 +66,7 @@ export class CitiesTableComponent {
   columns: IcolHeader[] = [];
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
+  totalCount: number = 0;
 
   selectedLang: any;
   languageService = inject(LanguageService);
@@ -113,6 +114,7 @@ export class CitiesTableComponent {
     this.ApiService.post('City/GetAll',paylod).subscribe((res: any) => {
       if (res.data) {
         this.citiesList = res.data.dataList;
+        this.totalCount = res.data.totalCount;
         this.filteredData = [...this.citiesList]; // Initialize filtered data
         this.paginatorOptions.totalRecords = res.data?.length|0;
       }
