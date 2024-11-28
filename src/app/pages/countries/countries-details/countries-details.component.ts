@@ -37,18 +37,18 @@ export class CountriesDetailsComponent implements OnInit {
         Validations.onlyArabicValidators()
       ]
     }),
-    enDescription: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validations.englishCharsValidator(),
-      ]
-    }),
-    arDescription: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validations.arabicCharsValidator()
-      ]
-    }),
+    // enDescription: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //     Validations.englishCharsValidator(),
+    //   ]
+    // }),
+    // arDescription: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //     Validations.arabicCharsValidator()
+    //   ]
+    // }),
     currency: new FormControl('', {
       validators: [
         Validators.required,

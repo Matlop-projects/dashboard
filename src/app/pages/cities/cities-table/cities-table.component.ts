@@ -72,7 +72,7 @@ export class CitiesTableComponent {
   ngOnInit() {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
-    this.getAllCountries();
+    this.getAllCities();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
@@ -100,10 +100,19 @@ export class CitiesTableComponent {
     ];
   }
 
-  getAllCountries() {
-    this.ApiService.get('City/GetAll').subscribe((res: any) => {
+  getAllCities() {
+    let paylod={
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enName: "",
+      arName: "",
+      postalCode: "string"
+    }
+    this.ApiService.post('City/GetAll',paylod).subscribe((res: any) => {
       if (res.data) {
-        this.citiesList = res.data;
+        this.citiesList = res.data.dataList;
         this.filteredData = [...this.citiesList]; // Initialize filtered data
         this.paginatorOptions.totalRecords = res.data?.length|0;
       }

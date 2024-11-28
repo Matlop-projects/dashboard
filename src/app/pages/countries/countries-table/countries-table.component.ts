@@ -99,9 +99,17 @@ export class CountriesTableComponent {
   }
 
   getAllCountries() {
-    this.ApiService.get('Country/GetAllCountry').subscribe((res: any) => {
+    let payload ={
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enName: "",
+      arName: "",
+    }
+    this.ApiService.post('Country/GetAllCountry',payload).subscribe((res: any) => {
       if (res) {
-        this.countriesList = res.data;
+        this.countriesList = res.data.dataList;
         this.filteredData = [...this.countriesList]; // Initialize filtered data
         this.paginatorOptions.totalRecords = res.data.length;
       }
