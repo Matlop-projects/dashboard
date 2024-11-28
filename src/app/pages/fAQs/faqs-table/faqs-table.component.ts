@@ -56,8 +56,8 @@ export class FaqsTableComponent {
   }
 
   faqSearchCreteria = {
-    "pageNumber": 1,
-    "pageSize": 8,
+    "pageNumber": 0,
+    "pageSize": 7,
     "sortingExpression": "",
     "sortingDirection": 0,
     "enTitle": "",
@@ -75,6 +75,7 @@ export class FaqsTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+
   ngOnInit() {
     this.getAllFAQS();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -111,10 +112,10 @@ export class FaqsTableComponent {
   }
 
   getAllFAQS() {
-    this.ApiService.post('FAQs/GetAll' ,this.faqSearchCreteria).subscribe((res: any) => {
+    this.ApiService.post('FAQs/GetAll', this.faqSearchCreteria).subscribe((res: any) => {
       if (res) {
         this.faqsList = res.data.dataList;
-        this.totalCount =  res.data.totalCount;
+        this.totalCount = res.data.totalCount;
         this.filteredData = [...this.faqsList];
         console.log('FAQs loaded:', this.faqsList);
       }
@@ -124,7 +125,8 @@ export class FaqsTableComponent {
 
   onPageChange(event: any) {
     console.log(event);
-
+    this.faqSearchCreteria.pageNumber = event;
+    this.getAllFAQS();
   }
 
   filterData() {

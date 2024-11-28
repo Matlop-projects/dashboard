@@ -12,7 +12,7 @@ import { NgClass, NgIf } from '@angular/common';
 })
 export class PaginationComponent {
 
-  @Input() totalCount: number = 43;
+  @Input() totalCount: number = 0;
   @Input() rows: number = 8;
   @Output() onPageChange: EventEmitter<number> = new EventEmitter<number>();
 
@@ -20,7 +20,7 @@ export class PaginationComponent {
 
   onPage(event: any): void {
     let pageNum = 1;
-    pageNum = (event.first / 8) + 1;
+    pageNum = (event.first / this.rows);
     this.onPageChange.emit(pageNum);
   }
 
