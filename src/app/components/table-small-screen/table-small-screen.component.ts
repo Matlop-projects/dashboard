@@ -57,6 +57,7 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
       this.router.navigateByUrl(action.apiName_or_route + '/' + recordId)
     }
   }
+  
 
   callDeleteAction(action: ITableAction, id: any) {
     this.ApiService.delete(action.apiName_or_route, id).subscribe(res => {

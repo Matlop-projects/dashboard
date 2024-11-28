@@ -54,6 +54,6 @@
 </ng-template>
 
 <app-dialog [message]="'Are you sure to delete this item ?'"  [visible]="showConfirmMessage">
-    <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> No</button>
     <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Delete</button>
+    <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> No</button>
 </app-dialog>

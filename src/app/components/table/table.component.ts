@@ -59,7 +59,7 @@ export class TableComponent implements OnInit, OnChanges {
   showConfirmMessage:boolean=false
   ApiService = inject(ApiService);
   router = inject(Router);
-  eventEmitValue:any
+  eventEmitValue:any={action:{},record:{}}
   ngOnInit() {
     this.filterdRecords = this.records;
   }
@@ -70,7 +70,7 @@ export class TableComponent implements OnInit, OnChanges {
     this.eventEmitValue.action=action;
     this.eventEmitValue.record=item;
 
-    this.onActionCliked.emit(this.eventEmitValue.record);
+    this.onActionCliked.emit(this.eventEmitValue);
     this.autoCallActions(action, item);
   }
 
@@ -85,13 +85,13 @@ export class TableComponent implements OnInit, OnChanges {
     if (action.name == EAction.delete && action.autoCall) {
       this.showConfirmMessage=!this.showConfirmMessage
     } else if ((action.name == EAction.edit || action.name == EAction.view) && action.autoCall) {
-      console.log("TableComponent  autoCallActions  action.apiName_or_route+'/'+recordId:", action.apiName_or_route + '/' + recordId)
       this.router.navigateByUrl(action.apiName_or_route + '/' + recordId);
     }
   }
   onConfirmMessage(){
-    let action =this.eventEmitValue.action
-    let recordId =this.eventEmitValue.record[this.getNameOfIDHeader()] 
+    let action =this.eventEmitValue.action;
+    let recordId =this.eventEmitValue.record[this.getNameOfIDHeader()] ;
+    this.showConfirmMessage=false
     this.callDeleteAction(action, recordId);
   }
 
