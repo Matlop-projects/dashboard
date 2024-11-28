@@ -95,12 +95,20 @@ small {
         border-radius: 8px;
         padding: 20px;
 
-        .actions {
+        .action-filter {
           display: flex;
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
-
+            span.pi-filter{
+                padding: 8px;
+                border: 1px solid gray;
+                border-radius: 6px;
+                &:hover{
+                    color:#fff;
+                    background-color: gray;
+                }
+        }
 
           a {
             text-decoration: none;

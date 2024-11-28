@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
-import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -9,11 +8,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 @Component({
   selector: 'app-cities-table',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './cities-table.component.html',
   styleUrl: './cities-table.component.scss'
 })
@@ -37,16 +37,7 @@ export class CitiesTableComponent {
   ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
-  paginatorOptions: IPaginator = {
-    displayItem: 5,
-    totalRecords: 0,
-  }
-  paginatorValue: IPaignatotValue = {
-    first: 0,
-    page: 1,
-    pageCount: 0,
-    rows: 0
-  }
+ 
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -67,7 +58,15 @@ export class CitiesTableComponent {
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
   totalCount: number = 0;
-
+   citySearch={
+    pageNumber: 0,
+    pageSize: 7,
+    sortingExpression: "",
+    sortingDirection: 0,
+    enName: "",
+    arName: "",
+    postalCode: ""
+  }
   selectedLang: any;
   languageService = inject(LanguageService);
   ngOnInit() {
@@ -102,29 +101,20 @@ export class CitiesTableComponent {
   }
 
   getAllCities() {
-    let paylod={
-      pageNumber: 0,
-      pageSize: 7,
-      sortingExpression: "",
-      sortingDirection: 0,
-      enName: "",
-      arName: "",
-      postalCode: "string"
-    }
-    this.ApiService.post('City/GetAll',paylod).subscribe((res: any) => {
+  console.log('ggg',this.citySearch)
+    this.ApiService.post('City/GetAll',this.citySearch).subscribe((res: any) => {
       if (res.data) {
         this.citiesList = res.data.dataList;
         this.totalCount = res.data.totalCount;
         this.filteredData = [...this.citiesList]; // Initialize filtered data
-        this.paginatorOptions.totalRecords = res.data?.length|0;
       }
     })
   }
 
   onPageChange(event: any) {
-    this.paginatorValue = event
-    // console.log("DashboardComponent  onPageChange  this.paginatorValue:", this.paginatorValue)
-    // this.datafilterd =this.paginateArray(this.data,event)
+    console.log(event);
+    this.citySearch.pageNumber = event;
+    this.getAllCities();
   }
 
   filterData() {

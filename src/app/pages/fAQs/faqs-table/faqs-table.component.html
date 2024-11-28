@@ -9,13 +9,12 @@
       </div>
     </div>
     <div class="details-container">
-      <div class="actions">
+      <div class="action-filter">
         <a routerLink="/faqs/add"> + Add New Question</a>
-        <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/>
+        <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
+        <!-- <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/> -->
       </div>
-      <div (click)="openFilter()">
-        filter
-      </div>
+    
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
      </div>
@@ -24,15 +23,21 @@
 
         </app-table-small-screen>
     </div>
-      <!-- <app-paginator [paginatorOptions]="paginatorOptions" [records]="faqsList"
-        (onPageChangeValue)="onPageChange($event)"></app-paginator> -->
-        <app-pagination (onPageChange)="onPageChange($event)" [totalCount]="totalCount"></app-pagination>
+       <app-pagination (onPageChange)="onPageChange($event)" [totalCount]="totalCount"></app-pagination>
 
     </div>
   </div>
 </div>
 <app-drawer [visible]="showFilter" [header]="'Filter FAQS'" (onClose)="onCloseFilter($event)">
-  <h1>hello Drawer</h1>
+  <div header>
+    <h1>hello Drawer</h1>
+  </div>
+  <div class="content">
+    my form
+  </div>
+  <div footer>
+    <h1>hello Drawer</h1>
+  </div>
 </app-drawer>
 
 

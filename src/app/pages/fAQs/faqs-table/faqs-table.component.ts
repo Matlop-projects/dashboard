@@ -1,6 +1,5 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
-import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -56,12 +55,12 @@ export class FaqsTableComponent {
   }
 
   faqSearchCreteria = {
-    "pageNumber": 0,
-    "pageSize": 7,
-    "sortingExpression": "",
-    "sortingDirection": 0,
-    "enTitle": "",
-    "arTitle": ""
+    pageNumber: 0,
+    pageSize: 7,
+    sortingExpression: "",
+    sortingDirection: 0,
+    enTitle: "",
+    arTitle: ""
   }
 
   totalCount: number = 0;

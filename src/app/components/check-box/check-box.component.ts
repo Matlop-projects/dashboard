@@ -12,5 +12,8 @@ export class CheckBoxComponent {
 @Input()label:string='';
 @Input()disabled:boolean=false;
 @Input()control:any =new FormControl()
-
+asd(event:any){
+  console.log("CheckBoxComponent  asd  event:", event.checked)
+  
+}
 }

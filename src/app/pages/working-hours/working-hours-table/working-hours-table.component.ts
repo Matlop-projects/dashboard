@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
-import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -14,7 +13,7 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 @Component({
   selector: 'app-working-hours-table',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './working-hours-table.component.html',
   styleUrl: './working-hours-table.component.scss'
 })
@@ -38,16 +37,7 @@ export class WorkingHoursTableComponent {
   ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
-  paginatorOptions: IPaginator = {
-    displayItem: 5,
-    totalRecords: 0,
-  }
-  paginatorValue: IPaignatotValue = {
-    first: 0,
-    page: 1,
-    pageCount: 0,
-    rows: 0
-  }
+
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -98,15 +88,12 @@ export class WorkingHoursTableComponent {
       if (res) {
         this.workingHoursList = res.data;
         this.filteredData = [...this.workingHoursList]; // Initialize filtered data
-        this.paginatorOptions.totalRecords = res.data.length;
-        console.log('working hours loaded:', this.workingHoursList);
       }
 
     })
   }
 
   onPageChange(event: any) {
-    this.paginatorValue = event
     // console.log("DashboardComponent  onPageChange  this.paginatorValue:", this.paginatorValue)
     // this.datafilterd =this.paginateArray(this.data,event)
   }
