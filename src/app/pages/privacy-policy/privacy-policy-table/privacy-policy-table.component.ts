@@ -12,23 +12,25 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 
-const global_pageName='complaint'
-const global_router_add_url_in_Table ='/'+global_pageName+'/add'
-const global_router_view_url =global_pageName+'/view'
-const global_router_edit_url =global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAll'
-const global_API_delete=global_pageName+'/Delete?requestId'
+const global_pageName='PrivacyPolicy';
+const global_router_add_url_in_Table ='/settings/privacy_policy/add';
+const global_router_view_url ='/settings/privacy_policy/view';
+const global_router_edit_url ='/settings/privacy_policy/edit';
+const global_API_getAll =global_pageName+'/GetAll';
+const global_API_delete=global_pageName+'/Delete?requestId';
+
 
 @Component({
-  selector: 'app-complaint-table',
+  selector: 'app-privacy-policy-table',
   standalone: true,
   imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './complaint-table.component.html',
-  styleUrl: './complaint-table.component.scss'
+  templateUrl: './privacy-policy-table.component.html',
+  styleUrl: './privacy-policy-table.component.scss'
 })
-export class ComplaintTableComponent {
-  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName =signal<string>(global_pageName);
+export class PrivacyPolicyTableComponent {
+
+  global_router_add_url_in_Table = global_router_add_url_in_Table;
+  pageName =signal<string>('Privacy and Policy');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -87,7 +89,7 @@ export class ComplaintTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName)
+    this.pageName.set('Privacy and Policy')
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
@@ -99,19 +101,20 @@ export class ComplaintTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'complaintId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'name', header: 'Name', type: EType.text, show: true },
-      { keyName: 'email', header: 'email', type: EType.text, show: true },
-      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, show: true },
-      { keyName: 'message', header: 'message', type: EType.text, show: true },
+      { keyName: 'policyId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'enTitle', header: 'Title En', type: EType.text, show: true },
+      { keyName: 'arTitle', header: 'Title Ar', type: EType.text, show: true },
+      { keyName: 'enDescription', header: 'Description En', type: EType.editor, show: true },
+      { keyName: 'arDescription', header: 'Description Ar', type: EType.editor, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'complaintId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'name', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'message', header: 'Message', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'policyId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'enTitle', header: 'Title En', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arTitle', header: 'Title Ar', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'enDescription', header: 'Description En', type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'arDescription', header: 'Description Ar', type: EType.editor, showAs: ETableShow.content }
     ];
   }
 
@@ -140,22 +143,6 @@ export class ComplaintTableComponent {
     this.API_getAll();
   }
 
-  filterData() {
-    this.dataList = this.filteredData;
-    const search = this.searchValue.toLowerCase();
-
-    if (this.searchValue.length == 1) {
-      this.dataList = this.filteredData;
-      return;
-    }
-
-    this.dataList = this.dataList.filter((item: any) =>
-      item.enTitle.toLowerCase().includes(search) ||
-      item.arTitle.toLowerCase().includes(search) ||
-      item.enDescription.toLowerCase().includes(search) ||
-      item.arDescription.toLowerCase().includes(search)
-    );
-  }
-
 }
+
 

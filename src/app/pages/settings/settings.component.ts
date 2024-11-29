@@ -16,31 +16,33 @@ export class SettingsComponent {
 
   ngOnInit() {
     this.items = [
-        {
-            label: 'Features',
-            icon: 'pi pi-star',
-            // routerLink:'/settings/faqs'
-        },
-        {
-            label: 'Public Pages',
-            icon: 'pi pi-globe',
-            items: [
-                {
-                    label: 'FAQs',
-                    icon: 'pi pi-question',
-                    routerLink:'/settings/faqs'
-                },
-                {
-                    label: 'Blocks',
-                    icon: 'pi pi-server'
-                },
-                {
-                    label: 'UI Kit',
-                    icon: 'pi pi-pencil'
-                }
-            ]
-        }
+      {
+        label: 'Public Pages',
+        icon: 'pi pi-globe',
+        items: [
+          {
+            label: 'FAQs',
+            icon: 'pi pi-question',
+            routerLink: '/settings/faqs'
+          },
+          {
+            label: 'Terms & Conditions',
+            icon: 'pi pi-eject',
+            routerLink: '/settings/terms_conditions'
+          },
+          {
+            label: 'Privacy Policy',
+            icon: 'pi pi-eject',
+            routerLink: '/settings/privacy_policy'
+          }
+        ]
+      },
+      {
+        label: 'Features',
+        icon: 'pi pi-star',
+        // routerLink:'/settings/faqs'
+      }
     ]
-}
+  }
 }
 

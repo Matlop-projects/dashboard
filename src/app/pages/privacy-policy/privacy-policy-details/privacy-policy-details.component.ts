@@ -13,52 +13,53 @@ import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 
-const global_PageName='complaint';
+const global_PageName='PrivacyPolicy';
 const global_API_deialis=global_PageName+'/GetById';
 const global_API_create=global_PageName+'/Create';
 const global_API_update=global_PageName+'/Update';
-const global_routeUrl =global_PageName
+const global_routeUrl ='/settings/privacy_policy'
 
 @Component({
-  selector: 'app-complaint-details',
+  selector: 'app-privacy-policy-details',
   standalone: true,
   imports: [ReactiveFormsModule,TitleCasePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
-  templateUrl: './complaint-details.component.html',
-  styleUrl: './complaint-details.component.scss'
+  templateUrl: './privacy-policy-details.component.html',
+  styleUrl: './privacy-policy-details.component.scss'
 })
-export class ComplaintDetailsComponent {
+export class PrivacyPolicyDetailsComponent {
 
-  pageName =signal<string>(global_PageName);
+  pageName =signal<string>('Privacy and Policy');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
-    name: new FormControl('', {
+    enTitle: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.englishCharsValidator(),
+        Validations.englishCharsValidator('faqs.validation_english_title'),
       ],
     }),
-    email: new FormControl('', {
+    arTitle: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.emailValidator()
+        Validations.arabicCharsValidator('isArabic')
       ]
     }),
-    phoneNumber: new FormControl('', {
+    enDescription: new FormControl('', {
       validators: [
-        Validators.required,
-        Validations.onlyNumberValidator(),
+        // Validators.required,
+        // Validations.englishCharsValidator(),
       ]
     }),
-    message: new FormControl('', {
+    arDescription: new FormControl('', {
       validators: [
-        Validators.required,
+        // Validators.required,
+        // Validations.arabicCharsValidator()
       ]
     }),
-    complaintId:new FormControl(this.getID|0,Validators.required),
+    policyId:new FormControl(this.getID|0,Validators.required),
     userType: new FormControl(1),
   })
 
@@ -79,7 +80,7 @@ export class ComplaintDetailsComponent {
   }
 
   ngOnInit() {
-    this.pageName.set(global_PageName)
+    this.pageName.set('Privacy and Policy')
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
   }
@@ -147,4 +148,5 @@ export class ComplaintDetailsComponent {
 
 
 }
+
 
