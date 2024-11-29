@@ -8,6 +8,10 @@ export const menuItems =
     {icon: 'pi pi-question' , label: 'FAQS' , route: '/faqs'},
     {icon: 'pi pi-globe' , label: 'COUNTRIES' , route: '/country'},
     {icon: 'pi pi-building' , label: 'CITIES' , route: '/city'},
+    {icon: 'pi pi-building' , label: 'CANCEL REASON' , route: '/cancel-reason'},
+    {icon: 'pi pi-building' , label: 'COMPLAINT' , route: '/complaint'},
+    {icon: 'pi pi-building' , label: 'CONTRACT TYPE' , route: '/contract-type'},
+    {icon: 'pi pi-building' , label: 'COPONE' , route: '/copone'},
 
 
 ]

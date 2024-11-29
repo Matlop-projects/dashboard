@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -14,31 +14,30 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 
 @Component({
-  selector: 'app-fags-details',
+  selector: 'app-cancel-reason-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
-  templateUrl: './fags-details.component.html',
-  styleUrl: './fags-details.component.scss'
+  imports: [ReactiveFormsModule,TitleCasePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  templateUrl: './cancel-reason-details.component.html',
+  styleUrl: './cancel-reason-details.component.scss'
 })
-
-export class FagsDetailsComponent implements OnInit {
-
+export class CancelReasonDetailsComponent  {
+  pageName =signal<string>('');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
-    enTitle: new FormControl('', {
+    enName: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validations.englishCharsValidator(),
       ],
     }),
-    arTitle: new FormControl('', {
+    arName: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.arabicCharsValidator('isArabic')
+        Validations.arabicCharsValidator()
       ]
     }),
     enDescription: new FormControl('', {
@@ -67,13 +66,14 @@ export class FagsDetailsComponent implements OnInit {
     ]
   }
 
-  get faqsID() {
+  get getID() {
     return this.route.snapshot.params['id']
   }
 
   ngOnInit() {
+    this.pageName.set('Cancel Reason')
     if (this.tyepMode() !== 'add')
-      this.getFaqsDetails()
+      this.getCancelReasonsDetails()
   }
 
   tyepMode() {
@@ -90,8 +90,8 @@ export class FagsDetailsComponent implements OnInit {
     }
   }
 
-  getFaqsDetails() {
-    this.ApiService.get(`FAQs/GetById/${this.faqsID}`).subscribe((res: any) => {
+  getCancelReasonsDetails() {
+    this.ApiService.get(`CancelReason/GetCancelReason/${this.getID}`).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -100,43 +100,47 @@ export class FagsDetailsComponent implements OnInit {
   onSubmit() {
     const payload = {
       ...this.form.value,
-      questionId: this.faqsID,
+      reasonId: this.getID,
       userType: 1
     }
     if (this.tyepMode() === 'add')
-      this.addFQS(payload)
+      this.addCancelReason(payload)
     else
-      this.editFQS(payload)
+      this.editCancelReason(payload)
   }
 
+  navigateToPageTable(){
+    this.router.navigateByUrl('/cancel-reason')
+  }
 
   cancel() {
     const hasValue = this.confirm.formHasValue(this.form)
     if (hasValue)
       this.showConfirmMessage = !this.showConfirmMessage
     else
-      this.router.navigateByUrl('/faqs')
+      this.navigateToPageTable()
 
   }
 
   onConfirmMessage() {
-    this.router.navigateByUrl('/faqs')
+    this.navigateToPageTable()
 
   }
 
-  addFQS(payload: any) {
-    this.ApiService.post('FAQs/Create', payload, { showAlert: true, message: 'Add FAQS Successfuly' }).subscribe(res => {
+  addCancelReason(payload: any) {
+    this.ApiService.post('CancelReason/CreateCancelReason', payload, { showAlert: true, message: 'Add FAQS Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.navigateToPageTable()
     })
   }
 
-  editFQS(payload: any) {
-    this.ApiService.put('FAQs/Update', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
+  editCancelReason(payload: any) {
+    this.ApiService.put('CancelReason/UpdateCancelReason', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.navigateToPageTable()
     })
   }
 
 
 }
+
