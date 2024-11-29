@@ -37,13 +37,13 @@ export class ContractTypeDetailsComponent {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
-    nameEn: new FormControl('', {
+    enName: new FormControl('', {
       validators: [
         Validators.required,
         Validations.englishCharsValidator(),
       ],
     }),
-    nameAr: new FormControl('', {
+    arName: new FormControl('', {
       validators: [
         Validators.required,
         Validations.arabicCharsValidator()

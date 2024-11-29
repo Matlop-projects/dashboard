@@ -6,6 +6,8 @@
             [options]="list" 
             optionLabel="name"
             optionValue="code"
+            [disabled]="disabled"
+            [readonly]="readOnly"
              (onChange)="onChange($event)" 
             [placeholder]="placeholder"
            [filter]="false"  />
