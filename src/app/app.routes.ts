@@ -50,13 +50,14 @@ export const routes: Routes = [
       { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/view/:id', component: WorkingHoursDetailsComponent },
       { path: 'settings', component: SettingsComponent ,
-        children: []
+        children: [
+          { path: 'faqs', component: FaqsTableComponent },
+          { path: 'faqs/add', component: FagsDetailsComponent },
+          { path: 'faqs/edit/:id', component: FagsDetailsComponent },
+          { path: 'faqs/view/:id', component: FagsDetailsComponent },
+        ]
       },
       { path: 'profile', component: ProfileComponent },
-      { path: 'faqs', component: FaqsTableComponent },
-      { path: 'faqs/add', component: FagsDetailsComponent },
-      { path: 'faqs/edit/:id', component: FagsDetailsComponent },
-      { path: 'faqs/view/:id', component: FagsDetailsComponent },
       { path: 'country', component: CountriesTableComponent },
       { path: 'country/add', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },

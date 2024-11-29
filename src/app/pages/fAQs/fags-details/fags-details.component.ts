@@ -115,26 +115,26 @@ export class FagsDetailsComponent implements OnInit {
     if (confirmed)
       this.showConfirmMessage = !this.showConfirmMessage
     else
-      this.router.navigateByUrl('/faqs')
+      this.router.navigateByUrl('/settings/faqs')
 
   }
 
   onConfirmMessage() {
-    this.router.navigateByUrl('/faqs')
+    this.router.navigateByUrl('/settings/faqs')
 
   }
 
   addFQS(payload: any) {
     this.ApiService.post('FAQs/Create', payload, { showAlert: true, message: 'Add FAQS Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.router.navigateByUrl('settings/faqs')
     })
   }
 
   editFQS(payload: any) {
     this.ApiService.put('FAQs/Update', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.router.navigateByUrl('settings/faqs')
     })
   }
 

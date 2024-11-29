@@ -29,12 +29,12 @@ export class FaqsTableComponent {
     },
     {
       name: EAction.view,
-      apiName_or_route: 'faqs/view',
+      apiName_or_route: '/settings/faqs/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: 'faqs/edit',
+      apiName_or_route: '/settings/faqs/edit',
       autoCall: true
     }
   ]

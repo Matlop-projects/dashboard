@@ -10,11 +10,11 @@
     </div>
     <div class="details-container">
       <div class="action-filter">
-        <a routerLink="/faqs/add"> + Add New Question</a>
+        <a routerLink="/settings/faqs/add"> + Add New Question</a>
         <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
         <!-- <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/> -->
       </div>
-    
+
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
      </div>
