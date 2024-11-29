@@ -38,6 +38,9 @@ body {
 
     }
 }
+.p-datepicker{
+  width: 100%!important;
+   }
 
 .bold {
     font-weight: bold;
@@ -145,7 +148,8 @@ small {
         display: none !important;
       }
     }
-
+ 
+   
     // Small devices (portrait phones)
     @media only screen and (min-width:250.98px) and (max-width: 575.98px) {
       .responsive-accordions {

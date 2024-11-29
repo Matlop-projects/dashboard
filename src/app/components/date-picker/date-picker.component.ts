@@ -1,0 +1,31 @@
+import { Component, Input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
+import { DatePickerModule } from 'primeng/datepicker';
+import { NgIf } from '@angular/common';
+
+@Component({
+  selector: 'app-date-picker',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    ValidationHandlerPipePipe,
+    DatePickerModule,
+    NgIf
+  ],
+  templateUrl: './date-picker.component.html',
+  styleUrl: './date-picker.component.scss'
+})
+export class DatePickerComponent {
+  @Input() label!: string;
+  @Input() readOnly: boolean = false;
+  @Input() disabled: boolean = false;
+  @Input() placeholder: any ;
+  @Input() control: any = new FormControl();
+
+
+
+  splitDate(date:any){
+       return date?.split("T")[0]
+  }
+}
