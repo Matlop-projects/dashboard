@@ -98,19 +98,21 @@ export class ContractTypeTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'complaintId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'name', header: 'Name', type: EType.text, show: true },
-      { keyName: 'email', header: 'email', type: EType.text, show: true },
-      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, show: true },
-      { keyName: 'message', header: 'message', type: EType.text, show: true },
+      { keyName: 'contractTypeId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
+      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
+      { keyName: 'noOfVisit', header: 'No. Visit', type: EType.text, show: true },
+      { keyName: 'isActive', header: 'Active', type: EType.text, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'complaintId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'name', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'message', header: 'Message', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'contractTypeId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName', header: 'Phone', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'noOfVisit', header: 'No. Visit', type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'isActive', header: 'Active', type: EType.editor, showAs: ETableShow.content }
+
     ];
   }
 

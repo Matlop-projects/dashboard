@@ -14,21 +14,25 @@
         <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Name'"
-                [control]="form.get('name')"></app-input-text>
+              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Name (en)'"
+                [control]="form.get('nameEn')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'email'"
-                [control]="form.get('email')"></app-input-text>
+              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Name (ar)'"
+                [control]="form.get('nameAr')"></app-input-text>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Phone Number'"
-                  [control]="form.get('phoneNumber')"></app-input-text>
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+              <app-select [placeholder]="form.get('serviceId')?.value" class="w-100" [list]="servicesList" [label]="'Services'"
+                 [control]="form.get('serviceId')"></app-select>
+           </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Number of visit'"
+                  [control]="form.get('noOfVisit')"></app-input-text>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Message'"
-                  [control]="form.get('message')"></app-input-text>
-              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
+                <app-check-box  [disabled]="tyepMode()=='View'"  [label]="'isActive'" [control]="form.get('isActive')"></app-check-box>
+             </div>
+          
            
             <div class="actions mt-5 text-center">
               <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!='View'">
