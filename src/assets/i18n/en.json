@@ -13,6 +13,7 @@
     "english_only_validation":"accept only english ",
     "decimal_number_validation":"accept only decimal number like 123.456",
     "only_number_validation":"accept only numbers",
-    "only_char_validation":"accept only char"
+    "only_char_validation":"accept only char",
+    "email_validation":"accept email only ex: aaa@aaa.com"
   }
 }

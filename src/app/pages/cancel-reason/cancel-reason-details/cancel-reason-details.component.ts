@@ -1,9 +1,9 @@
-import { Component, inject, OnChanges, OnInit, signal, SimpleChanges } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf, TitleCasePipe } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -16,7 +16,7 @@ import { UploadFileComponent } from "../../../components/upload-file/upload-file
 @Component({
   selector: 'app-cancel-reason-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TitleCasePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './cancel-reason-details.component.html',
   styleUrl: './cancel-reason-details.component.scss'
 })
@@ -61,7 +61,7 @@ export class CancelReasonDetailsComponent  {
         routerLink: '/dashboard',
       },
       {
-        label: 'FAQs',
+        label: this.pageName(),
       },
     ]
   }
@@ -72,22 +72,19 @@ export class CancelReasonDetailsComponent  {
 
   ngOnInit() {
     this.pageName.set('Cancel Reason')
-    if (this.tyepMode() !== 'add')
+    if (this.tyepMode() !== 'Add')
       this.getCancelReasonsDetails()
   }
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit FAQs';
-      return 'edit'
-    } else if (url.includes('view')) {
-      this.bredCrumb.crumbs[1].label = 'View FAQs';
-      return 'view'
-    } else {
-      this.bredCrumb.crumbs[1].label = 'Add FAQs';
-      return 'add'
-    }
+    let result='Add'
+    if (url.includes('edit')) result='Edit'
+    else if (url.includes('view')) result= 'View'
+    else result= 'Add'
+
+    this.bredCrumb.crumbs[1].label = result+' '+this.pageName();
+    return result
   }
 
   getCancelReasonsDetails() {
@@ -103,7 +100,7 @@ export class CancelReasonDetailsComponent  {
       reasonId: this.getID,
       userType: 1
     }
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() == 'Add')
       this.addCancelReason(payload)
     else
       this.editCancelReason(payload)
@@ -128,14 +125,14 @@ export class CancelReasonDetailsComponent  {
   }
 
   addCancelReason(payload: any) {
-    this.ApiService.post('CancelReason/CreateCancelReason', payload, { showAlert: true, message: 'Add FAQS Successfuly' }).subscribe(res => {
+    this.ApiService.post('CancelReason/CreateCancelReason', payload, { showAlert: true, message: `Add ${this.pageName()} Successfuly` }).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   editCancelReason(payload: any) {
-    this.ApiService.put('CancelReason/UpdateCancelReason', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
+    this.ApiService.put('CancelReason/UpdateCancelReason', payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

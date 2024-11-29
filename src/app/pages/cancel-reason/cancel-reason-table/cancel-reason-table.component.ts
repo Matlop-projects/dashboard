@@ -50,7 +50,7 @@ export class CancelReasonTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'FAQs',
+        label: this.pageName(),
       },
     ]
   }

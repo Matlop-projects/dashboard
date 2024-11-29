@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <app-drawer [visible]="showFilter" [header]="'Filter cancel reason'" (onClose)="onCloseFilter($event)">
+  <app-drawer [visible]="showFilter"  [header]="'Filter'+pageName()" (onClose)="onCloseFilter($event)">
     <div header>
       <h1>hello Drawer</h1>
     </div>
