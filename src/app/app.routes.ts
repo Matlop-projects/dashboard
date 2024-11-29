@@ -20,6 +20,14 @@ import { WorkingHoursDetailsComponent } from './pages/working-hours/working-hour
 import { CountriesTableComponent } from './pages/countries/countries-table/countries-table.component';
 import { CityDetailsComponent } from './pages/cities/city-details/city-details.component';
 import { CitiesTableComponent } from './pages/cities/cities-table/cities-table.component';
+import { CancelReasonTableComponent } from './pages/cancel-reason/cancel-reason-table/cancel-reason-table.component';
+import { CancelReasonDetailsComponent } from './pages/cancel-reason/cancel-reason-details/cancel-reason-details.component';
+import { ComplaintTableComponent } from './pages/complaint/complaint-table/complaint-table.component';
+import { ComplaintDetailsComponent } from './pages/complaint/complaint-details/complaint-details.component';
+import { ContractTypeTableComponent } from './pages/contract-type/contract-type-table/contract-type-table.component';
+import { ContractTypeDetailsComponent } from './pages/contract-type/contract-type-details/contract-type-details.component';
+import { CoponeTableComponent } from './pages/copone/copone-table/copone-table.component';
+import { CoponeDetailsComponent } from './pages/copone/copone-details/copone-details.component';
 
 export const routes: Routes = [
   {
@@ -66,6 +74,26 @@ export const routes: Routes = [
       { path: 'city/add', component: CityDetailsComponent },
       { path: 'city/view/:id', component: CityDetailsComponent },
       { path: 'city/edit/:id', component: CityDetailsComponent },
+
+      { path: 'cancel-reason', component: CancelReasonTableComponent },
+      { path: 'cancel-reason/add', component: CancelReasonDetailsComponent },
+      { path: 'cancel-reason/view/:id', component: CancelReasonDetailsComponent },
+      { path: 'cancel-reason/edit/:id', component: CancelReasonDetailsComponent },
+
+      { path: 'complaint', component: ComplaintTableComponent },
+      { path: 'complaint/add', component: ComplaintDetailsComponent },
+      { path: 'complaint/view/:id', component: ComplaintDetailsComponent },
+      { path: 'complaint/edit/:id', component: ComplaintDetailsComponent },
+
+      { path: 'contract-type', component: ContractTypeTableComponent },
+      { path: 'contract-type/add', component: ContractTypeDetailsComponent },
+      { path: 'contract-type/view/:id', component: ContractTypeDetailsComponent },
+      { path: 'contract-type/edit/:id', component: ContractTypeDetailsComponent },
+
+      { path: 'copone', component: CoponeTableComponent },
+      { path: 'copone/add', component: CoponeDetailsComponent },
+      { path: 'copone/view/:id', component: CoponeDetailsComponent },
+      { path: 'copone/edit/:id', component: CoponeDetailsComponent },
 
     ]
   },

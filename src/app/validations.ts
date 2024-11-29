@@ -7,9 +7,21 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
  export const onlyEnglishChar = /^[A-Za-z]*$/;
  const urlRegex = /^((?:https?|ftp):\/\/[^\s/$.?#].[^\s]*)$/;
  const onlyNumbersRegex = /^[0-9]*$/
- const decimalNumber = /^[0-9]*\.?[0-9]*$/
+ const decimalNumber = /^[0-9]*\.?[0-9]*$/;
+ const emailRegex =/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+
 
   export class Validations{
+  
+   
+ static emailValidator(errorMessage?: string): ValidatorFn {
+  return (control: AbstractControl<string>) => {
+    var isValid = emailRegex.test(control.value);
+    return isValid ? null : { email: errorMessage };
+  };
+}
+
     static arabicCharsValidator(errorMessage?: string): ValidatorFn {
         return (control: AbstractControl<string>) => {
           var isValid = isArabic(control.value);

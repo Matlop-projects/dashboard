@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,36 +10,45 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { TitleCasePipe } from '@angular/common';
 
+const global_pageName='complaint'
+const global_router_add_url_in_Table ='/'+global_pageName+'/add'
+const global_router_view_url =global_pageName+'/view'
+const global_router_edit_url =global_pageName+'/edit'
+const global_API_getAll =global_pageName+'/GetAll'
+const global_API_delete=global_pageName+'/Delete?requestId'
 
 @Component({
-  selector: 'app-faqs',
+  selector: 'app-complaint-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './faqs-table.component.html',
-  styleUrl: './faqs-table.component.scss'
+  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  templateUrl: './complaint-table.component.html',
+  styleUrl: './complaint-table.component.scss'
 })
-export class FaqsTableComponent {
+export class ComplaintTableComponent {
+  global_router_add_url_in_Table =global_router_add_url_in_Table
+  pageName =signal<string>(global_pageName);
+
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'FAQs/Delete?requestId',
+      apiName_or_route: global_API_delete,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route: '/settings/faqs/view',
+      apiName_or_route:  global_router_view_url,
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: '/settings/faqs/edit',
+      apiName_or_route: global_router_edit_url, 
       autoCall: true
     }
   ]
   private ApiService = inject(ApiService)
-  private router = inject(Router)
 
 
   bredCrumb: IBreadcrumb = {
@@ -49,25 +58,27 @@ export class FaqsTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'FAQs',
+        label: this.pageName(),
       },
     ]
   }
 
-  faqSearchCreteria = {
+  objectSearch = {
     pageNumber: 0,
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
-    enTitle: "",
-    arTitle: ""
+    name: "",
+    email: "",
+    phoneNumber: ""
+
   }
 
   totalCount: number = 0;
 
   searchValue: any = '';
   filteredData: any;
-  faqsList: any = []
+  dataList: any = []
   columns: IcolHeader[] = [];
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
@@ -76,7 +87,8 @@ export class FaqsTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.getAllFAQS();
+    this.pageName.set(global_pageName) 
+    this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -87,18 +99,19 @@ export class FaqsTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
-      { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
+      { keyName: 'complaintId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'name', header: 'Name', type: EType.text, show: true },
+      { keyName: 'email', header: 'email', type: EType.text, show: true },
+      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, show: true },
+      { keyName: 'message', header: 'message', type: EType.text, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: currentLang == 'ar' ? 'arTitle' : 'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'complaintId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'name', header: 'Name', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'message', header: 'Message', type: EType.editor, showAs: ETableShow.content }
     ];
   }
 
@@ -110,13 +123,12 @@ export class FaqsTableComponent {
     this.showFilter = false
   }
 
-  getAllFAQS() {
-    this.ApiService.post('FAQs/GetAll', this.faqSearchCreteria).subscribe((res: any) => {
+  API_getAll() {
+    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
-        this.faqsList = res.data.dataList;
+        this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
-        this.filteredData = [...this.faqsList];
-        console.log('FAQs loaded:', this.faqsList);
+        this.filteredData = [...this.dataList];
       }
 
     })
@@ -124,23 +136,20 @@ export class FaqsTableComponent {
 
   onPageChange(event: any) {
     console.log(event);
-    this.faqSearchCreteria.pageNumber = event;
-    this.getAllFAQS();
+    this.objectSearch.pageNumber = event;
+    this.API_getAll();
   }
 
   filterData() {
-    this.faqsList = this.filteredData;
+    this.dataList = this.filteredData;
     const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
-
 
     if (this.searchValue.length == 1) {
-      this.faqsList = this.filteredData;
+      this.dataList = this.filteredData;
       return;
     }
 
-    this.faqsList = this.faqsList.filter((item: any) =>
+    this.dataList = this.dataList.filter((item: any) =>
       item.enTitle.toLowerCase().includes(search) ||
       item.arTitle.toLowerCase().includes(search) ||
       item.enDescription.toLowerCase().includes(search) ||
@@ -149,3 +158,4 @@ export class FaqsTableComponent {
   }
 
 }
+

@@ -13,6 +13,8 @@
     "english_char_only_validation":"يقبل الحروف الانجليزية الانجليزية فقط",
     "decimal_number_validation":"يقبل الارقام",
     "only_number_validation":"يقبل الارقام الصحيحة فقط",
-    "only_char_validation":"يقبل الحروف "
+    "only_char_validation":"يقبل الحروف ",
+    "email_validation":"يقبل بريد الكتروني فقط"
+
   }
 }
