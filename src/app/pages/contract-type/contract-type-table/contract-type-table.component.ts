@@ -12,7 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 
-const global_pageName='contact type'
+const global_pageName='contract type'
 const global_router_add_url_in_Table ='/'+'contract-type'+'/add'
 const global_router_view_url ='contract-type'+'/view'
 const global_router_edit_url ='contract-type'+'/edit'
@@ -98,21 +98,19 @@ export class ContractTypeTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'contractTypeId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
-      { keyName: 'noOfVisit', header: 'No. Visit', type: EType.text, show: true },
-      { keyName: 'isActive', header: 'Active', type: EType.text, show: true },
+      { keyName: 'complaintId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'name', header: 'Name', type: EType.text, show: true },
+      { keyName: 'email', header: 'email', type: EType.text, show: true },
+      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, show: true },
+      { keyName: 'message', header: 'message', type: EType.text, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'contractTypeId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'arName', header: 'Phone', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'noOfVisit', header: 'No. Visit', type: EType.editor, showAs: ETableShow.content },
-      { keyName: 'isActive', header: 'Active', type: EType.editor, showAs: ETableShow.content }
-
+      { keyName: 'complaintId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'name', header: 'Name', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'message', header: 'Message', type: EType.editor, showAs: ETableShow.content }
     ];
   }
 

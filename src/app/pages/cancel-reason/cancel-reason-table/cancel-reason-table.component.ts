@@ -10,12 +10,13 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { TitleCasePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-cancel-reason-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent,TitleCasePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './cancel-reason-table.component.html',
   styleUrl: './cancel-reason-table.component.scss'
 })
