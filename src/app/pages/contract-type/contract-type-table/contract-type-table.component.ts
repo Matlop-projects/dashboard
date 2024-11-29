@@ -12,7 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 
-const global_pageName='contact type'
+const global_pageName='contract type'
 const global_router_add_url_in_Table ='/'+'contract-type'+'/add'
 const global_router_view_url ='contract-type'+'/view'
 const global_router_edit_url ='contract-type'+'/edit'

@@ -15,6 +15,8 @@ export class SelectComponent implements OnInit {
 @Input()label:string=''
 @Input()placeholder:any
 @Input()showImage:boolean=false
+@Input()disabled:boolean=false
+@Input()readOnly:boolean=false
 @Input()list:any=[]
 @Input()type:string='single'
 @Input()control:any =new FormControl()

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -16,7 +16,7 @@ import { UploadFileComponent } from "../../../components/upload-file/upload-file
 @Component({
   selector: 'app-cancel-reason-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent,TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './cancel-reason-details.component.html',
   styleUrl: './cancel-reason-details.component.scss'
 })
