@@ -30,7 +30,7 @@
           <div class="actions mt-5 text-center">
             <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
               <span *ngIf="tyepMode()==='Add'">Add</span>
-              <span *ngIf="tyepMode()==='edit'">Edit</span>
+              <span *ngIf="tyepMode()==='Edit'">Edit</span>
               <!-- <span class="pi pi-plus-circle p-3"></span> -->
             </button>
             <button type="button" class="cancel-btn" (click)="cancel()">

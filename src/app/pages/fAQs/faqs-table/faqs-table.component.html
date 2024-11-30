@@ -12,7 +12,6 @@
       <div class="action-filter">
         <a routerLink="/settings/faqs/add"> + Add New Question</a>
         <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
-        <!-- <input (keydown)="filterData()" type="text" pInputText placeholder="Search FAQs" [(ngModel)]="searchValue" class="search-input"/> -->
       </div>
 
      <div class="table-view">
@@ -30,13 +29,13 @@
 </div>
 <app-drawer [visible]="showFilter" [header]="'Filter FAQS'" (onClose)="onCloseFilter($event)">
   <div header>
-    <h1>hello Drawer</h1>
+    <!-- <h1>hello Drawer</h1> -->
   </div>
   <div class="content">
     my form
   </div>
   <div footer>
-    <h1>hello Drawer</h1>
+    <!-- <h1>hello Drawer</h1> -->
   </div>
 </app-drawer>
 

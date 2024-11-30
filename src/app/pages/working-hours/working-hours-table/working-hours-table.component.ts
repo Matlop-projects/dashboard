@@ -8,16 +8,20 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 
 @Component({
   selector: 'app-working-hours-table',
   standalone: true,
-  imports: [TableComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, FormsModule, PaginationComponent, BreadcrumpComponent, DrawerComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './working-hours-table.component.html',
   styleUrl: './working-hours-table.component.scss'
 })
 export class WorkingHoursTableComponent {
+
+  showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -51,6 +55,15 @@ export class WorkingHoursTableComponent {
     ]
   }
 
+  searchObject = {
+      "pageNumber": 0,
+      "pageSize": 8,
+      "sortingExpression": "",
+      "sortingDirection": 0,
+      "startDate": "",
+      "endDate": ""
+  }
+
   searchValue: any = '';
   filteredData: any;
   workingHoursList: any = []
@@ -61,7 +74,8 @@ export class WorkingHoursTableComponent {
     { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
   ];
 
-  columnsSmallTable: IcolHeaderSmallTable[] = []
+  columnsSmallTable: IcolHeaderSmallTable[] = [];
+  totalCount: number = 0;
 
   selectedLang: any;
   languageService = inject(LanguageService);
@@ -84,9 +98,10 @@ export class WorkingHoursTableComponent {
     ];
   }
   getAllFAQS() {
-    this.ApiService.get('WorkingTime/GetAllWorkingTime').subscribe((res: any) => {
+    this.ApiService.post('WorkingTime/GetAllWorkingTime' , this.searchObject).subscribe((res: any) => {
       if (res) {
         this.workingHoursList = res.data;
+        this.totalCount = res.data.totalCount;
         this.filteredData = [...this.workingHoursList]; // Initialize filtered data
       }
 
@@ -94,26 +109,17 @@ export class WorkingHoursTableComponent {
   }
 
   onPageChange(event: any) {
-    // console.log("DashboardComponent  onPageChange  this.paginatorValue:", this.paginatorValue)
-    // this.datafilterd =this.paginateArray(this.data,event)
+    this.searchObject.pageNumber = event;
+   this,this.getAllFAQS();
   }
 
-  filterData() {
-    this.workingHoursList = this.filteredData;
-    const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
 
+  openFilter() {
+    this.showFilter = true
+  }
 
-    if (this.searchValue.length == 1) {
-      this.workingHoursList = this.filteredData;
-      return;
-    }
-
-    this.workingHoursList = this.workingHoursList.filter((item: any) =>
-      item.startDate.toLowerCase().includes(search) ||
-      item.endDate.toLowerCase().includes(search)
-    );
+  onCloseFilter(event: any) {
+    this.showFilter = false
   }
 
 }

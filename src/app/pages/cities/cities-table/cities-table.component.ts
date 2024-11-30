@@ -9,11 +9,12 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { DrawerComponent } from '../../../components/drawer/drawer.component';
 
 @Component({
   selector: 'app-cities-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './cities-table.component.html',
   styleUrl: './cities-table.component.scss'
 })
@@ -37,7 +38,7 @@ export class CitiesTableComponent {
   ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
- 
+
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -50,6 +51,8 @@ export class CitiesTableComponent {
       },
     ]
   }
+
+  showFilter: boolean = false
 
   searchValue: any = '';
   filteredData: any;
@@ -117,23 +120,11 @@ export class CitiesTableComponent {
     this.getAllCities();
   }
 
-  filterData() {
-    this.citiesList = this.filteredData;
-    const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
+  openFilter() {
+    this.showFilter = true
+  }
 
-
-    if (this.searchValue.length == 1) {
-      this.citiesList = this.filteredData;
-      return;
-    }
-
-    this.citiesList = this.citiesList.filter((item: any) =>
-      item.enTitle.toLowerCase().includes(search) ||
-      item.arTitle.toLowerCase().includes(search) ||
-      item.enDescription.toLowerCase().includes(search) ||
-      item.arDescription.toLowerCase().includes(search)
-    );
+  onCloseFilter(event: any) {
+    this.showFilter = false
   }
 }

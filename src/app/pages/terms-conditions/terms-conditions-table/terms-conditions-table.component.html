@@ -1,1 +1,40 @@
-<p>terms-conditions-table works!</p>
+<div class="table-container">
+  <div class="content">
+    <div class="title-bredcrumb-section">
+      <div class="title">
+        <h2>{{pageName()|titlecase}} List </h2>
+      </div>
+      <div class="breadcrumb">
+        <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+      </div>
+    </div>
+    <div class="details-container">
+      <div class="action-filter">
+        <a [routerLink]="global_router_add_url_in_Table"> + Add New {{pageName()}}</a>
+        <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
+      </div>
+
+     <div class="table-view">
+      <app-table [colsHeader]="columns" [records]="dataList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
+     </div>
+     <div class="responsive-accordions">
+        <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="dataList"  [actions]="tableActions">
+
+        </app-table-small-screen>
+    </div>
+       <app-pagination (onPageChange)="onPageChange($event)" [totalCount]="totalCount"></app-pagination>
+
+    </div>
+  </div>
+</div>
+<app-drawer [visible]="showFilter"  [header]="'Filter'+pageName()" (onClose)="onCloseFilter($event)">
+  <div header>
+    <h1>hello Drawer</h1>
+  </div>
+  <div class="content">
+    my form
+  </div>
+  <div footer>
+    <h1>hello Drawer</h1>
+  </div>
+</app-drawer>

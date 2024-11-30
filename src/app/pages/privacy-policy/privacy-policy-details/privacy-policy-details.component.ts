@@ -59,7 +59,7 @@ export class PrivacyPolicyDetailsComponent {
         // Validations.arabicCharsValidator()
       ]
     }),
-    policyId:new FormControl(this.getID|0,Validators.required),
+    termId:new FormControl(this.getID|0,Validators.required),
     userType: new FormControl(1),
   })
 
