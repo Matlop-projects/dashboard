@@ -84,7 +84,7 @@ export class CitiesTableComponent {
 
   displayTableCols(currentLang:string){
     this.columns = [
-      { keyName: 'cityId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'cityId', header: 'Id', type: EType.id, show: true },
       { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
       { keyName: 'postalCode', header: 'Postal Code', type: EType.text, show: true },
       { keyName: 'latitude', header: 'latitude', type: EType.text, show: true },

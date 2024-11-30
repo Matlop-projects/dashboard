@@ -81,12 +81,13 @@ export class CountriesDetailsComponent implements OnInit {
         Validators.required,
       ]
     }),
-    status: new FormControl('', {
+    status: new FormControl(false),
+    img: new FormControl(null, {
       validators: [
         Validators.required,
       ]
     }),
-    uploadedImage: new FormControl(null, {
+    timeZone: new FormControl('', {
       validators: [
         Validators.required,
       ]

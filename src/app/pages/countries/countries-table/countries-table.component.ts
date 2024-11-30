@@ -69,7 +69,6 @@ export class CountriesTableComponent {
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
-    code: "",
     enName: "",
     arName: ""
   }
@@ -100,7 +99,7 @@ export class CountriesTableComponent {
  
   displayTableCols(currentLang:string){
     this.columns = [
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'countryId', header: 'Id', type: EType.id, show: true },
       { keyName: 'img', header: 'image', type: EType.image, show: false },
       { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
       { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
