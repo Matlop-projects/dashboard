@@ -100,7 +100,7 @@ export class WorkingHoursTableComponent {
   getAllFAQS() {
     this.ApiService.post('WorkingTime/GetAllWorkingTime' , this.searchObject).subscribe((res: any) => {
       if (res) {
-        this.workingHoursList = res.data;
+        this.workingHoursList = res.data.dataList;
         this.totalCount = res.data.totalCount;
         this.filteredData = [...this.workingHoursList]; // Initialize filtered data
       }
