@@ -12,16 +12,19 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
+import { SelectComponent } from '../../../components/select/select.component';
+import { userType } from '../../../conts';
 
 @Component({
   selector: 'app-cancel-reason-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent,TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, SelectComponent, ButtonModule, NgIf, DialogComponent, TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './cancel-reason-details.component.html',
   styleUrl: './cancel-reason-details.component.scss'
 })
-export class CancelReasonDetailsComponent  {
-  pageName =signal<string>('');
+export class CancelReasonDetailsComponent {
+  pageName = signal<string>('');
+  userTypeList = userType
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -51,6 +54,12 @@ export class CancelReasonDetailsComponent  {
         // Validators.required,
         // Validations.arabicCharsValidator()
       ]
+    }),
+    userType: new FormControl('', {
+      validators: [
+        Validators.required,
+
+      ]
     })
   })
 
@@ -78,12 +87,12 @@ export class CancelReasonDetailsComponent  {
 
   tyepMode() {
     const url = this.router.url;
-    let result='Add'
-    if (url.includes('edit')) result='Edit'
-    else if (url.includes('view')) result= 'View'
-    else result= 'Add'
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
 
-    this.bredCrumb.crumbs[1].label = result+' '+this.pageName();
+    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
     return result
   }
 
@@ -98,7 +107,6 @@ export class CancelReasonDetailsComponent  {
     const payload = {
       ...this.form.value,
       reasonId: this.getID,
-      userType: 1
     }
     if (this.tyepMode() == 'Add')
       this.addCancelReason(payload)
@@ -106,7 +114,7 @@ export class CancelReasonDetailsComponent  {
       this.editCancelReason(payload)
   }
 
-  navigateToPageTable(){
+  navigateToPageTable() {
     this.router.navigateByUrl('/cancel-reason')
   }
 

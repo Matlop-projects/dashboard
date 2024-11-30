@@ -12,11 +12,13 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
+import { userType } from '../../../conts';
+import { SelectComponent } from '../../../components/select/select.component';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf,SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
@@ -27,6 +29,7 @@ export class FagsDetailsComponent implements OnInit {
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
+  userTypeList=userType
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
     enTitle: new FormControl('', {
@@ -51,6 +54,12 @@ export class FagsDetailsComponent implements OnInit {
       validators: [
         // Validators.required,
         // Validations.arabicCharsValidator()
+      ]
+    }),
+    userType: new FormControl('', {
+      validators: [
+        Validators.required,
+
       ]
     })
   })
@@ -101,7 +110,6 @@ export class FagsDetailsComponent implements OnInit {
     const payload = {
       ...this.form.value,
       questionId: this.faqsID,
-      userType: 1
     }
     if (this.tyepMode() === 'add')
       this.addFQS(payload)

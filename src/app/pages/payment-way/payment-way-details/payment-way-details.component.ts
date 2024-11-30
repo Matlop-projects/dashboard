@@ -12,23 +12,22 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
-import { DatePickerComponent } from '../../../components/date-picker/date-picker.component';
-import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 
-const global_PageName = 'copone';
-const global_API_deialis = global_PageName + '/GetById';
-const global_API_create = global_PageName + '/Create';
-const global_API_update = global_PageName + '/Update';
-const global_routeUrl = global_PageName
+const global_PageName ='Payment Way';
+const global_API_Name ='paymentWay';
+const global_API_deialis = global_API_Name + '/GetPaymentWay';
+const global_API_create = global_API_Name + '/CreatePaymentWay';
+const global_API_update = global_API_Name + '/UpdatePaymentWay';
+const global_routeUrl = global_API_Name
 
 @Component({
-  selector: 'app-copone-details',
+  selector: 'app-payment-way-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
-  templateUrl: './copone-details.component.html',
-  styleUrl: './copone-details.component.scss'
+  imports: [ReactiveFormsModule,NgIf,TitleCasePipe,DialogComponent, ButtonModule, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  templateUrl: './payment-way-details.component.html',
+  styleUrl: './payment-way-details.component.scss'
 })
-export class CoponeDetailsComponent {
+export class PaymentWayDetailsComponent {
   pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
@@ -36,60 +35,33 @@ export class CoponeDetailsComponent {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
 
-  minEndDate:Date =new Date()
   form = new FormGroup({
-    code: new FormControl('', {
+    enName: new FormControl('', {
       validators: [
         Validators.required,
+        Validations.englishCharsValidator(),
       ],
     }),
-    usedNumber: new FormControl <any>('', {
+    arName: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyNumberValidator()
-      ]
-    }),
-    offerType: new FormControl<any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
-    }),
-    amount: new FormControl<any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
-    }),
-    coponeType: new FormControl<any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
-    }),
-    startDate: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    endDate: new FormControl('', {
-      validators: [
-        Validators.required,
+        Validations.arabicCharsValidator()
       ]
     }),
     enDescription: new FormControl('', {
       validators: [
-
+        // Validators.required,
+        // Validations.englishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-
+        // Validators.required,
+        // Validations.arabicCharsValidator()
       ]
     }),
-    status: new FormControl(false, {
+    paymentId: new FormControl(this.getID|0, {
     }),
-    coponeId: new FormControl(this.getID | 0),
   })
 
   bredCrumb: IBreadcrumb = {
@@ -114,9 +86,7 @@ export class CoponeDetailsComponent {
       this.API_getItemDetails()
   }
 
-  onStartDateChange(date:Date){
-    this.minEndDate=date
-  }
+ 
   tyepMode() {
     const url = this.router.url;
     let result = 'Add'
@@ -137,11 +107,7 @@ export class CoponeDetailsComponent {
 
   onSubmit() {
     const payload = {
-      ...this.form.value,
-      amount: +this.form.value.amount,
-      coponeType: +this.form.value.coponeType,
-      offerType: +this.form.value.offerType,
-      usedNumber: +this.form.value.usedNumber
+      ...this.form.value
     }
     if (this.tyepMode() == 'Add')
       this.API_forAddItem(payload)

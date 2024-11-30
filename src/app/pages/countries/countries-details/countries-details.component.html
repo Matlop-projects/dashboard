@@ -21,14 +21,6 @@
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
                      [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
                </div>
-               <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'Description (en)'" [control]="form.get('enDescription')"></app-input-text>
-               </div> -->
-               <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-input-text>
-               </div> -->
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'currency'"
                      [control]="form.get('currency')"></app-input-text>
@@ -53,9 +45,14 @@
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Content'"
                      [control]="form.get('content')"></app-input-text>
                </div>
-               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Status'"
-                     [control]="form.get('status')"></app-input-text>
+               <div class="upload-image-section mt-4 mb-4">
+                  <app-upload-file formControlName="uploadedImage"></app-upload-file>
+                  <div *ngIf="isRequiredError" class="error-message mt-2">
+                    Image upload is required.
+                  </div>
+                </div>
+               <div class="col-lg-6 col-md-6 col-sm-12">
+                  <app-check-box [label]="'status'" [control]="form.get('status')"></app-check-box>
                </div>
                <div class="actions mt-5 text-center">
                   <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">

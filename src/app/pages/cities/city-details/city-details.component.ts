@@ -151,7 +151,6 @@ getAllCountries(){
     const payload = {
       ...this.form.value,
       cityId: this.cityID|0,
-      userType: 1
     }
     if (this.tyepMode() === 'add')
       this.addCity(payload)
