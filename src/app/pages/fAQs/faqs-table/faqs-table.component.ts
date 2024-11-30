@@ -20,6 +20,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
   styleUrl: './faqs-table.component.scss'
 })
 export class FaqsTableComponent {
+
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -29,12 +30,12 @@ export class FaqsTableComponent {
     },
     {
       name: EAction.view,
-      apiName_or_route: 'faqs/view',
+      apiName_or_route: '/settings/faqs/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: 'faqs/edit',
+      apiName_or_route: '/settings/faqs/edit',
       autoCall: true
     }
   ]
@@ -127,25 +128,4 @@ export class FaqsTableComponent {
     this.faqSearchCreteria.pageNumber = event;
     this.getAllFAQS();
   }
-
-  filterData() {
-    this.faqsList = this.filteredData;
-    const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
-
-
-    if (this.searchValue.length == 1) {
-      this.faqsList = this.filteredData;
-      return;
-    }
-
-    this.faqsList = this.faqsList.filter((item: any) =>
-      item.enTitle.toLowerCase().includes(search) ||
-      item.arTitle.toLowerCase().includes(search) ||
-      item.enDescription.toLowerCase().includes(search) ||
-      item.arDescription.toLowerCase().includes(search)
-    );
-  }
-
 }

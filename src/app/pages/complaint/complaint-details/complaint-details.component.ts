@@ -27,6 +27,7 @@ const global_routeUrl =global_PageName
   styleUrl: './complaint-details.component.scss'
 })
 export class ComplaintDetailsComponent {
+
   pageName =signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)

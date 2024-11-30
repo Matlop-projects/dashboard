@@ -12,32 +12,39 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 
-
+const global_pageName='TermsAndConditions';
+const global_router_add_url_in_Table ='/settings/terms_conditions/add';
+const global_router_view_url ='/settings/terms_conditions/view';
+const global_router_edit_url ='/settings/terms_conditions/edit';
+const global_API_getAll =global_pageName+'/GetAllTermsAndConditions';
+const global_API_delete=global_pageName+'/DeleteTermsAndConditions?requestId';
 @Component({
-  selector: 'app-cancel-reason-table',
+  selector: 'app-terms-conditions-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent,TitleCasePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './cancel-reason-table.component.html',
-  styleUrl: './cancel-reason-table.component.scss'
+  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  templateUrl: './terms-conditions-table.component.html',
+  styleUrl: './terms-conditions-table.component.scss'
 })
-export class CancelReasonTableComponent {
-  pageName =signal<string>('');
+export class TermsConditionsTableComponent {
+
+  global_router_add_url_in_Table = global_router_add_url_in_Table;
+  pageName =signal<string>('Terms and Conditions');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'Cancelreason/DeleteCancelReason?id',
+      apiName_or_route: global_API_delete,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route: 'cancel-reason/view',
+      apiName_or_route:  global_router_view_url,
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: 'cancel-reason/edit',
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -51,7 +58,7 @@ export class CancelReasonTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'Cancel Reason',
+        label: this.pageName(),
       },
     ]
   }
@@ -61,8 +68,10 @@ export class CancelReasonTableComponent {
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
-    enName: "",
-    arName: ""
+    name: "",
+    email: "",
+    phoneNumber: ""
+
   }
 
   totalCount: number = 0;
@@ -78,8 +87,8 @@ export class CancelReasonTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set('Cancel Reason')
-    this.getAllCancelReason();
+    this.pageName.set('Terms and Conditions')
+    this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -90,18 +99,20 @@ export class CancelReasonTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'reasonId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Reason (en)', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Reason (ar)', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'Description (Ar)', type: EType.editor, show: true },
+      { keyName: 'termId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'enName', header: 'Title En', type: EType.text, show: true },
+      { keyName: 'arName', header: 'Title Ar', type: EType.text, show: true },
+      { keyName: 'enDescription', header: 'Description En', type: EType.editor, show: true },
+      { keyName: 'arDescription', header: 'Description Ar', type: EType.editor, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: currentLang == 'ar' ? 'arName' : 'enName', header: 'Reason (ar)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'reasonId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Reason (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'termId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'enName', header: 'Title En', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName', header: 'Title Ar', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'enDescription', header: 'Description En', type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'arDescription', header: 'Description Ar', type: EType.editor, showAs: ETableShow.content }
     ];
   }
 
@@ -113,8 +124,8 @@ export class CancelReasonTableComponent {
     this.showFilter = false
   }
 
-  getAllCancelReason() {
-    this.ApiService.post('CancelReason/GetAllCancelReason', this.objectSearch).subscribe((res: any) => {
+  API_getAll() {
+    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -127,27 +138,10 @@ export class CancelReasonTableComponent {
   onPageChange(event: any) {
     console.log(event);
     this.objectSearch.pageNumber = event;
-    this.getAllCancelReason();
-  }
-
-  filterData() {
-    this.dataList = this.filteredData;
-    const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
-
-
-    if (this.searchValue.length == 1) {
-      this.dataList = this.filteredData;
-      return;
-    }
-
-    this.dataList = this.dataList.filter((item: any) =>
-      item.enTitle.toLowerCase().includes(search) ||
-      item.arTitle.toLowerCase().includes(search) ||
-      item.enDescription.toLowerCase().includes(search) ||
-      item.arDescription.toLowerCase().includes(search)
-    );
+    this.API_getAll();
   }
 
 }
+
+
+

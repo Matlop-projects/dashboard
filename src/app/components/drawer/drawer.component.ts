@@ -13,7 +13,6 @@ export class DrawerComponent implements OnInit, OnChanges {
   @Output() onClose = new EventEmitter()
   @Input() visible: boolean = false;
   @Input() header: string = ""
-  position = 'left'
   languageService = inject(LanguageService);
   selectedLang: any;
 
@@ -21,7 +20,6 @@ export class DrawerComponent implements OnInit, OnChanges {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.position = this.selectedLang == 'ar' ? 'left' : 'right'
     })
   }
 

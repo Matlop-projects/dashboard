@@ -18,6 +18,8 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
                 // Handle 404 Not Found
                 // router.navigate(['/not-found']);
             } else if (error.status == 400) {
+              console.log('error in ');
+
               tosater.errorToaster(error.error.message);
             } else if (error.status == 403) {
               tosater.errorToaster(error.error.message);

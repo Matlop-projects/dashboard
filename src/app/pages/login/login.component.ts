@@ -42,7 +42,7 @@ export class LoginComponent {
   onLogin(loginfrom: any) {
     this.api.login(loginfrom).subscribe((res: any) => {
       localStorage.setItem('token', res.data.accessToken);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/working_hours']);
     },
       err => {
         localStorage.removeItem('token');

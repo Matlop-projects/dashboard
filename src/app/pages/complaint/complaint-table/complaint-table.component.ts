@@ -44,7 +44,7 @@ export class ComplaintTableComponent {
     },
     // {
     //   name: EAction.edit,
-    //   apiName_or_route: global_router_edit_url, 
+    //   apiName_or_route: global_router_edit_url,
     //   autoCall: true
     // }
   ]
@@ -87,7 +87,7 @@ export class ComplaintTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)

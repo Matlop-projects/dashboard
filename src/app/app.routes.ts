@@ -28,6 +28,10 @@ import { ContractTypeTableComponent } from './pages/contract-type/contract-type-
 import { ContractTypeDetailsComponent } from './pages/contract-type/contract-type-details/contract-type-details.component';
 import { CoponeTableComponent } from './pages/copone/copone-table/copone-table.component';
 import { CoponeDetailsComponent } from './pages/copone/copone-details/copone-details.component';
+import { TermsConditionsTableComponent } from './pages/terms-conditions/terms-conditions-table/terms-conditions-table.component';
+import { TermsConditionsDetailsComponent } from './pages/terms-conditions/terms-conditions-details/terms-conditions-details.component';
+import { PrivacyPolicyTableComponent } from './pages/privacy-policy/privacy-policy-table/privacy-policy-table.component';
+import { PrivacyPolicyDetailsComponent } from './pages/privacy-policy/privacy-policy-details/privacy-policy-details.component';
 
 export const routes: Routes = [
   {
@@ -58,13 +62,24 @@ export const routes: Routes = [
       { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/view/:id', component: WorkingHoursDetailsComponent },
       { path: 'settings', component: SettingsComponent ,
-        children: []
+        children: [
+          { path: 'faqs', component: FaqsTableComponent },
+          { path: 'faqs/add', component: FagsDetailsComponent },
+          { path: 'faqs/edit/:id', component: FagsDetailsComponent },
+          { path: 'faqs/view/:id', component: FagsDetailsComponent },
+
+          { path: 'terms_conditions', component: TermsConditionsTableComponent },
+          { path: 'terms_conditions/add', component: TermsConditionsDetailsComponent },
+          { path: 'terms_conditions/edit/:id', component: TermsConditionsDetailsComponent },
+          { path: 'terms_conditions/view/:id', component: TermsConditionsDetailsComponent },
+
+          { path: 'privacy_policy', component: PrivacyPolicyTableComponent },
+          { path: 'privacy_policy/add', component: PrivacyPolicyDetailsComponent },
+          { path: 'privacy_policy/edit/:id', component: PrivacyPolicyDetailsComponent },
+          { path: 'privacy_policy/view/:id', component: PrivacyPolicyDetailsComponent },
+        ]
       },
       { path: 'profile', component: ProfileComponent },
-      { path: 'faqs', component: FaqsTableComponent },
-      { path: 'faqs/add', component: FagsDetailsComponent },
-      { path: 'faqs/edit/:id', component: FagsDetailsComponent },
-      { path: 'faqs/view/:id', component: FagsDetailsComponent },
       { path: 'country', component: CountriesTableComponent },
       { path: 'country/add', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },
