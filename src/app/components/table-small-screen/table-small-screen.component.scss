@@ -14,3 +14,14 @@ div.actions-icon{
       color:#6060e7;
     }
   }
+
+  p-accordion-header{
+    position: relative;
+    .actions-icon-in-small-table{
+       position: absolute;
+       top: 19px;
+       right: 25px;
+       z-index: 99999;
+
+    }
+  }

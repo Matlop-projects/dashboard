@@ -4,6 +4,7 @@ import { TableModule } from 'primeng/table';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogComponent } from '../dialog/dialog.component';
 
 export enum EAction {
   delete = "delete",
@@ -42,7 +43,7 @@ export interface IcolHeader {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf, TooltipModule],
+  imports: [TableModule, NgFor, NgIf, TooltipModule,DialogComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -55,10 +56,10 @@ export class TableComponent implements OnInit, OnChanges {
   @Input({ required: true }) colsHeader: IcolHeader[] = [];
   @Input() actions: any[] = [];
   @Output() onActionCliked = new EventEmitter();
-
+  showConfirmMessage:boolean=false
   ApiService = inject(ApiService);
   router = inject(Router);
-
+  eventEmitValue:any={action:{},record:{}}
   ngOnInit() {
     this.filterdRecords = this.records;
   }
@@ -66,7 +67,10 @@ export class TableComponent implements OnInit, OnChanges {
     this.filterdRecords = this.records;
   }
   onAction(action: ITableAction, item: any) {
-    this.onActionCliked.emit({ action: action, record: item });
+    this.eventEmitValue.action=action;
+    this.eventEmitValue.record=item;
+
+    this.onActionCliked.emit(this.eventEmitValue);
     this.autoCallActions(action, item);
   }
 
@@ -79,11 +83,16 @@ export class TableComponent implements OnInit, OnChanges {
   autoCallActions(action: ITableAction, record: any) {
     let recordId = record[this.getNameOfIDHeader()];
     if (action.name == EAction.delete && action.autoCall) {
-      this.callDeleteAction(action, recordId);
+      this.showConfirmMessage=!this.showConfirmMessage
     } else if ((action.name == EAction.edit || action.name == EAction.view) && action.autoCall) {
-      console.log("TableComponent  autoCallActions  action.apiName_or_route+'/'+recordId:", action.apiName_or_route + '/' + recordId)
       this.router.navigateByUrl(action.apiName_or_route + '/' + recordId);
     }
+  }
+  onConfirmMessage(){
+    let action =this.eventEmitValue.action;
+    let recordId =this.eventEmitValue.record[this.getNameOfIDHeader()] ;
+    this.showConfirmMessage=false
+    this.callDeleteAction(action, recordId);
   }
 
   callDeleteAction(action: ITableAction, id: any) {

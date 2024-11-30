@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
-import { IPaginator, IPaignatotValue, PaginatorComponent } from '../../../components/paginator/paginator.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -9,16 +8,20 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 
 
 @Component({
   selector: 'app-faqs',
   standalone: true,
-  imports: [TableComponent, PaginatorComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './faqs-table.component.html',
   styleUrl: './faqs-table.component.scss'
 })
 export class FaqsTableComponent {
+
+  showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -27,27 +30,18 @@ export class FaqsTableComponent {
     },
     {
       name: EAction.view,
-      apiName_or_route: 'faqs/view',
+      apiName_or_route: '/settings/faqs/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: 'faqs/edit',
+      apiName_or_route: '/settings/faqs/edit',
       autoCall: true
     }
   ]
   private ApiService = inject(ApiService)
   private router = inject(Router)
-  paginatorOptions: IPaginator = {
-    displayItem: 5,
-    totalRecords: 0,
-  }
-  paginatorValue: IPaignatotValue = {
-    first: 0,
-    page: 1,
-    pageCount: 0,
-    rows: 0
-  }
+
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -61,46 +55,68 @@ export class FaqsTableComponent {
     ]
   }
 
+  faqSearchCreteria = {
+    pageNumber: 0,
+    pageSize: 7,
+    sortingExpression: "",
+    sortingDirection: 0,
+    enTitle: "",
+    arTitle: ""
+  }
+
+  totalCount: number = 0;
+
   searchValue: any = '';
   filteredData: any;
   faqsList: any = []
-  columns: IcolHeader[] = [
-    { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
-    { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
-    { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
-    { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
-    { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
-    { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-  ];
+  columns: IcolHeader[] = [];
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
   languageService = inject(LanguageService);
+
   ngOnInit() {
     this.getAllFAQS();
     this.selectedLang = this.languageService.translationService.currentLang;
+    this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displaySmallTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang)
     })
-    // this.data=products
-    // this.paginatorOptions.totalRecords=this.data.length
   }
 
-  displaySmallTableCols(currentLang:string){
-    this.columnsSmallTable =[
-      { keyName: currentLang =='ar'?'arTitle':'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
+  displayTableCols(currentLang: string) {
+    this.columns = [
+      { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
+      { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
+      { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
+      { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
+      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+
+    ]
+    this.columnsSmallTable = [
+      { keyName: currentLang == 'ar' ? 'arTitle' : 'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
       { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
     ];
   }
+
+  openFilter() {
+    this.showFilter = true
+  }
+
+  onCloseFilter(event: any) {
+    this.showFilter = false
+  }
+
   getAllFAQS() {
-    this.ApiService.get('FAQs/GetAll').subscribe((res: any) => {
+    this.ApiService.post('FAQs/GetAll', this.faqSearchCreteria).subscribe((res: any) => {
       if (res) {
-        this.faqsList = res.data;
-        this.filteredData = [...this.faqsList]; // Initialize filtered data
-        this.paginatorOptions.totalRecords = res.data.length;
+        this.faqsList = res.data.dataList;
+        this.totalCount = res.data.totalCount;
+        this.filteredData = [...this.faqsList];
         console.log('FAQs loaded:', this.faqsList);
       }
 
@@ -108,29 +124,8 @@ export class FaqsTableComponent {
   }
 
   onPageChange(event: any) {
-    this.paginatorValue = event
-    // console.log("DashboardComponent  onPageChange  this.paginatorValue:", this.paginatorValue)
-    // this.datafilterd =this.paginateArray(this.data,event)
+    console.log(event);
+    this.faqSearchCreteria.pageNumber = event;
+    this.getAllFAQS();
   }
-
-  filterData() {
-    this.faqsList = this.filteredData;
-    const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
-
-
-    if (this.searchValue.length == 1) {
-      this.faqsList = this.filteredData;
-      return;
-    }
-
-    this.faqsList = this.faqsList.filter((item: any) =>
-      item.enTitle.toLowerCase().includes(search) ||
-      item.arTitle.toLowerCase().includes(search) ||
-      item.enDescription.toLowerCase().includes(search) ||
-      item.arDescription.toLowerCase().includes(search)
-    );
-  }
-
 }

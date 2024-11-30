@@ -9,9 +9,9 @@
       </div>
     </div>
     <div class="details-container">
-      <div class="actions">
+      <div class="action-filter">
         <a routerLink="/working_hours/add"> + Add New</a>
-        <input (keydown)="filterData()" type="text" pInputText placeholder="Search Working Hours" [(ngModel)]="searchValue" class="search-input"/>
+        <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="workingHoursList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
@@ -21,8 +21,20 @@
 
         </app-table-small-screen>
     </div>
-      <app-paginator [paginatorOptions]="paginatorOptions" [records]="workingHoursList"
-        (onPageChangeValue)="onPageChange($event)"></app-paginator>
+    <app-pagination (onPageChange)="onPageChange($event)" [totalCount]="totalCount"></app-pagination>
+
     </div>
   </div>
 </div>
+
+<app-drawer [visible]="showFilter" [header]="'Working Hours Filter'" (onClose)="onCloseFilter($event)">
+  <div header>
+    <!-- <h1>hello Drawer</h1> -->
+  </div>
+  <div class="content">
+    my form
+  </div>
+  <div footer>
+    <!-- <h1>hello Drawer</h1> -->
+  </div>
+</app-drawer>

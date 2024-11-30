@@ -14,6 +14,9 @@ body {
 
     // background-color: #F5F5F5;
     &[dir='rtl'] {
+      .rtl-drawer {
+        direction: ltr;
+    }
         .side-nav-bar {
             position: absolute;
             left: unset !important;
@@ -28,8 +31,28 @@ body {
             right: 40px;
 
         }
+        .actions-icon-in-small-table{
+          right:unset;
+          left: 25px;
+       }
+
     }
 }
+
+.faqs-form-container {
+  .page-details {
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+      color: #7d7d7d;
+    }
+  }
+}
+
+.p-datepicker{
+  width: 100%!important;
+   }
 
 .bold {
     font-weight: bold;
@@ -38,7 +61,10 @@ body {
 .pointer {
     cursor: pointer;
 }
-
+.dialog-close-btn{
+  border: 1px solid #dddddd;
+  margin: 0px 5px;
+}
 .page-form-container{
   .page-details {
     display: flex;
@@ -84,12 +110,20 @@ small {
         border-radius: 8px;
         padding: 20px;
 
-        .actions {
+        .action-filter {
           display: flex;
           justify-content: space-between;
           align-items: center;
           flex-wrap: wrap;
-
+            span.pi-filter{
+                padding: 8px;
+                border: 1px solid gray;
+                border-radius: 6px;
+                &:hover{
+                    color:#fff;
+                    background-color: gray;
+                }
+        }
 
           a {
             text-decoration: none;
@@ -126,7 +160,8 @@ small {
         display: none !important;
       }
     }
-
+ 
+   
     // Small devices (portrait phones)
     @media only screen and (min-width:250.98px) and (max-width: 575.98px) {
       .responsive-accordions {
@@ -230,6 +265,12 @@ small {
         &:hover {
           background: #196919;
         }
+        &:disabled{
+          background: rgba(48, 171, 48,.1);
+          color:#b8b5b5;
+          border: 1px solid #cac6c6;
+          cursor: not-allowed;
+        }
       }
 
       .cancel-btn {
@@ -260,3 +301,14 @@ small {
   }
 }
 // End of form code
+
+.d-grid {
+  display: grid !important;
+}
+
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}

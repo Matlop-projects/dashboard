@@ -11,11 +11,15 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { LanguageService } from '../../../services/language.service';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
+import { ConfirmMsgService } from '../../../services/confirm-msg.service';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { DialogComponent } from '../../../components/dialog/dialog.component';
 
 @Component({
   selector: 'app-city-details',
   standalone: true,
-  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
+  imports: [BreadcrumpComponent, ReactiveFormsModule,ToastModule,ConfirmDialog,DialogComponent, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
   templateUrl: './city-details.component.html',
   styleUrl: './city-details.component.scss'
 })
@@ -24,22 +28,27 @@ export class CityDetailsComponent {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  showConfirmMessage:boolean=false
+  private confirm = inject(ConfirmMsgService)
   selectedLang: any;
   languageService = inject(LanguageService);
   form = new FormGroup({
     enName: new FormControl('',{
       validators: [
         Validators.required,
+        Validations.englishCharsValidator(),
       ],
     }),
     arName: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.arabicCharsValidator()
       ]
     }),
     postalCode: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     shortCut: new FormControl('', {
@@ -50,14 +59,16 @@ export class CityDetailsComponent {
     latitude: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.decimalNumberValidators()
       ]
     }),
     longitude: new FormControl('', {
       validators:[
         Validators.required,
+        Validations.decimalNumberValidators()
       ]
     }),
-    countryId: new FormControl(0, {
+    countryId: new FormControl('', {
       validators:[
         Validators.required,
       ]
@@ -100,9 +111,17 @@ export class CityDetailsComponent {
     this.getCityDetails()
   }
 getAllCountries(){
-  this.ApiService.get('Country/GetAllCountry').subscribe((res: any) => {
+  let payload={
+    pageNumber: 0,
+    pageSize: 7,
+    sortingExpression: "",
+    sortingDirection: 0,
+    enName: "",
+    arName: "",
+  }
+  this.ApiService.post('Country/GetAllCountry',payload).subscribe((res: any) => {
     if (res) {
-     res.data.map((country:any)=>{
+     res.data.dataList.map((country:any)=>{
          this.countries.push({
           name:this.selectedLang=='en'?country.enName :country.arName,
           code:country.countryId
@@ -152,5 +171,16 @@ getAllCountries(){
       if (res)
         this.router.navigateByUrl('city')
     })
+  }
+
+  cancel(){
+   const confirmed=  this.confirm.formHasValue(this.form)
+      if(confirmed)
+        this.showConfirmMessage=!this.showConfirmMessage
+      else
+      this.router.navigateByUrl('city')
+  }
+  onConfirmMessage(){
+    this.router.navigateByUrl('city')
   }
 }

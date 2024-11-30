@@ -9,11 +9,14 @@ import { InputTextComponent } from '../../../components/input-text/input-text.co
 import { EditorComponent } from '../../../components/editor/editor.component';
 import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.component";
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
+import { ConfirmMsgService } from '../../../services/confirm-msg.service';
+import { DialogComponent } from '../../../components/dialog/dialog.component';
+import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent],
+  imports: [ReactiveFormsModule, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
@@ -23,29 +26,33 @@ export class FagsDetailsComponent implements OnInit {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  showConfirmMessage: boolean = false
+  private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
     enTitle: new FormControl('', {
       validators: [
         Validators.required,
         Validations.englishCharsValidator('faqs.validation_english_title'),
-        Validators.minLength(3)
       ],
     }),
     arTitle: new FormControl('', {
       validators: [
+        Validators.required,
         Validations.arabicCharsValidator('isArabic')
       ]
     }),
     enDescription: new FormControl('', {
       validators: [
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        // Validators.required,
+        // Validations.englishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-        Validations.arabicCharsValidator('isArabic')
+        // Validators.required,
+        // Validations.arabicCharsValidator()
       ]
-    }),
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -65,7 +72,6 @@ export class FagsDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.router.url)
     if (this.tyepMode() !== 'add')
       this.getFaqsDetails()
   }
@@ -78,11 +84,12 @@ export class FagsDetailsComponent implements OnInit {
     } else if (url.includes('view')) {
       this.bredCrumb.crumbs[1].label = 'View FAQs';
       return 'view'
-    } else  {
+    } else {
       this.bredCrumb.crumbs[1].label = 'Add FAQs';
-      return 'add'}
-
+      return 'add'
+    }
   }
+
   getFaqsDetails() {
     this.ApiService.get(`FAQs/GetById/${this.faqsID}`).subscribe((res: any) => {
       if (res)
@@ -100,19 +107,36 @@ export class FagsDetailsComponent implements OnInit {
       this.addFQS(payload)
     else
       this.editFQS(payload)
+  }
+
+
+  cancel() {
+    const hasValue = this.confirm.formHasValue(this.form)
+    if (hasValue)
+      this.showConfirmMessage = !this.showConfirmMessage
+    else
+      this.router.navigateByUrl('/settings/faqs')
+
+  }
+
+  onConfirmMessage() {
+    this.router.navigateByUrl('/settings/faqs')
 
   }
 
   addFQS(payload: any) {
     this.ApiService.post('FAQs/Create', payload, { showAlert: true, message: 'Add FAQS Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.router.navigateByUrl('settings/faqs')
     })
   }
+
   editFQS(payload: any) {
     this.ApiService.put('FAQs/Update', payload, { showAlert: true, message: 'update FAQS Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('faqs')
+        this.router.navigateByUrl('settings/faqs')
     })
   }
+
+
 }

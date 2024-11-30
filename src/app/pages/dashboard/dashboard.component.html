@@ -1,1 +1,15 @@
-<p>dashboard works!</p>
+<div class="d-flex justify-content-start flex-wrap" *ngIf="items">
+   <ng-container *ngFor="let item of items">
+
+    <div class="card">
+        <div class="d-flex justify-content-between">
+            <div>
+                <span class="title block">{{item.name}} </span>
+                <span class="bold">{{item.value}}</span>
+            </div>
+            <img [src]="item.img" width="50px" alt="img" >
+        </div>
+   </div>
+   </ng-container>
+
+</div>

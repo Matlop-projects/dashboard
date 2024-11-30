@@ -1,12 +1,48 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { MenuItem } from 'primeng/api';
+import { Menubar } from 'primeng/menubar';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [],
+  imports: [Menubar, RouterOutlet],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss'
 })
 export class SettingsComponent {
 
+  items: MenuItem[] | undefined;
+
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Public Pages',
+        icon: 'pi pi-globe',
+        items: [
+          {
+            label: 'FAQs',
+            icon: 'pi pi-question',
+            routerLink: '/settings/faqs'
+          },
+          {
+            label: 'Terms & Conditions',
+            icon: 'pi pi-eject',
+            routerLink: '/settings/terms_conditions'
+          },
+          {
+            label: 'Privacy Policy',
+            icon: 'pi pi-eject',
+            routerLink: '/settings/privacy_policy'
+          }
+        ]
+      },
+      {
+        label: 'Features',
+        icon: 'pi pi-star',
+        // routerLink:'/settings/faqs'
+      }
+    ]
+  }
 }
+

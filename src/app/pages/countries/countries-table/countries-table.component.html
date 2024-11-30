@@ -21,8 +21,7 @@
             
           </app-table-small-screen>
       </div>
-        <app-paginator [paginatorOptions]="paginatorOptions" [records]="countriesList"
-          (onPageChangeValue)="onPageChange($event)"></app-paginator>
+      <app-pagination (onPageChange)="onPageChange($event)" [totalCount]="totalCount"></app-pagination>
       </div>
     </div>
   </div>

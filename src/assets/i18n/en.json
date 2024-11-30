@@ -7,7 +7,13 @@
     "minlength_validation":"length should be more than",
     "maxlength_validation":"length should be more less than",
     "required_validation":"field is required",
-    "arabic_only_validation":"accept only arablic char",
-    "english_only_validation":"accept only english char"
+    "arabic_char_only_validation":"accept  arablic char",
+    "english_char_only_validation":"accept  english char",
+    "arabic_only_validation":"accept only arabic ",
+    "english_only_validation":"accept only english ",
+    "decimal_number_validation":"accept only decimal number like 123.456",
+    "only_number_validation":"accept only numbers",
+    "only_char_validation":"accept only char",
+    "email_validation":"accept email only ex: aaa@aaa.com"
   }
 }
