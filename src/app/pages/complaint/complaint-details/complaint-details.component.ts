@@ -59,7 +59,6 @@ export class ComplaintDetailsComponent {
       ]
     }),
     complaintId:new FormControl(this.getID|0,Validators.required),
-    userType: new FormControl(1),
   })
 
   bredCrumb: IBreadcrumb = {

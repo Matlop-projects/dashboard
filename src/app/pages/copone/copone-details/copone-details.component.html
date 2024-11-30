@@ -18,7 +18,7 @@
                 [control]="form.get('code')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'usedNumber'"
+              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'used Number'"
                 [control]="form.get('usedNumber')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
@@ -31,11 +31,12 @@
               </div>
             
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-date-picker class="w-100" [placeholder]="form.get('startDate')?.value" [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Start Date'"
+                <app-date-picker (changeDate)="onStartDateChange($event)" class="w-100" [placeholder]="form.get('startDate')?.value" [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'Start Date'"
                 [control]="form.get('startDate')"></app-date-picker>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-date-picker [readOnly]="tyepMode()==='view'" [placeholder]="form.get('endDate')?.value" [disabled]="tyepMode()==='view'" [label]="'End Date'"
+                <app-date-picker 
+                [minDate]="minEndDate"  [readOnly]="tyepMode()=='View'||form.get('startDate')?.value ==''" [placeholder]="form.get('endDate')?.value" [disabled]="tyepMode()=='View'||form.get('startDate')?.value ==''" [label]="'End Date'"
                 [control]="form.get('endDate')"></app-date-picker>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
@@ -43,7 +44,7 @@
                   [control]="form.get('coponeType')"></app-input-text>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                <app-check-box [disabled]="tyepMode()=='View'" [label]="'status'" [control]="form.get('status')"></app-check-box>
+                <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'status'" [control]="form.get('status')"></app-check-box>
              </div>
               <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Description (en)'" [control]="form.get('enDescription')"></app-editor>

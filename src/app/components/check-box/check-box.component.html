@@ -1,3 +1,5 @@
-<label for="ny"> {{label}} </label>
-<p-checkbox [formControl]="control"  [binary]="true"  inputId="ny" [disabled]="disabled" />
-   
+<div class="check-content">
+    <label for="ny" [class.toggle-style]="isToggle"> {{label}} </label>
+<p-checkbox *ngIf="!isToggle" [formControl]="control"  [binary]="true"  inputId="ny" [disabled]="disabled" />
+<p-toggleswitch *ngIf="isToggle" [formControl]="control" [disabled]="disabled" [readonly]="readOnly" />
+</div>

@@ -6,15 +6,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { Validations, isChar } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
-import { SelectComponent } from '../../../components/select/select.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
+import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
+import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
-  imports: [BreadcrumpComponent, ReactiveFormsModule, ButtonModule, NgIf, InputTextComponent,DialogComponent],
+  imports: [
+    BreadcrumpComponent, 
+    ReactiveFormsModule, 
+    ButtonModule, 
+    NgIf, 
+    InputTextComponent, 
+    DialogComponent, 
+    CheckBoxComponent,
+    UploadFileComponent,
+  ],
   templateUrl: './countries-details.component.html',
   styleUrl: './countries-details.component.scss'
 })
@@ -37,18 +47,6 @@ export class CountriesDetailsComponent implements OnInit {
         Validations.onlyArabicValidators()
       ]
     }),
-    // enDescription: new FormControl('', {
-    //   validators: [
-    //     Validators.required,
-    //     Validations.englishCharsValidator(),
-    //   ]
-    // }),
-    // arDescription: new FormControl('', {
-    //   validators: [
-    //     Validators.required,
-    //     Validations.arabicCharsValidator()
-    //   ]
-    // }),
     currency: new FormControl('', {
       validators: [
         Validators.required,
@@ -83,13 +81,15 @@ export class CountriesDetailsComponent implements OnInit {
         Validators.required,
       ]
     }),
-    status: new FormControl('', {
+    status: new FormControl(false),
+    img: new FormControl(null, {
       validators: [
         Validators.required,
       ]
     }),
-    img: new FormControl('', {
+    timeZone: new FormControl('', {
       validators: [
+        Validators.required,
       ]
     }),
 
@@ -109,6 +109,11 @@ export class CountriesDetailsComponent implements OnInit {
 
   get countryID() {
     return this.route.snapshot.params['id']
+  }
+
+  get isRequiredError(): boolean {
+    const control = this.form.get('uploadedImage');
+    return control?.touched && control?.hasError('required') || false;
   }
 
   ngOnInit() {
@@ -138,7 +143,6 @@ export class CountriesDetailsComponent implements OnInit {
     const payload = {
       ...this.form.value,
       countryId: this.countryID,
-      userType: 1
     }
     if (this.tyepMode() === 'add')
       this.addCountry(payload)

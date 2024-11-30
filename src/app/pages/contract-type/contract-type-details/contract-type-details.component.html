@@ -30,7 +30,7 @@
                   [control]="form.get('noOfVisit')"></app-input-text>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                <app-check-box  [disabled]="tyepMode()=='View'"  [label]="'isActive'" [control]="form.get('isActive')"></app-check-box>
+                <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'"  [label]="'isActive'" [control]="form.get('isActive')"></app-check-box>
              </div>
           
            

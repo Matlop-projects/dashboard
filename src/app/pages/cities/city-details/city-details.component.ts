@@ -111,17 +111,9 @@ export class CityDetailsComponent {
     this.getCityDetails()
   }
 getAllCountries(){
-  let payload={
-    pageNumber: 0,
-    pageSize: 7,
-    sortingExpression: "",
-    sortingDirection: 0,
-    enName: "",
-    arName: "",
-  }
-  this.ApiService.post('Country/GetAllCountry',payload).subscribe((res: any) => {
+  this.ApiService.get('Country/GetListCountries').subscribe((res: any) => {
     if (res) {
-     res.data.dataList.map((country:any)=>{
+     res.data.map((country:any)=>{
          this.countries.push({
           name:this.selectedLang=='en'?country.enName :country.arName,
           code:country.countryId
@@ -151,7 +143,6 @@ getAllCountries(){
     const payload = {
       ...this.form.value,
       cityId: this.cityID|0,
-      userType: 1
     }
     if (this.tyepMode() === 'add')
       this.addCity(payload)

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { DatePickerModule } from 'primeng/datepicker';
@@ -18,12 +18,17 @@ import { NgIf } from '@angular/common';
 })
 export class DatePickerComponent {
   @Input() label!: string;
+  @Input() minDate: Date =new Date('11-02-1900');
+  @Input() maxDate: Date =new Date('11-02-2090');
   @Input() readOnly: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: any ;
   @Input() control: any = new FormControl();
+  @Output()changeDate =new EventEmitter()
 
-
+  onDateChange(event:any){
+ this.changeDate.emit(event)
+  }
 
   splitDate(date:any){
        return date?.split("T")[0]

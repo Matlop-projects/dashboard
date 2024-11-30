@@ -21,12 +21,19 @@
             <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (ar)'"
               [control]="form.get('arTitle')"></app-input-text>
           </div>
-          <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-editor [label]="'Description (en)'" [control]="form.get('enDescription')"></app-editor>
-          </div>
-          <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-editor [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-editor>
-          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userTypeList" [label]="'User Type'"
+               [control]="form.get('userType')">
+              </app-select>
+         </div>
+           <div class="row">
+            <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-editor [label]="'Description (en)'" [control]="form.get('enDescription')"></app-editor>
+            </div>
+            <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-editor [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-editor>
+            </div>
+           </div>
           <div class="actions mt-5 text-center">
             <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
               <span *ngIf="tyepMode()==='add'">Add</span>

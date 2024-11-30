@@ -1,33 +1,43 @@
 import { Component, inject, signal } from '@angular/core';
-import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
-import { ApiService } from '../../../services/api.service';
-import { Router, RouterModule } from '@angular/router';
-import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
-import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
+import { RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { LanguageService } from '../../../services/language.service';
-import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
-import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
+import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
+import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
+import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
+import { ApiService } from '../../../services/api.service';
+import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
+import { LanguageService } from '../../../services/language.service';
 
-const global_pageName='country'
-const global_router_add_url_in_Table ='/'+global_pageName+'/add'
-const global_router_view_url =global_pageName+'/view'
-const global_router_edit_url =global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAllCountry'
-const global_API_delete=global_pageName+'/DeleteCountry?id'
+const global_pageName='Payment Way'
+const global_API_Name='paymentWay'
+const global_router_add_url_in_Table ='/'+global_API_Name+'/add'
+const global_router_view_url =global_API_Name+'/view'
+const global_router_edit_url =global_API_Name+'/edit'
+const global_API_getAll =global_API_Name+'/GetAllPaymentWay'
+const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
 
 @Component({
-  selector: 'app-countries-table',
+  selector: 'app-payment-way-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './countries-table.component.html',
-  styleUrl: './countries-table.component.scss'
+  imports: [
+    TableComponent,
+    TitleCasePipe, 
+    PaginationComponent, 
+    FormsModule, 
+    DrawerComponent, 
+    BreadcrumpComponent,
+     RouterModule, 
+     InputTextModule, 
+     TableSmallScreenComponent
+    ],
+  templateUrl: './payment-way-table.component.html',
+  styleUrl: './payment-way-table.component.scss'
 })
-export class CountriesTableComponent {
-
+export class PaymentWayTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
 
@@ -96,25 +106,22 @@ export class CountriesTableComponent {
     })
   }
 
- 
-  displayTableCols(currentLang:string){
+  displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'img', header: 'image', type: EType.image, show: false },
-      { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
-      { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
-      { keyName: 'phoneCode', header: 'Phone Code', type: EType.text, show: true },
-      { keyName: 'shortName', header: 'Short Name', type: EType.text, show: true },
+      { keyName: 'paymentId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
+      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
+      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true },
+      { keyName: 'arDescription', header: 'Description (Ar)', type: EType.editor, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-    ];
 
-    this.columnsSmallTable =[
-      { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.text, showAs: ETableShow.content }
+    ]
+    this.columnsSmallTable = [
+      { keyName: currentLang == 'ar' ? 'arName' : 'enName', header: 'Name (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'paymentId', header: 'Id', type: EType.id, show: false },
+      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Name (ar)', type: EType.editor, showAs: ETableShow.content }
     ];
   }
-
 
   openFilter() {
     this.showFilter = true
@@ -159,33 +166,4 @@ export class CountriesTableComponent {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
