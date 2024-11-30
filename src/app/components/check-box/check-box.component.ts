@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Checkbox } from 'primeng/checkbox';
 @Component({
   selector: 'app-check-box',
   standalone: true,
-  imports: [Checkbox],
+  imports: [Checkbox,ReactiveFormsModule],
   templateUrl: './check-box.component.html',
   styleUrl: './check-box.component.scss'
 })

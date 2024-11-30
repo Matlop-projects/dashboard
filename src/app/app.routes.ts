@@ -32,6 +32,8 @@ import { TermsConditionsTableComponent } from './pages/terms-conditions/terms-co
 import { TermsConditionsDetailsComponent } from './pages/terms-conditions/terms-conditions-details/terms-conditions-details.component';
 import { PrivacyPolicyTableComponent } from './pages/privacy-policy/privacy-policy-table/privacy-policy-table.component';
 import { PrivacyPolicyDetailsComponent } from './pages/privacy-policy/privacy-policy-details/privacy-policy-details.component';
+import { PaymentWayTableComponent } from './pages/payment-way/payment-way-table/payment-way-table.component';
+import { PaymentWayDetailsComponent } from './pages/payment-way/payment-way-details/payment-way-details.component';
 
 export const routes: Routes = [
   {
@@ -108,6 +110,11 @@ export const routes: Routes = [
       { path: 'copone/add', component: CoponeDetailsComponent },
       { path: 'copone/view/:id', component: CoponeDetailsComponent },
       { path: 'copone/edit/:id', component: CoponeDetailsComponent },
+
+      { path: 'paymentWay', component: PaymentWayTableComponent },
+      { path: 'paymentWay/add', component: PaymentWayDetailsComponent },
+      { path: 'paymentWay/view/:id', component: PaymentWayDetailsComponent },
+      { path: 'paymentWay/edit/:id', component: PaymentWayDetailsComponent },
 
     ]
   },
