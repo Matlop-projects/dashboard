@@ -1,0 +1,66 @@
+<div class="page-form-container container-fluid">
+  <div class="row">
+     <div class="page-details mb-3">
+       <div class="title">
+         <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} Service</h2>
+       </div>
+       <div class="breadcrumb">
+         <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+       </div>
+     </div>
+   </div>
+  <div class=" form-container">
+     <div class="reactive-form">
+        <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+           <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                 <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                    [label]="'Name (en)'" [control]="form.get('nameEn')"></app-input-text>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                 <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                    [label]="'Name (ar)'" [control]="form.get('nameAr')"></app-input-text>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                <app-editor [label]="'Description (en)'" [control]="form.get('descriptionEn')"></app-editor>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                <app-editor [label]="'Description (en)'" [control]="form.get('descriptionAr')"></app-editor>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                 <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                    [label]="'Number of Technicals'" [control]="form.get('numberOfTechnicals')"></app-input-text>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                 <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                    [label]="'Priority of View'" [control]="form.get('priorityOfView')"></app-input-text>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
+                 <app-check-box [isToggle]="true" [label]="'isActive'" [control]="form.get('isActive')"></app-check-box>
+              </div>
+              <div class="upload-image-section mt-4 mb-4">
+                 <app-upload-file formControlName="image"></app-upload-file>
+                 <div *ngIf="isRequiredError" class="error-message mt-2">
+                   Image upload is required.
+                 </div>
+               </div>
+
+              <div class="actions mt-5 text-center">
+                 <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
+                    <span *ngIf="tyepMode()==='add'">Add</span>
+                    <span *ngIf="tyepMode()==='edit'">Edit</span>
+                 </button>
+                 <button type="button" class="cancel-btn" (click)="cancel()">
+                    Cancel
+                 </button>
+              </div>
+           </div>
+        </form>
+     </div>
+  </div>
+</div>
+
+<app-dialog  [visible]="showConfirmMessage">
+  <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Confirm</button>
+  <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> Close</button>
+</app-dialog>
