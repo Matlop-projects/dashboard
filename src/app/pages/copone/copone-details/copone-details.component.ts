@@ -80,13 +80,11 @@ export class CoponeDetailsComponent {
     enDescription: new FormControl('', {
       validators: [
          Validators.required,
-         Validations.editorEnglishCharsValidator()
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.editorArabicCharsValidator()
       ]
     }),
     status: new FormControl(false, {

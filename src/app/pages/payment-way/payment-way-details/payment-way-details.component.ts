@@ -51,13 +51,11 @@ export class PaymentWayDetailsComponent {
     enDescription: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.editorEnglishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.editorArabicCharsValidator()
       ]
     }),
     paymentId: new FormControl(this.getID|0, {
