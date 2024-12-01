@@ -12,8 +12,10 @@ import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
+import { EditorComponent } from '../../../components/editor/editor.component';
+
 @Component({
-  selector: 'app-countries-details',
+  selector: 'app-services-details',
   standalone: true,
   imports: [
     BreadcrumpComponent,
@@ -24,75 +26,60 @@ import { UploadFileComponent } from '../../../components/upload-file/upload-file
     DialogComponent,
     CheckBoxComponent,
     UploadFileComponent,
-  ],
-  templateUrl: './countries-details.component.html',
-  styleUrl: './countries-details.component.scss'
+    EditorComponent
+  ],  templateUrl: './services-details.component.html',
+  styleUrl: './services-details.component.scss'
 })
-export class CountriesDetailsComponent implements OnInit {
+export class ServicesDetailsComponent {
+
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
-    enName: new FormControl('', {
+    nameEn: new FormControl('', {
       validators: [
         Validators.required,
         Validations.onlyEnglishValidators(),
       ],
     }),
-    arName: new FormControl('', {
+    nameAr: new FormControl('', {
       validators: [
         Validators.required,
         Validations.onlyArabicValidators()
       ]
     }),
-    currency: new FormControl('', {
+    descriptionEn: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyCharacterValidator()
+        // Validations.englishCharsValidator('faqs.validation_english_title'),
       ]
     }),
-    nationality: new FormControl('', {
+    descriptionAr: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyCharacterValidator()
+        // Validations.arabicCharsValidator('isArabic')
       ]
     }),
-    phoneLength: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
-    }),
-    phoneCode: new FormControl('', {
+    numberOfTechnicals: new FormControl('', {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
       ]
     }),
-    shortName: new FormControl('', {
+    priorityOfView: new FormControl('', {
+      validators: [
+        Validators.required,
+        Validations.onlyNumberValidator()
+      ]
+    }),
+    isActive: new FormControl(false),
+    image: new FormControl(null, {
       validators: [
         Validators.required,
       ]
-    }),
-    content: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    status: new FormControl(false),
-    img: new FormControl(null, {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    timeZone: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -102,17 +89,17 @@ export class CountriesDetailsComponent implements OnInit {
         routerLink: '/dashboard',
       },
       {
-        label: 'Add Country',
+        label: 'Service',
       },
     ]
   }
 
-  get countryID() {
+  get serviceId() {
     return this.route.snapshot.params['id']
   }
 
   get isRequiredError(): boolean {
-    const control = this.form.get('img');
+    const control = this.form.get('image');
     return control?.touched && control?.hasError('required') || false;
   }
 
@@ -124,15 +111,20 @@ export class CountriesDetailsComponent implements OnInit {
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit'))
+    if (url.includes('edit')) {
+      this.bredCrumb.crumbs[1].label = 'Edit Service';
       return 'edit'
-    else if (url.includes('view'))
+    } else if (url.includes('view')) {
+      this.bredCrumb.crumbs[1].label = 'View Service';
       return 'view'
-    else return 'add'
-
+    } else {
+      this.bredCrumb.crumbs[1].label = 'Add Service';
+      return 'add'
+    }
   }
+
   getCountryDetails() {
-    this.ApiService.get(`Country/GetCountry/${this.countryID}`).subscribe((res: any) => {
+    this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -140,27 +132,30 @@ export class CountriesDetailsComponent implements OnInit {
 
   onSubmit() {
     console.log('ff', this.form.value)
+    console.log(this.form.valid); // Logs form validity
+console.log(this.form.errors); // Logs form-level errors, if any
+console.log(this.form.controls);
     const payload = {
       ...this.form.value,
-      countryId: this.countryID,
+      serviceId: this.serviceId,
     }
     if (this.tyepMode() === 'add')
-      this.addCountry(payload)
+      this.addService(payload)
     else
-      this.editCountry(payload)
+      this.editService(payload)
 
   }
 
-  addCountry(payload: any) {
-    this.ApiService.post('Country/CreateCountry', payload, { showAlert: true, message: 'Add country Successfuly' }).subscribe(res => {
+  addService(payload: any) {
+    this.ApiService.post('Service/CreateService', payload, { showAlert: true, message: 'Add Service Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('country')
+        this.router.navigateByUrl('Services')
     })
   }
-  editCountry(payload: any) {
-    this.ApiService.put('Country/UpdateCountry', payload, { showAlert: true, message: 'update country Successfuly' }).subscribe(res => {
+  editService(payload: any) {
+    this.ApiService.put('Service/UpdateService', payload, { showAlert: true, message: 'update Service Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('country')
+        this.router.navigateByUrl('Services')
     })
   }
 
@@ -170,9 +165,9 @@ export class CountriesDetailsComponent implements OnInit {
     if (confirmed)
       this.showConfirmMessage = !this.showConfirmMessage
     else
-      this.router.navigateByUrl('/country')
+      this.router.navigateByUrl('/services')
   }
   onConfirmMessage() {
-    this.router.navigateByUrl('/country')
+    this.router.navigateByUrl('/services')
   }
 }

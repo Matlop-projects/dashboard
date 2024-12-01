@@ -34,6 +34,8 @@ import { PrivacyPolicyTableComponent } from './pages/privacy-policy/privacy-poli
 import { PrivacyPolicyDetailsComponent } from './pages/privacy-policy/privacy-policy-details/privacy-policy-details.component';
 import { PaymentWayTableComponent } from './pages/payment-way/payment-way-table/payment-way-table.component';
 import { PaymentWayDetailsComponent } from './pages/payment-way/payment-way-details/payment-way-details.component';
+import { ServicesTableComponent } from './pages/services/services-table/services-table.component';
+import { ServicesDetailsComponent } from './pages/services/services-details/services-details.component';
 
 export const routes: Routes = [
   {
@@ -82,10 +84,17 @@ export const routes: Routes = [
         ]
       },
       { path: 'profile', component: ProfileComponent },
+
+      { path: 'services', component: ServicesTableComponent },
+      { path: 'service/add', component: ServicesDetailsComponent },
+      { path: 'service/view/:id', component: ServicesDetailsComponent },
+      { path: 'service/edit/:id', component: ServicesDetailsComponent },
+
       { path: 'country', component: CountriesTableComponent },
       { path: 'country/add', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },
       { path: 'country/edit/:id', component: CountriesDetailsComponent },
+
       { path: 'city', component: CitiesTableComponent },
       { path: 'city/add', component: CityDetailsComponent },
       { path: 'city/view/:id', component: CityDetailsComponent },
