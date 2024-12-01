@@ -1,5 +1,5 @@
 import { JsonPipe, NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,4 +22,10 @@ export class InputTextComponent {
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
   @Input() control: any = new FormControl();
+
+
+  OnInit(){
+    console.log("InputTextComponent  control:", this.control)
+
+  }
 }

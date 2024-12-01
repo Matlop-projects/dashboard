@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgIf, TitleCasePipe } from '@angular/common';
-import { Validations } from '../../../validations';
+import { Validations, isEnglishEditorValidator } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
 import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.component";
@@ -45,14 +45,14 @@ export class CancelReasonDetailsComponent {
     }),
     enDescription: new FormControl('', {
       validators: [
-        // Validators.required,
-        // Validations.englishCharsValidator(),
+        Validators.required,
+        Validations.editorEnglishCharsValidator(),
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-        // Validators.required,
-        // Validations.arabicCharsValidator()
+        Validators.required,
+        Validations.editorArabicCharsValidator()
       ]
     }),
     userType: new FormControl('', {
