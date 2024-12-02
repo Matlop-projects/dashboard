@@ -1,7 +1,9 @@
 import { AbstractControl, ValidatorFn } from "@angular/forms";
 
  const arabicCharsRegex = /^[ء-ي0-9!@#\$%\^\& *\)\(+=._-]+]*$/;
- const englishCharsRegex = /^[A-Za-z0-9!@#\$%\^\& *\)\(+=._-]+]*$/;
+ const englishCharsRegex = /^[A-Za-z0-9!@#<>\$%\^\& *\)\(+=._-]+]*$/;
+const englishEditorRegex=  /^[a-zA-Z0-9\s<>&*#@!.,:;'"_-]*$|^[^\u0600-\u06FF]*$/;
+const arabicEditorRegex=  /^[\u0600-\u06FF0-9\s<>&*#@!.,:;'"_-]*$/;;
  const charsRegex = /^[A-Za-zء-ي!@#\$%\^\& *\)\(+=._-]+]*$/;
  export const onlyArabicChar = /^[ء-ي]*$/;
  export const onlyEnglishChar = /^[A-Za-z]*$/;
@@ -22,6 +24,19 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
   };
 }
 
+static editorEnglishCharsValidator(errorMessage?: string): ValidatorFn {
+  return (control: AbstractControl<string>) => {
+    var isValid = isEnglishEditorValidator(control.value);
+    return isValid ? null : { english_char_only: errorMessage };
+  };
+}
+
+static editorArabicCharsValidator(errorMessage?: string): ValidatorFn {
+  return (control: AbstractControl<string>) => {
+    var isValid = isArabicEditorValidator(control.value);
+    return isValid ? null : { arabic_char_only: errorMessage };
+  };
+}
     static arabicCharsValidator(errorMessage?: string): ValidatorFn {
         return (control: AbstractControl<string>) => {
           var isValid = isArabic(control.value);
@@ -72,6 +87,12 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
 
 
 
+  
+  export function removePtags(input: string): string {
+    return input.replace(/<\/?p>/g, ''); 
+  }
+
+
   export function isArabic(value: string): boolean {
     if (value) {
       return arabicCharsRegex.test(value);
@@ -83,6 +104,20 @@ import { AbstractControl, ValidatorFn } from "@angular/forms";
   export function isEnglish(value: string): boolean {
     if (value) {
       return englishCharsRegex.test(value);
+    } else {
+      return true;
+    }
+  }
+  export function isEnglishEditorValidator(value: string): boolean {
+    if (value) {
+      return englishEditorRegex.test(value);
+    } else {
+      return true;
+    }
+  }
+  export function isArabicEditorValidator(value: string): boolean {
+    if (value) {
+      return arabicEditorRegex.test(removePtags(value));
     } else {
       return true;
     }

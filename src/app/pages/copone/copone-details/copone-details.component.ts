@@ -79,12 +79,12 @@ export class CoponeDetailsComponent {
     }),
     enDescription: new FormControl('', {
       validators: [
-
+         Validators.required,
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-
+        Validators.required,
       ]
     }),
     status: new FormControl(false, {

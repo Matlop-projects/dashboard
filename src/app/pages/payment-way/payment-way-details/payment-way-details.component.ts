@@ -50,14 +50,12 @@ export class PaymentWayDetailsComponent {
     }),
     enDescription: new FormControl('', {
       validators: [
-        // Validators.required,
-        // Validations.englishCharsValidator(),
+        Validators.required,
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-        // Validators.required,
-        // Validations.arabicCharsValidator()
+        Validators.required,
       ]
     }),
     paymentId: new FormControl(this.getID|0, {

@@ -7,7 +7,7 @@
     "minlength_validation":"length should be more than",
     "maxlength_validation":"length should be more less than",
     "required_validation":"field is required",
-    "arabic_char_only_validation":"accept  arablic char",
+    "arabic_char_only_validation":"accept  arabic char",
     "english_char_only_validation":"accept  english char",
     "arabic_only_validation":"accept only arabic ",
     "english_only_validation":"accept only english ",

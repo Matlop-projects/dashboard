@@ -1,6 +1,8 @@
 
 <label class="block mb-1" for="enTitle">{{label}}</label>
 <p-editor [readonly]="readOnly" [disabled]="disabled" [formControl]="control" [style]="{ height: '320px' }" />
-<!-- <div *ngIf="control.errors && control.touched">
+<div *ngIf="control.errors && control.touched">
     <span class="text-danger"> {{control.errors|validationHandlerPipe}}</span>
- </div> -->
+ </div>
+
+ 

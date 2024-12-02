@@ -46,14 +46,12 @@ export class FagsDetailsComponent implements OnInit {
     }),
     enDescription: new FormControl('', {
       validators: [
-        // Validators.required,
-        // Validations.englishCharsValidator(),
+        Validators.required,
       ]
     }),
     arDescription: new FormControl('', {
       validators: [
-        // Validators.required,
-        // Validations.arabicCharsValidator()
+        Validators.required,
       ]
     }),
     userType: new FormControl('', {
