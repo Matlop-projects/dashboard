@@ -27,16 +27,39 @@
     </div>
   </div>
 </div>
-<app-drawer [visible]="showFilter" [header]="'Filter FAQS'" (onClose)="onCloseFilter($event)">
-  <div header>
-    <!-- <h1>hello Drawer</h1> -->
-  </div>
-  <div class="content">
-    my form
-  </div>
-  <div footer>
-    <!-- <h1>hello Drawer</h1> -->
-  </div>
+<app-drawer [visible]="showFilter" [header]="'Filter FAQs'" (onClose)="onCloseFilter($event)">
+  <form #myForm="ngForm" (ngSubmit)="onSubmit()" body class="h-100 search-form d-flex">
+     <div class="form-content">
+      <div class="form-group mb-3">
+        <label class="mb-1" for="enTitle">English Title</label>
+        <input
+          type="text"
+          id="enTitle"
+          name="enTitle"
+          class="form-control"
+          [(ngModel)]="faqSearchCreteria.enTitle"
+          placeholder="Enter English Title"
+        />
+      </div>
+
+      <div  class="form-group mb-3">
+        <label class="mb-1" for="arTitle">Arabic Title</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="faqSearchCreteria.arTitle"
+          placeholder="Enter Arabic Title"
+        />
+      </div>
+     </div>
+      <div class="search-form-actions d-flex">
+        <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+        <button type="button" class="btn btn-danger reset-btn" (click)="reset()">Reset</button>
+      </div>
+
+    </form>
 </app-drawer>
 
 

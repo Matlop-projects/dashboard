@@ -62,13 +62,13 @@ export class ServicesDetailsComponent {
         // Validations.arabicCharsValidator('isArabic')
       ]
     }),
-    numberOfTechnicals: new FormControl('', {
+    numOfTechnicals: new FormControl('', {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
       ]
     }),
-    priorityOfView: new FormControl('', {
+    priorityView: new FormControl('', {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
@@ -131,10 +131,10 @@ export class ServicesDetailsComponent {
   }
 
   onSubmit() {
-    console.log('ff', this.form.value)
-    console.log(this.form.valid); // Logs form validity
-console.log(this.form.errors); // Logs form-level errors, if any
-console.log(this.form.controls);
+//     console.log('ff', this.form.value)
+//     console.log(this.form.valid); // Logs form validity
+// console.log(this.form.errors); // Logs form-level errors, if any
+// console.log(this.form.controls);
     const payload = {
       ...this.form.value,
       serviceId: this.serviceId,
@@ -149,13 +149,14 @@ console.log(this.form.controls);
   addService(payload: any) {
     this.ApiService.post('Service/CreateService', payload, { showAlert: true, message: 'Add Service Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('Services')
+        this.router.navigateByUrl('services')
     })
   }
+
   editService(payload: any) {
     this.ApiService.put('Service/UpdateService', payload, { showAlert: true, message: 'update Service Successfuly' }).subscribe(res => {
       if (res)
-        this.router.navigateByUrl('Services')
+        this.router.navigateByUrl('services')
     })
   }
 

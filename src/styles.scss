@@ -3,40 +3,48 @@
 @import "primeicons/primeicons.css";
 
 :root {
-    --main-text-color: redF2F3E;
+  --main-text-color: redF2F3E;
 }
 
 body {
 
-  p , span , h1 ,h2, h3, h4, h5 {
+  p,
+  span,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     margin: 0px;
   }
 
-    // background-color: #F5F5F5;
-    &[dir='rtl'] {
-      .rtl-drawer {
-        direction: ltr;
+  // background-color: #F5F5F5;
+  &[dir='rtl'] {
+    .rtl-drawer {
+      direction: ltr;
     }
-        .side-nav-bar {
-            position: absolute;
-            left: unset !important;
-            right: 0;
-            top: 0 !important;
-            bottom: 0 !important;
-        }
 
-        img.menu-grid-icon {
+    .side-nav-bar {
+      position: absolute;
+      left: unset !important;
+      right: 0;
+      top: 0 !important;
+      bottom: 0 !important;
+    }
 
-            left: auto !important;
-            right: 40px;
+    img.menu-grid-icon {
 
-        }
-        .actions-icon-in-small-table{
-          right:unset;
-          left: 25px;
-       }
+      left: auto !important;
+      right: 40px;
 
     }
+
+    .actions-icon-in-small-table {
+      right: unset;
+      left: 25px;
+    }
+
+  }
 }
 
 .faqs-form-container {
@@ -50,22 +58,24 @@ body {
   }
 }
 
-.p-datepicker{
-  width: 100%!important;
-   }
+.p-datepicker {
+  width: 100% !important;
+}
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
-.dialog-close-btn{
+
+.dialog-close-btn {
   border: 1px solid #dddddd;
   margin: 0px 5px;
 }
-.page-form-container{
+
+.page-form-container {
   .page-details {
     display: flex;
     justify-content: space-between;
@@ -75,167 +85,173 @@ body {
     }
   }
 }
+
 small {
-    color: red;
-    font-size: 12px;
+  color: red;
+  font-size: 12px;
 }
-.block{
-    display: block;
+
+.block {
+  display: block;
 }
 
 @media (max-width: 768px) {
-    .pr-pl-30-small-screen {
-        padding: 0px 35px;
-    }
+  .pr-pl-30-small-screen {
+    padding: 0px 35px;
+  }
 }
 
 
 // Table Scss code for all modules
-  .table-container {
+.table-container {
 
-    .content {
-      h2 {
-        color: #7d7d7d;
-      }
+  .content {
+    h2 {
+      color: #7d7d7d;
+    }
 
-      .title-bredcrumb-section {
+    .title-bredcrumb-section {
+      display: flex;
+      justify-content: space-between;
+      padding-inline: 7px;
+    }
+
+    .details-container {
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+      border-radius: 8px;
+      padding: 20px;
+
+      .action-filter {
         display: flex;
         justify-content: space-between;
-        padding-inline: 7px;
-      }
+        align-items: center;
+        flex-wrap: wrap;
 
-      .details-container {
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        margin-top: 30px;
-        border-radius: 8px;
-        padding: 20px;
+        span.pi-filter {
+          padding: 8px;
+          border: 1px solid gray;
+          border-radius: 6px;
 
-        .action-filter {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-            span.pi-filter{
-                padding: 8px;
-                border: 1px solid gray;
-                border-radius: 6px;
-                &:hover{
-                    color:#fff;
-                    background-color: gray;
-                }
-        }
-
-          a {
-            text-decoration: none;
+          &:hover {
+            color: #fff;
+            background-color: gray;
           }
         }
 
-        .responsive-accordions {
-          display: none;
+        a {
+          text-decoration: none;
         }
       }
-    }
 
-
-
-    // Small devices (portrait phones)
-    @media only screen and (max-width:249.98px) {
       .responsive-accordions {
-        display: block !important;
-
-        p-card {
-          .p-card {
-            margin-block: 20px !important;
-          }
-        }
-
-        p-accordion {
-          p-accordion-panel {
-            border-bottom: none !important;
-          }
-        }
-      }
-
-      .table-view , .title {
-        display: none !important;
+        display: none;
       }
     }
- 
-   
-    // Small devices (portrait phones)
-    @media only screen and (min-width:250.98px) and (max-width: 575.98px) {
-      .responsive-accordions {
-        display: block !important;
-
-        p-card {
-          .p-card {
-            margin-block: 20px !important;
-          }
-        }
-
-        p-accordion {
-          p-accordion-panel {
-            border-bottom: none !important;
-          }
-        }
-      }
-
-      .table-view ,.title {
-        display: none !important;
-      }
-
-      .search-input {
-        margin-top: 20px !important;
-      }
-    }
-
-    // Medium devices (landscape phones, tablets)
-    @media only screen and (min-width: 576px) and (max-width: 767.98px) {
-      .responsive-accordions {
-        display: block !important;
-
-        p-card {
-          .p-card {
-            margin-block: 20px !important;
-          }
-        }
-
-        p-accordion {
-          p-accordion-panel {
-            border-bottom: none !important;
-          }
-        }
-      }
-
-      .table-view {
-        display: none !important;
-      }
-    }
-
-    // Large devices (tablets, small desktops)
-    @media only screen and (min-width: 768px) and (max-width: 991.98px) {
-      .responsive-accordions {
-        display: block !important;
-
-        p-card {
-          .p-card {
-            margin-block: 20px !important;
-          }
-        }
-
-        p-accordion {
-          p-accordion-panel {
-            border-bottom: none !important;
-          }
-        }
-      }
-
-      .table-view {
-        display: none !important;
-      }
-    }
-
   }
+
+
+
+  // Small devices (portrait phones)
+  @media only screen and (max-width:249.98px) {
+    .responsive-accordions {
+      display: block !important;
+
+      p-card {
+        .p-card {
+          margin-block: 20px !important;
+        }
+      }
+
+      p-accordion {
+        p-accordion-panel {
+          border-bottom: none !important;
+        }
+      }
+    }
+
+    .table-view,
+    .title {
+      display: none !important;
+    }
+  }
+
+
+  // Small devices (portrait phones)
+  @media only screen and (min-width:250.98px) and (max-width: 575.98px) {
+    .responsive-accordions {
+      display: block !important;
+
+      p-card {
+        .p-card {
+          margin-block: 20px !important;
+        }
+      }
+
+      p-accordion {
+        p-accordion-panel {
+          border-bottom: none !important;
+        }
+      }
+    }
+
+    .table-view,
+    .title {
+      display: none !important;
+    }
+
+    .search-input {
+      margin-top: 20px !important;
+    }
+  }
+
+  // Medium devices (landscape phones, tablets)
+  @media only screen and (min-width: 576px) and (max-width: 767.98px) {
+    .responsive-accordions {
+      display: block !important;
+
+      p-card {
+        .p-card {
+          margin-block: 20px !important;
+        }
+      }
+
+      p-accordion {
+        p-accordion-panel {
+          border-bottom: none !important;
+        }
+      }
+    }
+
+    .table-view {
+      display: none !important;
+    }
+  }
+
+  // Large devices (tablets, small desktops)
+  @media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .responsive-accordions {
+      display: block !important;
+
+      p-card {
+        .p-card {
+          margin-block: 20px !important;
+        }
+      }
+
+      p-accordion {
+        p-accordion-panel {
+          border-bottom: none !important;
+        }
+      }
+    }
+
+    .table-view {
+      display: none !important;
+    }
+  }
+
+}
 
 // End of table code
 
@@ -262,12 +278,14 @@ small {
         border-radius: 4px;
         border: none;
         font-size: 20px;
+
         &:hover {
           background: #196919;
         }
-        &:disabled{
-          background: rgba(48, 171, 48,.1);
-          color:#b8b5b5;
+
+        &:disabled {
+          background: rgba(48, 171, 48, .1);
+          color: #b8b5b5;
           border: 1px solid #cac6c6;
           cursor: not-allowed;
         }
@@ -279,6 +297,7 @@ small {
         color: red;
         padding: 6px 27px;
         border-radius: 4px;
+
         &:hover {
           background: red;
           color: white;
@@ -288,8 +307,8 @@ small {
 
     @media only screen and (min-width:250.98px) and (max-width: 575.98px) {
       .actions {
-      justify-content: center !important;
-    }
+        justify-content: center !important;
+      }
     }
   }
 
@@ -300,6 +319,7 @@ small {
     color: #a5a0a0;
   }
 }
+
 // End of form code
 
 .d-grid {
@@ -311,4 +331,24 @@ small {
   color: red;
   font-size: 0.9rem;
   margin-top: 0.5rem;
+}
+
+
+.search-form {
+  flex-direction: column;
+  justify-content: space-between;
+
+  .form-content {
+    input {
+      box-shadow: none !important;
+    }
+  }
+
+  .search-form-actions {
+    gap: 10px;
+
+    button {
+      flex-basis: 48%;
+    }
+  }
 }
