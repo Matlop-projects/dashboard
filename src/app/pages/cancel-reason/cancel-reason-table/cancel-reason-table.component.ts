@@ -150,4 +150,21 @@ export class CancelReasonTableComponent {
     );
   }
 
+  onSubmitFilter() {
+    this.getAllCancelReason();
+  }
+
+  reset() {
+    this.objectSearch = {
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enName: "",
+      arName: ""
+    }
+    this.getAllCancelReason();
+    this.showFilter = false
+  }
+
 }

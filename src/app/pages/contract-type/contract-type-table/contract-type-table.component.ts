@@ -158,5 +158,23 @@ export class ContractTypeTableComponent {
     );
   }
 
+  onSubmitFilter() {
+    this.API_getAll();
+  }
+
+  reset() {
+    this.objectSearch = {
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enName: "",
+      arName: "",
+      noOfVisit: 0
+    }
+    this.API_getAll();
+    this.showFilter = false
+  }
+
 }
 

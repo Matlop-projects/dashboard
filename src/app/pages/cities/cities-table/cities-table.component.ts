@@ -127,4 +127,23 @@ export class CitiesTableComponent {
   onCloseFilter(event: any) {
     this.showFilter = false
   }
+
+  onSubmitFilter() {
+    this.getAllCities();
+  }
+
+
+  reset() {
+    this.citySearch = {
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enName: "",
+      arName: "",
+      postalCode: ""
+    }
+    this.getAllCities();
+    this.showFilter = false
+  }
 }

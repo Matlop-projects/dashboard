@@ -157,7 +157,22 @@ export class CountriesTableComponent {
       item.arDescription.toLowerCase().includes(search)
     );
   }
+  onSubmitFilter() {
+    this.API_getAll();
+  }
 
+  reset() {
+    this.objectSearch = {
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enName: "",
+      arName: ""
+    }
+    this.API_getAll();
+    this.showFilter = false
+  }
 }
 
 

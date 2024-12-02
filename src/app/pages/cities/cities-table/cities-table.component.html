@@ -27,13 +27,47 @@
     </div>
   </div>
   <app-drawer [visible]="showFilter" [header]="'Filter FAQS'" (onClose)="onCloseFilter($event)">
-    <div header>
-      <h1>hello Drawer</h1>
-    </div>
-    <div class="content">
-      my form
-    </div>
-    <div footer>
-      <h1>hello Drawer</h1>
-    </div>
+    <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
+      <div class="form-content">
+       <div class="form-group mb-3">
+         <label class="mb-1" for="enTitle">English City</label>
+         <input
+           type="text"
+           id="enTitle"
+           name="enTitle"
+           class="form-control"
+           [(ngModel)]="citySearch.enName"
+           placeholder="Enter English City"
+         />
+       </div>
+ 
+       <div  class="form-group mb-3">
+         <label class="mb-1" for="arTitle">Arabic City</label>
+         <input
+           type="text"
+           id="arTitle"
+           name="arTitle"
+           class="form-control"
+           [(ngModel)]="citySearch.arName"
+           placeholder="Enter Arabic City"
+         />
+       </div>
+       <div  class="form-group mb-3">
+        <label class="mb-1" for="arTitle">Postal Code</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="citySearch.postalCode"
+          placeholder="Enter postal code"
+        />
+      </div>
+      </div>
+       <div class="search-form-actions d-flex">
+         <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+         <button type="button" class="btn btn-danger reset-btn" (click)="reset()">Reset</button>
+       </div>
+ 
+     </form>
   </app-drawer>
