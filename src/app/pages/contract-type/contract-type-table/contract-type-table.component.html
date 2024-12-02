@@ -31,28 +31,28 @@
   <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
     <div class="form-content">
      <div class="form-group mb-3">
-       <label class="mb-1" for="enTitle">Name (en)</label>
+       <label class="mb-1" for="enTitle">Contract (en)</label>
        <input
          type="text"
          id="enTitle"
          name="enTitle"
          class="form-control"
          [(ngModel)]="objectSearch.enName"
-         placeholder="Enter name (en)"
+         placeholder="Enter Contract (en)"
        />
      </div>
 
-     <div  class="form-group mb-3">
-       <label class="mb-1" for="arTitle"> Name (Ar)</label>
-       <input
-         type="text"
-         id="arTitle"
-         name="arTitle"
-         class="form-control"
-         [(ngModel)]="objectSearch.arName"
-         placeholder="Enter name (ar)"
-       />
-     </div>
+     <div class="form-group mb-3">
+      <label class="mb-1" for="enTitle">Contract (ar)</label>
+      <input
+        type="text"
+        id="enTitle"
+        name="enTitle"
+        class="form-control"
+        [(ngModel)]="objectSearch.arName"
+        placeholder="Enter Contract (ar)"
+      />
+    </div>
 
      <div  class="form-group mb-3">
       <label class="mb-1" for="arTitle"> Number of visit</label>

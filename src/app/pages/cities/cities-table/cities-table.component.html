@@ -30,26 +30,26 @@
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">English City</label>
+         <label class="mb-1" for="enTitle">City Name (en)</label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
            [(ngModel)]="citySearch.enName"
-           placeholder="Enter English City"
+           placeholder="Enter City Name (en)"
          />
        </div>
  
        <div  class="form-group mb-3">
-         <label class="mb-1" for="arTitle">Arabic City</label>
+         <label class="mb-1" for="arTitle">City Name (ar)</label>
          <input
            type="text"
            id="arTitle"
            name="arTitle"
            class="form-control"
            [(ngModel)]="citySearch.arName"
-           placeholder="Enter Arabic City"
+           placeholder="Enter City Name (ar)"
          />
        </div>
        <div  class="form-group mb-3">
