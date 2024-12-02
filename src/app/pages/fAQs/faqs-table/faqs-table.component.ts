@@ -128,4 +128,22 @@ export class FaqsTableComponent {
     this.faqSearchCreteria.pageNumber = event;
     this.getAllFAQS();
   }
+
+  onSubmit() {
+    console.log("Form Submitted:", this.faqSearchCreteria);
+    this.getAllFAQS();
+  }
+
+  reset() {
+    this.faqSearchCreteria = {
+      pageNumber: 0,
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      enTitle: "",
+      arTitle: ""
+    }
+    this.getAllFAQS();
+    this.showFilter = false
+  }
 }

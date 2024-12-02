@@ -60,8 +60,8 @@ export class WorkingHoursTableComponent {
       "pageSize": 8,
       "sortingExpression": "",
       "sortingDirection": 0,
-      "startDate": "",
-      "endDate": ""
+      "startDate": null,
+      "endDate": null
   }
 
   searchValue: any = '';

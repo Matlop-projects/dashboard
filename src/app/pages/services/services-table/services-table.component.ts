@@ -65,12 +65,12 @@ export class ServicesTableComponent {
   }
 
   objectSearch = {
-    "pageNumber": 0,
-    "pageSize": 8,
-    "sortingExpression": "",
-    "sortingDirection": 0,
-    "nameEn": "",
-    "nameAr": ""
+      "pageNumber": 0,
+      "pageSize": 8,
+      "sortingExpression": "",
+      "sortingDirection": 0,
+      "nameEn": "",
+      "nameAr": ""
   }
 
   totalCount: number = 0;
@@ -101,16 +101,16 @@ export class ServicesTableComponent {
     this.columns = [
       { keyName: 'serviceId', header: 'Id', type: EType.id, show: true },
       { keyName: currentLang == 'ar' ? 'nameAr' : 'nameEn', header: 'Name', type: EType.text, show: true },
-      { keyName: 'numberOfTechnicals', header: 'Number of Technical', type: EType.text, show: true },
-      { keyName: 'priorityOfView', header: 'Priority of View', type: EType.text, show: true },
+      { keyName: 'numOfTechnicals', header: 'Number of Technical', type: EType.text, show: true },
+      { keyName: 'priorityView', header: 'Priority of View', type: EType.text, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
     ];
 
     this.columnsSmallTable = [
       { keyName: currentLang == 'ar' ? 'nameAr' : 'nameEn', header: 'Name', type: EType.text, showAs: ETableShow.header },
       { keyName: 'serviceId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'numberOfTechnicals', header: 'Number of Technical', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'priorityOfView', header: 'Priority of View', type: EType.text, showAs: ETableShow.content }
+      { keyName: 'numOfTechnicals', header: 'Number of Technical', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'priorityView', header: 'Priority of View', type: EType.text, showAs: ETableShow.content }
     ];
   }
 
