@@ -40,3 +40,27 @@ export const  userType  =[
     code:5
   }
 ]
+
+export const coponeOfferTypeList =[
+  {
+    name:'Gift',
+    code:1
+  },
+  {
+    name:'Offer',
+    code:2
+  }
+]
+
+export const coponeTypeList =[
+  {
+    name:'Gift',
+    code:1
+  },
+  {
+    name:'Offer',
+    code:2
+  }
+]
+
+

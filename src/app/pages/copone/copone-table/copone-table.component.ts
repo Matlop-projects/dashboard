@@ -11,18 +11,20 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
+import { SelectComponent } from '../../../components/select/select.component';
+import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 
 const global_pageName='copone'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
 const global_router_view_url =global_pageName+'/view'
 const global_router_edit_url =global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAll'
+const global_API_getAll =global_pageName+'/GetAllWithPagination'
 const global_API_delete=global_pageName+'/Delete?requestId'
 
 @Component({
   selector: 'app-copone-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe,SelectComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './copone-table.component.html',
   styleUrl: './copone-table.component.scss'
 })
@@ -69,8 +71,8 @@ export class CoponeTableComponent {
     sortingExpression: "",
     sortingDirection: 0,
     code: "",
-    enName: "",
-    arName: ""
+    offerType: 0,
+    couponType: 0
   }
 
   totalCount: number = 0;
@@ -79,7 +81,8 @@ export class CoponeTableComponent {
   filteredData: any;
   dataList: any = []
   columns: IcolHeader[] = [];
-
+  offerTypeList:any[]=coponeOfferTypeList
+  coponeTypeList:any[]=coponeTypeList
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
@@ -168,8 +171,8 @@ export class CoponeTableComponent {
       sortingExpression: "",
       sortingDirection: 0,
       code: "",
-      enName: "",
-      arName: ""
+      offerType: 0,
+      couponType: 0
     }
     this.API_getAll();
     this.showFilter = false

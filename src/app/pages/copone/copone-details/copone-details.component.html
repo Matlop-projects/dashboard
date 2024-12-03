@@ -22,8 +22,10 @@
                 [control]="form.get('usedNumber')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Offer Type'"
-                  [control]="form.get('offerType')"></app-input-text>
+                  <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Offer Type'"
+                  [control]="form.get('offerType')"
+                   class="w-100" [list]="offerTypeList">
+                  </app-select>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'amount'"
@@ -40,8 +42,10 @@
                 [control]="form.get('endDate')"></app-date-picker>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Copone type'"
-                  [control]="form.get('coponeType')"></app-input-text>
+                <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'coponeType'"
+                [control]="form.get('coponeType')"
+                 class="w-100" [list]="coponeTypeList">
+                </app-select>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                 <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'status'" [control]="form.get('status')"></app-check-box>

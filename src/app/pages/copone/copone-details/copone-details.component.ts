@@ -14,6 +14,8 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { DatePickerComponent } from '../../../components/date-picker/date-picker.component';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
+import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
+import { SelectComponent } from '../../../components/select/select.component';
 
 const global_PageName = 'copone';
 const global_API_deialis = global_PageName + '/GetById';
@@ -24,7 +26,7 @@ const global_routeUrl = global_PageName
 @Component({
   selector: 'app-copone-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule,SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './copone-details.component.html',
   styleUrl: './copone-details.component.scss'
 })
@@ -35,7 +37,8 @@ export class CoponeDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
-
+  offerTypeList:any[]=coponeOfferTypeList
+  coponeTypeList:any[]=coponeTypeList
   minEndDate:Date =new Date()
   form = new FormGroup({
     code: new FormControl('', {
