@@ -13,6 +13,8 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
+import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 
 @Component({
   selector: 'app-services-details',
@@ -26,8 +28,9 @@ import { EditorComponent } from '../../../components/editor/editor.component';
     DialogComponent,
     CheckBoxComponent,
     UploadFileComponent,
-    EditorComponent
-  ],  templateUrl: './services-details.component.html',
+    EditorComponent,
+    EditModeImageComponent
+  ], templateUrl: './services-details.component.html',
   styleUrl: './services-details.component.scss'
 })
 export class ServicesDetailsComponent {
@@ -94,6 +97,20 @@ export class ServicesDetailsComponent {
     ]
   }
 
+  editImageProps: IEditImage = {
+    props: {
+      visible: true,
+      imgSrc: ''
+    },
+    onEditBtn: (e?: Event) => {
+      this.editImageProps.props.visible = false;
+      this.editMode = false;
+    }
+  };
+
+  editMode: boolean = false;
+
+
   get serviceId() {
     return this.route.snapshot.params['id']
   }
@@ -125,16 +142,19 @@ export class ServicesDetailsComponent {
 
   getCountryDetails() {
     this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
-      if (res)
-        this.form.patchValue(res.data)
+      if (res) {
+        this.form.patchValue(res.data);
+        this.editImageProps.props.imgSrc = res.data.image;
+        this.editMode = true;
+      }
     })
   }
 
   onSubmit() {
-//     console.log('ff', this.form.value)
-//     console.log(this.form.valid); // Logs form validity
-// console.log(this.form.errors); // Logs form-level errors, if any
-// console.log(this.form.controls);
+    //     console.log('ff', this.form.value)
+    //     console.log(this.form.valid); // Logs form validity
+    // console.log(this.form.errors); // Logs form-level errors, if any
+    // console.log(this.form.controls);
     const payload = {
       ...this.form.value,
       serviceId: this.serviceId,

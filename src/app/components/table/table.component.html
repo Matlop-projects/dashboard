@@ -17,7 +17,8 @@
                             </span>
                         </div>
                         <span *ngIf="col.type=='id'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
-                       <span *ngIf="col.type=='text'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
+                       <span *ngIf="col.type=='text'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-'  }}</span>
+                       <span *ngIf="col.type=='boolean'"> {{ rowData[col.keyName]? true: false  }}</span>
                        <div *ngIf="col.type=='editor'" [innerHTML]="rowData[col.keyName]? rowData[col.keyName]:'-' "> </div>
                        <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.keyName]" width="60px" height="auto" alt="image">
                        <span *ngIf="col.type =='date'">{{convertDate( rowData[col.keyName]? rowData[col.keyName]:'-' )}}</span>
@@ -36,10 +37,12 @@
                                     <span *ngIf="action.name==='view'" class="pi pi-eye" pTooltip="View" tooltipPosition="top"></span>
                                     <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square" pTooltip="Edit" tooltipPosition="top"></span>
                                     <span *ngIf="action.name==='delete'" class="pi pi-trash" pTooltip="Delete" tooltipPosition="top"></span>
+                                    <span *ngIf="action.name==='active'" class="pi pi-bullseye" pTooltip="Active" tooltipPosition="top"></span>
+                                    <span *ngIf="action.name==='block'" class="pi pi-ban" pTooltip="Block" tooltipPosition="top"></span>
                                 </div>
                             </div>
                         </div>
-    
+
                        </div>
                     </ng-container>
                 </td>
@@ -56,4 +59,15 @@
 <app-dialog [message]="'Are you sure to delete this item ?'"  [visible]="showConfirmMessage">
     <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Delete</button>
     <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> No</button>
+</app-dialog>
+
+
+<app-dialog [message]="'Are you sure to block this item ?'"  [visible]="showBlockConfirmationMessage">
+  <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Delete</button>
+  <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> No</button>
+</app-dialog>
+
+<app-dialog [message]="'Are you sure to active this item ?'"  [visible]="showActiveConfirmationMessage">
+  <button class="dialog-close-btn btn btn-success" (click)="onActiveConfirmMessage()" > Active</button>
+  <button class="dialog-close-btn btn btn-default"  (click)="showActiveConfirmationMessage = false"> No</button>
 </app-dialog>
