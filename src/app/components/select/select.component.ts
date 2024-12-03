@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import {  NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';

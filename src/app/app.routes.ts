@@ -38,6 +38,8 @@ import { ClientTableComponent } from './pages/clients/client-table/client-table.
 import { ClientDetailsComponent } from './pages/clients/client-details/client-details.component';
 import { TechnicalTableComponent } from './pages/technicals/technical-table/technical-table.component';
 import { TechnicalDetailsComponent } from './pages/technicals/technical-details/technical-details.component';
+import { PackageTableComponent } from './pages/package/package-table/package-table.component';
+import { PackageDetailsComponent } from './pages/package/package-details/package-details.component';
 
 export const routes: Routes = [
   {
@@ -135,6 +137,10 @@ export const routes: Routes = [
       { path: 'paymentWay/view/:id', component: PaymentWayDetailsComponent },
       { path: 'paymentWay/edit/:id', component: PaymentWayDetailsComponent },
 
+      { path: 'package', component: PackageTableComponent },
+      { path: 'package/add', component: PackageDetailsComponent },
+      { path: 'package/view/:id', component: PackageDetailsComponent },
+      { path: 'package/edit/:id', component: PackageDetailsComponent },
     ]
   },
   {path: '**', component: NotFoundComponent}

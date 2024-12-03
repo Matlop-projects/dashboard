@@ -1,0 +1,102 @@
+<div class="faqs-form-container container-fluid">
+    <div class="row">
+        <div class="page-details mb-3">
+            <div class="title mb-4">
+                <h2>{{tyepMode()|titlecase}} {{pageName()|titlecase}}</h2>
+            </div>
+            <div class="breadcrumb">
+                <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+            </div>
+        </div>
+    </div>
+    <div class=" form-container">
+        <div class="reactive-form">
+            <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Name (en)'" [control]="form.get('nameEn')">
+                        </app-input-text>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Name (ar)'" [control]="form.get('nameAr')">
+                        </app-input-text>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Provider Number'" [control]="form.get('providerNumber')">
+                        </app-input-text>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Visit Number'" [control]="form.get('visitNumber')">
+                        </app-input-text>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Visit Hours'" [control]="form.get('visitHours')">
+                        </app-input-text>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="typeOfPackageList.length!==0">
+                        <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Type Of Package'" [placeholder]="form.get('typeOfPackage')?.value" [control]="form.get('typeOfPackage')" class="w-100"
+                            [list]="typeOfPackageList">
+                        </app-select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Contarct Type'" [placeholder]="form.get('contractTypeId')?.value" [control]="form.get('contractTypeId')" class="w-100"
+                            [list]="contractTypeList">
+                        </app-select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Price'" [control]="form.get('price')">
+                        </app-input-text>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
+                        <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'is Active'"
+                            [control]="form.get('isActive')"></app-check-box>
+                    </div>
+                     <div class="row">
+                        <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+                            <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                                [label]="'Description (en)'" [control]="form.get('descriptionEn')"></app-editor>
+                        </div>
+                        <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+                            <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                                [label]="'Description (ar)'" [control]="form.get('descriptionAr')"></app-editor>
+                        </div>
+                        <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+                            <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                                [label]="'Instraction (en)'" [control]="form.get('instractionEn')"></app-editor>
+                        </div>
+                        <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
+                            <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                                [label]="'Instraction (ar)'" [control]="form.get('instractionAr')"></app-editor>
+                        </div>
+                     </div>
+
+
+                    <div class="actions mt-5 text-center">
+                        <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!='View'">
+                            <span *ngIf="tyepMode()=='Add'">Add</span>
+                            <span *ngIf="tyepMode()=='Edit'">Edit</span>
+                        </button>
+                        <button type="button" class="cancel-btn" (click)="cancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+         
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-dialog [visible]="showConfirmMessage">
+    <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> Close</button>
+    <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()"> Confirm</button>
+</app-dialog>
