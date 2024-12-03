@@ -38,12 +38,19 @@
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                  <app-check-box [isToggle]="true" [label]="'isActive'" [control]="form.get('isActive')"></app-check-box>
               </div>
-              <div class="upload-image-section mt-4 mb-4">
+              <div class="upload-image-section mt-4 mb-4" *ngIf="!editMode">
+                <label class="mb-2" >Upload Image</label>
                  <app-upload-file formControlName="image"></app-upload-file>
                  <div *ngIf="isRequiredError" class="error-message mt-2">
                    Image upload is required.
                  </div>
                </div>
+
+               <div class="edit-mode-section mt-2" *ngIf="editMode">
+                <label class="mb-2" >Uploaded Image</label>
+                <app-edit-mode-image  [editImageProps]="editImageProps"></app-edit-mode-image>
+               </div>
+
 
               <div class="actions mt-5 text-center">
                  <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">

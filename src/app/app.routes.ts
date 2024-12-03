@@ -6,10 +6,8 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { ClientsComponent } from './pages/clients/clients.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { SettingsComponent } from './pages/settings/settings.component';
-import { ProvidersComponent } from './pages/providers/providers.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
 import { FaqsTableComponent } from './pages/fAQs/faqs-table/faqs-table.component';
@@ -36,6 +34,10 @@ import { PaymentWayTableComponent } from './pages/payment-way/payment-way-table/
 import { PaymentWayDetailsComponent } from './pages/payment-way/payment-way-details/payment-way-details.component';
 import { ServicesTableComponent } from './pages/services/services-table/services-table.component';
 import { ServicesDetailsComponent } from './pages/services/services-details/services-details.component';
+import { ClientTableComponent } from './pages/clients/client-table/client-table.component';
+import { ClientDetailsComponent } from './pages/clients/client-details/client-details.component';
+import { TechnicalTableComponent } from './pages/technicals/technical-table/technical-table.component';
+import { TechnicalDetailsComponent } from './pages/technicals/technical-details/technical-details.component';
 
 export const routes: Routes = [
   {
@@ -58,9 +60,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'clients', component: ClientsComponent },
       { path: 'orders', component: OrdersComponent },
-      { path: 'providers', component: ProvidersComponent },
       { path: 'working_hours', component: WorkingHoursTableComponent },
       { path: 'working_hours/add', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
@@ -94,6 +94,16 @@ export const routes: Routes = [
       { path: 'country/add', component: CountriesDetailsComponent },
       { path: 'country/view/:id', component: CountriesDetailsComponent },
       { path: 'country/edit/:id', component: CountriesDetailsComponent },
+
+      { path: 'clients', component: ClientTableComponent },
+      { path: 'client/add', component: ClientDetailsComponent },
+      { path: 'client/view/:id', component: ClientDetailsComponent },
+      { path: 'client/edit/:id', component: ClientDetailsComponent },
+
+      { path: 'technicals', component: TechnicalTableComponent },
+      { path: 'technical/add', component: TechnicalDetailsComponent },
+      { path: 'technical/view/:id', component: TechnicalDetailsComponent },
+      { path: 'technical/edit/:id', component: TechnicalDetailsComponent },
 
       { path: 'city', component: CitiesTableComponent },
       { path: 'city/add', component: CityDetailsComponent },

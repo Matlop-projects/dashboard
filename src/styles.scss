@@ -352,3 +352,61 @@ small {
     }
   }
 }
+
+
+// scss code for edit image case component
+
+.edit-image-container {
+  border-radius: 5px;
+  border: 1px solid #d7d7d7;
+  padding: 20px;
+  width: 500px;
+
+  .content {
+    display: flex;
+    gap: 20px;
+
+    .image-section {
+      flex-basis: 80%;
+
+      img {
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #eaeaea;
+      }
+    }
+
+    .action {
+      flex-basis: 18%;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+// Small devices (portrait phones)
+@media only screen and (max-width:249.98px) {
+  .edit-image-container {
+    width: 100% !important;
+  }
+}
+
+
+// Small devices (portrait phones)
+@media only screen and (min-width:250.98px) and (max-width: 575.98px) {
+  .edit-image-container {
+    width: 100% !important;
+  }
+}
+
+
+@media only screen and (min-width: 576px) and (max-width: 664.98px) {
+  .edit-image-container {
+    width: 100% !important;
+  }
+}
+
+/// end of the code of edit image

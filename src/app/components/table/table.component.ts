@@ -9,7 +9,9 @@ import { DialogComponent } from '../dialog/dialog.component';
 export enum EAction {
   delete = "delete",
   view = "view",
-  edit = "edit"
+  edit = "edit",
+  block = "block",
+  active = "active"
 }
 export interface ITableAction {
   name: EAction,
@@ -26,7 +28,8 @@ export enum EType {
   status = "status",
   index = "index",
   actions = "actions",
-  editor='editor'
+  editor = 'editor',
+  boolean = 'boolean'
 }
 interface INested {
   img: string,
@@ -43,12 +46,13 @@ export interface IcolHeader {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf, TooltipModule,DialogComponent],
+  imports: [TableModule, NgFor, NgIf, TooltipModule, DialogComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
 
 export class TableComponent implements OnInit, OnChanges {
+
   @Input() showrecordIndex = false;
   @Input({ required: true }) records: any = [];
   @Input() hasPaginator: boolean = true;
@@ -56,19 +60,25 @@ export class TableComponent implements OnInit, OnChanges {
   @Input({ required: true }) colsHeader: IcolHeader[] = [];
   @Input() actions: any[] = [];
   @Output() onActionCliked = new EventEmitter();
-  showConfirmMessage:boolean=false
+  @Output() reloadGetAllApi = new EventEmitter();
+  showConfirmMessage: boolean = false;
+  showBlockConfirmationMessage: boolean = false;
+  showActiveConfirmationMessage: boolean = false;
   ApiService = inject(ApiService);
   router = inject(Router);
-  eventEmitValue:any={action:{},record:{}}
+  eventEmitValue: any = { action: {}, record: {} }
+
   ngOnInit() {
     this.filterdRecords = this.records;
   }
+
   ngOnChanges() {
     this.filterdRecords = this.records;
   }
+
   onAction(action: ITableAction, item: any) {
-    this.eventEmitValue.action=action;
-    this.eventEmitValue.record=item;
+    this.eventEmitValue.action = action;
+    this.eventEmitValue.record = item;
 
     this.onActionCliked.emit(this.eventEmitValue);
     this.autoCallActions(action, item);
@@ -79,26 +89,51 @@ export class TableComponent implements OnInit, OnChanges {
     return idName[0].keyName;
   }
 
-
   autoCallActions(action: ITableAction, record: any) {
     let recordId = record[this.getNameOfIDHeader()];
     if (action.name == EAction.delete && action.autoCall) {
-      this.showConfirmMessage=!this.showConfirmMessage
+      this.showConfirmMessage = !this.showConfirmMessage;
     } else if ((action.name == EAction.edit || action.name == EAction.view) && action.autoCall) {
       this.router.navigateByUrl(action.apiName_or_route + '/' + recordId);
+    } else if (action.name == EAction.block && action.autoCall) {
+      this.showBlockConfirmationMessage = !this.showBlockConfirmationMessage;
+    } else if (action.name == EAction.active && action.autoCall) {
+      this.showActiveConfirmationMessage = !this.showActiveConfirmationMessage;
     }
   }
-  onConfirmMessage(){
-    let action =this.eventEmitValue.action;
-    let recordId =this.eventEmitValue.record[this.getNameOfIDHeader()] ;
-    this.showConfirmMessage=false
+
+  onConfirmMessage() {
+    let action = this.eventEmitValue.action;
+    let recordId = this.eventEmitValue.record[this.getNameOfIDHeader()];
+    this.showConfirmMessage = false;
+    this.showBlockConfirmationMessage = false;
     this.callDeleteAction(action, recordId);
   }
 
   callDeleteAction(action: ITableAction, id: any) {
     this.ApiService.delete(action.apiName_or_route, id).subscribe(res => {
-      if (res)
+      if (res) {
         this.filterdRecords = this.filterdRecords.filter((item: any) => item[this.getNameOfIDHeader()] != id)
+        this.reloadGetAllApi.emit(true);
+      }
+    })
+  }
+
+  onActiveConfirmMessage() {
+    let action = this.eventEmitValue.action;
+    let recordId = this.eventEmitValue.record[this.getNameOfIDHeader()];
+    this.showActiveConfirmationMessage = false;
+
+    this.callActiveApi(action, recordId);
+  }
+
+  callActiveApi(action: ITableAction, id: any) {
+    console.log(id);
+    console.log(action);
+    this.ApiService.putWithId(action.apiName_or_route, id).subscribe(res => {
+      if (res) {
+        this.reloadGetAllApi.emit(true);
+      }
     })
   }
 

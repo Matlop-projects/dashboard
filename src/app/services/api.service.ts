@@ -27,7 +27,7 @@ export class ApiService {
 
   post<T>(APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
     console.log(body);
-    
+
     return this.http
       .post(`${baseUrl}${APIName}`, body)
       .pipe(
@@ -62,6 +62,19 @@ export class ApiService {
   put<T>(APIName: string, body: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
     return this.http
       .put(`${baseUrl}${APIName}`, body)
+      .pipe(
+        take(1),
+        map((res: any) => {
+          options.showAlert ?   this.toaster.successToaster(options.message) :''
+          return res;
+        })
+
+      );
+  }
+
+  putWithId<T>(APIName: string, id: any ,options:IOptions={showAlert:false,message:''}): Observable<T> {
+    return this.http
+      .put(`${baseUrl}${APIName}=${id}`, {})
       .pipe(
         take(1),
         map((res: any) => {
