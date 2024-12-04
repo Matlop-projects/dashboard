@@ -12,6 +12,8 @@ import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
+import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
+import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
@@ -24,6 +26,7 @@ import { UploadFileComponent } from '../../../components/upload-file/upload-file
     DialogComponent,
     CheckBoxComponent,
     UploadFileComponent,
+    EditModeImageComponent
   ],
   templateUrl: './countries-details.component.html',
   styleUrl: './countries-details.component.scss'
@@ -34,6 +37,9 @@ export class CountriesDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+  editAttachmentMode: boolean = false;
+
+
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -131,6 +137,17 @@ export class CountriesDetailsComponent implements OnInit {
     else return 'add'
 
   }
+
+  editImageProps: IEditImage = {
+    props: {
+      visible: true,
+      imgSrc: ''
+    },
+    onEditBtn: (e?: Event) => {
+      this.editImageProps.props.visible = false;
+      this.editAttachmentMode = false;
+    }
+  };
   getCountryDetails() {
     this.ApiService.get(`Country/GetCountry/${this.countryID}`).subscribe((res: any) => {
       if (res)

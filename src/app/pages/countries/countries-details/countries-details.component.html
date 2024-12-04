@@ -58,6 +58,10 @@
                     Image upload is required.
                   </div>
                 </div>
+                <div class="edit-mode-section mt-2" *ngIf="editAttachmentMode">
+                  <label class="mb-2" >Uploaded Image</label>
+                  <app-edit-mode-image  [editImageProps]="editImageProps"></app-edit-mode-image>
+                 </div>
 
                <div class="actions mt-5 text-center">
                   <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">

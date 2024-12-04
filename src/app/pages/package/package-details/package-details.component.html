@@ -35,9 +35,12 @@
                         </app-input-text>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                        <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                        [label]="'Visit Hours'" [control]="form.get('visitHours')" [list]="visitHoursList">
+                        </app-select>
+                        <!-- <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
                             [label]="'Visit Hours'" [control]="form.get('visitHours')">
-                        </app-input-text>
+                        </app-input-text> -->
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="typeOfPackageList.length!==0">
                         <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"

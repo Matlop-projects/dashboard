@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Checkbox } from 'primeng/checkbox';
 import { ToggleSwitch } from 'primeng/toggleswitch';
@@ -16,7 +16,12 @@ export class CheckBoxComponent {
 @Input()label:string='';
 @Input()disabled:boolean=false;
 @Input()readOnly:boolean=false;
+@Input()initValue:boolean=false;
 @Input()control:any =new FormControl()
-
+@Output() toggleValue =new EventEmitter()
+onToggleChange(value:any){
+console.log("CheckBoxComponent  onToggleChange  value:", value)
+   this.toggleValue.emit(value.checked)
+}
 
 }

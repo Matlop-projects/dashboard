@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
+import { EAction, EType, IcolHeader, ITableAction, IToggleOptions, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -11,6 +11,10 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 
+const global_toggleOptions:IToggleOptions={
+  apiName:'city/Update',
+  autoCall:true,
+  }
 @Component({
   selector: 'app-cities-table',
   standalone: true,
@@ -90,6 +94,7 @@ export class CitiesTableComponent {
       { keyName: 'latitude', header: 'latitude', type: EType.text, show: true },
       { keyName: 'longitude', header: 'longitude', type: EType.text, show: true },
       { keyName: 'shortCut', header: 'Short Name', type: EType.text, show: true },
+      { keyName: 'status', header: 'active', type: EType.toggle, toggleOptions:global_toggleOptions, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
     ];
 

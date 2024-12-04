@@ -31,6 +31,9 @@
                         <span *ngIf="col.type=='status'">
                             <button [class]="rowData[col.keyName]" > {{ rowData[col.keyName]}}</button>
                         </span>
+                        <span *ngIf="col.type ==='toggle'"> 
+                            <app-check-box  [initValue]="rowData[col.keyName]" (toggleValue)="onToggleChange($event,rowData,col)"   [isToggle]="true"></app-check-box>
+                        </span>
                         <div class="d-flex" *ngIf="col.type=='actions'">
                             <div *ngFor="let action of col.actions">
                                 <div class="actions-icon" (click)="onAction(action,rowData)">
