@@ -14,7 +14,7 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { DatePickerComponent } from '../../../components/date-picker/date-picker.component';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
-import { coponeOfferTypeList, coponeTypeList, PackageTypeList } from '../../../conts';
+import { coponeOfferTypeList, coponeTypeList, packageHourVistList, PackageTypeList } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
 
@@ -40,7 +40,8 @@ export class PackageDetailsComponent {
   private confirm = inject(ConfirmMsgService)
   typeOfPackageList:any[]=PackageTypeList
   contractTypeList:any[]=[]
- 
+  visitHoursList:any=packageHourVistList
+  
   form = new FormGroup({
     nameEn: new FormControl('', {
       validators: [

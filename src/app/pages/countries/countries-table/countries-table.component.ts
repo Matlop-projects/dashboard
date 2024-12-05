@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
+import { EAction, EType, IcolHeader, ITableAction, IToggleOptions, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -18,7 +18,10 @@ const global_router_view_url =global_pageName+'/view'
 const global_router_edit_url =global_pageName+'/edit'
 const global_API_getAll =global_pageName+'/GetAllCountry'
 const global_API_delete=global_pageName+'/DeleteCountry?id'
-
+const global_toggleOptions:IToggleOptions={
+apiName:global_pageName+'/UpdateCountry',
+autoCall:true,
+}
 @Component({
   selector: 'app-countries-table',
   standalone: true,
@@ -105,7 +108,8 @@ export class CountriesTableComponent {
       { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
       { keyName: 'phoneCode', header: 'Phone Code', type: EType.text, show: true },
       { keyName: 'shortName', header: 'Short Name', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'status', header: 'active', type: EType.toggle, toggleOptions:global_toggleOptions, show: true },
+      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true }
     ];
 
     this.columnsSmallTable =[

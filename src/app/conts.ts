@@ -88,4 +88,15 @@ export const PackageTypeList = [
   }
 ]
 
+export const packageHourVistList=[
+  {
+    name:'4',
+    code:4
+  },
+  {
+    name:'8',
+    code:8
+  }
+]
+
 

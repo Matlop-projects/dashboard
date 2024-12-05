@@ -5,6 +5,12 @@ import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogComponent } from '../dialog/dialog.component';
+import { CheckBoxComponent } from '../check-box/check-box.component';
+
+export interface IToggleOptions {
+  autoCall:boolean,
+  apiName:string
+}
 
 export enum EAction {
   delete = "delete",
@@ -29,7 +35,8 @@ export enum EType {
   index = "index",
   actions = "actions",
   editor = 'editor',
-  boolean = 'boolean'
+  boolean = 'boolean',
+  toggle='toggle'
 }
 interface INested {
   img: string,
@@ -41,12 +48,13 @@ export interface IcolHeader {
   type: EType,
   nested?: INested,
   actions?: any[],
-  show?: boolean
+  show?: boolean,
+  toggleOptions?:IToggleOptions
 }
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf, TooltipModule, DialogComponent],
+  imports: [TableModule, NgFor, NgIf, TooltipModule, DialogComponent ,CheckBoxComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -157,6 +165,24 @@ export class TableComponent implements OnInit, OnChanges {
     return `${formattedHours}:${formattedMinutes}:${isAM ? 'AM' : 'PM'}`;
   }
 
+  onToggleChange(checked:boolean,record:any,col:any){
+    if(col.toggleOptions.autoCall){
+      this.api_update(checked,record,col)
+    }
+    
 
+  }
+
+  api_update(checkedValue:boolean,record:any,col:any){  
+    let payload=record
+    payload[col.keyName]=checkedValue
+    console.log("TableComponent  api_update  payload:", payload)
+    
+    this.ApiService.put(col.toggleOptions.apiName,payload).subscribe(res=>{
+       if(res){
+          // sweet alert is active or not
+       }
+    })
+  }
 
 }
