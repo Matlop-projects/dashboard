@@ -31,12 +31,14 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      console.log('Form Submitted', this.loginForm.value);
-      this.onLogin(this.loginForm.value);
-    } else {
-      this.toaster.errorToaster('Please Complete All Feilds');
-    }
+    this.router.navigate(['/working_hours']);
+console.log('ff')
+    // if (this.loginForm.valid) {
+    //   console.log('Form Submitted', this.loginForm.value);
+    //   this.onLogin(this.loginForm.value);
+    // } else {
+    //   this.toaster.errorToaster('Please Complete All Feilds');
+    // }
   }
 
   onLogin(loginfrom: any) {

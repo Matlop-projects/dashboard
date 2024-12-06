@@ -14,6 +14,8 @@ export const menuItems =
     { icon: 'pi pi-qrcode', label: 'COPONE', route: '/copone' },
     { icon: 'pi pi-credit-card', label: 'PAYMENT WAY', route: '/paymentWay' },
     { icon: 'pi pi-shopping-bag', label: 'PACKAGE', route: '/package' },
+    { icon: 'pi pi-trophy', label: 'TECHNICAL SPECIALIST', route: '/technical-specialist' },
+
 
 
   ]
