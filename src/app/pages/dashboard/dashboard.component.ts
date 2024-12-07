@@ -28,7 +28,7 @@ export class DashboardComponent {
     { name: 'Service Count', value: 0, img: 'assets/images/dashboard/customer-service.png', route: '/services', id: 'serviceCount' },
     { name: 'Working Time Count', value: 0, img: 'assets/images/dashboard/timetable.png', route: '/working_hours', id: 'workingTimeCount' },
     { name: 'Terms and Conditions Count', value: 0, img: 'assets/images/dashboard/terms-and-conditions.png', route: '/settings/terms_conditions', id: 'termsAndConditionsCount' },
-    { name: 'Technical Specialist Count', value: 0, img: 'assets/images/dashboard/public-relations.png', route: '', id: 'technicalSpecialistCount' },
+    { name: 'Technical Specialist Count', value: 0, img: 'assets/images/dashboard/public-relations.png', route: '/technical-specialist', id: 'technicalSpecialistCount' },
     { name: 'Order Additional Items Count', value: 0, img: 'assets/images/dashboard/checklist.png', route: '/dashboard', id: 'orderAdditionalItemsCount' },
     { name: 'FAQs Count', value: 0, img: 'assets/images/dashboard/faq.png', route: '/settings/faqs', id: 'faQsCount' },
     { name: 'Country Count', value: 0, img: 'assets/images/dashboard/coronavirus.png', route: '/country', id: 'countryCount' },
