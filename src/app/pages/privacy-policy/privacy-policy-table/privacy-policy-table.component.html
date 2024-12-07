@@ -11,7 +11,6 @@
     <div class="details-container">
       <div class="action-filter">
         <a [routerLink]="global_router_add_url_in_Table"> + Add New {{pageName()}}</a>
-        <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
 
      <div class="table-view">
@@ -27,17 +26,7 @@
     </div>
   </div>
 </div>
-<app-drawer [visible]="showFilter"  [header]="'Filter'+pageName()" (onClose)="onCloseFilter($event)">
-  <div header>
-    <h1>hello Drawer</h1>
-  </div>
-  <div class="content">
-    my form
-  </div>
-  <div footer>
-    <h1>hello Drawer</h1>
-  </div>
-</app-drawer>
+
 
 
 

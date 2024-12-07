@@ -11,7 +11,6 @@
     <div class="details-container">
       <div class="action-filter">
         <a routerLink="/working_hours/add"> + Add New</a>
-        <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="workingHoursList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
@@ -27,14 +26,3 @@
   </div>
 </div>
 
-<app-drawer [visible]="showFilter" [header]="'Working Hours Filter'" (onClose)="onCloseFilter($event)">
-  <div header>
-    <!-- <h1>hello Drawer</h1> -->
-  </div>
-  <div class="content">
-    my form
-  </div>
-  <div footer>
-    <!-- <h1>hello Drawer</h1> -->
-  </div>
-</app-drawer>
