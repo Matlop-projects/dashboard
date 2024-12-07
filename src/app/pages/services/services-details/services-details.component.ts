@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { Validations, isChar } from '../../../validations';
+import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
@@ -123,7 +123,7 @@ export class ServicesDetailsComponent {
   ngOnInit() {
     console.log(this.router.url)
     if (this.tyepMode() !== 'add')
-      this.getCountryDetails()
+      this.getServiceDetails()
   }
 
   tyepMode() {
@@ -140,21 +140,17 @@ export class ServicesDetailsComponent {
     }
   }
 
-  getCountryDetails() {
+  getServiceDetails() {
     this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data);
-        this.editImageProps.props.imgSrc = res.data.image;
+        this.editImageProps.props.imgSrc = res.data.imgSrc;
         this.editMode = true;
       }
     })
   }
 
   onSubmit() {
-    //     console.log('ff', this.form.value)
-    //     console.log(this.form.valid); // Logs form validity
-    // console.log(this.form.errors); // Logs form-level errors, if any
-    // console.log(this.form.controls);
     const payload = {
       ...this.form.value,
       serviceId: this.serviceId,
@@ -188,6 +184,7 @@ export class ServicesDetailsComponent {
     else
       this.router.navigateByUrl('/services')
   }
+
   onConfirmMessage() {
     this.router.navigateByUrl('/services')
   }

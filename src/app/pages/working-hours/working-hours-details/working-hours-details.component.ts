@@ -83,9 +83,6 @@ export class WorkingHoursDetailsComponent {
         const startDateObj = parseISO(startDate);
         const endDateObj = parseISO(endDate);
 
-        console.log('Final Start Date:', startDateObj);
-        console.log('Final End Date:', endDateObj);
-
         this.form.patchValue({
           ...otherData,
           startDate: startDateObj,

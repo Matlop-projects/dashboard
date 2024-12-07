@@ -157,6 +157,23 @@ export class ServicesTableComponent {
     );
   }
 
+  onSubmit() {
+    this.API_getAll();
+  }
+
+  reset() {
+    this.objectSearch = {
+     "pageNumber": 0,
+      "pageSize": 8,
+      "sortingExpression": "",
+      "sortingDirection": 0,
+      "nameEn": "",
+      "nameAr": ""
+    }
+    this.API_getAll();
+    this.showFilter = false
+  }
+
 }
 
 

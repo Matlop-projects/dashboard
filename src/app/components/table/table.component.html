@@ -31,7 +31,7 @@
                         <span *ngIf="col.type=='status'">
                             <button [class]="rowData[col.keyName]" > {{ rowData[col.keyName]}}</button>
                         </span>
-                        <span *ngIf="col.type ==='toggle'"> 
+                        <span *ngIf="col.type ==='toggle'">
                             <app-check-box  [initValue]="rowData[col.keyName]" (toggleValue)="onToggleChange($event,rowData,col)"   [isToggle]="true"></app-check-box>
                         </span>
                         <div class="d-flex" *ngIf="col.type=='actions'">
@@ -67,7 +67,7 @@
 
 <app-dialog [message]="'Are you sure to block this item ?'"  [visible]="showBlockConfirmationMessage">
   <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Delete</button>
-  <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> No</button>
+  <button class="dialog-close-btn btn btn-default"  (click)="showBlockConfirmationMessage = false"> No</button>
 </app-dialog>
 
 <app-dialog [message]="'Are you sure to active this item ?'"  [visible]="showActiveConfirmationMessage">
