@@ -1,0 +1,46 @@
+<div class="faqs-form-container container-fluid">
+    <div class="row">
+        <div class="page-details mb-3">
+            <div class="title mb-4">
+                <h2>{{tyepMode()|titlecase}} {{pageName()|titlecase}}</h2>
+            </div>
+            <div class="breadcrumb">
+                <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+            </div>
+        </div>
+    </div>
+    <div class=" form-container">
+        <div class="reactive-form">
+            <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Name (en)'" [control]="form.get('enName')">
+                        </app-input-text>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Name (ar)'" [control]="form.get('arName')">
+                        </app-input-text>
+                    </div>
+
+                    <div class="actions mt-5 text-center">
+                        <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!='View'">
+                            <span *ngIf="tyepMode()=='Add'">Add</span>
+                            <span *ngIf="tyepMode()=='Edit'">Edit</span>
+                        </button>
+                        <button type="button" class="cancel-btn" (click)="cancel()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+         
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-dialog [visible]="showConfirmMessage">
+    <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> Close</button>
+    <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()"> Confirm</button>
+</app-dialog>
