@@ -42,6 +42,7 @@ import { PackageTableComponent } from './pages/package/package-table/package-tab
 import { PackageDetailsComponent } from './pages/package/package-details/package-details.component';
 import { TechnicalSpecialistTableComponent } from './pages/technical-specialist/technical-specialist-table/technical-specialist-table.component';
 import { TechnicalSpecialistDetailsComponent } from './pages/technical-specialist/technical-specialist-details/technical-specialist-details.component';
+import { SocialMediaUpdateComponent } from './pages/social-media/social-media-update/social-media-update.component';
 
 export const routes: Routes = [
   {
@@ -85,6 +86,8 @@ export const routes: Routes = [
           { path: 'privacy_policy/add', component: PrivacyPolicyDetailsComponent },
           { path: 'privacy_policy/edit/:id', component: PrivacyPolicyDetailsComponent },
           { path: 'privacy_policy/view/:id', component: PrivacyPolicyDetailsComponent },
+
+           {path:'social_media',component:SocialMediaUpdateComponent}
         ]
       },
       { path: 'profile', component: ProfileComponent },
