@@ -125,15 +125,16 @@ export class ClientTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'userId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'fullName', header: 'Name', type: EType.text, show: true },
-      { keyName: 'userName', header: 'Username', type: EType.text, show: true },
+      { keyName: 'firstName', header: 'First Name', type: EType.text, show: true },
+      { keyName: 'lastName', header: 'Last name', type: EType.text, show: true },
+      { keyName: 'username', header: 'Username', type: EType.text, show: true },
       { keyName: 'email', header: 'Email', type: EType.text, show: true },
       { keyName: 'isActive', header: 'Active', type: EType.boolean, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'fullName', header: 'Name', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'fisrtName', header: 'Name', type: EType.text, showAs: ETableShow.header },
       { keyName: 'userId', header: 'Id', type: EType.id, show: false },
       { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Name (ar)', type: EType.editor, showAs: ETableShow.content }
     ];

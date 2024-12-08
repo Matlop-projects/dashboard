@@ -1,6 +1,6 @@
 export const menuItems =
   [
-    // {icon: 'pi pi-home' , label: 'DASHBOARD' , route: '/dashboard'},
+    {icon: 'pi pi-home' , label: 'DASHBOARD' , route: '/dashboard'},
     { icon: 'pi pi-users', label: 'CLIENTS', route: '/clients' },
     // {icon: 'pi pi-truck' , label: 'ORDERS' , route: '/orders'},
     { icon: 'pi pi-users', label: 'Technicals', route: '/technicals' },
@@ -75,7 +75,7 @@ export const PackageTypeList = [
   {
     name: 'Monthly',
     code: 2
-  }, 
+  },
   {
     name: 'Qurater',
     code: 3
