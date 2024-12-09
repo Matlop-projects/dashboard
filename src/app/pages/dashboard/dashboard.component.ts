@@ -42,7 +42,7 @@ export class DashboardComponent {
 
 
   getDashboardDetails() {
-    this.ApiService.post('Dashborad/GetAll', {}).subscribe((res: any) => {
+    this.ApiService.get('Dashborad/GetAll').subscribe((res: any) => {
       console.log(res);
       this.updateItemsWithData(res.data);
 
