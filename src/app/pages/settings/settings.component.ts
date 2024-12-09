@@ -34,13 +34,13 @@ export class SettingsComponent {
             label: 'Privacy Policy',
             icon: 'pi pi-eject',
             routerLink: '/settings/privacy_policy'
-          },
-          {
-            label: 'Social Media',
-            icon: 'pi pi-share-alt',
-            routerLink: '/settings/social_media'
           }
         ]
+      },
+      {
+        label: 'Social Media',
+        icon: 'pi pi-share-alt',
+        routerLink: '/settings/social_media'
       },
       {
         label: 'Features',
