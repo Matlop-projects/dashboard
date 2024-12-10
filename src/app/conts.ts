@@ -20,7 +20,20 @@ export const menuItems =
 
   ]
 
-
+export const sliderViewType  =[
+  {
+    name:'AdminTool',
+    code:1
+  },
+  {
+    name:'FrontEnd',
+    code:2
+  },
+  {
+    name:'Both',
+    code:3
+  }
+]
 
 export const userType = [
   {

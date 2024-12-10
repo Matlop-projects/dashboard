@@ -14,7 +14,7 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { DatePickerComponent } from '../../../components/date-picker/date-picker.component';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
-import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
+import { coponeOfferTypeList, coponeTypeList, sliderViewType } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
@@ -28,7 +28,7 @@ const global_routeUrl = 'settings/'+global_PageName
 @Component({
   selector: 'app-slider-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe,EditModeImageComponent, ButtonModule, NgIf, DialogComponent, InputTextComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, TitleCasePipe,EditModeImageComponent, ButtonModule, NgIf, DialogComponent,SelectComponent ,InputTextComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './slider-details.component.html',
   styleUrl: './slider-details.component.scss'
 })
@@ -44,6 +44,7 @@ export class SliderDetailsComponent {
   offerTypeList:any[]=coponeOfferTypeList
   coponeTypeList:any[]=coponeTypeList
   minEndDate:Date =new Date()
+  viewTypeList=sliderViewType
   editImageProps: IEditImage = {
     props: {
       visible: true,
@@ -93,7 +94,11 @@ export class SliderDetailsComponent {
         Validations.onlyNumberValidator()
       ]
     }),
-    viewType: new FormControl(1),
+    viewType: new FormControl('',{
+      validators: [
+        Validators.required,
+      ]
+    }),
 
     sliderId: new FormControl(this.getID | 0),
   })
