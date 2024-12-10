@@ -43,6 +43,8 @@ import { PackageDetailsComponent } from './pages/package/package-details/package
 import { TechnicalSpecialistTableComponent } from './pages/technical-specialist/technical-specialist-table/technical-specialist-table.component';
 import { TechnicalSpecialistDetailsComponent } from './pages/technical-specialist/technical-specialist-details/technical-specialist-details.component';
 import { SocialMediaUpdateComponent } from './pages/social-media/social-media-update/social-media-update.component';
+import { SliderTableComponent } from './pages/slider/slider-table/slider-table.component';
+import { SliderDetailsComponent } from './pages/slider/slider-details/slider-details.component';
 
 export const routes: Routes = [
   {
@@ -87,7 +89,13 @@ export const routes: Routes = [
           { path: 'privacy_policy/edit/:id', component: PrivacyPolicyDetailsComponent },
           { path: 'privacy_policy/view/:id', component: PrivacyPolicyDetailsComponent },
 
-           {path:'social_media',component:SocialMediaUpdateComponent}
+           {path:'social_media',component:SocialMediaUpdateComponent},
+
+           { path: 'slider', component: SliderTableComponent },
+           { path: 'slider/add', component: SliderDetailsComponent },
+           { path: 'slider/edit/:id', component: SliderDetailsComponent },
+           { path: 'slider/view/:id', component: SliderDetailsComponent },
+
         ]
       },
       { path: 'profile', component: ProfileComponent },
