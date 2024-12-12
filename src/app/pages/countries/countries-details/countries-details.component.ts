@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations, isChar } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -14,6 +14,7 @@ import { CheckBoxComponent } from '../../../components/check-box/check-box.compo
 import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
@@ -26,17 +27,21 @@ import { EditModeImageComponent } from '../../../components/edit-mode-image/edit
     DialogComponent,
     CheckBoxComponent,
     UploadFileComponent,
-    EditModeImageComponent
+    EditModeImageComponent,
+    TranslatePipe,
+    TitleCasePipe
   ],
   templateUrl: './countries-details.component.html',
   styleUrl: './countries-details.component.scss'
 })
 export class CountriesDetailsComponent implements OnInit {
+  pageName = signal<string>('');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+  translateService=inject(TranslateService)
   editAttachmentMode: boolean = false;
 
 
@@ -123,6 +128,7 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.pageName.set('country.pageName')
     console.log(this.router.url)
     if (this.tyepMode() !== 'add')
       this.getCountryDetails()
@@ -130,12 +136,13 @@ export class CountriesDetailsComponent implements OnInit {
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit'))
-      return 'edit'
-    else if (url.includes('view'))
-      return 'view'
-    else return 'add'
-
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+  
+    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
+    return result
   }
 
   editImageProps: IEditImage = {

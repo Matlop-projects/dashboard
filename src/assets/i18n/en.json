@@ -22,7 +22,9 @@
     "reset":"Reset",
     "add":"Add",
     "edit":"Edit",
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "confirm":"Confirm",
+    "close":"Close"
   },
   "shared":{
     "list":"List",
@@ -53,14 +55,31 @@
     "form":{
       "name_en":"Name (en)",
       "name_ar":"Name (ar)",
-      "country":"User Type",
+      "country":"Country",
       "postalCode":"Postal Code",
       "shortName":"Short Name",
       "latitude":"Latitude",
       "longitude":"Longitude",
       "status":"Status"
-
-
+    }
+  },
+  "country":{
+    "pageName":"Country",
+    "pageName_filter":"Filter Country",
+    "pageName_Add_crumb":"Add Country",
+    "pageName_Edit_crumb":"Edit Country",
+    "pageName_View_crumb":"View Country",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "currency":"Currency",
+      "timeZone":"Time Zone",
+      "shortName":"Short Name",
+      "nationality":"Nationalty",
+      "phoneLength":"Phone Length",
+      "status":"Status",
+      "phoneCode":"Phone Code",
+      "content":"Content"
     }
   }
 
