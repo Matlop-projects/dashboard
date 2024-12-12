@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, IToggleOptions, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
@@ -10,6 +10,8 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { TitleCasePipe } from '@angular/common';
 
 const global_toggleOptions:IToggleOptions={
   apiName:'city/Update',
@@ -18,11 +20,12 @@ const global_toggleOptions:IToggleOptions={
 @Component({
   selector: 'app-cities-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent,TranslatePipe,TitleCasePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './cities-table.component.html',
   styleUrl: './cities-table.component.scss'
 })
 export class CitiesTableComponent {
+  pageName =signal<string>('');
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -77,6 +80,7 @@ export class CitiesTableComponent {
   selectedLang: any;
   languageService = inject(LanguageService);
   ngOnInit() {
+    this.pageName.set('city.pageName')
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getAllCities();
@@ -112,7 +116,7 @@ export class CitiesTableComponent {
   console.log('ggg',this.citySearch)
     this.ApiService.post('City/GetAll',this.citySearch).subscribe((res: any) => {
       if (res.data) {
-        this.citiesList = res.data.dataList;
+        this.citiesList = res.data;
         this.totalCount = res.data.totalCount;
         this.filteredData = [...this.citiesList]; // Initialize filtered data
       }

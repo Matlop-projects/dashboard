@@ -27,7 +27,8 @@
   "shared":{
     "list":"List",
     "add_new":"Add New",
-    "filter":"Filter"
+    "filter":"Filter",
+    "enter":"Enter"
   },
   "cancel_reason":{
     "pageName":"Cancel Reason",
@@ -35,9 +36,6 @@
     "pageName_Add_crumb":"Add Cancel Reason",
     "pageName_Edit_crumb":"Edit Cancel Reason",
     "pageName_View_crumb":"View Cancel Reason",
-
-
-
     "form":{
       "reason_en":"Reason (en)",
       "reason_ar":"Reason (ar)",
@@ -45,5 +43,25 @@
       "desc_en":"Description (en)",
       "desc_ar":"Description (ar)"
     }
+  },
+  "city":{
+    "pageName":"City",
+    "pageName_filter":"Filter City",
+    "pageName_Add_crumb":"Add City",
+    "pageName_Edit_crumb":"Edit City",
+    "pageName_View_crumb":"View City",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "country":"User Type",
+      "postalCode":"Postal Code",
+      "shortName":"Short Name",
+      "latitude":"Latitude",
+      "longitude":"Longitude",
+      "status":"Status"
+
+
+    }
   }
+
 }

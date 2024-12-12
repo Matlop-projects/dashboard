@@ -51,7 +51,7 @@
   </div>
   
   <app-dialog [visible]="showConfirmMessage">
-    <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> Close</button>
-    <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()"> Confirm</button>
+    <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> {{'actions.close'|translate}}</button>
+    <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()">  {{'actions.confirm'|translate}}</button>
   </app-dialog>
   

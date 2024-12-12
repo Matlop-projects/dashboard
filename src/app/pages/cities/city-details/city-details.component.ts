@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { SelectComponent } from '../../../components/select/select.component';
@@ -15,19 +15,22 @@ import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-city-details',
   standalone: true,
-  imports: [BreadcrumpComponent, ReactiveFormsModule,ToastModule,ConfirmDialog,DialogComponent, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
+  imports: [BreadcrumpComponent,TranslatePipe,TitleCasePipe, ReactiveFormsModule,ToastModule,ConfirmDialog,DialogComponent, ButtonModule,CheckBoxComponent ,NgIf,InputTextComponent,SelectComponent],
   templateUrl: './city-details.component.html',
   styleUrl: './city-details.component.scss'
 })
 export class CityDetailsComponent {
+  pageName = signal<string>('');
   countries:any=[]
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  private translateService= inject(TranslateService)
   showConfirmMessage:boolean=false
   private confirm = inject(ConfirmMsgService)
   selectedLang: any;
@@ -98,6 +101,7 @@ export class CityDetailsComponent {
   
 
   ngOnInit() {
+    this.pageName.set('city.pageName')
     this.getAllCountries()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -122,15 +126,16 @@ getAllCountries(){
     }
   })
 }
-  tyepMode() {
-    const url = this.router.url;
-    if (url.includes('edit'))
-      return 'edit'
-    else if (url.includes('view'))
-      return 'view'
-    else return 'add'
+tyepMode() {
+  const url = this.router.url;
+  let result = 'Add'
+  if (url.includes('edit')) result = 'Edit'
+  else if (url.includes('view')) result = 'View'
+  else result = 'Add'
 
-  }
+  this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
+  return result
+}
   getCityDetails() {
     this.ApiService.get(`City/GetById/${this.cityID}`).subscribe((res: any) => {
       if (res)
