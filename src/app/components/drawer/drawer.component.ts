@@ -1,6 +1,7 @@
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DrawerModule } from 'primeng/drawer';
 import { LanguageService } from '../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-drawer',
@@ -17,9 +18,12 @@ export class DrawerComponent implements OnInit, OnChanges {
   selectedLang: any;
 
   ngOnInit() {
+    this.header=this.languageService.translate(this.header)
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
+      this.header=this.languageService.translate(this.header)
+
     })
   }
 

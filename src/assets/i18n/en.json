@@ -19,7 +19,10 @@
   },
   "actions":{
     "submit":"Submit",
-    "reset":"Reset"
+    "reset":"Reset",
+    "add":"Add",
+    "edit":"Edit",
+    "cancel":"Cancel"
   },
   "shared":{
     "list":"List",
@@ -27,6 +30,20 @@
     "filter":"Filter"
   },
   "cancel_reason":{
-    "pageName":"Cancel Reason"
+    "pageName":"Cancel Reason",
+    "pageName_filter":"Filter Cancel Reason",
+    "pageName_Add_crumb":"Add Cancel Reason",
+    "pageName_Edit_crumb":"Edit Cancel Reason",
+    "pageName_View_crumb":"View Cancel Reason",
+
+
+
+    "form":{
+      "reason_en":"Reason (en)",
+      "reason_ar":"Reason (ar)",
+      "userType":"User Type",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)"
+    }
   }
 }

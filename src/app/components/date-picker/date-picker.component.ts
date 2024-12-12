@@ -3,6 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { DatePickerModule } from 'primeng/datepicker';
 import { NgIf } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-date-picker',
@@ -11,7 +12,8 @@ import { NgIf } from '@angular/common';
     ReactiveFormsModule,
     ValidationHandlerPipePipe,
     DatePickerModule,
-    NgIf
+    NgIf,
+    TranslatePipe
   ],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.scss'

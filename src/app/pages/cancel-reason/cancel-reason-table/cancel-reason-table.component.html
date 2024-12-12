@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-  <app-drawer [visible]="showFilter"  header="{{'shared.filter'|translate}} {{pageName()|translate}}" (onClose)="onCloseFilter($event)">
+  <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">

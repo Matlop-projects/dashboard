@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { InputTextModule } from 'primeng/inputtext';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-input-text',
@@ -11,7 +12,8 @@ import { InputTextModule } from 'primeng/inputtext';
     NgIf,
     ReactiveFormsModule,
     ValidationHandlerPipePipe,
-    InputTextModule
+    InputTextModule,
+    TranslatePipe
   ],
   templateUrl: './input-text.component.html',
   styleUrl: './input-text.component.scss'
