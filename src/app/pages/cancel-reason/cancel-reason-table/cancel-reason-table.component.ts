@@ -11,12 +11,13 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-cancel-reason-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent,TitleCasePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent,TitleCasePipe,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './cancel-reason-table.component.html',
   styleUrl: './cancel-reason-table.component.scss'
 })
@@ -78,7 +79,7 @@ export class CancelReasonTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set('Cancel Reason')
+    this.pageName.set('cancel_reason.pageName')
     this.getAllCancelReason();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)

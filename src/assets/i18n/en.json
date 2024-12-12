@@ -1,5 +1,6 @@
 {
   "GENERAL": "General",
+  
   "faqs":{
     "validation_english_title":"title is only english"
   },
@@ -15,5 +16,17 @@
     "only_number_validation":"accept only numbers",
     "only_char_validation":"accept only char",
     "email_validation":"accept email only ex: aaa@aaa.com"
+  },
+  "actions":{
+    "submit":"Submit",
+    "reset":"Reset"
+  },
+  "shared":{
+    "list":"List",
+    "add_new":"Add New",
+    "filter":"Filter"
+  },
+  "cancel_reason":{
+    "pageName":"Cancel Reason"
   }
 }

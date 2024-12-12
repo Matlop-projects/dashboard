@@ -14,11 +14,12 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { SelectComponent } from '../../../components/select/select.component';
 import { userType } from '../../../conts';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cancel-reason-details',
   standalone: true,
-  imports: [ReactiveFormsModule, SelectComponent, ButtonModule, NgIf, DialogComponent, TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TranslatePipe, SelectComponent, ButtonModule, NgIf, DialogComponent, TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './cancel-reason-details.component.html',
   styleUrl: './cancel-reason-details.component.scss'
 })
@@ -78,7 +79,7 @@ export class CancelReasonDetailsComponent {
   }
 
   ngOnInit() {
-    this.pageName.set('Cancel Reason')
+    this.pageName.set('cancel_reason.pageName')
     if (this.tyepMode() !== 'Add')
       this.getCancelReasonsDetails()
   }
