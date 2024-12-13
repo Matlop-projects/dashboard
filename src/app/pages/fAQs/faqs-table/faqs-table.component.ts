@@ -112,7 +112,7 @@ export class FaqsTableComponent {
   }
 
   getAllFAQS() {
-    this.ApiService.post('FAQs/GetAll', this.faqSearchCreteria).subscribe((res: any) => {
+    this.ApiService.post('FAQs/GetAllWithPagination', this.faqSearchCreteria).subscribe((res: any) => {
       if (res) {
         this.faqsList = res.data.dataList;
         this.totalCount = res.data.totalCount;

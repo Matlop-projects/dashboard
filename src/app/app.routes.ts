@@ -6,7 +6,6 @@ import { ForgetPasswordComponent } from './pages/forget-password/forget-password
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { OrdersComponent } from './pages/orders/orders.component';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
@@ -43,6 +42,8 @@ import { PackageDetailsComponent } from './pages/package/package-details/package
 import { TechnicalSpecialistTableComponent } from './pages/technical-specialist/technical-specialist-table/technical-specialist-table.component';
 import { TechnicalSpecialistDetailsComponent } from './pages/technical-specialist/technical-specialist-details/technical-specialist-details.component';
 import { SocialMediaUpdateComponent } from './pages/social-media/social-media-update/social-media-update.component';
+import { OrdersTableComponent } from './pages/orders/orders-table/orders-table.component';
+import { OrdersDetailsComponent } from './pages/orders/orders-details/orders-details.component';
 
 export const routes: Routes = [
   {
@@ -65,7 +66,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'orders', component: OrdersComponent },
       { path: 'working_hours', component: WorkingHoursTableComponent },
       { path: 'working_hours/add', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
@@ -151,6 +151,11 @@ export const routes: Routes = [
       { path: 'technical-specialist/add', component: TechnicalSpecialistDetailsComponent },
       { path: 'technical-specialist/view/:id', component: TechnicalSpecialistDetailsComponent },
       { path: 'technical-specialist/edit/:id', component: TechnicalSpecialistDetailsComponent },
+
+      { path: 'orders', component: OrdersTableComponent },
+      { path: 'order/add', component: OrdersDetailsComponent },
+      { path: 'order/view/:id', component: OrdersDetailsComponent },
+      { path: 'order/edit/:id', component: OrdersDetailsComponent },
     ]
   },
   {path: '**', component: NotFoundComponent}
