@@ -45,6 +45,8 @@ import { TechnicalSpecialistDetailsComponent } from './pages/technical-specialis
 import { SocialMediaUpdateComponent } from './pages/social-media/social-media-update/social-media-update.component';
 import { SliderTableComponent } from './pages/slider/slider-table/slider-table.component';
 import { SliderDetailsComponent } from './pages/slider/slider-details/slider-details.component';
+import { ContactUsTableComponent } from './pages/contact-us/contact-us-table/contact-us-table.component';
+import { ContactUsDetailsComponent } from './pages/contact-us/contact-us-details/contact-us-details.component';
 
 export const routes: Routes = [
   {
@@ -159,6 +161,11 @@ export const routes: Routes = [
       { path: 'technical-specialist/add', component: TechnicalSpecialistDetailsComponent },
       { path: 'technical-specialist/view/:id', component: TechnicalSpecialistDetailsComponent },
       { path: 'technical-specialist/edit/:id', component: TechnicalSpecialistDetailsComponent },
+   
+      { path: 'contact-us', component: ContactUsTableComponent },
+      { path: 'contact-us/add', component: ContactUsDetailsComponent },
+      { path: 'contact-us/view/:id', component: ContactUsDetailsComponent },
+      { path: 'contact-us/edit/:id', component: ContactUsDetailsComponent },
     ]
   },
   {path: '**', component: NotFoundComponent}

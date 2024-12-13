@@ -11,7 +11,7 @@ const arabicEditorRegex=  /^[\u0600-\u06FF0-9\s<>&*#@!.,:;'"_-]*$/;;
  const onlyNumbersRegex = /^[0-9]*$/
  const decimalNumber = /^[0-9]*\.?[0-9]*$/;
  const emailRegex =/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
+const mobileNumberStartWith_5_Regex=/^5\d*$/
 
 
   export class Validations{
@@ -74,6 +74,13 @@ static editorArabicCharsValidator(errorMessage?: string): ValidatorFn {
         return (control: AbstractControl<string>) => {
           var isValid = isNumber(control.value);
           return isValid ? null : { only_number: errorMessage };
+        };
+      }
+
+      static mobileStartWithNumber_5_Validator(errorMessage?: string): ValidatorFn {
+        return (control: AbstractControl<string>) => {
+          var isValid = isMobilenumberWith_5(control.value);
+          return isValid ? null : { mobileNumber_5: errorMessage };
         };
       }
 
@@ -146,6 +153,15 @@ static editorArabicCharsValidator(errorMessage?: string): ValidatorFn {
       return true;
     }
   }
+
+  export function isMobilenumberWith_5(value: string): boolean {
+    if (value) {
+      return mobileNumberStartWith_5_Regex.test(value);
+    } else {
+      return true;
+    }
+  }
+  
 
   export function isDecimal(value: string): boolean {
     if (value) {

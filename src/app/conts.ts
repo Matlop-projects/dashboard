@@ -15,6 +15,9 @@ export const menuItems =
     { icon: 'pi pi-credit-card', label: 'PAYMENT WAY', route: '/paymentWay' },
     { icon: 'pi pi-shopping-bag', label: 'PACKAGE', route: '/package' },
     { icon: 'pi pi-trophy', label: 'TECHNICAL SPECIALIST', route: '/technical-specialist' },
+    { icon: 'pi pi-phone', label: 'CONTACT US', route: '/contact-us' },
+    { icon: 'pi pi-database', label: 'ABOUT US', route: '/about-us' },
+
 
 
 
