@@ -95,6 +95,20 @@
       "mobile":"Mobile",
       "message":"Message"
     }
+  },
+  "about_us":{
+    "pageName":"About Us",
+    "pageName_filter":"Filter About US",
+    "pageName_Add_crumb":"Add About Us",
+    "pageName_Edit_crumb":"Edit About Us",
+    "pageName_View_crumb":"View About Us",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)",
+      "userType":"User Type"
+    }
   }
 
 }
