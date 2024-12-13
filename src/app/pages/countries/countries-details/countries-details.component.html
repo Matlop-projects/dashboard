@@ -2,8 +2,8 @@
    <div class="row">
       <div class="page-details mb-3">
         <div class="title">
-          <h2>{{tyepMode()==='add' ? 'Add New' : 'Edit'}} Country</h2>
-        </div>
+         <h2>{{tyepMode()|translate|titlecase}} {{pageName()|translate|titlecase}}</h2>
+      </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
         </div>
@@ -15,23 +15,23 @@
             <div class="row">
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'Name (en)'" [control]="form.get('enName')"></app-input-text>
+                     [label]="'country.form.name_en'" [control]="form.get('enName')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'Name (ar)'" [control]="form.get('arName')"></app-input-text>
+                     [label]="'country.form.name_ar'" [control]="form.get('arName')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'currency'"
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'country.form.currency'"
                      [control]="form.get('currency')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Time Zone'"
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'country.form.timeZone'"
                      [control]="form.get('timeZone')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'Nationality'" [control]="form.get('nationality')"></app-input-text>
+                     [label]="'country.form.nationality'" [control]="form.get('nationality')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
@@ -39,18 +39,18 @@
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'phoneCode'" [control]="form.get('phoneCode')"></app-input-text>
+                     [label]="'country.form.phoneCode'" [control]="form.get('phoneCode')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                   <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
-                     [label]="'ShortName'" [control]="form.get('shortName')"></app-input-text>
+                     [label]="'country.form.shortName'" [control]="form.get('shortName')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Content'"
+                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'country.form.content'"
                      [control]="form.get('content')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                  <app-check-box [isToggle]="true" [label]="'status'" [control]="form.get('status')"></app-check-box>
+                  <app-check-box [isToggle]="true" [label]="'country.form.status'" [control]="form.get('status')"></app-check-box>
                </div>
                <div class="upload-image-section mt-4 mb-4">
                   <app-upload-file formControlName="img"></app-upload-file>
@@ -65,11 +65,11 @@
 
                <div class="actions mt-5 text-center">
                   <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
-                     <span *ngIf="tyepMode()==='add'">Add</span>
-                     <span *ngIf="tyepMode()==='edit'">Edit</span>
+                     <span *ngIf="tyepMode()=='Add'">{{'actions.add'|translate}}</span>
+                     <span *ngIf="tyepMode()=='Edit'">{{'actions.edit'|translate}}</span>
                   </button>
                   <button type="button" class="cancel-btn" (click)="cancel()">
-                     Cancel
+                     {{'actions.cancel'|translate}}
                   </button>
                </div>
             </div>
@@ -78,7 +78,7 @@
    </div>
 </div>
 
-<app-dialog  [visible]="showConfirmMessage">
-   <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()" > Confirm</button>
-   <button class="dialog-close-btn btn btn-default"  (click)="showConfirmMessage = false"> Close</button>
-</app-dialog>
+<app-dialog [visible]="showConfirmMessage">
+   <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> {{'actions.close'|translate}}</button>
+   <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()">  {{'actions.confirm'|translate}}</button>
+ </app-dialog>

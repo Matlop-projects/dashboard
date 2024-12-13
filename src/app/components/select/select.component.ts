@@ -1,13 +1,14 @@
 import {  NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { Select } from 'primeng/select';
 @Component({
   selector: 'app-select',
   standalone: true,
-  imports: [MultiSelectModule,Select,NgIf, ReactiveFormsModule,FormsModule,ButtonModule],
+  imports: [MultiSelectModule,Select,NgIf, ReactiveFormsModule,FormsModule,ButtonModule,TranslatePipe],
   templateUrl: './select.component.html',
   styleUrl: './select.component.scss'
 })

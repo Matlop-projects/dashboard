@@ -43,6 +43,11 @@ export class SettingsComponent {
         routerLink: '/settings/social_media'
       },
       {
+        label: 'Slider',
+        icon: 'pi pi-images',
+        routerLink: '/settings/slider'
+      },
+      {
         label: 'Features',
         icon: 'pi pi-star',
         // routerLink:'/settings/faqs'

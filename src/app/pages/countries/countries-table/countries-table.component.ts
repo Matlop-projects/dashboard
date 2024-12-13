@@ -11,6 +11,7 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const global_pageName='country'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
@@ -25,15 +26,13 @@ autoCall:true,
 @Component({
   selector: 'app-countries-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe,TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './countries-table.component.html',
   styleUrl: './countries-table.component.scss'
 })
 export class CountriesTableComponent {
-
+  pageName =signal<string>('country.pageName');
   global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName =signal<string>(global_pageName);
-
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -62,7 +61,7 @@ export class CountriesTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: this.pageName(),
+        label:'Countries'
       },
     ]
   }
@@ -89,7 +88,7 @@ export class CountriesTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set('country.pageName')
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)

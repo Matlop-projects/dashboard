@@ -44,6 +44,8 @@ import { TechnicalSpecialistDetailsComponent } from './pages/technical-specialis
 import { SocialMediaUpdateComponent } from './pages/social-media/social-media-update/social-media-update.component';
 import { OrdersTableComponent } from './pages/orders/orders-table/orders-table.component';
 import { OrdersDetailsComponent } from './pages/orders/orders-details/orders-details.component';
+import { SliderTableComponent } from './pages/slider/slider-table/slider-table.component';
+import { SliderDetailsComponent } from './pages/slider/slider-details/slider-details.component';
 
 export const routes: Routes = [
   {
@@ -63,7 +65,7 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeLayoutComponent,
-    canActivate: [authGuard],
+    canActivate: [],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'working_hours', component: WorkingHoursTableComponent },
@@ -87,7 +89,13 @@ export const routes: Routes = [
           { path: 'privacy_policy/edit/:id', component: PrivacyPolicyDetailsComponent },
           { path: 'privacy_policy/view/:id', component: PrivacyPolicyDetailsComponent },
 
-           {path:'social_media',component:SocialMediaUpdateComponent}
+           {path:'social_media',component:SocialMediaUpdateComponent},
+
+           { path: 'slider', component: SliderTableComponent },
+           { path: 'slider/add', component: SliderDetailsComponent },
+           { path: 'slider/edit/:id', component: SliderDetailsComponent },
+           { path: 'slider/view/:id', component: SliderDetailsComponent },
+
         ]
       },
       { path: 'profile', component: ProfileComponent },

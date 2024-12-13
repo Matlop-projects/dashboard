@@ -1,5 +1,6 @@
 {
   "GENERAL": "General",
+  
   "faqs":{
     "validation_english_title":"title is only english"
   },
@@ -15,5 +16,71 @@
     "only_number_validation":"accept only numbers",
     "only_char_validation":"accept only char",
     "email_validation":"accept email only ex: aaa@aaa.com"
+  },
+  "actions":{
+    "submit":"Submit",
+    "reset":"Reset",
+    "add":"Add",
+    "edit":"Edit",
+    "cancel":"Cancel",
+    "confirm":"Confirm",
+    "close":"Close"
+  },
+  "shared":{
+    "list":"List",
+    "add_new":"Add New",
+    "filter":"Filter",
+    "enter":"Enter"
+  },
+  "cancel_reason":{
+    "pageName":"Cancel Reason",
+    "pageName_filter":"Filter Cancel Reason",
+    "pageName_Add_crumb":"Add Cancel Reason",
+    "pageName_Edit_crumb":"Edit Cancel Reason",
+    "pageName_View_crumb":"View Cancel Reason",
+    "form":{
+      "reason_en":"Reason (en)",
+      "reason_ar":"Reason (ar)",
+      "userType":"User Type",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)"
+    }
+  },
+  "city":{
+    "pageName":"City",
+    "pageName_filter":"Filter City",
+    "pageName_Add_crumb":"Add City",
+    "pageName_Edit_crumb":"Edit City",
+    "pageName_View_crumb":"View City",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "country":"Country",
+      "postalCode":"Postal Code",
+      "shortName":"Short Name",
+      "latitude":"Latitude",
+      "longitude":"Longitude",
+      "status":"Status"
+    }
+  },
+  "country":{
+    "pageName":"Country",
+    "pageName_filter":"Filter Country",
+    "pageName_Add_crumb":"Add Country",
+    "pageName_Edit_crumb":"Edit Country",
+    "pageName_View_crumb":"View Country",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "currency":"Currency",
+      "timeZone":"Time Zone",
+      "shortName":"Short Name",
+      "nationality":"Nationalty",
+      "phoneLength":"Phone Length",
+      "status":"Status",
+      "phoneCode":"Phone Code",
+      "content":"Content"
+    }
   }
+
 }

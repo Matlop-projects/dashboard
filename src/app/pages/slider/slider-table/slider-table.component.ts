@@ -8,37 +8,43 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
-import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
-import { TranslatePipe } from '@ngx-translate/core';
+import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 
-
+const global_pageName='slider'
+const global_router_add_url_in_Table ='/settings/'+global_pageName+'/add'
+const global_router_view_url ='/settings/'+global_pageName+'/view'
+const global_router_edit_url ='/settings/'+global_pageName+'/edit'
+const global_API_getAll =global_pageName+'/GetAll'
+const global_API_delete=global_pageName+'/Delete?requestId'
 @Component({
-  selector: 'app-cancel-reason-table',
+  selector: 'app-slider-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent,TitleCasePipe,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
-  templateUrl: './cancel-reason-table.component.html',
-  styleUrl: './cancel-reason-table.component.scss'
+  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  templateUrl: './slider-table.component.html',
+  styleUrl: './slider-table.component.scss'
 })
-export class CancelReasonTableComponent {
-  pageName =signal<string>('');
+
+export class SliderTableComponent {
+  global_router_add_url_in_Table =global_router_add_url_in_Table
+  pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'Cancelreason/DeleteCancelReason?id',
+      apiName_or_route: global_API_delete,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route: 'cancel-reason/view',
+      apiName_or_route:  global_router_view_url,
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: 'cancel-reason/edit',
+      apiName_or_route: global_router_edit_url, 
       autoCall: true
     }
   ]
@@ -52,7 +58,7 @@ export class CancelReasonTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: 'Cancel Reason',
+        label: this.pageName(),
       },
     ]
   }
@@ -62,8 +68,9 @@ export class CancelReasonTableComponent {
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
-    enName: "",
-    arName: ""
+    code: "",
+    offerType: 0,
+    couponType: 0
   }
 
   totalCount: number = 0;
@@ -72,15 +79,16 @@ export class CancelReasonTableComponent {
   filteredData: any;
   dataList: any = []
   columns: IcolHeader[] = [];
-
+  offerTypeList:any[]=coponeOfferTypeList
+  coponeTypeList:any[]=coponeTypeList
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set('cancel_reason.pageName')
-    this.getAllCancelReason();
+    this.pageName.set(global_pageName) 
+    this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -91,18 +99,23 @@ export class CancelReasonTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'reasonId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Reason (en)', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Reason (ar)', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'Description (Ar)', type: EType.editor, show: true },
+      { keyName: 'sliderId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'imageEn', header: 'Image (en)', type: EType.image, show: true },
+      { keyName: 'imageAr', header: 'Image (ar)', type: EType.image, show: true },
+      { keyName: 'titleEn', header: 'Title (en)', type: EType.text, show: true },
+      { keyName: 'titleAr', header: 'Title (ar)', type: EType.text, show: true },
+      { keyName: 'displayOrder', header: 'Display Order', type: EType.text, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: currentLang == 'ar' ? 'arName' : 'enName', header: 'Reason (ar)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'reasonId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Reason (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'sliderId', header: 'Id', type: EType.id, show: false },
+      { keyName: 'titleEn', header: 'Title (en)', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'titleAr', header: 'Title (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'imageEn', header: 'Image (en)', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'imageAr', header: 'Image (ar)', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'displayOrder', header: 'Display Order', type: EType.text, showAs: ETableShow.content },
+
     ];
   }
 
@@ -114,11 +127,11 @@ export class CancelReasonTableComponent {
     this.showFilter = false
   }
 
-  getAllCancelReason() {
-    this.ApiService.post('CancelReason/GetAllCancelReason', this.objectSearch).subscribe((res: any) => {
+  API_getAll() {
+    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
-        this.dataList = res.data.dataList;
-        this.totalCount = res.data.totalCount;
+        this.dataList = res.data;
+        this.totalCount = res.totalCount;
         this.filteredData = [...this.dataList];
       }
 
@@ -128,15 +141,12 @@ export class CancelReasonTableComponent {
   onPageChange(event: any) {
     console.log(event);
     this.objectSearch.pageNumber = event;
-    this.getAllCancelReason();
+    this.API_getAll();
   }
 
   filterData() {
     this.dataList = this.filteredData;
     const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
-
 
     if (this.searchValue.length == 1) {
       this.dataList = this.filteredData;
@@ -150,9 +160,8 @@ export class CancelReasonTableComponent {
       item.arDescription.toLowerCase().includes(search)
     );
   }
-
   onSubmitFilter() {
-    this.getAllCancelReason();
+    this.API_getAll();
   }
 
   reset() {
@@ -161,11 +170,13 @@ export class CancelReasonTableComponent {
       pageSize: 7,
       sortingExpression: "",
       sortingDirection: 0,
-      enName: "",
-      arName: ""
+      code: "",
+      offerType: 0,
+      couponType: 0
     }
-    this.getAllCancelReason();
+    this.API_getAll();
     this.showFilter = false
   }
-
 }
+
+

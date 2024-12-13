@@ -2,7 +2,7 @@
     <div class="content">
       <div class="title-bredcrumb-section">
         <div class="title">
-          <h2>City List</h2>
+          <h2>{{pageName()|translate|titlecase}} {{'shared.list'|translate}}</h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,7 +10,7 @@
       </div>
       <div class="details-container">
         <div class="action-filter">
-          <a routerLink="/city/add"> + Add New City</a>
+          <a routerLink="/city/add">  +{{'shared.add_new'|translate}} {{pageName()|translate|titlecase}}</a>
           <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
                 </div>
        <div class="table-view">
@@ -26,48 +26,48 @@
       </div>
     </div>
   </div>
-  <app-drawer [visible]="showFilter" [header]="'Filter FAQS'" (onClose)="onCloseFilter($event)">
+  <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">City Name (en)</label>
+         <label class="mb-1" for="enTitle">{{pageName()|translate}} (en)</label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
            [(ngModel)]="citySearch.enName"
-           placeholder="Enter City Name (en)"
+           placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (en)"
          />
        </div>
  
        <div  class="form-group mb-3">
-         <label class="mb-1" for="arTitle">City Name (ar)</label>
+         <label class="mb-1" for="arTitle">{{pageName()|translate}} (ar)</label>
          <input
            type="text"
            id="arTitle"
            name="arTitle"
            class="form-control"
            [(ngModel)]="citySearch.arName"
-           placeholder="Enter City Name (ar)"
+           placeholder="Enter {{pageName()|translate}} (ar)"
          />
        </div>
        <div  class="form-group mb-3">
-        <label class="mb-1" for="arTitle">Postal Code</label>
+        <label class="mb-1" for="arTitle">{{'city.form.postalCode'|translate}}</label>
         <input
           type="text"
           id="arTitle"
           name="arTitle"
           class="form-control"
           [(ngModel)]="citySearch.postalCode"
-          placeholder="Enter postal code"
+          placeholder="Enter {{'city.form.postalCode'|translate}}"
         />
       </div>
       </div>
-       <div class="search-form-actions d-flex">
-         <button type="submit" class="btn btn-primary submit-btn">Submit</button>
-         <button type="button" class="btn btn-danger reset-btn" (click)="reset()">Reset</button>
-       </div>
+      <div class="search-form-actions d-flex">
+        <button type="submit" class="btn btn-primary submit-btn">{{'actions.submit'|translate}}</button>
+        <button type="button" class="btn btn-danger reset-btn" (click)="reset()">{{'actions.reset'|translate}}</button>
+      </div>
  
      </form>
   </app-drawer>

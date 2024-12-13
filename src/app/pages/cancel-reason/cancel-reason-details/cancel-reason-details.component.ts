@@ -14,11 +14,12 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { SelectComponent } from '../../../components/select/select.component';
 import { userType } from '../../../conts';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cancel-reason-details',
   standalone: true,
-  imports: [ReactiveFormsModule, SelectComponent, ButtonModule, NgIf, DialogComponent, TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TranslatePipe, SelectComponent, ButtonModule, NgIf, DialogComponent, TitleCasePipe, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './cancel-reason-details.component.html',
   styleUrl: './cancel-reason-details.component.scss'
 })
@@ -30,6 +31,8 @@ export class CancelReasonDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+  private translateService = inject(TranslateService)
+
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -78,7 +81,7 @@ export class CancelReasonDetailsComponent {
   }
 
   ngOnInit() {
-    this.pageName.set('Cancel Reason')
+    this.pageName.set('cancel_reason.pageName')
     if (this.tyepMode() !== 'Add')
       this.getCancelReasonsDetails()
   }
@@ -90,7 +93,7 @@ export class CancelReasonDetailsComponent {
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
 
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
+    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
     return result
   }
 
