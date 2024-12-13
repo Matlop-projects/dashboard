@@ -15,7 +15,13 @@ const mobileNumberStartWith_5_Regex=/^5\d*$/
 
 
   export class Validations{
-  
+    static isEqualNumber(number:any,errorMessage: string): ValidatorFn {
+      const errorMsg =errorMessage+' ( '+number+' )'
+      return (control: AbstractControl<string>) => {
+        var isValid = number >= control.value;
+        return isValid ? null : { isMax: errorMsg };
+      };
+    }
    
  static emailValidator(errorMessage?: string): ValidatorFn {
   return (control: AbstractControl<string>) => {

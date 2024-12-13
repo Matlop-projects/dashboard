@@ -1,5 +1,5 @@
 import {  NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
@@ -21,13 +21,12 @@ export class SelectComponent implements OnInit {
 @Input()list:any=[]
 @Input()type:string='single'
 @Input()control:any =new FormControl()
-
+@Output() onSelectedValue = new EventEmitter()
 ngOnInit() {
   
-  console.log("SelectComponent  onChange  item:", this.list)
 
 }
 onChange(item:any){
-  console.log("SelectComponent  onChange  item:", item)
+  this.onSelectedValue.emit(item.value)
 }
 }

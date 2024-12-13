@@ -89,20 +89,24 @@ export const PackageTypeList = [
     code: 1
   },
   {
-    name: 'Monthly',
+    name: 'Weekly',
     code: 2
   },
   {
-    name: 'Qurater',
+    name: 'Monthly',
     code: 3
   },
   {
-    name: 'Biannual',
+    name: 'Qurater',
     code: 4
   },
   {
-    name: 'Yearly',
+    name: 'Biannual',
     code: 5
+  },
+  {
+    name: 'Yearly',
+    code: 6
   }
 ]
 

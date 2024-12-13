@@ -13,6 +13,7 @@ export class ValidationHandlerPipePipe implements PipeTransform {
     let result = '';
     let requiredLength=''
     const matches = this.getErrorKey(value) ||''  
+    console.log("ValidationHandlerPipePipe  transform  matches:", matches)
     let customMessage: string = '';
     if(matches=='minlength')
       requiredLength=value.minlength?.requiredLength
@@ -22,6 +23,8 @@ export class ValidationHandlerPipePipe implements PipeTransform {
       customMessage=value.english_only
     if(matches=='value.arabic_only')
       customMessage=value.arabic_only
+    if(matches=='isMax')
+      customMessage=value.isMax
     this.translate.get(`validation_message.${matches}_validation`).subscribe((translationWord) => {
       result = customMessage? this.translate.instant(customMessage) : 
        (['minlength','maxlength'].includes(matches)?`${translationWord} (${requiredLength})`:translationWord)
