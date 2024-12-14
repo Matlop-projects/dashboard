@@ -61,8 +61,8 @@ export class SliderDetailsComponent {
       imgSrc: ''
     },
     onEditBtn: (e?: Event) => {
-      this.editImageProps.props.visible = false;
-      this.editAttachmentMode = false;
+      this.editImageProps_ar.props.visible = false;
+      this.editAttachmentMode_ar = false;
     }
   };
   form = new FormGroup({
@@ -154,8 +154,15 @@ export class SliderDetailsComponent {
 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
-      if (res)
+      if (res){
         this.form.patchValue(res.data)
+        this.editImageProps.props.imgSrc = res.data.imageEn;
+        this.editAttachmentMode = true;
+
+        this.editImageProps_ar.props.imgSrc = res.data.imageAr;
+        this.editAttachmentMode_ar = true;
+      }
+        
     })
   }
 

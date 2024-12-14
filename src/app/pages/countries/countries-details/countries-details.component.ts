@@ -42,7 +42,7 @@ export class CountriesDetailsComponent implements OnInit {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   translateService=inject(TranslateService)
-  editAttachmentMode: boolean = false;
+  editMode: boolean = false;
 
 
   form = new FormGroup({
@@ -152,13 +152,16 @@ export class CountriesDetailsComponent implements OnInit {
     },
     onEditBtn: (e?: Event) => {
       this.editImageProps.props.visible = false;
-      this.editAttachmentMode = false;
+      this.editMode = false;
     }
   };
   getCountryDetails() {
     this.ApiService.get(`Country/GetCountry/${this.countryID}`).subscribe((res: any) => {
-      if (res)
+      if (res){
         this.form.patchValue(res.data)
+        this.editImageProps.props.imgSrc = res.data.img;
+        this.editMode = true;
+      }
     })
   }
 

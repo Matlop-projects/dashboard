@@ -17,13 +17,13 @@
                         <label class="mb-2">Upload Image</label>
                         <app-upload-file formControlName="image"></app-upload-file>
                         <div *ngIf="isRequiredError" class="error-message mt-2">
-                          Image upload is required.
+                            Image upload is required.
                         </div>
-                      </div>
-                      <div class="edit-mode-section mt-2" *ngIf="editAttachmentMode">
-                        <label class="mb-2" >Uploaded Image</label>
-                        <app-edit-mode-image  [editImageProps]="editImageProps"></app-edit-mode-image>
-                       </div>
+                    </div>
+                    <div class="edit-mode-section mt-2" *ngIf="editMode">
+                        <label class="mb-2">Uploaded Image</label>
+                        <app-edit-mode-image imgWidth="100" [editImageProps]="editImageProps"></app-edit-mode-image>
+                    </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
                         <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
                             [label]="'about_us.form.name_en'" [control]="form.get('enName')"></app-input-text>
@@ -34,10 +34,10 @@
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                        <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userTypeList" [label]="'cancel_reason.form.userType'"
-                           [control]="form.get('userType')">
-                          </app-select>
-                     </div>
+                        <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userTypeList"
+                            [label]="'cancel_reason.form.userType'" [control]="form.get('userType')">
+                        </app-select>
+                    </div>
                     <div class="row">
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-3">
                             <app-editor [label]="'about_us.form.disc_en'"
