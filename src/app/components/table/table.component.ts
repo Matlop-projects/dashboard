@@ -36,7 +36,8 @@ export enum EType {
   actions = "actions",
   editor = 'editor',
   boolean = 'boolean',
-  toggle='toggle'
+  toggle='toggle',
+  orderStatus = 'orderStatus'
 }
 interface INested {
   img: string,
@@ -169,20 +170,37 @@ export class TableComponent implements OnInit, OnChanges {
     if(col.toggleOptions.autoCall){
       this.api_update(checked,record,col)
     }
-    
+
 
   }
 
-  api_update(checkedValue:boolean,record:any,col:any){  
+  api_update(checkedValue:boolean,record:any,col:any){
     let payload=record
     payload[col.keyName]=checkedValue
     console.log("TableComponent  api_update  payload:", payload)
-    
+
     this.ApiService.put(col.toggleOptions.apiName,payload).subscribe(res=>{
        if(res){
           // sweet alert is active or not
        }
     })
+  }
+
+  getColorById(id: number): string | null {
+    const statuses = [
+      { name: 'Pending', id: 0, color: '#c1cd6a' },
+      { name: 'Paid', id: 1, color: '#c1cd6a' },
+      { name: 'AssignedToProvider', id: 2, color: '#b16acd' },
+      { name: 'InTheWay', id: 3, color: '#ccc053' },
+      { name: 'TryingSolveProblem', id: 4, color: '#9b9d9c' },
+      { name: 'Solved', id: 5, color: '#49e97c' },
+      { name: 'ClientConfirmation', id: 6, color: '#49e97c' },
+      { name: 'Completed', id: 7, color: '#49e97c' },
+      { name: 'Canceled', id: 8, color: '#e94949' }
+    ];
+
+    const status = statuses.find(status => status.id === id);
+    return status ? status.color : null;
   }
 
 }

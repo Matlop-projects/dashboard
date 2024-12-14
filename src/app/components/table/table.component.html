@@ -19,6 +19,7 @@
                         <span *ngIf="col.type=='id'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-' }}</span>
                        <span *ngIf="col.type=='text'"> {{ rowData[col.keyName]? rowData[col.keyName]:'-'  }}</span>
                        <span *ngIf="col.type=='boolean'"> {{ rowData[col.keyName]? true: false  }}</span>
+                       <span *ngIf="col.type=='orderStatus'" class="order-status" [style.backgroundColor]="getColorById(rowData?.orderStatusEnum)"> {{ rowData[col.keyName]? rowData[col.keyName]:'-'  }}</span>
                        <div *ngIf="col.type=='editor'" [innerHTML]="rowData[col.keyName]? rowData[col.keyName]:'-' "> </div>
                        <img class="rounded" *ngIf="col.type=='image'" [src]="rowData[col.keyName]" width="60px" height="auto" alt="image">
                        <span *ngIf="col.type =='date'">{{convertDate( rowData[col.keyName]? rowData[col.keyName]:'-' )}}</span>

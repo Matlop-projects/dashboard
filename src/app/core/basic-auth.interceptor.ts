@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (localStorage.getItem('token')) {
     authReq = req.clone({
       setHeaders: {
-        Authorization: `${localStorage.getItem('token')}`,
+        Authorization: `bearer ${localStorage.getItem('token')}`,
         'Accept-Language': localStorage.getItem('lang') === 'ar' ? 'ar' : 'en'
       }
     });
