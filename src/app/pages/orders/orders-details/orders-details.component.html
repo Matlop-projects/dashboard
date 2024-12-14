@@ -1,0 +1,304 @@
+<div class="order-details-container">
+  <div class="contianer">
+    <div class="row mb-3">
+      <div class="page-details mb-3">
+        <div class="title">
+          <h2>{{typeMode()==='edit' ? 'Edit' : 'View'}} Order</h2>
+        </div>
+        <div class="breadcrumb">
+          <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-12 client-deatils-container">
+        <div class="content">
+          <div class="title-section">
+            <p>Client Details</p>
+          </div>
+          <div class="desc">
+            <div class="main-details">
+              <div class="img mt-4">
+                <img
+                  [src]="this.clientDetails?.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png'"
+                  alt="client image">
+              </div>
+
+              <div class="name">
+                <p>{{this.clientDetails?.firstName | uppercase}}</p>
+              </div>
+              <div class="actions">
+                <a class="view" (click)="viewClientDetails(this.clientDetails?.userId)">
+                  <i class="pi pi-eye"></i>
+                </a>
+                <div class="call" (click)="dialNumber('+1234567890')">
+                  <i class="pi pi-phone"></i>
+                </div>
+              </div>
+            </div>
+            <div class="sub-deatils">
+              <div class="email main">
+                <div class="icon">
+                  <i class="pi pi-envelope"></i>
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <p>Email</p>
+                  </div>
+                  <div class="desc">
+                    <p>{{this.clientDetails?.email}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="Mobile main">
+                <div class="icon">
+                  <i class="pi pi-mobile"></i>
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <p>Mobile</p>
+                  </div>
+                  <div class="desc">
+                    <p>{{this.clientDetails?.mobileNumber}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="Status main">
+                <div class="icon">
+                  <i class="pi pi-star-fill"></i>
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <p>Status</p>
+                  </div>
+                  <div class="desc">
+                    <p style="color: #30d50d;">{{this.clientDetails?.isActive == true ? 'Active' : 'Inactive'}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content mt-3">
+          <div class="title-section">
+            <p>Order Image</p>
+          </div>
+
+          <div class="order-image-desc">
+            <!-- <img [src]="orderDetails.orderDetails ? orderDetails.orderDetails : '-' " alt=""> -->
+            <img src="assets/images/empty-state.png" alt="empty state">
+            <p>No Image Available</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
+        <div class="content">
+          <div class="title-section">
+            <p>Order Details</p>
+          </div>
+          <div class="desc">
+            <div class="details order-status-dropdown">
+              <div class="title">
+                <p>Order Status</p>
+              </div>
+              <div class="details-desc">
+                <p-select [options]="statuses" (onChange)="onStatusChange()" [(ngModel)]="orderStatusValue"
+                  optionLabel="name" placeholder="Select a Status" class="w-full md:w-56" />
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Order Id</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.orderId}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Payment Way</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.paymentWayName ?  orderDetails.paymentWayName: '-'}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Package</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.packageName ? orderDetails.packageName : '-'}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Copone</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.coponeName ? orderDetails.coponeName: '-'}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Location</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.locationName ? orderDetails.locationName: '-'}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Next Visit Date</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.nextVistDate ? convertDate(orderDetails.nextVistDate): '-'}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Total Price</p>
+              </div>
+              <div class="details-desc total-price">
+                <p>{{orderDetails.orderTotal ? orderDetails.orderTotal: '-'}} <span>SAR</span></p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Order Status</p>
+              </div>
+              <div class="details-desc status-details"
+                [style.backgroundColor]="getColorById(orderDetails.orderStatusEnum)">
+                <p>{{orderDetails.orderStatusName ? orderDetails.orderStatusName : '-'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="table-container">
+          <div class="title-section mb-4">
+            <p>Order's Providers</p>
+            <div class="add-provider" pTooltip="Add New Provider" tooltipPosition="top" (click)="openTechnicalModal()">
+              <i class="pi pi-plus"></i>
+            </div>
+          </div>
+          <table class="p-datatable">
+            <thead class="p-datatable-thead">
+              <tr>
+                <th>Technical ID</th>
+                <th>Technical Name</th>
+                <th>Edit Technical</th>
+              </tr>
+            </thead>
+            <tbody class="p-datatable-tbody">
+              <tr *ngFor="let assignment of orderTechnicalAssignments">
+                <td>{{ assignment.technicalId }}</td>
+                <td>{{ assignment.technicalName || '-' }}</td>
+                <td>
+                  <div class="actions-icon">
+                    <span class="pi pi-pen-to-square" title="Edit" (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId)"></span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="table-container">
+          <div class="title-section mb-4">
+            <p>Order's Addtional Item</p>
+            <div class="add-provider" pTooltip="Add New Addtional Item" tooltipPosition="top" (click)="openAdditinaolModal()">
+              <i class="pi pi-plus"></i>
+            </div>
+          </div>
+          <table class="p-datatable">
+            <thead class="p-datatable-thead">
+              <tr>
+                <th>Additinal ID</th>
+                <th>Description</th>
+                <th>Additinal Price</th>
+                <th>Edit</th>
+              </tr>
+            </thead>
+            <tbody class="p-datatable-tbody">
+              <tr *ngFor="let item of additonalItemList">
+                <td>{{ item.orderAddtionalItemId }}</td>
+                <td>{{ item.note }}</td>
+                <td>{{ item.additionalPrice}}</td>
+                <td>
+                  <div class="actions-icon">
+                    <span class="pi pi-pen-to-square" title="Edit" (click)="editAdditinal(item)"></span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<app-modal [dialogProps]="dialogProps">
+  <div class="title">
+    <h3>{{providerTitle}}</h3>
+  </div>
+
+  <div class="content" style="width: 300px;">
+    <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange()" [(ngModel)]="providerValue" optionLabel="firstName"
+      placeholder="Select a Provider" class="w-full md:w-56" />
+  </div>
+</app-modal>
+
+<app-modal [dialogProps]="additinalModal">
+  <div class="title">
+    <h3>{{additonalTitle}}</h3>
+  </div>
+
+  <div class="content" style="width: 300px;">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+      <div class="form-group mb-2">
+        <label for="price">Price</label>
+        <input
+        type="number"
+        id="additionalPrice"
+        name="additionalPrice"
+        [(ngModel)]="additionalObject.additionalPrice"
+        #additionalPrice="ngModel"
+        required
+        min="1"
+        class="form-control"
+        />
+        <div *ngIf="additionalPrice.invalid && (additionalPrice.dirty || additionalPrice.touched)" class="error">
+          <div *ngIf="additionalPrice.errors?.['required']">Price is required.</div>
+          <div *ngIf="additionalPrice.errors?.['min']">Price must be at least 1 SAR.</div>
+        </div>
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="note">Note</label>
+        <textarea
+        id="note"
+        name="note"
+        [(ngModel)]="additionalObject.note"
+        #note="ngModel"
+        required
+        class="form-control"
+        ></textarea>
+        <div *ngIf="note.invalid && (note.dirty || note.touched)" class="error">
+          <div *ngIf="note.errors?.['required']">Note is required.</div>
+        </div>
+      </div>
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        Submit
+      </button>
+    </form>
+  </div>
+</app-modal>
