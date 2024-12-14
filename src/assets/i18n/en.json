@@ -4,6 +4,9 @@
   "faqs":{
     "validation_english_title":"title is only english"
   },
+  "pkg":{
+   "visit_number_isMax":"Visit Number should be less than or equal"
+  },
   "validation_message":{
     "minlength_validation":"length should be more than",
     "maxlength_validation":"length should be more less than",
@@ -15,7 +18,8 @@
     "decimal_number_validation":"accept only decimal number like 123.456",
     "only_number_validation":"accept only numbers",
     "only_char_validation":"accept only char",
-    "email_validation":"accept email only ex: aaa@aaa.com"
+    "email_validation":"accept email only ex: aaa@aaa.com",
+    "mobileNumber_5_validation":"Mobile number should be 9 numbers start with 5 "
   },
   "actions":{
     "submit":"Submit",
@@ -80,6 +84,33 @@
       "status":"Status",
       "phoneCode":"Phone Code",
       "content":"Content"
+    }
+  },
+  "contact_us":{
+    "pageName":"Contact Us",
+    "pageName_filter":"Filter Contact US",
+    "pageName_Add_crumb":"Add Contact Us",
+    "pageName_Edit_crumb":"Edit Contact Us",
+    "pageName_View_crumb":"View Contact Us",
+    "form":{
+      "name":"Name",
+      "email":"email",
+      "mobile":"Mobile",
+      "message":"Message"
+    }
+  },
+  "about_us":{
+    "pageName":"About Us",
+    "pageName_filter":"Filter About US",
+    "pageName_Add_crumb":"Add About Us",
+    "pageName_Edit_crumb":"Edit About Us",
+    "pageName_View_crumb":"View About Us",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)",
+      "userType":"User Type"
     }
   }
 

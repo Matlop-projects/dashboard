@@ -15,6 +15,9 @@ export const menuItems =
     { icon: 'pi pi-credit-card', label: 'PAYMENT WAY', route: '/paymentWay' },
     { icon: 'pi pi-shopping-bag', label: 'PACKAGE', route: '/package' },
     { icon: 'pi pi-trophy', label: 'TECHNICAL SPECIALIST', route: '/technical-specialist' },
+    { icon: 'pi pi-phone', label: 'CONTACT US', route: '/contact-us' },
+    { icon: 'pi pi-database', label: 'ABOUT US', route: '/about-us' },
+
 
 
 
@@ -86,20 +89,24 @@ export const PackageTypeList = [
     code: 1
   },
   {
-    name: 'Monthly',
+    name: 'Weekly',
     code: 2
   },
   {
-    name: 'Qurater',
+    name: 'Monthly',
     code: 3
   },
   {
-    name: 'Biannual',
+    name: 'Qurater',
     code: 4
   },
   {
-    name: 'Yearly',
+    name: 'Biannual',
     code: 5
+  },
+  {
+    name: 'Yearly',
+    code: 6
   }
 ]
 

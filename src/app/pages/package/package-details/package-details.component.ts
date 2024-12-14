@@ -61,21 +61,21 @@ export class PackageDetailsComponent {
         Validations.onlyNumberValidator()
       ]
     }),
+    typeOfPackage: new FormControl<any>('', {
+      validators: [
+        Validators.required
+      ]
+    }),
     visitNumber: new FormControl<any>('', {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
       ]
     }),
-    typeOfPackage: new FormControl<any>('', {
-      validators: [
-        Validators.required
-      ]
-    }),
     visitHours: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyNumberValidator()
+        Validations.onlyNumberValidator(),
       ]
     }),
     price: new FormControl('', {
@@ -163,6 +163,14 @@ export class PackageDetailsComponent {
         })
       }
     })
+  }
+  onTypepkgSelected(item:any){
+    let visitNumberControl =this.form.get('visitNumber');
+    visitNumberControl?.reset()
+     const maxNumber=[0,1,5,20,60,120,240]
+    visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[item],this.languageService.translate('pkg.visit_number_isMax'))]); 
+   visitNumberControl?.updateValueAndValidity(); 
+    
   }
 
   tyepMode() {

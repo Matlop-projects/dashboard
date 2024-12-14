@@ -46,6 +46,10 @@ import { OrdersTableComponent } from './pages/orders/orders-table/orders-table.c
 import { OrdersDetailsComponent } from './pages/orders/orders-details/orders-details.component';
 import { SliderTableComponent } from './pages/slider/slider-table/slider-table.component';
 import { SliderDetailsComponent } from './pages/slider/slider-details/slider-details.component';
+import { ContactUsTableComponent } from './pages/contact-us/contact-us-table/contact-us-table.component';
+import { ContactUsDetailsComponent } from './pages/contact-us/contact-us-details/contact-us-details.component';
+import { AboutUsTableComponent } from './pages/about-us/about-us-table/about-us-table.component';
+import { AboutUsDetailsComponent } from './pages/about-us/about-us-details/about-us-details.component';
 
 export const routes: Routes = [
   {
@@ -164,6 +168,16 @@ export const routes: Routes = [
       { path: 'order/add', component: OrdersDetailsComponent },
       { path: 'order/view/:id', component: OrdersDetailsComponent },
       { path: 'order/edit/:id', component: OrdersDetailsComponent },
+
+      { path: 'contact-us', component: ContactUsTableComponent },
+      { path: 'contact-us/add', component: ContactUsDetailsComponent },
+      { path: 'contact-us/view/:id', component: ContactUsDetailsComponent },
+      { path: 'contact-us/edit/:id', component: ContactUsDetailsComponent },
+
+      { path: 'about-us', component: AboutUsTableComponent },
+      { path: 'about-us/add', component: AboutUsDetailsComponent },
+      { path: 'about-us/view/:id', component: AboutUsDetailsComponent },
+      { path: 'about-us/edit/:id', component: AboutUsDetailsComponent },
     ]
   },
   {path: '**', component: NotFoundComponent}
