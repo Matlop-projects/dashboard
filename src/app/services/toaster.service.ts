@@ -20,7 +20,7 @@ export class ToasterService {
       severity: 'success',
       summary: 'Success',
       detail: this.languageService.translate(message),
-      life: 90000,
+      life: 4000,
     });
   }
 

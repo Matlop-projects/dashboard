@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    baseUrl: 'https://abdoryad-001-site1.ktempurl.com/api/',
+    baseUrl: 'https://aspdev.matlop.com/api/',
   };
