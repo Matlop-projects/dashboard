@@ -14,31 +14,35 @@
             <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                        <label class="mb-2"> Image (en)</label>
+                        <ng-container *ngIf="!editAttachmentMode">
+                            <label class="mb-2"> Image (en)</label>
                         <div class="upload-image-section  mb-4">
                             <app-upload-file formControlName="imageEn"></app-upload-file>
                             <div *ngIf="isRequiredError" class="error-message mt-2">
                                 Image upload is required.
                             </div>
                         </div>
+                        </ng-container>
                         <div class="edit-mode-section mt-2" *ngIf="editAttachmentMode">
-                            <label class="mb-2">Uploaded Image</label>
+                            <label class="mb-2">Uploaded Image  (en)</label>
                             <app-edit-mode-image [editImageProps]="editImageProps"></app-edit-mode-image>
                         </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                            <label class="mb-2"> Image (ar)</label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                       <ng-container  *ngIf="!editAttachmentMode_ar">
+                        <label class="mb-2"> Image (ar)</label>
                         <div class="upload-image-section mb-4">
                             <app-upload-file formControlName="imageAr"></app-upload-file>
                             <div *ngIf="isRequiredError_ar" class="error-message mt-2">
                                 Image upload is required.
                             </div>
                         </div>
+                       </ng-container>
                         <div class="edit-mode-section mt-2" *ngIf="editAttachmentMode_ar">
-                            <label class="mb-2">Uploaded Image</label>
+                            <label class="mb-2">Uploaded Image  (ar)</label>
                             <app-edit-mode-image [editImageProps]="editImageProps_ar"></app-edit-mode-image>
                         </div>
-                        </div>
+                    </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
                             [label]="'Title (en)'" [control]="form.get('titleEn')"></app-input-text>
@@ -52,10 +56,10 @@
                             [label]="'Display Order'" [control]="form.get('displayOrder')"></app-input-text>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                        <app-select [placeholder]="form.get('viewType')?.value" class="w-100" [list]="viewTypeList" [label]="'View Type'"
-                           [control]="form.get('viewType')"></app-select>
-                     </div>
-                  
+                        <app-select [placeholder]="form.get('viewType')?.value" class="w-100" [list]="viewTypeList"
+                            [label]="'View Type'" [control]="form.get('viewType')"></app-select>
+                    </div>
+
                     <div class="actions mt-5 text-center">
                         <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!='View'">
                             <span *ngIf="tyepMode()=='Add'">Add</span>

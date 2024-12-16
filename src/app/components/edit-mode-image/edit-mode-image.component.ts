@@ -12,5 +12,5 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class EditModeImageComponent {
   @Input() editImageProps!: IEditImage;
-
+  @Input() imgWidth="50"
 }

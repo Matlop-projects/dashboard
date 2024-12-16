@@ -50,6 +50,8 @@ import { ContactUsTableComponent } from './pages/contact-us/contact-us-table/con
 import { ContactUsDetailsComponent } from './pages/contact-us/contact-us-details/contact-us-details.component';
 import { AboutUsTableComponent } from './pages/about-us/about-us-table/about-us-table.component';
 import { AboutUsDetailsComponent } from './pages/about-us/about-us-details/about-us-details.component';
+import { SpecialOrderTableComponent } from './pages/special-order/special-order-table/special-order-table.component';
+import { SpecialOrderDetailsComponent } from './pages/special-order/special-order-details/special-order-details.component';
 
 export const routes: Routes = [
   {
@@ -178,6 +180,11 @@ export const routes: Routes = [
       { path: 'about-us/add', component: AboutUsDetailsComponent },
       { path: 'about-us/view/:id', component: AboutUsDetailsComponent },
       { path: 'about-us/edit/:id', component: AboutUsDetailsComponent },
+
+      { path: 'special-order', component: SpecialOrderTableComponent },
+      { path: 'special-order/add', component: SpecialOrderDetailsComponent },
+      { path: 'special-order/view/:id', component: SpecialOrderDetailsComponent },
+      { path: 'special-order/edit/:id', component: SpecialOrderDetailsComponent },
     ]
   },
   {path: '**', component: NotFoundComponent}

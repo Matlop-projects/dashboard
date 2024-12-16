@@ -39,7 +39,6 @@ export class AboutUsDetailsComponent {
   showConfirmMessage: boolean = false
   userTypeList = userType
   private confirm = inject(ConfirmMsgService)
-  editAttachmentMode: boolean = false;
   editImageProps: IEditImage = {
     props: {
       visible: true,
@@ -47,7 +46,7 @@ export class AboutUsDetailsComponent {
     },
     onEditBtn: (e?: Event) => {
       this.editImageProps.props.visible = false;
-      this.editAttachmentMode = false;
+      this.editMode = false;
     }
   };
   editMode: boolean = false;
@@ -132,8 +131,12 @@ export class AboutUsDetailsComponent {
 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
-      if (res)
+      if (res){
         this.form.patchValue(res.data)
+        this.editImageProps.props.imgSrc = res.data.image;
+        this.editMode = true;
+      }
+        
     })
   }
 
