@@ -115,7 +115,7 @@ export class CityDetailsComponent {
     this.getCityDetails()
   }
 getAllCountries(){
-  this.ApiService.get('Country/GetListCountries').subscribe((res: any) => {
+  this.ApiService.get('Country/GetAll').subscribe((res: any) => {
     if (res) {
      res.data.map((country:any)=>{
          this.countries.push({

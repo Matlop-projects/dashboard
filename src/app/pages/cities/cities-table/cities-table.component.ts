@@ -114,9 +114,9 @@ export class CitiesTableComponent {
 
   getAllCities() {
   console.log('ggg',this.citySearch)
-    this.ApiService.post('City/GetAll',this.citySearch).subscribe((res: any) => {
+    this.ApiService.post('City/GetAllWithPagination',this.citySearch).subscribe((res: any) => {
       if (res.data) {
-        this.citiesList = res.data;
+        this.citiesList = res.data.dataList;
         this.totalCount = res.data.totalCount;
         this.filteredData = [...this.citiesList]; // Initialize filtered data
       }
