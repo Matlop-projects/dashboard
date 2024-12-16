@@ -48,6 +48,11 @@ export class SettingsComponent {
         routerLink: '/settings/slider'
       },
       {
+        label: 'District',
+        icon: 'pi pi-building',
+        routerLink: '/settings/district'
+      },
+      {
         label: 'Features',
         icon: 'pi pi-star',
         // routerLink:'/settings/faqs'

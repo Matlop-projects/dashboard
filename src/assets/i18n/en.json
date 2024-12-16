@@ -50,6 +50,20 @@
       "desc_ar":"Description (ar)"
     }
   },
+  "district":{
+    "pageName":"District",
+    "pageName_filter":"Filter District",
+    "pageName_Add_crumb":"Add District",
+    "pageName_Edit_crumb":"Edit District",
+    "pageName_View_crumb":"View District",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "city":"City",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)"
+    }
+  },
   "city":{
     "pageName":"City",
     "pageName_filter":"Filter City",

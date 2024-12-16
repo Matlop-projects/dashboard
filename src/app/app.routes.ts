@@ -52,6 +52,8 @@ import { AboutUsTableComponent } from './pages/about-us/about-us-table/about-us-
 import { AboutUsDetailsComponent } from './pages/about-us/about-us-details/about-us-details.component';
 import { SpecialOrderTableComponent } from './pages/special-order/special-order-table/special-order-table.component';
 import { SpecialOrderDetailsComponent } from './pages/special-order/special-order-details/special-order-details.component';
+import { DistrictTableComponent } from './pages/district/district-table/district-table.component';
+import { DistrictDetailsComponent } from './pages/district/district-details/district-details.component';
 
 export const routes: Routes = [
   {
@@ -101,6 +103,11 @@ export const routes: Routes = [
            { path: 'slider/add', component: SliderDetailsComponent },
            { path: 'slider/edit/:id', component: SliderDetailsComponent },
            { path: 'slider/view/:id', component: SliderDetailsComponent },
+
+           { path: 'district', component: DistrictTableComponent },
+           { path: 'district/add', component: DistrictDetailsComponent },
+           { path: 'district/edit/:id', component: DistrictDetailsComponent },
+           { path: 'district/view/:id', component: DistrictDetailsComponent },
 
         ]
       },
