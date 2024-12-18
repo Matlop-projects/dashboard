@@ -34,7 +34,29 @@
     "list":"List",
     "add_new":"Add New",
     "filter":"Filter",
-    "enter":"Enter"
+    "enter":"Enter",
+    "view_more":"View More"
+  },
+  "dashboard":{
+    "pageName":"Dashboard",
+    "count":"Count",
+    "client":"client",
+    "technical":"technical",
+    "order":"order",
+    "contractType":"contract Type",
+    "package":"package",
+    "paymentWay":"payment Way",
+    "service":"service",
+    "workingTime":"working Time",
+    "termsAndConditions":"terms And Conditions",
+    "technicalSpecialist":"technical Specialist",
+    "orderAdditionalItems":"order Additional Items",
+    "FAQs":"FAQs",
+    "country":"country",
+    "coupon":"coupon",
+    "complaint":"Complaint",
+    "city":"City",
+    "cancelReason":"cancel Reason"
   },
   "cancel_reason":{
     "pageName":"Cancel Reason",

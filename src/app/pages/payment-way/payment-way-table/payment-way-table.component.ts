@@ -17,7 +17,7 @@ const global_API_Name='paymentWay'
 const global_router_add_url_in_Table ='/'+global_API_Name+'/add'
 const global_router_view_url =global_API_Name+'/view'
 const global_router_edit_url =global_API_Name+'/edit'
-const global_API_getAll =global_API_Name+'/GetAllPaymentWay'
+const global_API_getAll =global_API_Name+'/GetAllWithPagination'
 const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
 
 @Component({

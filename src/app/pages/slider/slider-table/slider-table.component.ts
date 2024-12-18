@@ -128,7 +128,7 @@ export class SliderTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(global_API_getAll).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data;
         this.totalCount = res.totalCount;
