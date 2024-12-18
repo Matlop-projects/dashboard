@@ -19,7 +19,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
               <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'used Number'"
-                [control]="form.get('usedNumber')"></app-input-text>
+                [control]="form.get('numberOfUsing')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                   <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Offer Type'"
@@ -47,9 +47,15 @@
                  class="w-100" [list]="coponeTypeList">
                 </app-select>
               </div>
+              
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'status'" [control]="form.get('status')"></app-check-box>
-             </div>
+                <div class="d-flex justify-content-start">
+                  <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'status'" [control]="form.get('status')"></app-check-box>
+                  <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'Used For X Times'" [control]="form.get('usedForXTimes')"></app-check-box>
+              
+                </div>
+              </div>
+             
               <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Description (en)'" [control]="form.get('enDescription')"></app-editor>
               </div>

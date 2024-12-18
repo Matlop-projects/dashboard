@@ -46,7 +46,7 @@ export class CoponeDetailsComponent {
         Validators.required,
       ],
     }),
-    usedNumber: new FormControl <any>('', {
+    numberOfUsing: new FormControl <any>('', {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
@@ -91,6 +91,8 @@ export class CoponeDetailsComponent {
       ]
     }),
     status: new FormControl(false, {
+    }),
+    usedForXTimes:new FormControl(false, {
     }),
     coponeId: new FormControl(this.getID | 0),
   })
@@ -144,7 +146,7 @@ export class CoponeDetailsComponent {
       amount: +this.form.value.amount,
       coponeType: +this.form.value.coponeType,
       offerType: +this.form.value.offerType,
-      usedNumber: +this.form.value.usedNumber
+      usedNumber: +this.form.value.numberOfUsing
     }
     if (this.tyepMode() == 'Add')
       this.API_forAddItem(payload)

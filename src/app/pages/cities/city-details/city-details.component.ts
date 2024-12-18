@@ -76,11 +76,7 @@ export class CityDetailsComponent {
         Validators.required,
       ]
     }),
-    status: new FormControl <boolean>(false, {
-      validators:[
-        Validators.required,
-      ]
-    })
+    status: new FormControl <boolean>(false)
   })
 
   bredCrumb: IBreadcrumb = {
@@ -103,16 +99,15 @@ export class CityDetailsComponent {
   ngOnInit() {
     this.pageName.set('city.pageName')
     this.getAllCountries()
+    if(this.tyepMode()!=='Add')
+      this.getCityDetails()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      console.log("CityDetailsComponent  this.languageService.translationService.onLangChange.subscribe   this.selectedLang:",  this.selectedLang)
       this.getAllCountries()
 
     })
-    console.log(this.router.url)
-    if(this.tyepMode()!=='add')
-    this.getCityDetails()
+  
   }
 getAllCountries(){
   this.ApiService.get('Country/GetAll').subscribe((res: any) => {
@@ -178,5 +173,10 @@ tyepMode() {
   }
   onConfirmMessage(){
     this.router.navigateByUrl('city')
+  }
+
+  getSelectValue(controlName:string,idNameFromList:any,arrList:[]){
+    const result =arrList.filter(i=>i[idNameFromList]==controlName)
+          return  result
   }
 }

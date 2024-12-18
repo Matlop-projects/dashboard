@@ -130,7 +130,7 @@ export class CountriesDetailsComponent implements OnInit {
   ngOnInit() {
     this.pageName.set('country.pageName')
     console.log(this.router.url)
-    if (this.tyepMode() !== 'add')
+    if (this.tyepMode() !== 'Add')
       this.getCountryDetails()
   }
 
@@ -171,7 +171,7 @@ export class CountriesDetailsComponent implements OnInit {
       ...this.form.value,
       countryId: this.countryID,
     }
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() === 'Add')
       this.addCountry(payload)
     else
       this.editCountry(payload)

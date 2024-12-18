@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
+import { EAction, EType, IcolHeader, ITableAction, IToggleOptions, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
 import { RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -20,7 +20,10 @@ const global_router_view_url =global_pageName+'/view'
 const global_router_edit_url =global_pageName+'/edit'
 const global_API_getAll =global_pageName+'/GetAllWithPagination'
 const global_API_delete=global_pageName+'/Delete?requestId'
-
+const global_toggleOptions:IToggleOptions={
+  apiName:'copone/Update',
+  autoCall:true,
+  }
 @Component({
   selector: 'app-copone-table',
   standalone: true,
@@ -105,7 +108,8 @@ export class CoponeTableComponent {
       { keyName: 'code', header: 'Code', type: EType.text, show: true },
       { keyName: 'startDate', header: 'Start date', type: EType.date, show: true },
       { keyName: 'endDate', header: 'End Date', type: EType.date, show: true },
-      { keyName: 'usedNumber', header: 'Used', type: EType.text, show: true },
+      { keyName: 'numberOfUsing', header: 'Used', type: EType.text, show: true },
+      { keyName: 'usedForXTimes', header: 'For X Time', type: EType.toggle,toggleOptions:global_toggleOptions, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
@@ -114,7 +118,8 @@ export class CoponeTableComponent {
       { keyName: 'code', header: 'Code', type: EType.text, showAs: ETableShow.header },
       { keyName: 'startDate', header: 'Start', type: EType.date, showAs: ETableShow.content },
       { keyName: 'endDate', header: 'end', type: EType.date, showAs: ETableShow.content },
-      { keyName: 'usedNumber', header: 'used', type: EType.text, show: true },
+      { keyName: 'numberOfUsing', header: 'used', type: EType.text, show: true },
+      { keyName: 'usedForXTimes', header: 'used', type: EType.text, show: true },
 
     ];
   }

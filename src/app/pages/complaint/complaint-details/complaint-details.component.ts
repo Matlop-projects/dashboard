@@ -58,7 +58,7 @@ export class ComplaintDetailsComponent {
         Validators.required,
       ]
     }),
-    complaintId:new FormControl(this.getID|0,Validators.required),
+    complaintId:new FormControl(this.getID|0),
   })
 
   bredCrumb: IBreadcrumb = {
