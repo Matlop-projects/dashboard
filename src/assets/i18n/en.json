@@ -126,6 +126,20 @@
       "desc_ar":"Description (ar)",
       "userType":"User Type"
     }
+  },
+  "contract":{
+    "pageName":"Contract Type",
+    "pageName_filter":"Filter Contract Type",
+    "pageName_Add_crumb":"Add Contract Type",
+    "pageName_Edit_crumb":"Edit Contract Type",
+    "pageName_View_crumb":"View Contract Type",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "services":"Services",
+      "noOfVisit":"Number of visit",
+      "status":"Active"
+    }
   }
 
 }

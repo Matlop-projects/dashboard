@@ -14,17 +14,18 @@ import { UploadFileComponent } from "../../../components/upload-file/upload-file
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_PageName = 'Contract Type';
+const global_PageName = 'contract.pageName';
 const global_API_deialis = 'contractType' + '/GetById';
 const global_API_create = 'contractType' + '/Create';
 const global_API_update = 'contractType' + '/Update';
 const global_routeUrl = 'contract-type'
-const global_API_getAllServices = 'service/GetAllService'
+const global_API_getAllServices = 'service/GetAll'
 @Component({
   selector: 'app-contract-type-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule, NgIf, DialogComponent, SelectComponent, InputTextComponent, CheckBoxComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TranslatePipe, TitleCasePipe, ButtonModule, NgIf, DialogComponent, SelectComponent, InputTextComponent, CheckBoxComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './contract-type-details.component.html',
   styleUrl: './contract-type-details.component.scss'
 })
@@ -103,14 +104,18 @@ export class ContractTypeDetailsComponent {
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
 
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
+    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
     return result
   }
 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
-      if (res)
+      if (res){
         this.form.patchValue(res.data)
+      }
+
+
+        
     })
   }
 
