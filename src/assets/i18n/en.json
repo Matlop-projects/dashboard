@@ -34,7 +34,29 @@
     "list":"List",
     "add_new":"Add New",
     "filter":"Filter",
-    "enter":"Enter"
+    "enter":"Enter",
+    "view_more":"View More"
+  },
+  "dashboard":{
+    "pageName":"Dashboard",
+    "count":"Count",
+    "client":"client",
+    "technical":"technical",
+    "order":"order",
+    "contractType":"contract Type",
+    "package":"package",
+    "paymentWay":"payment Way",
+    "service":"service",
+    "workingTime":"working Time",
+    "termsAndConditions":"terms And Conditions",
+    "technicalSpecialist":"technical Specialist",
+    "orderAdditionalItems":"order Additional Items",
+    "FAQs":"FAQs",
+    "country":"country",
+    "coupon":"coupon",
+    "complaint":"Complaint",
+    "city":"City",
+    "cancelReason":"cancel Reason"
   },
   "cancel_reason":{
     "pageName":"Cancel Reason",
@@ -46,6 +68,20 @@
       "reason_en":"Reason (en)",
       "reason_ar":"Reason (ar)",
       "userType":"User Type",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)"
+    }
+  },
+  "district":{
+    "pageName":"District",
+    "pageName_filter":"Filter District",
+    "pageName_Add_crumb":"Add District",
+    "pageName_Edit_crumb":"Edit District",
+    "pageName_View_crumb":"View District",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "city":"City",
       "desc_en":"Description (en)",
       "desc_ar":"Description (ar)"
     }
@@ -111,6 +147,20 @@
       "desc_en":"Description (en)",
       "desc_ar":"Description (ar)",
       "userType":"User Type"
+    }
+  },
+  "contract":{
+    "pageName":"Contract Type",
+    "pageName_filter":"Filter Contract Type",
+    "pageName_Add_crumb":"Add Contract Type",
+    "pageName_Edit_crumb":"Edit Contract Type",
+    "pageName_View_crumb":"View Contract Type",
+    "form":{
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "services":"Services",
+      "noOfVisit":"Number of visit",
+      "status":"Active"
     }
   }
 

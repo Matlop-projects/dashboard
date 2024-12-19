@@ -2,7 +2,7 @@
     <div class="row">
       <div class="page-details mb-3">
         <div class="title">
-          <h2>{{tyepMode()|titlecase}}  {{pageName()|titlecase}}</h2>
+          <h2>{{tyepMode()|translate|titlecase}} {{pageName()|translate|titlecase}}</h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -14,35 +14,35 @@
         <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Name (en)'"
+              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'contract.form.name_en'"
                 [control]="form.get('enName')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Name (ar)'"
+              <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'contract.form.name_ar'"
                 [control]="form.get('arName')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-              <app-select [placeholder]="form.get('serviceId')?.value" class="w-100" [list]="servicesList" [label]="'Services'"
+              <app-select [placeholder]="form.get('serviceId')?.value" class="w-100" [list]="servicesList" [label]="'contract.form.services'"
               [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"  [control]="form.get('serviceId')"></app-select>
            </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'Number of visit'"
+                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'contract.form.noOfVisit'"
                   [control]="form.get('noOfVisit')"></app-input-text>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'"  [label]="'isActive'" [control]="form.get('isActive')"></app-check-box>
+                <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'"  [label]="'contract.form.status'" [control]="form.get('isActive')"></app-check-box>
              </div>
           
            
-            <div class="actions mt-5 text-center">
-              <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!='View'">
-                <span *ngIf="tyepMode()=='Add'">Add</span>
-                <span *ngIf="tyepMode()=='Edit'">Edit</span>
+             <div class="actions mt-5 text-center">
+              <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
+                 <span *ngIf="tyepMode()=='Add'">{{'actions.add'|translate}}</span>
+                 <span *ngIf="tyepMode()=='Edit'">{{'actions.edit'|translate}}</span>
               </button>
               <button type="button" class="cancel-btn" (click)="cancel()">
-                Cancel
+                 {{'actions.cancel'|translate}}
               </button>
-            </div>
+           </div>
           </div>
   
         </form>
@@ -51,7 +51,8 @@
   </div>
   
   <app-dialog [visible]="showConfirmMessage">
-    <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> Close</button>
-    <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()"> Confirm</button>
+    <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> {{'actions.close'|translate}}</button>
+    <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()">  {{'actions.confirm'|translate}}</button>
   </app-dialog>
+ 
   

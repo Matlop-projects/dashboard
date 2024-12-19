@@ -11,17 +11,18 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='contract type'
+const global_pageName='contract.pageName'
 const global_router_add_url_in_Table ='/'+'contract-type'+'/add'
 const global_router_view_url ='contract-type'+'/view'
 const global_router_edit_url ='contract-type'+'/edit'
-const global_API_getAll ='contractType'+'/GetAll'
+const global_API_getAll ='contractType'+'/GetAllWithPagination'
 const global_API_delete='contractType'+'/Delete?requestId'
 @Component({
   selector: 'app-contract-type-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe,TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './contract-type-table.component.html',
   styleUrl: './contract-type-table.component.scss'
 })
@@ -48,6 +49,7 @@ export class ContractTypeTableComponent {
     }
   ]
   private ApiService = inject(ApiService)
+  languageService = inject(LanguageService);
 
 
   bredCrumb: IBreadcrumb = {
@@ -57,7 +59,7 @@ export class ContractTypeTableComponent {
         routerLink: '/dashboard',
       },
       {
-        label: this.pageName(),
+        label: this.languageService.translate(this.pageName()),
       },
     ]
   }
@@ -83,7 +85,6 @@ export class ContractTypeTableComponent {
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
-  languageService = inject(LanguageService);
 
   ngOnInit() {
     this.pageName.set(global_pageName) 

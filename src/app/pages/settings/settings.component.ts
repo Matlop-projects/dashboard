@@ -51,6 +51,16 @@ export class SettingsComponent {
         label: 'Roles',
         icon: 'pi pi-bolt',
         routerLink: '/settings/roles'
+      },
+      {
+        label: 'District',
+        icon: 'pi pi-building',
+        routerLink: '/settings/district'
+      },
+      {
+        label: 'Features',
+        icon: 'pi pi-star',
+        // routerLink:'/settings/faqs'
       }
     ]
   }
