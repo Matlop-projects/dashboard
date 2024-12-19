@@ -48,9 +48,9 @@ export class SettingsComponent {
         routerLink: '/settings/slider'
       },
       {
-        label: 'Features',
-        icon: 'pi pi-star',
-        // routerLink:'/settings/faqs'
+        label: 'Roles',
+        icon: 'pi pi-bolt',
+        routerLink: '/settings/roles'
       }
     ]
   }
