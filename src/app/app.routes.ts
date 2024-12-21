@@ -109,6 +109,8 @@ export const routes: Routes = [
            { path: 'roles', component: RoleTableComponent },
            { path: 'role/add', component: RoleDetailsComponent },
            { path: 'role/edit/:id', component: RoleDetailsComponent },
+           { path: 'role/view/:id', component: RoleDetailsComponent },
+
            { path: 'district', component: DistrictTableComponent },
            { path: 'district/add', component: DistrictDetailsComponent },
            { path: 'district/edit/:id', component: DistrictDetailsComponent },

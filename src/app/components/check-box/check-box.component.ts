@@ -21,7 +21,6 @@ export class CheckBoxComponent {
 @Input()control:any =new FormControl()
 @Output() toggleValue =new EventEmitter()
 onToggleChange(value:any){
-console.log("CheckBoxComponent  onToggleChange  value:", value)
    this.toggleValue.emit(value.checked)
 }
 
