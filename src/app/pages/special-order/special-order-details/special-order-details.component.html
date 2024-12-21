@@ -1,1 +1,209 @@
-<p>special-order-details works!</p>
+<div class="order-details-container" *ngIf="orderDetails">
+  <div class="contianer">
+    <div class="row mb-3">
+      <div class="page-details mb-3">
+        <div class="title">
+          <h2>{{typeMode()==='edit' ? 'Edit' : 'View'}} Order</h2>
+        </div>
+        <div class="breadcrumb">
+          <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-12 client-deatils-container">
+        <div class="content">
+          <div class="title-section">
+            <p>Client Details</p>
+          </div>
+          <div class="desc">
+            <div class="main-details">
+              <div class="img mt-4">
+                <img
+                  [src]="this.clientDetails?.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png'"
+                  alt="client image">
+              </div>
+
+              <div class="name">
+                <p>{{this.clientDetails?.firstName | uppercase}}</p>
+              </div>
+              <div class="actions">
+                <a class="view" (click)="viewClientDetails(this.clientDetails?.userId)">
+                  <i class="pi pi-eye"></i>
+                </a>
+                <div class="call" (click)="dialNumber('+1234567890')">
+                  <i class="pi pi-phone"></i>
+                </div>
+              </div>
+            </div>
+            <div class="sub-deatils">
+              <div class="email main">
+                <div class="icon">
+                  <i class="pi pi-envelope"></i>
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <p>Email</p>
+                  </div>
+                  <div class="desc">
+                    <p>{{this.clientDetails?.email}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="Mobile main">
+                <div class="icon">
+                  <i class="pi pi-mobile"></i>
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <p>Mobile</p>
+                  </div>
+                  <div class="desc">
+                    <p>{{this.clientDetails?.mobileNumber}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="Status main">
+                <div class="icon">
+                  <i class="pi pi-star-fill"></i>
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <p>Status</p>
+                  </div>
+                  <div class="desc">
+                    <p style="color: #30d50d;">{{this.clientDetails?.isActive == true ? 'Active' : 'Inactive'}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content mt-3">
+          <div class="title-section">
+            <p>Order Image</p>
+          </div>
+
+          <div class="order-image-desc">
+            <img [src]=imageList[0].src alt="">
+            <!-- <img src="assets/images/empty-state.png" alt="empty state"> -->
+            <!-- <p>No Image Available</p> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
+        <div class="content">
+          <div class="title-section">
+            <p>Order Details</p>
+          </div>
+          <div class="desc">
+            <div class="details order-status-dropdown">
+              <div class="title">
+                <p>Order Status</p>
+              </div>
+              <div class="details-desc">
+                <p-select [options]="statuses" (onChange)="onStatusChange()" [(ngModel)]="orderStatusValue"
+                  optionLabel="name" placeholder="Select a Status" class="w-full md:w-56" />
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Amount</p>
+              </div>
+              <div class="details-desc total-price">
+                <div class="amount">
+                  <p-iconfield>
+                    <p-inputnumber [(ngModel)]="orderAmount" inputId="minmax" mode="decimal" [min]="0"
+                      [max]="1000000" />
+                    <p-inputicon styleClass="pi pi-plus" (click)="changeAmount()" />
+
+                  </p-iconfield>
+                </div>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Order Id</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.specialOrderId}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>Special Order Type</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.specialOrderEnum == 1 ? 'Emergency' : 'Special'}}</p>
+              </div>
+            </div>
+            <div class="details" >
+              <div class="title">
+                <p>Order Status</p>
+              </div>
+              <div class="details-desc status-details"
+                [style.backgroundColor]="getColorById(orderDetails.specialOrderStatus)">
+                <p>{{orderDetails.specialOrderStatus ? getStatus(orderDetails.specialOrderStatus) : '-'}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="table-container">
+          <div class="title-section mb-4">
+            <p>Order's Providers</p>
+            <div class="add-provider" pTooltip="Add New Provider" tooltipPosition="top" (click)="openTechnicalModal()">
+              <i class="pi pi-plus"></i>
+            </div>
+          </div>
+          <table class="p-datatable">
+            <thead class="p-datatable-thead">
+              <tr>
+                <th>Technical ID</th>
+                <th>Technical Name</th>
+                <th>Edit Technical</th>
+              </tr>
+            </thead>
+            <tbody class="p-datatable-tbody">
+              <tr *ngFor="let assignment of orderTechnicalAssignments">
+                <td>{{ assignment.technicalId }}</td>
+                <td>{{ assignment.technicalName || '-' }}</td>
+                <td>
+                  <div class="actions-icon">
+                    <span class="pi pi-pen-to-square" title="Edit"
+                      (click)="editProvider(assignment.technicalId , assignment.specialOrderTechnicalAssignmentId)"></span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="table-container">
+          <div class="title-section mb-4">
+            <p>Note</p>
+          </div>
+          <p-editor [readonly]="true" [(ngModel)]="orderDetails.notes" [style]="{ height: '320px' }" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<app-modal [dialogProps]="dialogProps">
+  <div class="title">
+    <h3>{{providerTitle}}</h3>
+  </div>
+
+  <div class="content" style="width: 300px;">
+    <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange()" [(ngModel)]="providerValue"
+      optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
+  </div>
+</app-modal>

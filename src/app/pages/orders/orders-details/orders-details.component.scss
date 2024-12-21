@@ -214,6 +214,7 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
+
           &:hover {
             background-color: rgb(30, 128, 30);
           }
@@ -308,6 +309,44 @@
                 color: green;
               }
             }
+          }
+        }
+      }
+    }
+
+    .order-time-schedule-section {
+      padding: 10px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      border-radius: 8px;
+
+      .title-section {
+        border-bottom: 1px solid #cfcfcf;
+
+        p {
+          font-size: 20px;
+          color: #989898;
+          margin-bottom: 10px;
+        }
+      }
+
+      .card-container {
+        max-height: 500px;
+        overflow: scroll;
+
+        .padding-container {
+          padding: 10px;
+
+          .time-card {
+            border-radius: 6px;
+            border: 1px solid #d3d3d3;
+            padding: 20px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            background-color: #ebebeb;
+            font-size: 20px;
+
           }
         }
       }

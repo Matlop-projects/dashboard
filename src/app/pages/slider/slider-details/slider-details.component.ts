@@ -18,6 +18,7 @@ import { coponeOfferTypeList, coponeTypeList, sliderViewType } from '../../../co
 import { SelectComponent } from '../../../components/select/select.component';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
+import { environment } from '../../../../environments/environment';
 
 const global_PageName = 'slider';
 const global_API_deialis = global_PageName + '/GetById';
@@ -33,6 +34,9 @@ const global_routeUrl = 'settings/'+global_PageName
   styleUrl: './slider-details.component.scss'
 })
 export class SliderDetailsComponent {
+
+  private imageUrl = environment.baseImageUrl
+
   pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
@@ -80,12 +84,12 @@ export class SliderDetailsComponent {
     }),
     imageEn: new FormControl<any>('', {
       validators: [
-       
+
       ]
     }),
     imageAr: new FormControl<any>('', {
       validators: [
-       
+
       ]
     }),
     displayOrder: new FormControl<any>('', {
@@ -115,12 +119,12 @@ export class SliderDetailsComponent {
     ]
   }
 
-  
+
   get getID() {
     return this.route.snapshot.params['id']
   }
 
-  
+
   get isRequiredError(): boolean {
     const control = this.form.get('imageEn');
     return control?.touched && control?.hasError('required') || false;
@@ -156,13 +160,13 @@ export class SliderDetailsComponent {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
-        this.editImageProps.props.imgSrc = res.data.imageEn;
+        this.editImageProps.props.imgSrc = this.imageUrl + res.data.imageEn;
         this.editAttachmentMode = true;
 
-        this.editImageProps_ar.props.imgSrc = res.data.imageAr;
+        this.editImageProps_ar.props.imgSrc = this.imageUrl + res.data.imageAr;
         this.editAttachmentMode_ar = true;
       }
-        
+
     })
   }
 
