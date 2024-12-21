@@ -85,9 +85,12 @@ export class OrdersDetailsComponent {
 
   providerTitle = 'Add New Provider';
 
+  orderTimeSchedule: any;
+
   ngOnInit() {
     this.getOrderDetails();
     this.getTechnicalList();
+    this.getOrderTimeSchedule();
   }
 
   get orderId(): number {
@@ -219,7 +222,7 @@ export class OrdersDetailsComponent {
   }
 
   addAdditinalItem() {
-    this.ApiService.post('OrderAdditionalItems/Create' ,this.additionalObject).subscribe((res: any) => {
+    this.ApiService.post('OrderAdditionalItems/Create', this.additionalObject).subscribe((res: any) => {
       console.log(res);
       this.getOrderDetails();
       this.additinalModal.props.visible = false;
@@ -228,7 +231,7 @@ export class OrdersDetailsComponent {
   }
 
   editAdditinalItem() {
-    this.ApiService.put('OrderAdditionalItems/Update' ,this.additionalObject).subscribe((res: any) => {
+    this.ApiService.put('OrderAdditionalItems/Update', this.additionalObject).subscribe((res: any) => {
       console.log(res);
       this.getOrderDetails();
       this.additinalModal.props.visible = false;
@@ -241,6 +244,28 @@ export class OrdersDetailsComponent {
     this.additinalModal.props.visible = true;
     this.additonalCase = 'edit';
     this.additonalTitle = 'edit Additonal Item';
+  }
+
+  getOrderTimeSchedule() {
+    this.ApiService.get(`Order/GetOrderSchedule/${this.orderId}`).subscribe((res: any) => {
+      console.log(res.data);
+      this.orderTimeSchedule = res.data;
+    })
+  }
+
+  formatDateTime(dateString: string): string {
+    const date = new Date(dateString);
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    const hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const amPm = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12;
+
+    return `${day}/${month}/${year} - ${formattedHours}:${minutes} ${amPm}`;
   }
 
   onSubmit(form: any) {

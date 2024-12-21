@@ -34,16 +34,16 @@ export class SpecialOrderTableComponent {
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
-    {
-      name: EAction.delete,
-      apiName_or_route: global_API_delete,
-      autoCall: true
-    },
-    {
-      name: EAction.view,
-      apiName_or_route: global_router_view_url,
-      autoCall: true
-    },
+    // {
+    //   name: EAction.delete,
+    //   apiName_or_route: global_API_delete,
+    //   autoCall: true
+    // },
+    // {
+    //   name: EAction.view,
+    //   apiName_or_route: global_router_view_url,
+    //   autoCall: true
+    // },
     {
       name: EAction.edit,
       apiName_or_route: global_router_edit_url,
@@ -67,14 +67,14 @@ export class SpecialOrderTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
-    sortingExpression: "",
-    sortingDirection: 0,
-    specialOrderId: 0,
-    amount: 0,
-    media: "",
-    clientId: 0,
-    specialOrderEnum: 1
+    pageSize: 7
+    // sortingExpression: "",
+    // sortingDirection: 0,
+    // specialOrderId: 0,
+    // amount: 0,
+    // media: "",
+    // clientId: 0,
+    // specialOrderEnum: 1
   }
 
   totalCount: number = 0;
@@ -102,19 +102,17 @@ export class SpecialOrderTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'specialOrderId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'media', header: 'image', type: EType.text, show: true },
-      { keyName: 'amount', header: 'amount', type: EType.text, show: true },
-      { keyName: 'clinetId', header: 'clinetId', type: EType.text, show: true },
-      { keyName: 'notes', header: 'notes', type: EType.editor, show: true },
+      { keyName: 'amount', header: 'Amount', type: EType.text, show: true },
+      { keyName: 'clientId', header: 'Client Id', type: EType.text, show: true },
+      { keyName: 'notes', header: 'Note', type: EType.editor, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
       { keyName: 'specialOrderId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'media', header: 'image', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'amount', header: 'amount', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'clinetId', header: 'clinetId', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'notes', header: 'notes', type: EType.editor, show: true, showAs: ETableShow.content },
+      { keyName: 'amount', header: 'Amount', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'clientId', header: 'Client Id', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'notes', header: 'Note', type: EType.editor, show: true, showAs: ETableShow.content },
 
     ];
   }
@@ -167,14 +165,15 @@ export class SpecialOrderTableComponent {
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
-      sortingExpression: "",
-      sortingDirection: 0,
-      specialOrderId: 0,
-      amount: 0,
-      media: "",
-      clientId: 0,
-      specialOrderEnum: 1
+      pageSize: 7
+      // ,
+      // sortingExpression: "",
+      // sortingDirection: 0,
+      // specialOrderId: 0,
+      // amount: 0,
+      // media: "",
+      // clientId: 0,
+      // specialOrderEnum: 1
     }
     this.API_getAll();
     this.showFilter = false

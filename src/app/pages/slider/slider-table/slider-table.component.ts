@@ -44,7 +44,7 @@ export class SliderTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -87,7 +87,7 @@ export class SliderTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
@@ -100,8 +100,8 @@ export class SliderTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'sliderId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'imageEn', header: 'Image (en)', type: EType.image, show: true },
-      { keyName: 'imageAr', header: 'Image (ar)', type: EType.image, show: true },
+      // { keyName: 'imageEn', header: 'Image (en)', type: EType.image, show: true },
+      // { keyName: 'imageAr', header: 'Image (ar)', type: EType.image, show: true },
       { keyName: 'titleEn', header: 'Title (en)', type: EType.text, show: true },
       { keyName: 'titleAr', header: 'Title (ar)', type: EType.text, show: true },
       { keyName: 'displayOrder', header: 'Display Order', type: EType.text, show: true },
@@ -112,8 +112,8 @@ export class SliderTableComponent {
       { keyName: 'sliderId', header: 'Id', type: EType.id, show: false },
       { keyName: 'titleEn', header: 'Title (en)', type: EType.text, showAs: ETableShow.header },
       { keyName: 'titleAr', header: 'Title (ar)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'imageEn', header: 'Image (en)', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'imageAr', header: 'Image (ar)', type: EType.text, showAs: ETableShow.content },
+      // { keyName: 'imageEn', header: 'Image (en)', type: EType.text, showAs: ETableShow.content },
+      // { keyName: 'imageAr', header: 'Image (ar)', type: EType.text, showAs: ETableShow.content },
       { keyName: 'displayOrder', header: 'Display Order', type: EType.text, showAs: ETableShow.content },
 
     ];

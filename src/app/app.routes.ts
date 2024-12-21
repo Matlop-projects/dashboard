@@ -196,7 +196,7 @@ export const routes: Routes = [
       { path: 'about-us/edit/:id', component: AboutUsDetailsComponent },
 
       { path: 'special-order', component: SpecialOrderTableComponent },
-      { path: 'special-order/add', component: SpecialOrderDetailsComponent },
+      // { path: 'special-order/add', component: SpecialOrderDetailsComponent },
       { path: 'special-order/view/:id', component: SpecialOrderDetailsComponent },
       { path: 'special-order/edit/:id', component: SpecialOrderDetailsComponent },
     ]

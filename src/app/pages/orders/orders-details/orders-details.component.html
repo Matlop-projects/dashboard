@@ -1,4 +1,4 @@
-<div class="order-details-container">
+<div class="order-details-container" *ngIf="orderDetails">
   <div class="contianer">
     <div class="row mb-3">
       <div class="page-details mb-3">
@@ -239,6 +239,26 @@
           </table>
         </div>
       </div>
+    </div>
+
+    <div class="order-time-schedule-section">
+      <div class="title-section">
+        <p>Order Time Schedule</p>
+      </div>
+      <div class="card-container row">
+        <ng-container *ngFor="let item of orderTimeSchedule">
+         <div class="padding-container mt-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="time-card" >
+            <div class="title">
+              <p>{{formatDateTime(item.visitDate)}}</p>
+            </div>
+            <div class="actions-content">
+
+            </div>
+          </div>
+         </div>
+        </ng-container>
+    </div>
     </div>
   </div>
 </div>
