@@ -92,7 +92,7 @@ export class CountriesDetailsComponent implements OnInit {
         Validators.required,
       ]
     }),
-    status: new FormControl(false),
+    status: new FormControl(true),
     img: new FormControl(null, {
       validators: [
         Validators.required,
