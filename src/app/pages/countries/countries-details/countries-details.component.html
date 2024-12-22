@@ -50,7 +50,7 @@
                      [control]="form.get('content')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                  <app-check-box [isToggle]="true" [label]="'country.form.status'" [control]="form.get('status')"></app-check-box>
+                  <app-check-box [isToggle]="true" [label]="'country.form.status'" [initValue]="true" [control]="form.get('status')"></app-check-box>
                </div>
                <div class="upload-image-section mt-4 mb-4" *ngIf="!editMode">
                   <app-upload-file formControlName="img"></app-upload-file>
