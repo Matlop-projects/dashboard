@@ -15,6 +15,7 @@ import { UploadFileComponent } from '../../../components/upload-file/upload-file
 import { EditorComponent } from '../../../components/editor/editor.component';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-services-details',
@@ -144,7 +145,7 @@ export class ServicesDetailsComponent {
     this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data);
-        this.editImageProps.props.imgSrc = res.data.imgSrc;
+        this.editImageProps.props.imgSrc =environment.baseImageUrl+ res.data.imgSrc;
         this.editMode = true;
       }
     })

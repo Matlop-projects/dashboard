@@ -15,6 +15,7 @@ import { UploadFileComponent } from '../../../components/upload-file/upload-file
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
@@ -159,7 +160,7 @@ export class CountriesDetailsComponent implements OnInit {
     this.ApiService.get(`Country/GetCountry/${this.countryID}`).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
-        this.editImageProps.props.imgSrc = res.data.img;
+        this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.img;
         this.editMode = true;
       }
     })

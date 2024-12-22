@@ -17,6 +17,7 @@ import { userType } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { environment } from '../../../../environments/environment';
 
 const global_PageName = 'About Us';
 const global_API_deialis =  'aboutUs/GetById';
@@ -133,7 +134,7 @@ export class AboutUsDetailsComponent {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
-        this.editImageProps.props.imgSrc = res.data.image;
+        this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.image;
         this.editMode = true;
       }
         
