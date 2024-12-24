@@ -56,6 +56,8 @@ import { RoleTableComponent } from './pages/roles/role-table/role-table.componen
 import { RoleDetailsComponent } from './pages/roles/role-details/role-details.component';
 import { DistrictTableComponent } from './pages/district/district-table/district-table.component';
 import { DistrictDetailsComponent } from './pages/district/district-details/district-details.component';
+import { AdminTableComponent } from './pages/admin/admin-table/admin-table.component';
+import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
 
 export const routes: Routes = [
   {
@@ -115,6 +117,11 @@ export const routes: Routes = [
            { path: 'district/add', component: DistrictDetailsComponent },
            { path: 'district/edit/:id', component: DistrictDetailsComponent },
            { path: 'district/view/:id', component: DistrictDetailsComponent },
+
+           { path: 'admin', component: AdminTableComponent },
+           { path: 'admin/add', component: AdminDetailsComponent },
+           { path: 'admin/edit/:id', component: AdminDetailsComponent },
+           { path: 'admin/view/:id', component: AdminDetailsComponent },
 
         ]
       },

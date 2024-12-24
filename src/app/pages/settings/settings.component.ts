@@ -58,6 +58,11 @@ export class SettingsComponent {
         routerLink: '/settings/district'
       },
       {
+        label: 'Admin',
+        icon: 'pi pi-users',
+        routerLink: '/settings/admin'
+      },
+      {
         label: 'Features',
         icon: 'pi pi-star',
         // routerLink:'/settings/faqs'

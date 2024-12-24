@@ -69,6 +69,8 @@ export class TableComponent implements OnInit, OnChanges {
   @Input({ required: true }) colsHeader: IcolHeader[] = [];
   @Input() actions: any[] = [];
   @Output() onActionCliked = new EventEmitter();
+  @Output() onstatusChanged = new EventEmitter();
+
   @Output() reloadGetAllApi = new EventEmitter();
   showConfirmMessage: boolean = false;
   showBlockConfirmationMessage: boolean = false;
@@ -169,6 +171,12 @@ export class TableComponent implements OnInit, OnChanges {
   onToggleChange(checked:boolean,record:any,col:any){
     if(col.toggleOptions.autoCall){
       this.api_update(checked,record,col)
+    }else{
+      this.onstatusChanged.emit({
+        status:checked,
+        record:record,
+        col:col
+      })
     }
 
 

@@ -122,4 +122,15 @@ export const packageHourVistList=[
   }
 ]
 
+export const gender =[
+  {
+    name:'Male',
+    code:1
+  },
+  {
+    name:'Female',
+    code:2
+  }
+]
+
 

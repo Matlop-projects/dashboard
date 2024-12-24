@@ -72,6 +72,26 @@
       "desc_ar":"Description (ar)"
     }
   },
+  "admin":{
+    "pageName":"Admin",
+    "pageName_filter":"Filter Admin",
+    "pageName_Add_crumb":"Add Admin",
+    "pageName_Edit_crumb":"Edit Admin",
+    "pageName_View_crumb":"View Admin",
+    "form":{
+      "fullName":"Full Name",
+      "firstName":"First Name",
+      "lastName":"Last Name",
+      "userName":"User Name",
+      "email":"Email",
+      "mobileNumber":"Mobile Number",
+      "role":"Role",
+      "gender":"Gender",
+      "password":"Password",
+      "confirmPassword":"Confirm Password",
+      "status":"Active"
+    }
+  },
   "district":{
     "pageName":"District",
     "pageName_filter":"Filter District",
