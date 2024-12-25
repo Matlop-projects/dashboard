@@ -21,7 +21,7 @@ const global_API_getAll ='admin/GetAllWithPagination'
 const global_API_deialis =  'admin/GetById';
 const global_toggleOptions:IToggleOptions={
 apiName:global_pageName+'/Update',
-autoCall:false,
+autoCall:true,
 }
 @Component({
   selector: 'app-admin-table',
@@ -124,14 +124,14 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
     this.showFilter = false
   }
 
-  updateStatusManualy(event:any){
-       console.log("AdminTableComponent  updateStatusManualy  item:", event)
-       this.ApiService.get(global_API_deialis+'/'+event.record.userId).subscribe((res:any)=>{
-        if(res.data){
-          this.ApiService.put(global_toggleOptions.apiName,{...res.data,isActive:event.status}).subscribe()
-        }
-       })
-  }
+  // updateStatusManualy(event:any){
+  //      console.log("AdminTableComponent  updateStatusManualy  item:", event)
+  //      this.ApiService.get(global_API_deialis+'/'+event.record.userId).subscribe((res:any)=>{
+  //       if(res.data){
+  //         this.ApiService.put(global_toggleOptions.apiName,{...res.data,isActive:event.status}).subscribe()
+  //       }
+  //      })
+  // }
 
   API_getAll() {
     this.ApiService.post(global_API_getAll,this.objectSearch).subscribe((res: any) => {

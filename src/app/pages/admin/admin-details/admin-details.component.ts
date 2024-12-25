@@ -15,6 +15,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { gender } from '../../../conts';
+import { Password } from 'primeng/password';
 
 const global_PageName = 'admin.pageName';
 const global_API_deialis =  'admin/GetById';
@@ -36,7 +37,7 @@ const global_routeUrl = 'settings/admin'
     InputTextComponent, 
     RouterModule, 
     BreadcrumpComponent, 
-    CheckBoxComponent
+    CheckBoxComponent,
   ],
   templateUrl: './admin-details.component.html',
   styleUrl: './admin-details.component.scss'
@@ -98,7 +99,7 @@ pageName = signal<string>(global_PageName);
         Validators.required,
       ]
     }),
-    gender: new FormControl<any>('', {
+    genderId: new FormControl<any>('', {
       validators: [
         Validators.required,
       ]
@@ -133,11 +134,24 @@ pageName = signal<string>(global_PageName);
 
     })
    
-    if (this.tyepMode() !== 'Add')
+    if (this.tyepMode() !== 'Add'){
       this.API_getItemDetails()
+      this.removePasswordValidation()
+    }else{
+      console.log('ggg',this.form.value)
+    }
+
 
   }
- 
+
+  onPasswordChanged(value:any){
+        this.form.get('confirmPassword')?.reset()
+  }
+  onConfirmPasswordChanged(value:string){
+        const ctrlConfirm =this.form.controls.confirmPassword
+        ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
+        ctrlConfirm.updateValueAndValidity()
+  }
   getAllRoles(){
     this.ApiService.get('role/GetAll').subscribe((res:any)=>{
        if(res.data){
@@ -164,6 +178,19 @@ pageName = signal<string>(global_PageName);
     this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
     return result
   }
+  asd(item:any){
+  console.log("AdminDetailsComponent  asd  item:", item)
+
+  }
+  removePasswordValidation(){
+    const ctrlform =this.form.controls
+
+    ctrlform.password.removeValidators(Validators.required)
+    ctrlform.confirmPassword.removeValidators(Validators.required)
+
+    ctrlform.password.updateValueAndValidity()
+    ctrlform.confirmPassword.updateValueAndValidity()
+  }
 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
@@ -178,8 +205,11 @@ pageName = signal<string>(global_PageName);
     }
     if (this.tyepMode() == 'Add')
       this.API_forAddItem(payload)
-    else
-      this.API_forEditItem(payload)
+    else{
+      delete this.form.value.password
+      delete this.form.value.confirmPassword
+      this.API_forEditItem(this.form.value)
+    }
   }
 
   navigateToPageTable() {

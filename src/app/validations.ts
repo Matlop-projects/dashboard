@@ -96,6 +96,14 @@ static editorArabicCharsValidator(errorMessage?: string): ValidatorFn {
           return isValid ? null : { only_char: errorMessage };
         };
       }
+
+      static confirmValue(input:any,errorMessage?: string): ValidatorFn {
+        return (control: AbstractControl<string>) => {
+          var isValid = control.value === input;
+          console.log("Validations  return  control:", control)
+          return isValid ? null : { confirm_password: errorMessage };
+        };
+      }
   }
 
 
