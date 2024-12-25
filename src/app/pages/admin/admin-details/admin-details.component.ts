@@ -69,6 +69,7 @@ pageName = signal<string>(global_PageName);
     email: new FormControl <any>('', {
       validators: [
         Validators.required,
+        Validations.emailValidator()
       ]
     }),
     userName: new FormControl<any>('', {
@@ -79,6 +80,7 @@ pageName = signal<string>(global_PageName);
     mobileNumber: new FormControl<any>('', {
       validators: [
         Validators.required,
+        Validations.onlyNumberValidator()
       ]
     }),
     roleId: new FormControl<any>('', {
