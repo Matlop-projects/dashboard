@@ -10,7 +10,7 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
-import { TitleCasePipe } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectComponent } from '../../../components/select/select.component';
 import { special_order_enum, special_order_status } from '../../../conts';
@@ -25,7 +25,7 @@ const global_API_delete = 'specialOrder/Delete?id'
 @Component({
   selector: 'app-special-order-table',
   standalone: true,
-  imports: [TableComponent,SelectComponent, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,SelectComponent,NgIf, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './special-order-table.component.html',
   styleUrl: './special-order-table.component.scss'
 })
@@ -74,7 +74,7 @@ export class SpecialOrderTableComponent {
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
-    specialOrderId: null,//text
+    specialOrderId:  null,//text
     //  amount: null,
     // media: null,
     clientId: null,//dr
@@ -191,6 +191,9 @@ getAllClients(){
   })
  }
   onSubmitFilter() {
+    let specialOrderId:any =     Number(this.objectSearch.specialOrderId)
+    this.objectSearch.specialOrderId=specialOrderId
+
     this.API_getAll();
   }
 

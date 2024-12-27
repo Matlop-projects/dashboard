@@ -186,7 +186,6 @@ export class TableComponent implements OnInit, OnChanges {
   api_update(checkedValue: boolean, record: any, col: any) {
     let payload = record
     payload[col.keyName] = checkedValue
-    console.log("TableComponent  api_update  payload:", payload)
 
     this.ApiService.put(col.toggleOptions.apiName, payload).subscribe(res => {
       if (res) {
@@ -223,7 +222,6 @@ export class TableComponent implements OnInit, OnChanges {
     ];
 
     const status = statuses.find(status => status.id === id);
-    console.log(status);
 
     return status ? status.color : null;
   }
