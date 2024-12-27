@@ -17,10 +17,12 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { CheckBoxComponent } from "../../../components/check-box/check-box.component";
 import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
+import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-client-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+  imports: [ReactiveFormsModule,EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './client-details.component.html',
   styleUrl: './client-details.component.scss'
 })
@@ -75,12 +77,12 @@ export class ClientDetailsComponent {
         Validators.required,
       ]
     }),
-    note: new FormControl('', {
-      validators: [
-        Validators.required,
+    // notes: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
 
-      ]
-    }),
+    //   ]
+    // }),
     imgSrc: new FormControl('', {
       validators: [
         Validators.required,
@@ -103,8 +105,9 @@ export class ClientDetailsComponent {
         Validators.required,
 
       ]
-    })
-  }, { validators: this.passwordMatchValidator })
+    }),
+    userId:new FormControl(this.userId|0)
+  })
 
   gender = [
     { code: 1, name: 'Male' },
@@ -162,12 +165,15 @@ export class ClientDetailsComponent {
   }
 
 
-  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordsDoNotMatch: true };
-  }
 
+  onPasswordChanged(value:any){
+    this.form.get('confirmPassword')?.reset()
+}
+onConfirmPasswordChanged(value:string){
+    const ctrlConfirm =this.form.controls.confirmPassword
+    ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
+    ctrlConfirm.updateValueAndValidity()
+}
 
   getClientsDetails() {
     this.ApiService.get(`Client/GetById/${this.userId}`).subscribe((res: any) => {
@@ -186,19 +192,34 @@ export class ClientDetailsComponent {
 
         this.form.patchValue(clientData);
         this.editMode = true;
+        this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
+      this.removeValidators()
       }
     });
   }
-
+  removeValidators(){
+    const ctrlform =this.form.controls
+    ctrlform.confirmPassword.removeValidators(Validators.required)
+    ctrlform.confirmPassword.updateValueAndValidity()
+    ctrlform.password.removeValidators(Validators.required)
+    ctrlform.password.updateValueAndValidity()
+    ctrlform.pinCode.removeValidators(Validators.required)
+    ctrlform.pinCode.updateValueAndValidity()
+      delete this.form.value.confirmPassword
+      delete this.form.value.password
+      delete this.form.value.pinCode
+  }
   onSubmit() {
-    const payload = {
-      ...this.form.value,
-      userId: this.userId,
-    }
+
     if (this.tyepMode() === 'add')
-      this.addFQS(payload)
-    else
-      this.editFQS(payload)
+      this.addFQS(this.form.value)
+    else{
+      delete this.form.value.confirmPassword
+      delete this.form.value.password
+      delete this.form.value.pinCode
+      this.editFQS(this.form.value)
+    }
+      
   }
 
   get isRequiredError(): boolean {
