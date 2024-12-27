@@ -54,6 +54,26 @@
             <app-date-picker [maxDate]="maxDate" [placeholder]="form.get('endDate')?.value" [label]="'Date of Birth'"
               [control]="form.get('dateOfBirth')"></app-date-picker>
           </div>
+
+
+
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-select [placeholder]="form.get('technicalTypeEnum')?.value" class="w-100" [list]="TechnicalType" [label]="'Technical Type'"
+              [control]="form.get('technicalTypeEnum')">
+            </app-select>
+          </div>
+
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-select [placeholder]="form.get('technicalSpecialistId')?.value" class="w-100" [list]="technicalSpecialist" [label]="'Technical Specialist'"
+              [control]="form.get('technicalSpecialistId')">
+            </app-select>
+          </div>
+
+
+
+
+
+
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4 d-flex align-items-center">
             <app-check-box [isToggle]="true" [disabled]="tyepMode()=='view'" [label]="'isActive'"
               [control]="form.get('isActive')"></app-check-box>
