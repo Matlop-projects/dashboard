@@ -10,11 +10,13 @@ import { Tooltip } from 'primeng/tooltip';
 import { IDialog } from '../../../components/modal/modal.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { ToasterService } from '../../../services/toaster.service';
+import { Editor } from 'primeng/editor';
+
 
 @Component({
   selector: 'app-orders-details',
   standalone: true,
-  imports: [BreadcrumpComponent, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, RouterModule,Editor, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './orders-details.component.html',
   styleUrl: './orders-details.component.scss'
 })

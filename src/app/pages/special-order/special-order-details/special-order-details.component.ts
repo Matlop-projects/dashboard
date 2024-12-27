@@ -10,18 +10,20 @@ import { Tooltip } from 'primeng/tooltip';
 import { IDialog } from '../../../components/modal/modal.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { ToasterService } from '../../../services/toaster.service';
-import { Editor } from 'primeng/editor';
 import { InputNumber } from 'primeng/inputnumber';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
 import { environment } from '../../../../environments/environment';
+import { GalleryComponent } from '../../../components/gallery/gallery.component';
+import { TextareaModule } from 'primeng/textarea';
+import { FloatLabel } from 'primeng/floatlabel';
 
 
 
 @Component({
   selector: 'app-special-order-details',
   standalone: true,
-  imports: [BreadcrumpComponent, Editor, InputNumber, InputIcon, IconField, FormsModule, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, TextareaModule , FloatLabel , GalleryComponent, InputNumber, InputIcon, IconField, FormsModule, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './special-order-details.component.html',
   styleUrl: './special-order-details.component.scss'
 })
@@ -68,7 +70,7 @@ export class SpecialOrderDetailsComponent {
 
   providerObject = {
     specialOrderTechnicalAssignmentId: 0,
-    orderId: 0,
+    specialOrderId: 0,
     technicalId: 0
   };
 
@@ -89,7 +91,7 @@ export class SpecialOrderDetailsComponent {
 
   get orderId(): number {
     const id = this.route.snapshot.params['id'];
-    this.providerObject.orderId = +id;
+    this.providerObject.specialOrderId = +id;
     return +id;
   }
 
@@ -110,10 +112,14 @@ export class SpecialOrderDetailsComponent {
         this.orderDetails = res.data;
         this.orderAmount = res.data.amount;
         this.imageList = res.data.media;
+        this.orderTechnicalAssignments= res.data.specialOrderAssigment;
+        console.log(this.imageList);
+
+       if(this.imageList.length != 0) {
         this.addUrltoMedia(this.imageList);
+       }
         this.setOrderStatusById(res.data.specialOrderStatus);
         this.getClientData(res.data.clientId);
-        this.getAllProviders();
       }
     });
   }
@@ -177,14 +183,14 @@ export class SpecialOrderDetailsComponent {
   }
 
   getTechnicalList() {
-    this.ApiService.get('Technical/GetAllActive').subscribe((res: any) => {
+    this.ApiService.get('Technical/GetAllActiveTechnicals').subscribe((res: any) => {
       this.providerList = res.data;
     });
   }
 
   addNewTechnical() {
     this.providerObject.specialOrderTechnicalAssignmentId = 0;
-    this.ApiService.post('Order/CreateAssignTechnical', this.providerObject).subscribe(() => {
+    this.ApiService.post('SpecialOrder/CreateAssignTechnical', this.providerObject).subscribe(() => {
       this.getSpecialOrderDetails();
       this.dialogProps.props.visible = false;
       this.tosater.successToaster('Provider Added Successfully')
@@ -192,7 +198,7 @@ export class SpecialOrderDetailsComponent {
   }
 
   editTechnical() {
-    this.ApiService.put('Order/UpdateAssignTechnical', this.providerObject).subscribe(() => {
+    this.ApiService.put('SpecialOrder/UpdateAssignTechnical', this.providerObject).subscribe(() => {
       this.getSpecialOrderDetails();
       this.dialogProps.props.visible = false;
       this.tosater.successToaster('Provider Updated Successfully')
@@ -208,13 +214,7 @@ export class SpecialOrderDetailsComponent {
     }
   }
 
-  getAllProviders() {
-    this.ApiService.get( `SpecialOrder/GetAllAssignTechnicals/${this.orderId}`).subscribe((res: any) => {
-      if (res && res.data) {
-        console.log(res.data);
-      }
-    });
-  }
+
 
   editProvider(technicalId: number, specialOrderTechnicalAssignmentId: any) {
     this.providerObject.specialOrderTechnicalAssignmentId = specialOrderTechnicalAssignmentId;
@@ -240,9 +240,7 @@ export class SpecialOrderDetailsComponent {
 
 
   changeAmount() {
-    if (this.orderAmount == 0) {
-      this.tosater.errorToaster("Amount can't be 0");
-    } else if (this.orderAmount == null || this.orderAmount == undefined) {
+     if (this.orderAmount == null || this.orderAmount == undefined) {
       this.tosater.errorToaster('You have to add amount');
     } else {
       this.orderDetails.amount = this.orderAmount;

@@ -9,8 +9,8 @@ import { CheckBoxComponent } from '../check-box/check-box.component';
 import { environment } from '../../../environments/environment';
 
 export interface IToggleOptions {
-  autoCall:boolean,
-  apiName:string
+  autoCall: boolean,
+  apiName: string
 }
 
 export enum EAction {
@@ -37,8 +37,9 @@ export enum EType {
   actions = "actions",
   editor = 'editor',
   boolean = 'boolean',
-  toggle='toggle',
-  orderStatus = 'orderStatus'
+  toggle = 'toggle',
+  orderStatus = 'orderStatus',
+  specialOrderStatus = 'specialOrderStatus'
 }
 interface INested {
   img: string,
@@ -51,12 +52,12 @@ export interface IcolHeader {
   nested?: INested,
   actions?: any[],
   show?: boolean,
-  toggleOptions?:IToggleOptions
+  toggleOptions?: IToggleOptions
 }
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf, TooltipModule, DialogComponent ,CheckBoxComponent],
+  imports: [TableModule, NgFor, NgIf, TooltipModule, DialogComponent, CheckBoxComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -169,33 +170,35 @@ export class TableComponent implements OnInit, OnChanges {
     return `${formattedHours}:${formattedMinutes}:${isAM ? 'AM' : 'PM'}`;
   }
 
-  onToggleChange(checked:boolean,record:any,col:any){
-    if(col.toggleOptions.autoCall){
-      this.api_update(checked,record,col)
-    }else{
+  onToggleChange(checked: boolean, record: any, col: any) {
+    if (col.toggleOptions.autoCall) {
+      this.api_update(checked, record, col)
+    } else {
       this.onstatusChanged.emit({
-        status:checked,
-        record:record,
-        col:col
+        status: checked,
+        record: record,
+        col: col
       })
     }
 
 
   }
 
-  api_update(checkedValue:boolean,record:any,col:any){
-    let payload=record
-    payload[col.keyName]=checkedValue
+  api_update(checkedValue: boolean, record: any, col: any) {
+    let payload = record
+    payload[col.keyName] = checkedValue
     console.log("TableComponent  api_update  payload:", payload)
 
-    this.ApiService.put(col.toggleOptions.apiName,payload).subscribe(res=>{
-       if(res){
-          // sweet alert is active or not
-       }
+    this.ApiService.put(col.toggleOptions.apiName, payload).subscribe(res => {
+      if (res) {
+        // sweet alert is active or not
+      }
     })
   }
 
-  getColorById(id: number): string | null {
+  getOrderStatusColorById(id: number): string | null {
+    console.log(id);
+
     const statuses = [
       { name: 'Pending', id: 0, color: '#c1cd6a' },
       { name: 'Paid', id: 1, color: '#c1cd6a' },
@@ -208,7 +211,24 @@ export class TableComponent implements OnInit, OnChanges {
       { name: 'Canceled', id: 8, color: '#e94949' }
     ];
 
+
+
     const status = statuses.find(status => status.id === id);
+    console.log(status);
+    return status ? status.color : null;
+  }
+
+  getSpecialOrderStatusColorById(id: number): string | null {
+    console.log(id);
+    const statuses = [
+      { name: 'Pending', id: 1, color: '#c1cd6a' },
+      { name: 'Completed', id: 2, color: '#3fac4e' },
+      { name: 'Canceled', id: 3, color: '#c32722' }
+    ];
+
+    const status = statuses.find(status => status.id === id);
+    console.log(status);
+
     return status ? status.color : null;
   }
 
