@@ -80,16 +80,15 @@
           </div>
         </div>
 
-        <div class="content mt-3">
-          <div class="title-section">
-            <p>Order Image</p>
+        <div class="table-container mt-3" style="height: 293px">
+          <div class="title-section mb-4">
+            <p>Note</p>
           </div>
+          <p-floatlabel variant="on">
+            <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
+              [(ngModel)]="orderDetails.notes" [style]="{ width: '100%' }"></textarea>
+          </p-floatlabel>
 
-          <div class="order-image-desc">
-            <!-- <img [src]="orderDetails.orderDetails ? orderDetails.orderDetails : '-' " alt=""> -->
-            <img src="assets/images/empty-state.png" alt="empty state">
-            <p>No Image Available</p>
-          </div>
         </div>
       </div>
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
@@ -181,15 +180,23 @@
         <div class="table-container">
           <div class="title-section mb-4">
             <p>Order's Providers</p>
-            <div class="add-provider" pTooltip="Add New Provider" tooltipPosition="top" (click)="openTechnicalModal()">
-              <i class="pi pi-plus"></i>
-            </div>
+            <span class="d-flex align-center" style="gap: 10px;">
+              <div class="add-provider" pTooltip="Add New Technical" tooltipPosition="top" (click)="openTechnicalModal()">
+               Technical
+                <i class="pi pi-plus"></i>
+              </div>
+              <div class="add-provider driver" pTooltip="Add New Driver" tooltipPosition="top" (click)="openDriverModal()">
+                Driver
+                <i class="pi pi-plus"></i>
+              </div>
+            </span>
           </div>
           <table class="p-datatable">
             <thead class="p-datatable-thead">
               <tr>
                 <th>Technical ID</th>
                 <th>Technical Name</th>
+                <th>Technical Type</th>
                 <th>Edit Technical</th>
               </tr>
             </thead>
@@ -197,9 +204,10 @@
               <tr *ngFor="let assignment of orderTechnicalAssignments">
                 <td>{{ assignment.technicalId }}</td>
                 <td>{{ assignment.technicalName || '-' }}</td>
+                <td>{{ assignment.technicalTypeName || '-' }}</td>
                 <td>
                   <div class="actions-icon">
-                    <span class="pi pi-pen-to-square" title="Edit" (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId)"></span>
+                    <span class="pi pi-pen-to-square" title="Edit" (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId ,assignment.technicalType)"></span>
                   </div>
                 </td>
               </tr>
@@ -239,12 +247,23 @@
           </table>
         </div>
       </div>
-      <div class="col-lg-12 col-md-12 col-sm-12">
+
+    <div class="row">
+      <div class="col-lg-12">
         <div class="table-container">
-          <div class="title-section mb-4">
-            <p>Note</p>
+          <div class="title-section">
+            <p>Order Image</p>
           </div>
-          <p-editor [readonly]="true" [(ngModel)]="orderDetails.notes" [style]="{ height: '320px' }" />
+
+          <div class="order-image-desc">
+            <ng-container *ngIf="this.imageList.length != 0">
+              <app-gallery [mediaList]=imageList></app-gallery>
+            </ng-container>
+            <ng-container *ngIf="this.imageList.length == 0">
+              <img src="assets/images/empty-state.png" alt="empty state">
+              <p>No Image Available</p>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
@@ -279,8 +298,19 @@
   </div>
 
   <div class="content" style="width: 300px;">
-    <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange()" [(ngModel)]="providerValue" optionLabel="firstName"
+    <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange('t')" [(ngModel)]="providerValue" optionLabel="firstName"
       placeholder="Select a Provider" class="w-full md:w-56" />
+  </div>
+</app-modal>
+
+<app-modal [dialogProps]="driverDialogProps">
+  <div class="title">
+    <h3>{{driverTitle}}</h3>
+  </div>
+
+  <div class="content" style="width: 300px;">
+    <p-select appendTo="body" [options]="driversList" (onChange)="onProviderChange('d')" [(ngModel)]="driverValue"
+      optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
   </div>
 </app-modal>
 

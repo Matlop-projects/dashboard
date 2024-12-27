@@ -38,13 +38,13 @@
               [control]="form.get('pinCode')"></app-input-text>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()==='add'">
-            <app-input-text type="password" 
+            <app-input-text type="password"
             (onValueChange)="onPasswordChanged($event)" [showPasswordWeakness]="true"
              [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Password'"
               [control]="form.get('password')"></app-input-text>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()==='add'">
-            <app-input-text type="password" 
+            <app-input-text type="password"
             (onValueChange)="onConfirmPasswordChanged($event)"
             [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
               [label]="'Confirm Password'" [control]="form.get('confirmPassword')"></app-input-text>
@@ -58,9 +58,6 @@
             <app-date-picker [maxDate]="maxDate" [placeholder]="form.get('endDate')?.value" [label]="'Date of Birth'"
               [control]="form.get('dateOfBirth')"></app-date-picker>
           </div>
-
-
-
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
             <app-select [placeholder]="form.get('technicalTypeEnum')?.value" class="w-100" [list]="TechnicalType" [label]="'Technical Type'"
               [control]="form.get('technicalTypeEnum')">
@@ -72,12 +69,6 @@
               [control]="form.get('technicalSpecialistId')">
             </app-select>
           </div>
-
-
-
-
-
-
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4 d-flex align-items-center">
             <app-check-box [isToggle]="true" [disabled]="tyepMode()=='view'" [label]="'isActive'"
               [control]="form.get('isActive')"></app-check-box>

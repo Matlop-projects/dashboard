@@ -64,11 +64,11 @@ export const userType = [
 
 export const coponeOfferTypeList = [
   {
-    name: 'Gift',
+    name: 'Percentage',
     code: 1
   },
   {
-    name: 'Offer',
+    name: 'Amount',
     code: 2
   }
 ]

@@ -153,15 +153,23 @@
         <div class="table-container">
           <div class="title-section mb-4">
             <p>Order's Providers</p>
-            <div class="add-provider" pTooltip="Add New Provider" tooltipPosition="top" (click)="openTechnicalModal()">
-              <i class="pi pi-plus"></i>
-            </div>
+            <span class="d-flex align-center" style="gap: 10px;">
+              <div class="add-provider" pTooltip="Add New Technical" tooltipPosition="top" (click)="openTechnicalModal()">
+               Technical
+                <i class="pi pi-plus"></i>
+              </div>
+              <div class="add-provider driver" pTooltip="Add New Driver" tooltipPosition="top" (click)="openDriverModal()">
+                Driver
+                <i class="pi pi-plus"></i>
+              </div>
+            </span>
           </div>
           <table class="p-datatable">
             <thead class="p-datatable-thead">
               <tr>
                 <th>Technical ID</th>
                 <th>Technical Name</th>
+                <th>Technical Type</th>
                 <th>Edit Technical</th>
               </tr>
             </thead>
@@ -169,10 +177,11 @@
               <tr *ngFor="let assignment of orderTechnicalAssignments">
                 <td>{{ assignment.technicalId }}</td>
                 <td>{{ assignment.technicalName || '-' }}</td>
+                <td>{{ assignment.technicalTypeName || '-' }}</td>
                 <td>
                   <div class="actions-icon">
                     <span class="pi pi-pen-to-square" title="Edit"
-                      (click)="editProvider(assignment.technicalId , assignment.specialOrderTechnicalAssignmentId)"></span>
+                      (click)="editProvider(assignment.technicalId , assignment.specialOrderTechnicalAssignmentId ,assignment.technicalType )"></span>
                   </div>
                 </td>
               </tr>
@@ -209,7 +218,20 @@
     </div>
 
     <div class="content" style="width: 300px;">
-      <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange()" [(ngModel)]="providerValue"
+      <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange('t')" [(ngModel)]="providerValue"
         optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
     </div>
   </app-modal>
+
+
+  <app-modal [dialogProps]="driverDialogProps">
+    <div class="title">
+      <h3>{{driverTitle}}</h3>
+    </div>
+
+    <div class="content" style="width: 300px;">
+      <p-select appendTo="body" [options]="driversList" (onChange)="onProviderChange('d')" [(ngModel)]="driverValue"
+        optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
+    </div>
+  </app-modal>
+
