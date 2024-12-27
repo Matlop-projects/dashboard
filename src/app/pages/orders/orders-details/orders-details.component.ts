@@ -10,16 +10,16 @@ import { Tooltip } from 'primeng/tooltip';
 import { IDialog } from '../../../components/modal/modal.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { ToasterService } from '../../../services/toaster.service';
-import { Editor } from 'primeng/editor';
 import { GalleryComponent } from '../../../components/gallery/gallery.component';
 import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
   selector: 'app-orders-details',
   standalone: true,
-  imports: [BreadcrumpComponent, GalleryComponent , TextareaModule , FloatLabel,  RouterModule,Editor, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, GalleryComponent , TextareaModule , FloatLabel,  RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './orders-details.component.html',
   styleUrl: './orders-details.component.scss'
 })
@@ -28,6 +28,7 @@ export class OrdersDetailsComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private tosater = inject(ToasterService);
+   private imageUrl = environment.baseImageUrl
 
 
   showConfirmMessage: boolean = false;
@@ -90,6 +91,8 @@ export class OrdersDetailsComponent {
     "note": ""
   }
 
+  imageList: any;
+
   additonalItemList: any;
   additonalCase = 'new';
   additonalTitle = 'Add Additonal Item'
@@ -133,9 +136,21 @@ export class OrdersDetailsComponent {
         this.orderDetails = res.data;
         this.orderTechnicalAssignments = res.data.orderTechnicalAssignments;
         this.additonalItemList = res.data.orderAddtionalItem;
+        this.imageList = res.data.media;
+        if(this.imageList.length != 0) {
+          this.addUrltoMedia(this.imageList);
+         }
         this.setOrderStatusById(res.data.orderStatusEnum);
         this.getClientData(res.data.clientId);
       }
+    });
+  }
+
+
+  addUrltoMedia(list: any) {
+    console.log( this.imageList);
+    list.forEach((data: any) => {
+       data.src = this.imageUrl + data.src;
     });
   }
 

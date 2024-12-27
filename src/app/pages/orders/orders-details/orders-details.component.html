@@ -80,17 +80,6 @@
           </div>
         </div>
 
-        <!-- <div class="content mt-3">
-          <div class="title-section">
-            <p>Order Image</p>
-          </div>
-
-          <div class="order-image-desc">
-            <img src="assets/images/empty-state.png" alt="empty state">
-            <p>No Image Available</p>
-          </div>
-        </div> -->
-
         <div class="table-container mt-3" style="height: 293px">
           <div class="title-section mb-4">
             <p>Note</p>
@@ -258,12 +247,23 @@
           </table>
         </div>
       </div>
-      <div class="col-lg-12 col-md-12 col-sm-12">
+
+    <div class="row">
+      <div class="col-lg-12">
         <div class="table-container">
-          <div class="title-section mb-4">
-            <p>Note</p>
+          <div class="title-section">
+            <p>Order Image</p>
           </div>
-          <p-editor [readonly]="true" [(ngModel)]="orderDetails.notes" [style]="{ height: '320px' }" />
+
+          <div class="order-image-desc">
+            <ng-container *ngIf="this.imageList.length != 0">
+              <app-gallery [mediaList]=imageList></app-gallery>
+            </ng-container>
+            <ng-container *ngIf="this.imageList.length == 0">
+              <img src="assets/images/empty-state.png" alt="empty state">
+              <p>No Image Available</p>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>

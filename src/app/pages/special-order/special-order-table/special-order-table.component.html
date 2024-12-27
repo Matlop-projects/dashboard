@@ -27,30 +27,73 @@
       </div>
     </div>
   </div>
-  <!-- <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
+   <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
-        <h3>After details form finished</h3>
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">{{pageName()|translate}}  name (en)</label>
+         <label class="mb-1" for="enTitle">  {{'special_order.form.specialOrderId'|translate}}</label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
-           [(ngModel)]="objectSearch.enName"
-           placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (en)"
+           [(ngModel)]="objectSearch.specialOrderId"
+           placeholder="{{'shared.enter'|translate}}  {{'special_order.form.specialOrderId'|translate}}"
          />
        </div>
        <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle">{{pageName()|translate}}  name (ar)</label>
+        <label class="mb-1" for="enTitle"> {{'special_order.form.amount'|translate}}</label>
         <input
           type="text"
           id="enTitle"
           name="enTitle"
           class="form-control"
-          [(ngModel)]="objectSearch.arName"
-          placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (ar)"
+          [(ngModel)]="objectSearch.amount"
+          placeholder="{{'shared.enter'|translate}}  {{'special_order.form.amount'|translate}}"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="mb-1" for="enTitle">  {{'special_order.form.media'|translate}}</label>
+        <input
+          type="text"
+          id="enTitle"
+          name="enTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.media"
+          placeholder="{{'shared.enter'|translate}}   {{'special_order.form.media'|translate}}"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="mb-1" for="enTitle"> {{'special_order.form.clientId'|translate}}</label>
+        <input
+          type="text"
+          id="enTitle"
+          name="enTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.clientId"
+          placeholder="{{'shared.enter'|translate}}  {{'special_order.form.clientId'|translate}}"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="mb-1" for="enTitle">  {{'special_order.form.specialOrderEnum'|translate}}</label>
+        <input
+          type="text"
+          id="enTitle"
+          name="enTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.specialOrderEnum"
+          placeholder="{{'shared.enter'|translate}}  {{'special_order.form.specialOrderEnum'|translate}}"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="mb-1" for="enTitle"> {{'special_order.form.specialOrderStatusEnum'|translate}}</label>
+        <input
+          type="text"
+          id="enTitle"
+          name="enTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.specialOrderStatusEnum"
+          placeholder="{{'shared.enter'|translate}} {{'special_order.form.specialOrderStatusEnum'|translate}}"
         />
       </div>
       </div>
@@ -60,7 +103,7 @@
        </div>
 
      </form>
-  </app-drawer> -->
+  </app-drawer> 
 
 
 

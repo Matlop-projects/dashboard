@@ -27,32 +27,114 @@
     </div>
   </div>
 </div>
-<!-- <app-drawer [visible]="showFilter" [header]="'Filter Services'" (onClose)="onCloseFilter($event)">
+ <app-drawer [visible]="showFilter" [header]="'Filter Orders'" (onClose)="onCloseFilter($event)">
   <form #myForm="ngForm" (ngSubmit)="onSubmit()" body class="h-100 search-form d-flex">
      <div class="form-content">
-      <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle">English Title</label>
+      <div class="form-group mb-2">
+        <label class="mb-1" for="enTitle">English technical Id</label>
         <input
           type="text"
           id="enTitle"
           name="enTitle"
           class="form-control"
-          [(ngModel)]="objectSearch.nameEn"
-          placeholder="Enter English Title"
+          [(ngModel)]="objectSearch.technicalId"
+          placeholder="Enter  technica lId"
         />
       </div>
 
-      <div  class="form-group mb-3">
-        <label class="mb-1" for="arTitle">Arabic Title</label>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">client Id</label>
         <input
           type="text"
           id="arTitle"
           name="arTitle"
           class="form-control"
-          [(ngModel)]="objectSearch.nameAr"
-          placeholder="Enter Arabic Title"
+          [(ngModel)]="objectSearch.clientId"
+          placeholder="Enter client Id"
         />
       </div>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">payment Way Id</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.paymentWayId"
+          placeholder="Enter payment Way Id"
+        />
+      </div>
+
+
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">order Status</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.orderStatus"
+          placeholder="Enter order Status"
+        />
+      </div>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">package Id</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.packageId"
+          placeholder="Enter package Id"
+        />
+      </div>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">copone Id</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.coponeId"
+          placeholder="Enter copone Id"
+        />
+      </div>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">order Sub Total</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.orderSubTotal"
+          placeholder="Enter order Sub Total"
+        />
+      </div>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">order Total</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.orderTotal"
+          placeholder="Enter order Total"
+        />
+      </div>
+      <div  class="form-group mb-2">
+        <label class="mb-1" for="arTitle">location Id</label>
+        <input
+          type="text"
+          id="arTitle"
+          name="arTitle"
+          class="form-control"
+          [(ngModel)]="objectSearch.locationId"
+          placeholder="Enter location Id"
+        />
+      </div>
+      
+
+
      </div>
       <div class="search-form-actions d-flex">
         <button type="submit" class="btn btn-primary submit-btn">Submit</button>
@@ -60,7 +142,7 @@
       </div>
 
     </form>
-</app-drawer> -->
+</app-drawer> 
 
 
 

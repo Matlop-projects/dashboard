@@ -84,7 +84,7 @@ export class ClientTableComponent {
 
   objectSearch = {
     "pageNumber": 0,
-    "pageSize": 30,
+    "pageSize": 8,
     "sortingExpression": "",
     "sortingDirection": 0,
     "isActive": null,
@@ -172,7 +172,7 @@ export class ClientTableComponent {
   reset() {
     this.objectSearch = {
       "pageNumber": 0,
-      "pageSize": 30,
+      "pageSize": 8,
       "sortingExpression": "",
       "sortingDirection": 0,
       "isActive": null,

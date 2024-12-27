@@ -230,6 +230,7 @@ onConfirmPasswordChanged(value:string){
         this.form.patchValue(technicalData);
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
+        console.log("TechnicalDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc:", this.editImageProps.props.imgSrc)
         this.removeValidators()
       }
 

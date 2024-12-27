@@ -123,7 +123,6 @@ export class SpecialOrderDetailsComponent {
         this.orderAmount = res.data.amount;
         this.imageList = res.data.media;
         this.orderTechnicalAssignments= res.data.specialOrderAssigment;
-        console.log(this.imageList);
 
        if(this.imageList.length != 0) {
         this.addUrltoMedia(this.imageList);
@@ -139,8 +138,6 @@ export class SpecialOrderDetailsComponent {
     list.forEach((data: any) => {
        data.src = this.imageUrl + data.src;
     });
-    console.log( this.imageList);
-
   }
 
   getClientData(clientId: string) {
