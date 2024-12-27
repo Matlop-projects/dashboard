@@ -10,7 +10,7 @@
      [formControl]="control"
      dateFormat="yy-mm-dd" 
      [showIcon]="true" />
-    <div  *ngIf="control.errors">
+     <div  *ngIf="control.errors && control.touched || (control.value && control.errors)">
         <span class="text-danger"> {{control.errors|validationHandlerPipe}}</span>
      </div>
 </div>
