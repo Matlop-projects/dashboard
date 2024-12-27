@@ -67,14 +67,16 @@ export class SpecialOrderTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7
-    // sortingExpression: "",
-    // sortingDirection: 0,
-    // specialOrderId: 0,
-    // amount: 0,
-    // media: "",
-    // clientId: 0,
-    // specialOrderEnum: 1
+    pageSize: 7,
+    sortingExpression: "",
+    sortingDirection: 0,
+    specialOrderId: 0,
+    amount: '',
+    media: "",
+    clientId: '',
+    specialOrderEnum: '',
+    specialOrderStatusEnum:''
+
   }
 
   totalCount: number = 0;
@@ -166,15 +168,15 @@ export class SpecialOrderTableComponent {
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7
-      // ,
-      // sortingExpression: "",
-      // sortingDirection: 0,
-      // specialOrderId: 0,
-      // amount: 0,
-      // media: "",
-      // clientId: 0,
-      // specialOrderEnum: 1
+      pageSize: 7,
+      sortingExpression: "",
+      sortingDirection: 0,
+      specialOrderId: 0,
+      amount: '',
+      media: "",
+      clientId: '',
+      specialOrderEnum: '',
+      specialOrderStatusEnum:''
     }
     this.API_getAll();
     this.showFilter = false

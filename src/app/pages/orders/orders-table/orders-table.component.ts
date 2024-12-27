@@ -108,6 +108,10 @@ export class OrdersTableComponent {
     ];
   }
 
+  getAllTechnicals(){
+
+  }
+  
 
   openFilter() {
     this.showFilter = true
