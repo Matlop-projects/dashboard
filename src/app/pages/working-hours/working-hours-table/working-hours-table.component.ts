@@ -98,7 +98,7 @@ export class WorkingHoursTableComponent {
     ];
   }
   getAllFAQS() {
-    this.ApiService.post('WorkingTime/GetAllWorkingTime' , this.searchObject).subscribe((res: any) => {
+    this.ApiService.post('WorkingTime/GetAllWithPagination' , this.searchObject).subscribe((res: any) => {
       if (res) {
         this.workingHoursList = res.data.dataList;
         this.totalCount = res.data.totalCount;
