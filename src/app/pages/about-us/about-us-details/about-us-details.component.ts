@@ -135,6 +135,7 @@ export class AboutUsDetailsComponent {
       if (res){
         this.form.patchValue(res.data)
         this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.image;
+        console.log("AboutUsDetailsComponent  this.ApiService.get    this.editImageProps.props.imgSrc:",   this.editImageProps.props.imgSrc)
         this.editMode = true;
       }
         

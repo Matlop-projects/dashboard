@@ -145,7 +145,7 @@ export class ServicesDetailsComponent {
     this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data);
-        this.editImageProps.props.imgSrc =environment.baseImageUrl+ res.data.imgSrc;
+        this.editImageProps.props.imgSrc =environment.baseImageUrl+ res.data.image;
         this.editMode = true;
       }
     })

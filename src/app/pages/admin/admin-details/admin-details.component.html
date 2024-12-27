@@ -45,19 +45,20 @@
             </div>
 
             
-            <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'admin.form.password'"
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-3" *ngIf="tyepMode()=='Add'">
+                <app-input-text (onValueChange)="onPasswordChanged($event)" [showPasswordWeakness]="true" type="password" class="w-100" [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'admin.form.password'"
                 [control]="form.get('password')"></app-input-text>
             </div>
             
-            <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'admin.form.confirmPassword'"
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-3"*ngIf="tyepMode()=='Add'">
+                <app-input-text (onValueChange)="onConfirmPasswordChanged($event)"  type="password" [disabled]="tyepMode()=='View'" [readOnly]="tyepMode()=='View'" 
+                 [disabled]="tyepMode()=='View'" [label]="'admin.form.confirmPassword'"
                 [control]="form.get('confirmPassword')"></app-input-text>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                <app-select [placeholder]="form.get('gender')?.value" class="w-100" [list]="genderList" [label]="'admin.form.gender'"
-                [control]="form.get('gender')"></app-select>
+                <app-select [placeholder]="form.get('genderId')?.value" class="w-100" [list]="genderList" [label]="'admin.form.gender'"
+                [control]="form.get('genderId')"></app-select>
             </div>
 
           

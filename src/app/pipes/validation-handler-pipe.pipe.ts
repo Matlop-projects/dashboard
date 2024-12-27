@@ -25,6 +25,9 @@ export class ValidationHandlerPipePipe implements PipeTransform {
       customMessage=value.arabic_only
     if(matches=='isMax')
       customMessage=value.isMax
+    if(matches=='confirm_password')
+      customMessage=value.confirm_password
+
     this.translate.get(`validation_message.${matches}_validation`).subscribe((translationWord) => {
       result = customMessage? this.translate.instant(customMessage) : 
        (['minlength','maxlength'].includes(matches)?`${translationWord} (${requiredLength})`:translationWord)

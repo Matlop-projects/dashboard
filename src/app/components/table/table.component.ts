@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CheckBoxComponent } from '../check-box/check-box.component';
+import { environment } from '../../../environments/environment';
 
 export interface IToggleOptions {
   autoCall: boolean,
@@ -79,7 +80,7 @@ export class TableComponent implements OnInit, OnChanges {
   ApiService = inject(ApiService);
   router = inject(Router);
   eventEmitValue: any = { action: {}, record: {} }
-
+  imageBaseUrl=environment.baseImageUrl
   ngOnInit() {
     this.filterdRecords = this.records;
   }

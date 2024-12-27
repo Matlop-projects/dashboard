@@ -15,7 +15,8 @@
         </div>
       
        <div class="table-view">
-        <app-table [colsHeader]="columns" [records]="dataList" (onstatusChanged)="updateStatusManualy($event)" [showrecordIndex]="true" [actions]="tableActions"></app-table>
+        <!-- (onstatusChanged)="updateStatusManualy($event)"  -->
+        <app-table [colsHeader]="columns" [records]="dataList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
        </div>
        <div class="responsive-accordions">
           <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="dataList"  [actions]="tableActions">
