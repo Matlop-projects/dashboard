@@ -17,6 +17,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { CheckBoxComponent } from "../../../components/check-box/check-box.component";
 import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-technical-details',
@@ -30,6 +31,9 @@ export class TechnicalDetailsComponent {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+  languageService = inject(LanguageService);
+  selectedLang: any;
+
   showConfirmMessage: boolean = false
   userTypeList = userType
   private confirm = inject(ConfirmMsgService)
@@ -104,13 +108,31 @@ export class TechnicalDetailsComponent {
         Validators.required,
 
       ]
-    })
+    }),
+    technicalTypeEnum: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    }),
+    technicalSpecialistId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    }),
   }, { validators: this.passwordMatchValidator })
 
   gender = [
     { code: 1, name: 'Male' },
     { code: 2, name: 'Fale' }
   ]
+
+  TechnicalType = [
+    { code: 1, name: 'Technical' },
+    { code: 2, name: 'Driver' }
+  ]
+
+  technicalSpecialist: any;
+
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -138,14 +160,26 @@ export class TechnicalDetailsComponent {
   };
 
   editMode: boolean = false;
+  specialistOriginal: any;
 
   get userId() {
     return this.route.snapshot.params['id']
   }
 
   ngOnInit() {
-    if (this.tyepMode() !== 'add')
-      this.getTechnicalsDetails()
+    this.selectedLang = this.languageService.translationService.currentLang;
+    if (this.tyepMode() !== 'add') {
+      this.getTechnicalsDetails();
+    }
+    this.getTechnicalSpecialist();
+
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.technicalSpecialist =  this.specialistOriginal.map((item: any) => ({
+        code: item.technicalSpecialistId,
+        name: this.selectedLang === 'ar' ? item.arName : item.enName
+      }));
+    })
   }
 
   tyepMode() {
@@ -187,6 +221,22 @@ export class TechnicalDetailsComponent {
 
         this.form.patchValue(technicalData);
         this.editMode = true;
+      }
+
+    })
+  }
+
+  getTechnicalSpecialist() {
+    this.ApiService.get(`TechnicalSpecialist/GetAll`).subscribe((res: any) => {
+      if (res && res.data) {
+        console.log(res);
+       this.specialistOriginal =  res.data
+        this.technicalSpecialist = res.data;
+
+        this.technicalSpecialist =  this.specialistOriginal.map((item: any) => ({
+          code: item.technicalSpecialistId,
+          name: this.selectedLang === 'ar' ? item.arName : item.enName
+        }));
       }
 
     })
