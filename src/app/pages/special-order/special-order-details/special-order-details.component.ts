@@ -53,6 +53,12 @@ export class SpecialOrderDetailsComponent {
     onShow: () => { }
   };
 
+  driverDialogProps: IDialog = {
+    props: { visible: false },
+    onHide: () => { },
+    onShow: () => { }
+  };
+
 
 
   statuses = [
@@ -83,10 +89,14 @@ export class SpecialOrderDetailsComponent {
   providerTitle = 'Add New Provider';
 
   orderTimeSchedule: any;
+  driversList: any;
+  driverValue: any;
+  driverTitle = 'Add New Driver';
 
   ngOnInit() {
     this.getSpecialOrderDetails();
     this.getTechnicalList();
+    this.getDriversList();
   }
 
   get orderId(): number {
@@ -113,7 +123,6 @@ export class SpecialOrderDetailsComponent {
         this.orderAmount = res.data.amount;
         this.imageList = res.data.media;
         this.orderTechnicalAssignments= res.data.specialOrderAssigment;
-        console.log(this.imageList);
 
        if(this.imageList.length != 0) {
         this.addUrltoMedia(this.imageList);
@@ -129,8 +138,6 @@ export class SpecialOrderDetailsComponent {
     list.forEach((data: any) => {
        data.src = this.imageUrl + data.src;
     });
-    console.log( this.imageList);
-
   }
 
   getClientData(clientId: string) {
@@ -182,9 +189,21 @@ export class SpecialOrderDetailsComponent {
     this.dialogProps.props.visible = true;
   }
 
+  openDriverModal() {
+    this.driverTitle = 'Add New Driver';
+    this.providerCase = 'new';
+    this.driverDialogProps.props.visible = true;
+  }
+
   getTechnicalList() {
     this.ApiService.get('Technical/GetAllActiveTechnicals').subscribe((res: any) => {
       this.providerList = res.data;
+    });
+  }
+
+  getDriversList() {
+    this.ApiService.get('Technical/GetAllActiveDrivers').subscribe((res: any) => {
+      this.driversList = res.data;
     });
   }
 
@@ -193,7 +212,8 @@ export class SpecialOrderDetailsComponent {
     this.ApiService.post('SpecialOrder/CreateAssignTechnical', this.providerObject).subscribe(() => {
       this.getSpecialOrderDetails();
       this.dialogProps.props.visible = false;
-      this.tosater.successToaster('Provider Added Successfully')
+      this.driverDialogProps.props.visible = false;
+      this.tosater.successToaster('Added Successfully')
     });
   }
 
@@ -201,31 +221,50 @@ export class SpecialOrderDetailsComponent {
     this.ApiService.put('SpecialOrder/UpdateAssignTechnical', this.providerObject).subscribe(() => {
       this.getSpecialOrderDetails();
       this.dialogProps.props.visible = false;
-      this.tosater.successToaster('Provider Updated Successfully')
+      this.driverDialogProps.props.visible = false;
+      this.tosater.successToaster('Updated Successfully')
     });
   }
 
-  onProviderChange() {
+  onProviderChange(type:string) {
+   if(type === 't') {
     this.providerObject.technicalId = this.providerValue.userId;
     if (this.providerCase == 'new') {
       this.addNewTechnical();
     } else {
       this.editTechnical();
     }
+   } else {
+    this.providerObject.technicalId = this.driverValue.userId;
+    if (this.providerCase == 'new') {
+      this.addNewTechnical();
+    } else {
+      this.editTechnical();
+    }
+   }
   }
 
-
-
-  editProvider(technicalId: number, specialOrderTechnicalAssignmentId: any) {
+  editProvider(technicalId: number, specialOrderTechnicalAssignmentId: any, technicalType: number) {
     this.providerObject.specialOrderTechnicalAssignmentId = specialOrderTechnicalAssignmentId;
-    this.dialogProps.props.visible = true;
-    this.providerTitle = 'Edit Provider';
-    this.providerCase = 'edit';
-    this.setTechnicalById(technicalId);
+    if(technicalType === 1) {
+      this.dialogProps.props.visible = true;
+      this.providerTitle = 'Edit Provider';
+      this.providerCase = 'edit';
+    } else {
+      this.driverDialogProps.props.visible = true;
+      this.driverTitle = 'Edit Driver';
+      this.providerCase = 'edit';
+    }
+
+    this.setTechnicalById(technicalId , technicalType);
   }
 
-  setTechnicalById(id: number): void {
-    this.providerValue = this.providerList.find((data: any) => data.userId === id);
+  setTechnicalById(id: number , typeId: number): void {
+    if(typeId === 1) {
+      this.providerValue = this.providerList.find((data: any) => data.userId === id);
+    } else {
+      this.driverValue = this.driversList.find((data: any) => data.userId === id);
+    }
   }
 
   getStatus(statusId: number) {

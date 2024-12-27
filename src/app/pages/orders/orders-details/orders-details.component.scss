@@ -206,18 +206,26 @@
 
         .add-provider {
           display: flex;
-          width: 35px;
-          height: 35px;
+          gap: 10px;
+          padding-inline: 5px;
           color: white;
           background-color: rgb(23, 185, 23);
-          border-radius: 50%;
+          border-radius: 6px;
           align-items: center;
           justify-content: center;
           cursor: pointer;
 
+          i {
+            font-size: 10px;
+          }
+
           &:hover {
             background-color: rgb(30, 128, 30);
           }
+        }
+
+        .driver {
+          background: #5050cb;
         }
 
         p {
