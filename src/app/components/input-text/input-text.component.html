@@ -3,7 +3,8 @@
     <input autocomplete="off"   *ngIf="type=='text'" class="w-100" pInputText id="enTitle" [formControl]="control" [readOnly]="readOnly"  [disabled]="disabled" />
     <p-password [style]="{ width: '100%' }" (ngModelChange)="onPaswordChange($event)" autocomplete="off"  class="password w-100" *ngIf="type=='password'" [disabled]="disabled" 
     [formControl]="control" [feedback]="showPasswordWeakness" [toggleMask]="true" />
-    <div  *ngIf="control.errors">
+    <div  *ngIf="control.errors && control.touched || (control.value && control.errors)">
+       
        <span class="text-danger"> {{control.errors|validationHandlerPipe}}</span>
     </div>
 </div>
