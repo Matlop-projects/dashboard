@@ -11,12 +11,15 @@ import { IDialog } from '../../../components/modal/modal.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { ToasterService } from '../../../services/toaster.service';
 import { Editor } from 'primeng/editor';
+import { GalleryComponent } from '../../../components/gallery/gallery.component';
+import { TextareaModule } from 'primeng/textarea';
+import { FloatLabel } from 'primeng/floatlabel';
 
 
 @Component({
   selector: 'app-orders-details',
   standalone: true,
-  imports: [BreadcrumpComponent, RouterModule,Editor, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, GalleryComponent , TextareaModule , FloatLabel,  RouterModule,Editor, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './orders-details.component.html',
   styleUrl: './orders-details.component.scss'
 })
@@ -38,6 +41,12 @@ export class OrdersDetailsComponent {
   };
 
   dialogProps: IDialog = {
+    props: { visible: false },
+    onHide: () => { },
+    onShow: () => { }
+  };
+
+  driverDialogProps: IDialog = {
     props: { visible: false },
     onHide: () => { },
     onShow: () => { }
@@ -89,10 +98,16 @@ export class OrdersDetailsComponent {
 
   orderTimeSchedule: any;
 
+
+  driversList: any;
+  driverValue: any;
+  driverTitle = 'Add New Driver';
+
   ngOnInit() {
     this.getOrderDetails();
     this.getTechnicalList();
     this.getOrderTimeSchedule();
+    this.getDriversList();
   }
 
   get orderId(): number {
@@ -173,9 +188,21 @@ export class OrdersDetailsComponent {
     this.dialogProps.props.visible = true;
   }
 
+  openDriverModal() {
+    this.driverTitle = 'Add New Driver';
+    this.providerCase = 'new';
+    this.driverDialogProps.props.visible = true;
+  }
+
   getTechnicalList() {
-    this.ApiService.get('Technical/GetAllActive').subscribe((res: any) => {
+    this.ApiService.get('Technical/GetAllActiveTechnicals').subscribe((res: any) => {
       this.providerList = res.data;
+    });
+  }
+
+  getDriversList() {
+    this.ApiService.get('Technical/GetAllActiveDrivers').subscribe((res: any) => {
+      this.driversList = res.data;
     });
   }
 
@@ -184,7 +211,8 @@ export class OrdersDetailsComponent {
     this.ApiService.post('Order/CreateAssignTechnical', this.providerObject).subscribe(() => {
       this.getOrderDetails();
       this.dialogProps.props.visible = false;
-      this.tosater.successToaster('Provider Added Successfully')
+      this.driverDialogProps.props.visible = false;
+      this.tosater.successToaster('Added Successfully')
     });
   }
 
@@ -192,29 +220,62 @@ export class OrdersDetailsComponent {
     this.ApiService.put('Order/UpdateAssignTechnical', this.providerObject).subscribe(() => {
       this.getOrderDetails();
       this.dialogProps.props.visible = false;
-      this.tosater.successToaster('Provider Updated Successfully')
+      this.driverDialogProps.props.visible = false;
+      this.tosater.successToaster('Updated Successfully')
     });
   }
 
-  onProviderChange() {
-    this.providerObject.technicalId = this.providerValue.userId;
-    if (this.providerCase == 'new') {
-      this.addNewTechnical();
+  onProviderChange(type:string) {
+    if(type === 't') {
+     this.providerObject.technicalId = this.providerValue.userId;
+     if (this.providerCase == 'new') {
+       this.addNewTechnical();
+     } else {
+       this.editTechnical();
+     }
     } else {
-      this.editTechnical();
+     this.providerObject.technicalId = this.driverValue.userId;
+     if (this.providerCase == 'new') {
+       this.addNewTechnical();
+     } else {
+       this.editTechnical();
+     }
     }
-  }
+   }
 
-  editProvider(technicalId: number, orderTechnicalAssignmentId: any) {
+  // editProvider(technicalId: number, orderTechnicalAssignmentId: any) {
+  //   this.providerObject.orderTechnicalAssignmentId = orderTechnicalAssignmentId;
+  //   this.dialogProps.props.visible = true;
+  //   this.providerTitle = 'Edit Provider';
+  //   this.providerCase = 'edit';
+  //   this.setTechnicalById(technicalId);
+  // }
+
+  // setTechnicalById(id: number): void {
+  //   this.providerValue = this.providerList.find((data: any) => data.userId === id);
+  // }
+
+  editProvider(technicalId: number, orderTechnicalAssignmentId: any, technicalType: number) {
     this.providerObject.orderTechnicalAssignmentId = orderTechnicalAssignmentId;
-    this.dialogProps.props.visible = true;
-    this.providerTitle = 'Edit Provider';
-    this.providerCase = 'edit';
-    this.setTechnicalById(technicalId);
+    if(technicalType === 1) {
+      this.dialogProps.props.visible = true;
+      this.providerTitle = 'Edit Provider';
+      this.providerCase = 'edit';
+    } else {
+      this.driverDialogProps.props.visible = true;
+      this.driverTitle = 'Edit Driver';
+      this.providerCase = 'edit';
+    }
+
+    this.setTechnicalById(technicalId , technicalType);
   }
 
-  setTechnicalById(id: number): void {
-    this.providerValue = this.providerList.find((data: any) => data.userId === id);
+  setTechnicalById(id: number , typeId: number): void {
+    if(typeId === 1) {
+      this.providerValue = this.providerList.find((data: any) => data.userId === id);
+    } else {
+      this.driverValue = this.driversList.find((data: any) => data.userId === id);
+    }
   }
 
   openAdditinaolModal() {
