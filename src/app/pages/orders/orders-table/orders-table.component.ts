@@ -9,8 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
-import { TitleCasePipe } from '@angular/common';
+import { TitleCasePipe, NgIf } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { order_status } from '../../../conts';
+import { SelectComponent } from '../../../components/select/select.component';
 
 const global_pageName = 'Order'
 const global_router_edit_url = '/order/edit'
@@ -19,14 +21,16 @@ const global_API_getAll = global_pageName + '/GetAllWitPagination'
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [TableComponent, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,NgIf,SelectComponent, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })
 export class OrdersTableComponent {
 
   pageName = signal<string>(global_pageName);
-
+  orderStatus=order_status
+  clientList:any[]=[]
+  packageList:any[]=[]
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -55,15 +59,15 @@ export class OrdersTableComponent {
     "pageSize": 8,
     "sortingExpression": "",
     "sortingDirection": 0,
-    "technicalId": null,
+    // "technicalId": null,
     "clientId":null,
-    "paymentWayId": null,
+    // "paymentWayId": null,
     "orderStatus": null,
     "packageId": null,
-    "coponeId": null,
-    "orderSubTotal": null,
-    "orderTotal": null,
-    "locationId": null
+    // "coponeId": null,
+    // "orderSubTotal": null,
+    // "orderTotal": null,
+    // "locationId": null
   }
 
   totalCount: number = 0;
@@ -81,11 +85,15 @@ export class OrdersTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName)
     this.API_getAll();
+    this.getAllClients()
+    this.getAllPackages()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getAllClients()
+      this.getAllPackages()
     })
   }
 
@@ -108,13 +116,48 @@ export class OrdersTableComponent {
     ];
   }
 
-  getAllTechnicals(){
+  getAllClients(){
+   this.ApiService.get('Client/GetAllActive').subscribe((res:any)=>{
+    this.clientList=[]
+    if(res.data)
+      res.data.map((item:any)=>{
+    this.clientList.push({
+      name:item.firstName,
+      code:item.userId
+    })
+    })
+   })
+  }
+
+  getAllPackages(){
+    this.ApiService.get('Package/GetAllPackage').subscribe((res:any)=>{
+      this.packageList=[]
+      if(res.data)
+        res.data.map((item:any)=>{
+      this.packageList.push({
+        name:this.selectedLang=='en' ?item.nameEn:item.nameAr,
+        code:item.packageId
+      })
+      })
+     })
+  }
+  onSelectedValue(selectedItem:any,value:string){
+      if(value=='package')
+        this.objectSearch.packageId=selectedItem
+      else   if(value=='status')
+        this.objectSearch.orderStatus=selectedItem
+      else
+      this.objectSearch.clientId=selectedItem
 
   }
-  
 
   openFilter() {
     this.showFilter = true
+    this.objectSearch.clientId=null
+    this.objectSearch.orderStatus=null
+    this.objectSearch.packageId=null
+
+
   }
 
   onCloseFilter(event: any) {
@@ -167,15 +210,15 @@ export class OrdersTableComponent {
       "pageSize": 8,
       "sortingExpression": "",
       "sortingDirection": 0,
-      "technicalId": null,
+      // "technicalId": null,
       "clientId":null,
-      "paymentWayId": null,
+      // "paymentWayId": null,
       "orderStatus": null,
       "packageId": null,
-      "coponeId": null,
-      "orderSubTotal": null,
-      "orderTotal": null,
-      "locationId": null
+      // "coponeId": null,
+      // "orderSubTotal": null,
+      // "orderTotal": null,
+      // "locationId": null
     }
     this.API_getAll();
     this.showFilter = false

@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="details-container">
-      <div class="action-filter">
+      <div class="action-filter" *ngIf="dataList.length>0">
         <!-- <a [routerLink]="global_router_add_url_in_Table"> + Add New {{pageName()}}</a> -->
         <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
@@ -30,111 +30,37 @@
  <app-drawer [visible]="showFilter" [header]="'Filter Orders'" (onClose)="onCloseFilter($event)">
   <form #myForm="ngForm" (ngSubmit)="onSubmit()" body class="h-100 search-form d-flex">
      <div class="form-content">
-      <div class="form-group mb-2">
-        <label class="mb-1" for="enTitle">English technical Id</label>
-        <input
-          type="text"
-          id="enTitle"
-          name="enTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.technicalId"
-          placeholder="Enter  technica lId"
-        />
+
+      <div  class="form-group mb-2">
+        <app-select 
+        [placeholder]="'Select client'"
+         class="w-100" 
+         [list]="clientList"
+          [label]="'client'"
+          (onSelectedValue)="onSelectedValue($event,'clinet')"
+        ></app-select>
       </div>
 
       <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">client Id</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.clientId"
-          placeholder="Enter client Id"
-        />
-      </div>
-      <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">payment Way Id</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.paymentWayId"
-          placeholder="Enter payment Way Id"
-        />
+        <app-select 
+        [placeholder]="'Select order Status'"
+         class="w-100" 
+         [list]="orderStatus"
+          [label]="'order Status'"
+          (onSelectedValue)="onSelectedValue($event,'status')"
+        ></app-select>
       </div>
 
-
       <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">order Status</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.orderStatus"
-          placeholder="Enter order Status"
-        />
+        <app-select 
+        [placeholder]="'Select package'"
+         class="w-100" 
+         [list]="packageList"
+          [label]="'package'"
+          (onSelectedValue)="onSelectedValue($event,'package')"
+        ></app-select>
       </div>
-      <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">package Id</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.packageId"
-          placeholder="Enter package Id"
-        />
-      </div>
-      <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">copone Id</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.coponeId"
-          placeholder="Enter copone Id"
-        />
-      </div>
-      <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">order Sub Total</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.orderSubTotal"
-          placeholder="Enter order Sub Total"
-        />
-      </div>
-      <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">order Total</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.orderTotal"
-          placeholder="Enter order Total"
-        />
-      </div>
-      <div  class="form-group mb-2">
-        <label class="mb-1" for="arTitle">location Id</label>
-        <input
-          type="text"
-          id="arTitle"
-          name="arTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.locationId"
-          placeholder="Enter location Id"
-        />
-      </div>
-      
-
-
+    
      </div>
       <div class="search-form-actions d-flex">
         <button type="submit" class="btn btn-primary submit-btn">Submit</button>

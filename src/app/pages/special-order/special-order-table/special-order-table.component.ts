@@ -12,6 +12,8 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { SelectComponent } from '../../../components/select/select.component';
+import { special_order_enum, special_order_status } from '../../../conts';
 
 const global_pageName = 'Special Orders'
 const global_router_add_url_in_Table = '/special-order/add'
@@ -23,7 +25,7 @@ const global_API_delete = 'specialOrder/Delete?id'
 @Component({
   selector: 'app-special-order-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,SelectComponent, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './special-order-table.component.html',
   styleUrl: './special-order-table.component.scss'
 })
@@ -31,7 +33,9 @@ export class SpecialOrderTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table
   pageName = signal<string>(global_pageName);
-
+  clientList:any[]=[]
+  specialOrderEnumList=special_order_enum
+  specialOrderStatusList=special_order_status
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     // {
@@ -70,12 +74,12 @@ export class SpecialOrderTableComponent {
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
-    specialOrderId: 0,
-    amount: '',
-    media: "",
-    clientId: '',
-    specialOrderEnum: '',
-    specialOrderStatusEnum:''
+    specialOrderId: null,//text
+    //  amount: null,
+    // media: null,
+    clientId: null,//dr
+    specialOrderEnum: null,
+    specialOrderStatusEnum:null
 
   }
 
@@ -93,11 +97,13 @@ export class SpecialOrderTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName)
     this.API_getAll();
+    this.getAllClients()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getAllClients()
     })
   }
 
@@ -161,6 +167,29 @@ export class SpecialOrderTableComponent {
       item.arDescription.toLowerCase().includes(search)
     );
   }
+
+  onSelectedValue(selectedItem:any,value:string){
+    if(value=='specialOrderStatusEnum')
+      this.objectSearch.specialOrderStatusEnum=selectedItem
+    else   if(value=='specialOrderEnum')
+      this.objectSearch.specialOrderEnum=selectedItem
+    else
+    this.objectSearch.clientId=selectedItem
+
+}
+
+getAllClients(){
+  this.ApiService.get('Client/GetAllActive').subscribe((res:any)=>{
+   this.clientList=[]
+   if(res.data)
+     res.data.map((item:any)=>{
+   this.clientList.push({
+     name:item.firstName,
+     code:item.userId
+   })
+   })
+  })
+ }
   onSubmitFilter() {
     this.API_getAll();
   }
@@ -171,12 +200,12 @@ export class SpecialOrderTableComponent {
       pageSize: 7,
       sortingExpression: "",
       sortingDirection: 0,
-      specialOrderId: 0,
-      amount: '',
-      media: "",
-      clientId: '',
-      specialOrderEnum: '',
-      specialOrderStatusEnum:''
+      specialOrderId: null,
+      // amount: '',
+      // media: "",
+      clientId: null,
+      specialOrderEnum: null,
+      specialOrderStatusEnum:null
     }
     this.API_getAll();
     this.showFilter = false

@@ -133,4 +133,32 @@ export const gender =[
   }
 ]
 
+export const order_status =[
+  { name: 'Pending', id: 0,code: 0,color: '#c1cd6a' },
+  { name: 'Paid', id: 1,code: 1, color: '#c1cd6a' },
+  { name: 'AssignedToProvider', id: 2,code: 2, color: '#b16acd' },
+  { name: 'InTheWay', id: 3,code: 3, color: '#ccc053' },
+  { name: 'TryingSolveProblem', id: 4,code: 4, color: '#9b9d9c' },
+  { name: 'Solved', id: 5,code: 5, color: '#49e97c' },
+  { name: 'ClientConfirmation', id: 6, code: 6, color: '#49e97c' },
+  { name: 'Completed', id: 7, code: 7, color: '#49e97c' },
+  { name: 'Canceled', id: 8,code: 8, color: '#e94949' }
+]
+export const special_order_status =[
+  { name: 'Pending', id: 1, code: 1, color: '#c1cd6a' },
+  { name: 'Completed', id: 2, code: 2,color: '#3fac4e' },
+  { name: 'Canceled', id: 3,code: 3, color: '#c32722' }
+]
+
+export const special_order_enum =[
+  {
+    name:'Emergency',
+    code:1
+  },
+  {
+    name:'Special',
+    code:2
+  }
+]
+
 

@@ -141,8 +141,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   callActiveApi(action: ITableAction, id: any) {
-    console.log(id);
-    console.log(action);
+  
     this.ApiService.putWithId(action.apiName_or_route, id).subscribe(res => {
       if (res) {
         this.reloadGetAllApi.emit(true);
@@ -197,7 +196,6 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   getOrderStatusColorById(id: number): string | null {
-    console.log(id);
 
     const statuses = [
       { name: 'Pending', id: 0, color: '#c1cd6a' },
@@ -214,12 +212,10 @@ export class TableComponent implements OnInit, OnChanges {
 
 
     const status = statuses.find(status => status.id === id);
-    console.log(status);
     return status ? status.color : null;
   }
 
   getSpecialOrderStatusColorById(id: number): string | null {
-    console.log(id);
     const statuses = [
       { name: 'Pending', id: 1, color: '#c1cd6a' },
       { name: 'Completed', id: 2, color: '#3fac4e' },

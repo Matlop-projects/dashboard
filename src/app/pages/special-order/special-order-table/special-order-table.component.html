@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-   <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
+   <app-drawer [visible]="showFilter"  header="Filter Special orders" (onClose)="onCloseFilter($event)">
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
@@ -41,60 +41,34 @@
            placeholder="{{'shared.enter'|translate}}  {{'special_order.form.specialOrderId'|translate}}"
          />
        </div>
-       <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle"> {{'special_order.form.amount'|translate}}</label>
-        <input
-          type="text"
-          id="enTitle"
-          name="enTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.amount"
-          placeholder="{{'shared.enter'|translate}}  {{'special_order.form.amount'|translate}}"
-        />
+     
+      <div  class="form-group mb-2">
+        <app-select 
+        [placeholder]="'Select client'"
+         class="w-100" 
+         [list]="clientList"
+          [label]="'client'"
+          (onSelectedValue)="onSelectedValue($event,'clinet')"
+        ></app-select>
+      </div>
+
+      <div class="form-group mb-3">
+        <app-select 
+        [placeholder]="'Select special order'"
+         class="w-100" 
+         [list]="specialOrderEnumList"
+          label=" {{'special_order.form.specialOrderEnum'|translate}}"
+          (onSelectedValue)="onSelectedValue($event,'specialOrderEnum')"
+        ></app-select>
       </div>
       <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle">  {{'special_order.form.media'|translate}}</label>
-        <input
-          type="text"
-          id="enTitle"
-          name="enTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.media"
-          placeholder="{{'shared.enter'|translate}}   {{'special_order.form.media'|translate}}"
-        />
-      </div>
-      <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle"> {{'special_order.form.clientId'|translate}}</label>
-        <input
-          type="text"
-          id="enTitle"
-          name="enTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.clientId"
-          placeholder="{{'shared.enter'|translate}}  {{'special_order.form.clientId'|translate}}"
-        />
-      </div>
-      <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle">  {{'special_order.form.specialOrderEnum'|translate}}</label>
-        <input
-          type="text"
-          id="enTitle"
-          name="enTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.specialOrderEnum"
-          placeholder="{{'shared.enter'|translate}}  {{'special_order.form.specialOrderEnum'|translate}}"
-        />
-      </div>
-      <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle"> {{'special_order.form.specialOrderStatusEnum'|translate}}</label>
-        <input
-          type="text"
-          id="enTitle"
-          name="enTitle"
-          class="form-control"
-          [(ngModel)]="objectSearch.specialOrderStatusEnum"
-          placeholder="{{'shared.enter'|translate}} {{'special_order.form.specialOrderStatusEnum'|translate}}"
-        />
+        <app-select 
+        [placeholder]="'Select client'"
+         class="w-100" 
+         [list]="specialOrderStatusList"
+          label=" {{'special_order.form.specialOrderStatusEnum'|translate}}"
+          (onSelectedValue)="onSelectedValue($event,'specialOrderStatusEnum')"
+        ></app-select>
       </div>
       </div>
        <div class="search-form-actions d-flex">
