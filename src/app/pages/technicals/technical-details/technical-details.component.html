@@ -33,16 +33,20 @@
             <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Mobile Number'"
               [control]="form.get('mobileNumber')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()==='add'">
             <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Pin Code'"
               [control]="form.get('pinCode')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Password'"
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()==='add'">
+            <app-input-text type="password"
+            (onValueChange)="onPasswordChanged($event)" [showPasswordWeakness]="true"
+             [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Password'"
               [control]="form.get('password')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()==='add'">
+            <app-input-text type="password"
+            (onValueChange)="onConfirmPasswordChanged($event)"
+            [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
               [label]="'Confirm Password'" [control]="form.get('confirmPassword')"></app-input-text>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
@@ -69,9 +73,9 @@
             <app-check-box [isToggle]="true" [disabled]="tyepMode()=='view'" [label]="'isActive'"
               [control]="form.get('isActive')"></app-check-box>
           </div>
-          <div class=" mt-2 col-lg-12 col-md-12 col-sm-12 mt-4">
-            <app-editor [label]="'Note'" [control]="form.get('note')"></app-editor>
-          </div>
+          <!-- <div class=" mt-2 col-lg-12 col-md-12 col-sm-12 mt-4">
+            <app-editor [label]="'Note'" [control]="form.get('notes')"></app-editor>
+          </div> -->
           <div class="upload-image-section mt-4 mb-4" *ngIf="!editMode">
             <label class="mb-2">Upload Image</label>
             <app-upload-file formControlName="imgSrc"></app-upload-file>
@@ -79,6 +83,12 @@
               Image upload is required.
             </div>
           </div>
+          <div class="edit-mode-section mt-2" *ngIf="editMode">
+            <label class="mb-2" >Uploaded Image</label>
+            <app-edit-mode-image  [editImageProps]="editImageProps"></app-edit-mode-image>
+           </div>
+
+
           <div class="actions mt-5 text-center">
             <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
               <span *ngIf="tyepMode()==='add'">Add</span>

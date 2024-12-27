@@ -18,11 +18,15 @@ import { IEditImage } from '../../../components/edit-mode-image/editImage.interf
 import { CheckBoxComponent } from "../../../components/check-box/check-box.component";
 import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
 import { LanguageService } from '../../../services/language.service';
+import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-technical-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+  imports: [ReactiveFormsModule, 
+     EditModeImageComponent,
+    ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './technical-details.component.html',
   styleUrl: './technical-details.component.scss'
 })
@@ -80,12 +84,12 @@ export class TechnicalDetailsComponent {
         Validators.required,
       ]
     }),
-    note: new FormControl('', {
-      validators: [
-        Validators.required,
+    // notes: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
 
-      ]
-    }),
+    //   ]
+    // }),
     imgSrc: new FormControl('', {
       validators: [
         Validators.required,
@@ -119,7 +123,8 @@ export class TechnicalDetailsComponent {
         Validators.required,
       ]
     }),
-  }, { validators: this.passwordMatchValidator })
+    userId:new FormControl(this.userId|0)
+  })
 
   gender = [
     { code: 1, name: 'Male' },
@@ -167,21 +172,31 @@ export class TechnicalDetailsComponent {
   }
 
   ngOnInit() {
+    this.getTechnicalSpecialist();
     this.selectedLang = this.languageService.translationService.currentLang;
     if (this.tyepMode() !== 'add') {
       this.getTechnicalsDetails();
+
     }
-    this.getTechnicalSpecialist();
 
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.technicalSpecialist =  this.specialistOriginal.map((item: any) => ({
+      this.technicalSpecialist = this.specialistOriginal.map((item: any) => ({
         code: item.technicalSpecialistId,
         name: this.selectedLang === 'ar' ? item.arName : item.enName
-      }));
+      })
+    );
     })
   }
 
+  onPasswordChanged(value:any){
+    this.form.get('confirmPassword')?.reset()
+}
+onConfirmPasswordChanged(value:string){
+    const ctrlConfirm =this.form.controls.confirmPassword
+    ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
+    ctrlConfirm.updateValueAndValidity()
+}
   tyepMode() {
     const url = this.router.url;
     if (url.includes('edit')) {
@@ -194,13 +209,6 @@ export class TechnicalDetailsComponent {
       this.bredCrumb.crumbs[1].label = 'Add Technical';
       return 'add'
     }
-  }
-
-
-  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordsDoNotMatch: true };
   }
 
 
@@ -221,11 +229,23 @@ export class TechnicalDetailsComponent {
 
         this.form.patchValue(technicalData);
         this.editMode = true;
+        this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
+        this.removeValidators()
       }
 
     })
+
   }
 
+  removeValidators(){
+    const ctrlform =this.form.controls
+    ctrlform.confirmPassword.removeValidators(Validators.required)
+    ctrlform.confirmPassword.updateValueAndValidity()
+    ctrlform.password.removeValidators(Validators.required)
+    ctrlform.password.updateValueAndValidity()
+    ctrlform.pinCode.removeValidators(Validators.required)
+    ctrlform.pinCode.updateValueAndValidity()
+  }
   getTechnicalSpecialist() {
     this.ApiService.get(`TechnicalSpecialist/GetAll`).subscribe((res: any) => {
       if (res && res.data) {
@@ -243,14 +263,14 @@ export class TechnicalDetailsComponent {
   }
 
   onSubmit() {
-    const payload = {
-      ...this.form.value,
-      userId: this.userId,
-    }
     if (this.tyepMode() === 'add')
-      this.addFQS(payload)
-    else
-      this.editFQS(payload)
+      this.addFQS( this.form.value)
+    else{
+      delete this.form.value.confirmPassword
+      delete this.form.value.password
+      delete this.form.value.pinCode
+      this.editFQS(this.form.value)
+    }
   }
 
   get isRequiredError(): boolean {
