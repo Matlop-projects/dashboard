@@ -72,6 +72,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
     pageSize: 7,
     sortingExpression: "",
     sortingDirection: 0,
+    isActive: null,
     fullName: "",
     userName: "",
     email: ""  }
@@ -176,6 +177,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
       pageSize: 7,
       sortingExpression: "",
       sortingDirection: 0,
+      isActive: null,
       fullName: "",
       userName: "",
       email: "" 
