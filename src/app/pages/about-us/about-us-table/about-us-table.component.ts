@@ -99,21 +99,21 @@ export class AboutUsTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'aboutUsId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'image', header: 'image', type: EType.image, show: true },
-      { keyName: 'enName', header: 'enName', type: EType.text, show: true },
-      { keyName: 'arName', header: 'arName', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'enDescription', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'arDescription', type: EType.editor, show: true },
+      { keyName: 'image', header: 'image', type: EType.image, show: false },
+      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
+      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
+      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true },
+      { keyName: 'arDescription', header: 'Description (ar)', type: EType.editor, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
       { keyName: 'aboutUsId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'image', header: 'image', type: EType.image, showAs: ETableShow.header },
-      { keyName: 'enName', header: 'enName', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'arName', header: 'arName', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'enDescription', header: 'enDescription', type: EType.editor, show: true, showAs: ETableShow.content  },
-      { keyName: 'arDescription', header: 'arDescription', type: EType.editor, show: true, showAs: ETableShow.content  },
+      { keyName: 'image', header: 'image', type: EType.image, show:false, showAs: ETableShow.header },
+      { keyName: 'enName', header: 'Name (en)', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'arName', header: 'Name (ar)', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true, showAs: ETableShow.content  },
+      { keyName: 'arDescription', header: 'Description  (ar)', type: EType.editor, show: true, showAs: ETableShow.content  },
 
     ];
   }
