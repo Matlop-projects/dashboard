@@ -14,39 +14,39 @@
          <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
             <div class="row">
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                      [label]="'country.form.name_en'" [control]="form.get('enName')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                      [label]="'country.form.name_ar'" [control]="form.get('arName')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'country.form.currency'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'country.form.currency'"
                      [control]="form.get('currency')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'country.form.timeZone'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'country.form.timeZone'"
                      [control]="form.get('timeZone')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                      [label]="'country.form.nationality'" [control]="form.get('nationality')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                      [label]="'phoneLength'" [control]="form.get('phoneLength')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                      [label]="'country.form.phoneCode'" [control]="form.get('phoneCode')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                      [label]="'country.form.shortName'" [control]="form.get('shortName')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                  <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'country.form.content'"
+                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'country.form.content'"
                      [control]="form.get('content')"></app-input-text>
                </div>
                <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
@@ -64,7 +64,7 @@
                  </div>
 
                <div class="actions mt-5 text-center">
-                  <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
+                  <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='View'">
                      <span *ngIf="tyepMode()=='Add'">{{'actions.add'|translate}}</span>
                      <span *ngIf="tyepMode()=='Edit'">{{'actions.edit'|translate}}</span>
                   </button>

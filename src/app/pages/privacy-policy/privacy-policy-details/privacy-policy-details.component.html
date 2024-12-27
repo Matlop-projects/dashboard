@@ -14,11 +14,11 @@
       <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (en)'"
+            <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'Title (en)'"
               [control]="form.get('enTitle')"></app-input-text>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'Title (ar)'"
+            <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'Title (ar)'"
               [control]="form.get('arTitle')"></app-input-text>
           </div>
           <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
@@ -28,7 +28,7 @@
             <app-editor [label]="'Description (ar)'" [control]="form.get('arDescription')"></app-editor>
           </div>
           <div class="actions mt-5 text-center">
-            <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='view'">
+            <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='View'">
               <span *ngIf="tyepMode()==='Add'">Add</span>
               <span *ngIf="tyepMode()==='Edit'">Edit</span>
               <!-- <span class="pi pi-plus-circle p-3"></span> -->

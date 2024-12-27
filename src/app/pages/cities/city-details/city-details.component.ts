@@ -144,7 +144,7 @@ tyepMode() {
       ...this.form.value,
       cityId: this.cityID|0,
     }
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() === 'Add')
       this.addCity(payload)
     else
       this.editCity(payload)
