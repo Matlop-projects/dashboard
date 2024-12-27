@@ -104,7 +104,8 @@ export class SpecialOrderTableComponent {
       { keyName: 'specialOrderId', header: 'Id', type: EType.id, show: true },
       { keyName: 'amount', header: 'Amount', type: EType.text, show: true },
       { keyName: 'clientId', header: 'Client Id', type: EType.text, show: true },
-      { keyName: 'notes', header: 'Note', type: EType.editor, show: true },
+      { keyName: 'specialOrderName', header: 'Order Type', type: EType.text, show: true },
+      { keyName: 'specialOrderStatusName', header: 'Status', type: EType.specialOrderStatus, show: true },
       { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
 
     ]
@@ -112,7 +113,7 @@ export class SpecialOrderTableComponent {
       { keyName: 'specialOrderId', header: 'Id', type: EType.id, show: false },
       { keyName: 'amount', header: 'Amount', type: EType.text, showAs: ETableShow.content },
       { keyName: 'clientId', header: 'Client Id', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'notes', header: 'Note', type: EType.editor, show: true, showAs: ETableShow.content },
+      { keyName: 'specialOrderStatusName', header: 'Status', type: EType.specialOrderStatus, show: true, showAs: ETableShow.content },
 
     ];
   }

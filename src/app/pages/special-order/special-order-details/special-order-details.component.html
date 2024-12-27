@@ -31,7 +31,7 @@
                 <a class="view" (click)="viewClientDetails(this.clientDetails?.userId)">
                   <i class="pi pi-eye"></i>
                 </a>
-                <div class="call" (click)="dialNumber('+1234567890')">
+                <div class="call" (click)="dialNumber(this.clientDetails?.mobileNumber)">
                   <i class="pi pi-phone"></i>
                 </div>
               </div>
@@ -79,17 +79,15 @@
             </div>
           </div>
         </div>
-
-        <div class="content mt-3">
-          <div class="title-section">
-            <p>Order Image</p>
+        <div class="table-container mt-3" style="height: 293px">
+          <div class="title-section mb-4">
+            <p>Note</p>
           </div>
+          <p-floatlabel variant="on">
+            <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
+              [(ngModel)]="orderDetails.notes" [style]="{ width: '100%' }"></textarea>
+          </p-floatlabel>
 
-          <div class="order-image-desc">
-            <img [src]=imageList[0].src alt="">
-            <!-- <img src="assets/images/empty-state.png" alt="empty state"> -->
-            <!-- <p>No Image Available</p> -->
-          </div>
         </div>
       </div>
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
@@ -114,8 +112,7 @@
               <div class="details-desc total-price">
                 <div class="amount">
                   <p-iconfield>
-                    <p-inputnumber [(ngModel)]="orderAmount" inputId="minmax" mode="decimal" [min]="0"
-                      [max]="1000000" />
+                    <p-inputnumber [(ngModel)]="orderAmount" inputId="minmax" mode="decimal" [max]="1000000" />
                     <p-inputicon styleClass="pi pi-plus" (click)="changeAmount()" />
 
                   </p-iconfield>
@@ -138,7 +135,7 @@
                 <p>{{orderDetails.specialOrderEnum == 1 ? 'Emergency' : 'Special'}}</p>
               </div>
             </div>
-            <div class="details" >
+            <div class="details">
               <div class="title">
                 <p>Order Status</p>
               </div>
@@ -183,27 +180,36 @@
           </table>
         </div>
       </div>
+
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="table-container">
-          <div class="title-section mb-4">
-            <p>Note</p>
+          <div class="title-section">
+            <p>Order Image</p>
           </div>
-          <p-editor [readonly]="true" [(ngModel)]="orderDetails.notes" [style]="{ height: '320px' }" />
+
+          <div class="order-image-desc">
+            <ng-container *ngIf="this.imageList.length != 0">
+              <app-gallery [mediaList]=imageList></app-gallery>
+            </ng-container>
+            <ng-container *ngIf="this.imageList.length == 0">
+              <img src="assets/images/empty-state.png" alt="empty state">
+              <p>No Image Available</p>
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
-<app-modal [dialogProps]="dialogProps">
-  <div class="title">
-    <h3>{{providerTitle}}</h3>
-  </div>
+  <app-modal [dialogProps]="dialogProps">
+    <div class="title">
+      <h3>{{providerTitle}}</h3>
+    </div>
 
-  <div class="content" style="width: 300px;">
-    <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange()" [(ngModel)]="providerValue"
-      optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
-  </div>
-</app-modal>
+    <div class="content" style="width: 300px;">
+      <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange()" [(ngModel)]="providerValue"
+        optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
+    </div>
+  </app-modal>

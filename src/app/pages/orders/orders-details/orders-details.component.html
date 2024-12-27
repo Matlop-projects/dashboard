@@ -31,7 +31,7 @@
                 <a class="view" (click)="viewClientDetails(this.clientDetails?.userId)">
                   <i class="pi pi-eye"></i>
                 </a>
-                <div class="call" (click)="dialNumber('+1234567890')">
+                <div class="call" (click)="dialNumber(this.clientDetails?.mobileNumber)">
                   <i class="pi pi-phone"></i>
                 </div>
               </div>
@@ -237,6 +237,14 @@
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="table-container">
+          <div class="title-section mb-4">
+            <p>Note</p>
+          </div>
+          <p-editor [readonly]="true" [(ngModel)]="orderDetails.notes" [style]="{ height: '320px' }" />
         </div>
       </div>
     </div>
