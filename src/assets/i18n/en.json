@@ -57,7 +57,11 @@
     "coupon":"coupon",
     "complaint":"Complaint",
     "city":"City",
-    "cancelReason":"cancel Reason"
+    "cancelReason":"cancel Reason",
+    "admin":"Admin",
+    "driver":"Driver",
+    "specialOrder":"Special Order"
+
   },
   "cancel_reason":{
     "pageName":"Cancel Reason",

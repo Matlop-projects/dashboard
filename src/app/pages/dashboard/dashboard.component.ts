@@ -36,7 +36,10 @@ export class DashboardComponent {
     { name: 'dashboard.coupon', value: 0, img: 'assets/images/dashboard/coupons.png', route: '/copone', id: 'coponeCount' },
     { name: 'dashboard.complaint', value: 0, img: 'assets/images/dashboard/bad.png', route: '/complaint', id: 'complaintCount' },
     { name: 'dashboard.city', value: 0, img: 'assets/images/dashboard/cityscape.png', route: '/city', id: 'cityCount' },
-    { name: 'dashboard.cancelReason', value: 0, img: 'assets/images/dashboard/no-data.png', route: '/cancel-reason', id: 'cancelReasonCount' }
+    { name: 'dashboard.admin', value: 0, img: 'assets/images/dashboard/no-data.png', route: '/cancel-reason', id: 'adminCount' },
+    { name: 'dashboard.driver', value: 0, img: 'assets/images/dashboard/package.png', route: '/cancel-reason', id: 'driverCount' },
+    { name: 'dashboard.specialOrder', value: 0, img: 'assets/images/dashboard/coronavirus.png', route: '/cancel-reason', id: 'specialOrderCount' },
+
   ];
 
 
