@@ -45,13 +45,13 @@ export class ServicesDetailsComponent {
     nameEn: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyEnglishValidators(),
+        Validations.englishCharsValidator(),
       ],
     }),
     nameAr: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyArabicValidators()
+        Validations.arabicCharsValidator()
       ]
     }),
     descriptionEn: new FormControl('', {
