@@ -18,10 +18,14 @@ import { packageHourVistList, PackageTypeList } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
 
+
 const global_PageName = 'package';
 const global_API_deialis = global_PageName + '/GetPackage';
 const global_API_create = global_PageName + '/CreatePackage';
 const global_API_update = global_PageName + '/UpdatePackage';
+// const global_API_get_workTime =global_PageName+'/GetWorkTimeByPacakgeId/';
+const global_API_get_all_workTime ='WorkingTime/GetAll'
+
 const global_routeUrl = global_PageName
 
 @Component({
@@ -40,6 +44,8 @@ export class PackageDetailsComponent {
   private confirm = inject(ConfirmMsgService)
   typeOfPackageList:any[]=PackageTypeList
   contractTypeList:any[]=[]
+  workingTimeList:any[]=[]
+  packageWorkTimesValues:any[]=[]
   visitHoursList:any=packageHourVistList
 
   form = new FormGroup({
@@ -111,6 +117,11 @@ export class PackageDetailsComponent {
         Validators.required,
       ]
     }),
+    packageWorkTimes: new FormControl<any>('', {
+      validators: [
+        Validators.required,
+      ]
+    }),
     image: new FormControl('', {
     }),
     packageId: new FormControl(this.getID | 0),
@@ -137,9 +148,12 @@ export class PackageDetailsComponent {
 
   ngOnInit() {
     this.getAllContract()
+    this.getAllWorkingTime()
     this.pageName.set(global_PageName)
-    if (this.tyepMode() !== 'Add')
+    if (this.tyepMode() !== 'Add'){
+      // this.getWorkTimeByPkgId()
       this.API_getItemDetails()
+    }
 
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -147,10 +161,46 @@ export class PackageDetailsComponent {
       console.log("CityDetailsComponent  this.languageService.translationService.onLangChange.subscribe   this.selectedLang:",  this.selectedLang)
       this.API_getItemDetails();
       this.getAllContract()
+      this.getAllWorkingTime()
+
 
     })
   }
 
+  // getWorkTimeByPkgId(){
+  //   this.ApiService.get(global_API_get_workTime+this.getID).subscribe(res=>{
+  //        if(res)
+  //         console.log("PackageDetailsComponent  this.ApiService.get  res:", res)
+  //   })
+  // }
+
+  getAllWorkingTime(){
+    this.ApiService.get(global_API_get_all_workTime).subscribe((res:any)=>{
+       if(res.data){
+        this.workingTimeList=[]
+        res.data.map((item:any) => {
+          this.workingTimeList.push({
+             name:this.convertToHours(item.startDate)+' - '+this.convertToHours(item.endDate) ,
+             code:item.workTimeId
+          })
+        })
+       }
+    })
+  }
+
+  convertToHours(timestamp:string){
+    const date: Date = new Date(timestamp);
+
+    let hours: number = date.getUTCHours();
+    const minutes: number = date.getUTCMinutes();
+    const ampm: string = hours >= 12 ? 'PM' : 'AM';
+    
+    hours = hours % 12 || 12; // 12-hour format, 0 should be 12
+    
+    // Format the time as hh:mm AM/PM
+    const formattedTime: string = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+    return formattedTime
+  }
   getAllContract(){
     this.ApiService.post('ContractType/GetAllContractTypeList',{}).subscribe((res:any)=>{
       if(res.data){
@@ -187,19 +237,56 @@ export class PackageDetailsComponent {
   API_getItemDetails() {
     if(this.getID)
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
-      if (res)
+      if (res){
+        let pkWorkingTime:number[] =[]
         this.form.patchValue(res.data)
+        this.form.value.packageWorkTimes.map((item:any) => {
+          pkWorkingTime.push(item.workTimeId)
+          this.packageWorkTimesValues.push({
+            workTimeId:item.workTimeId,
+            packageWorkTimeId:item.packageWorkTimeId
+          })
+        })
+        this.form.patchValue({
+          packageWorkTimes:pkWorkingTime
+        })
+      }
+        
     })
   }
 
   onSubmit() {
-    const payload = {
-      ...this.form.value,
+    let workingTimeId:any=[]
+    let workTimePayload:any=[]
+    workingTimeId=this.form.value.packageWorkTimes
+   
+    if (this.tyepMode() == 'Add'){
+      workingTimeId.map((item:any) => {
+        workTimePayload.push({
+          "packageWorkTimeId": 0,
+           "packageId": 0,
+          "workTimeId": item
+        })
+      })
+      this.form.patchValue({
+        packageWorkTimes:workTimePayload
+      })
+      this.API_forAddItem(this.form.value)
     }
-    if (this.tyepMode() == 'Add')
-      this.API_forAddItem(payload)
-    else
-      this.API_forEditItem(payload)
+    else{
+      workingTimeId.map((id:any) => {
+        workTimePayload.push({
+          "packageWorkTimeId": this.packageWorkTimesValues.filter(item=>item.workTimeId ===id)[0].packageWorkTimeId,
+           "packageId": +this.getID,
+          "workTimeId": id
+        })
+      })
+      this.form.patchValue({
+        packageWorkTimes:workTimePayload
+      })
+        this.API_forEditItem(this.form.value)
+    }
+    
   }
 
   navigateToPageTable() {

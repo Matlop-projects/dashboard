@@ -60,6 +60,12 @@
                             [label]="'Price'" [control]="form.get('price')">
                         </app-input-text>
                     </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                        <app-select [type]="'multi'" [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'Working Time'" [placeholder]="form.get('packageWorkTimes')?.value" [control]="form.get('packageWorkTimes')" class="w-100"
+                            [list]="workingTimeList">
+                        </app-select>
+                    </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                         <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'is Active'"
                             [control]="form.get('isActive')"></app-check-box>

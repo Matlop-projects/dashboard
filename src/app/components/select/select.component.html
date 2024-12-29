@@ -15,33 +15,18 @@
      </ng-container>
      
    <ng-container *ngIf="type=='multi'">
-    <p-multiselect  class="w-100" [options]="list" 
+    <div class="mt-1">
+    <p-multiselect 
+    [options]="list"
+    optionLabel="name"
+    optionValue="code"  
+    [placeholder]="placeholder"  
     [formControl]="control" 
-    optionLabel="name"  
-    optionValue="code"
-     (onChange)="onChange($event)" 
-     [placeholder]="placeholder"
-      [filter]="false" 
-      display="chip"
-      styleClass="w-full md:w-80" >
-      <ng-template let-list pTemplate="item">
-          <div class="flex items-center gap-2">
-              <img
-                  src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                  [class]="'flag flag-' + list.code.toLowerCase()"
-                  style="width: 18px"
-              />
-              <div>{{ list.name }}</div>
-          </div>
-      </ng-template>
-      <ng-template pTemplate="dropdownicon">
-          <i class="pi pi-map"></i>
-      </ng-template>
-      <ng-template pTemplate="filtericon">
-          <i class="pi pi-map-marker"></i>
-      </ng-template>
-      <ng-template pTemplate="header">
-          <div class="font-medium px-3 py-2">Available Countries</div>
-      </ng-template>
-  </p-multiselect>
+    [disabled]="disabled"
+    [readonly]="readOnly"
+    display="chip"
+    (onChange)="onChange($event)" 
+    class="w-100" />
+    </div>
    </ng-container>
+   <!-- [maxSelectedLabels]="3"  -->
