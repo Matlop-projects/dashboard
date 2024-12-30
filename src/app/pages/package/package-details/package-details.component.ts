@@ -100,12 +100,12 @@ export class PackageDetailsComponent {
         Validators.required,
       ]
     }),
-    instractionEn: new FormControl('', {
+    enInstraction: new FormControl('', {
       validators: [
          Validators.required,
       ]
     }),
-    instractionAr: new FormControl('', {
+    arInstraction: new FormControl('', {
       validators: [
         Validators.required,
       ]
@@ -181,7 +181,7 @@ export class PackageDetailsComponent {
         res.data.map((item:any) => {
           this.workingTimeList.push({
              name:this.convertToHours(item.startDate)+' - '+this.convertToHours(item.endDate) ,
-             code:item.workTimeId
+             code:item.workTimeId,
           })
         })
        }
@@ -221,6 +221,15 @@ export class PackageDetailsComponent {
     visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[item],this.languageService.translate('pkg.visit_number_isMax'))]); 
    visitNumberControl?.updateValueAndValidity(); 
     
+  }
+  onVisitNumberChange(value:string){
+    if(this.form.value.typeOfPackage && this.tyepMode()=='Edit'){
+      let visitNumberControl =this.form.get('visitNumber');
+      const maxNumber=[0,1,5,20,60,120,240]
+     visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[this.form.value.typeOfPackage],this.languageService.translate('pkg.visit_number_isMax'))]); 
+    visitNumberControl?.updateValueAndValidity(); 
+    }
+  
   }
 
   tyepMode() {
@@ -276,7 +285,7 @@ export class PackageDetailsComponent {
     else{
       workingTimeId.map((id:any) => {
         workTimePayload.push({
-          "packageWorkTimeId": this.packageWorkTimesValues.filter(item=>item.workTimeId ===id)[0].packageWorkTimeId,
+          "packageWorkTimeId": this.packageWorkTimesValues.filter(item=>item.workTimeId ===id)[0]?.packageWorkTimeId?this.packageWorkTimesValues.filter(item=>item.workTimeId ===id)[0]?.packageWorkTimeId:0,
            "packageId": +this.getID,
           "workTimeId": id
         })

@@ -36,7 +36,7 @@ export class InputTextComponent {
 
   }
 
-  onPaswordChange(value:any){
+  onInputChange(value:any){
     this.onValueChange.emit(value)
 
   }

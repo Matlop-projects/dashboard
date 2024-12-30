@@ -44,7 +44,7 @@
                         </app-select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                        <app-input-text [readOnly]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''" [disabled]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''"
+                        <app-input-text (onValueChange)="onVisitNumberChange($event)" [readOnly]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''" [disabled]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''"
                             [label]="'Visit Number'" [control]="form.get('visitNumber')">
                         </app-input-text>
                     </div>
@@ -81,11 +81,11 @@
                         </div>
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                             <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                                [label]="'Instraction (en)'" [control]="form.get('instractionEn')"></app-editor>
+                                [label]="'Instraction (en)'" [control]="form.get('enInstraction')"></app-editor>
                         </div>
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                             <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                                [label]="'Instraction (ar)'" [control]="form.get('instractionAr')"></app-editor>
+                                [label]="'Instraction (ar)'" [control]="form.get('arInstraction')"></app-editor>
                         </div>
                      </div>
 
