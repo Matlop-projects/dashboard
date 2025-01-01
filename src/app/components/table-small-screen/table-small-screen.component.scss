@@ -1,5 +1,5 @@
 div.actions-icon{
-    margin: 0px 20px;
+    margin: 0px;
     span{
       margin:0px 5px;
       cursor: pointer;
@@ -25,3 +25,26 @@ div.actions-icon{
 
     }
   }
+
+
+  //as cards
+
+  .as-card{
+    .info{
+        padding: 0 5px;
+    }
+    .card-desc{
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        margin: 5px 0px;
+        padding: 5px;
+        .desc-content{
+          padding: 5px 10px; 
+          margin-top: 5px;
+        }
+    }
+   .gray{
+    color:gray
+   }
+  }
+  

@@ -6,6 +6,7 @@ import { EAction, EType, IcolHeader, ITableAction } from '../table/table.compone
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { DialogComponent } from '../dialog/dialog.component';
+import { TranslatePipe } from '@ngx-translate/core';
 export enum ETableShow {
   header = "header",
   content = "content"
@@ -16,12 +17,13 @@ export interface IcolHeaderSmallTable extends IcolHeader {
 @Component({
   selector: 'app-table-small-screen',
   standalone: true,
-  imports: [Card, Accordion, AccordionHeader,DialogComponent, AccordionPanel, AccordionContent, NgIf, NgFor, JsonPipe],
+  imports: [Card, Accordion, TranslatePipe,AccordionHeader,DialogComponent, AccordionPanel, AccordionContent, NgIf, NgFor, JsonPipe],
   templateUrl: './table-small-screen.component.html',
   styleUrl: './table-small-screen.component.scss'
 })
 export class TableSmallScreenComponent implements OnInit, OnChanges {
   EType = EType
+  @Input()type='card'
   @Input({ required: true }) colsHeaderSmallTable: IcolHeaderSmallTable[] = []
   @Input({ required: true }) records: any = []
   @Input() actions: ITableAction[] = []
@@ -31,11 +33,15 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
   router = inject(Router)
   filterdRecords: any[] = []
   eventEmitValue:any={action:{},record:{}}
+  sortedItemsIncolsHeaderSmallTable:any[]=[]
+
   ngOnInit() {
     this.filterdRecords = this.records
+    this.sortedItems()
   }
   ngOnChanges() {
     this.filterdRecords = this.records
+    this.sortedItems()
 
   }
 
@@ -73,5 +79,10 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
       if (res)
         this.filterdRecords = this.records.filter((item: any) => item[this.getNameOfIDHeader()] != id)
     })
+  }
+
+   sortedItems() {
+    console.log("TableSmallScreenComponent  sortedItemsIncolsHeaderSmallTable  this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0)):", this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0)))
+     this.sortedItemsIncolsHeaderSmallTable = this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0));
   }
 }

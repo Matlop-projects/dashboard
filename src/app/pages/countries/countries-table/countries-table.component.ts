@@ -114,7 +114,9 @@ export class CountriesTableComponent {
     this.columnsSmallTable =[
       { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
       { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.text, showAs: ETableShow.content }
+      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'status', header: 'active', type: EType.status, toggleOptions:global_toggleOptions, show: true },
+
     ];
   }
 

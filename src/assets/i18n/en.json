@@ -36,7 +36,9 @@
     "add_new":"Add New",
     "filter":"Filter",
     "enter":"Enter",
-    "view_more":"View More"
+    "view_more":"View More",
+    "active":"active",
+    "not_active":"deactive"
   },
   "dashboard":{
     "pageName":"Dashboard",

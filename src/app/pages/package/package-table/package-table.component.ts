@@ -102,7 +102,7 @@ export class PackageTableComponent {
     this.columns = [
       { keyName: 'packageId', header: 'Id', type: EType.id, show: true },
       { keyName: currentLang =='ar'?'nameAr':'nameEn', header: 'Name', type: EType.text,show: true },
-      { keyName: currentLang =='ar'?'descriptionAr':'descriptionEn', header: 'Description', type: EType.text,show: true},
+      { keyName: currentLang =='ar'?'descriptionAr':'descriptionEn', header: 'Description', type: EType.editor,show: true},
       { keyName: 'providerNumber', header: 'Provider Number', type: EType.text, show: true },
       { keyName: 'typeOfPackage', header: 'Type Of Package', type: EType.text, show: true },
       { keyName: 'visitNumber', header: 'Visit Number', type: EType.text, show: true },
@@ -112,7 +112,7 @@ export class PackageTableComponent {
     this.columnsSmallTable = [
       { keyName: 'packageId', header: 'Id', type: EType.id, show: false },
       { keyName: currentLang =='ar'?'nameAr':'nameEn', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: currentLang =='ar'?'descriptionAr':'descriptionEn', header: 'Description', type: EType.text, showAs: ETableShow.header },
+      { keyName: currentLang =='ar'?'descriptionAr':'descriptionEn', header: 'Description', type: EType.editor, showAs: ETableShow.header },
       { keyName: 'providerNumber', header: 'Provider Number', type: EType.text, showAs: ETableShow.content },
       { keyName: 'typeOfPackage', header: 'Type Of Package', type: EType.text, showAs: ETableShow.content },
       { keyName: 'visitNumber', header: 'Visit Number', type: EType.text, show: true },
