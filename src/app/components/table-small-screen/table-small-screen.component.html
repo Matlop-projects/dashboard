@@ -67,11 +67,11 @@
               <span *ngIf="item.type !==EType.status">{{ record[item.keyName]}}</span>
               <span *ngIf="item.type ==EType.status">
                 <span class="active" *ngIf="record[item.keyName]==true">
-                  <span class="pi pi-circle-on" style="color:green"></span> 
+                  <span class="pi pi-circle-on" style="color:green;font-size: .5rem"></span> 
                  {{'shared.active'|translate}}
                 </span>
                 <span class="not-active" *ngIf="record[item.keyName]==false">
-                  <span class="pi  pi-circle-off"></span> 
+                  <span class="pi  pi-circle-off" style="font-size: .5rem"></span> 
                   {{'shared.not_active'|translate}}
                 </span>
               </span>
