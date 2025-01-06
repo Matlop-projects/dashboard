@@ -5,6 +5,7 @@ import { LanguageService } from '../../services/language.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { menuItems } from '../../conts';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,10 +15,11 @@ import { menuItems } from '../../conts';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-
+  baseImageUrl=environment.baseImageUrl
   selectedLang: any;
   languageService = inject(LanguageService);
-
+  userDate=JSON.parse(localStorage.getItem('userData')as any);
+  defaultImage=this.userDate.gender==1?'assets/images/arabian-man.png':'assets/images/arabian-woman.png'
   routingList = menuItems
 
   ngOnInit(): void {

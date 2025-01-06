@@ -21,7 +21,7 @@
             <span class="pi pi-cog"></span>
           </div>
           <div class="user-image-section" routerLink="/profile" [pTooltip]="'Profile' | translate" [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
-            <img src="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" alt="user-image">
+            <img [src]="userDate.img?baseImageUrl+userDate.img:this.defaultImage" alt="user-image">
           </div>
       </div>
     </div>

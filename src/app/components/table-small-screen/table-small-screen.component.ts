@@ -82,7 +82,6 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
   }
 
    sortedItems() {
-    console.log("TableSmallScreenComponent  sortedItemsIncolsHeaderSmallTable  this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0)):", this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0)))
      this.sortedItemsIncolsHeaderSmallTable = this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0));
   }
 }

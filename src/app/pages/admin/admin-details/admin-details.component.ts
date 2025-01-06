@@ -104,6 +104,7 @@ pageName = signal<string>(global_PageName);
         Validators.required,
       ]
     }),
+    imgSrc: new FormControl(null),
     isActive: new FormControl<boolean>(true),
     userId: new FormControl(this.getID | 0),
   })
