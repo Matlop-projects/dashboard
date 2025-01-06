@@ -1,44 +1,62 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ApiService } from '../../services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgFor, TitleCasePipe } from '@angular/common';
-import { Validations } from '../../validations';
-import { BreadcrumpComponent } from "../../components/breadcrump/breadcrump.component";
-import { IBreadcrumb } from '../../components/breadcrump/cerqel-breadcrumb.interface';
-import { ConfirmMsgService } from '../../services/confirm-msg.service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { ApiService } from '../../../services/api.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { Validations } from '../../../validations';
+import { InputTextComponent } from '../../../components/input-text/input-text.component';
+import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
+import { ConfirmMsgService } from '../../../services/confirm-msg.service';
+import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../services/language.service';
-import { gender } from '../../conts';
-import { IEditImage } from '../../components/edit-mode-image/editImage.interface';
-import { environment } from '../../../environments/environment.prod';
+import { SelectComponent } from '../../../components/select/select.component';
+import { LanguageService } from '../../../services/language.service';
+import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
+import { gender } from '../../../conts';
+import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
+import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
+import { environment } from '../../../../environments/environment.prod';
+import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 
 const global_PageName = 'profile.pageName';
 const global_API_deialis =  'admin/GetById';
-const global_routeUrl = '/profile/edit/'
-
+const global_API_update =  'admin/Update';
+const global_routeUrl = '/profile'
 @Component({
-  selector: 'app-profile',
+  selector: 'app-edit-profile',
   standalone: true,
   imports: [
-        TranslatePipe,
-        TitleCasePipe, 
-        BreadcrumpComponent, 
-        NgFor
+            ReactiveFormsModule,
+            TranslatePipe,
+            SelectComponent, 
+            ButtonModule, 
+            NgIf, 
+            DialogComponent, 
+            TitleCasePipe, 
+            InputTextComponent, 
+            RouterModule, 
+            BreadcrumpComponent, 
+            CheckBoxComponent,
+            EditModeImageComponent,
+            UploadFileComponent,
   ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.scss'
 })
-export class ProfileComponent {
+export class EditProfileComponent {
 
 pageName = signal<string>(global_PageName);
-userDataInfo:any[]=[]
+
   userDate=JSON.parse(localStorage.getItem('userData')as any);
   defaultImage=this.userDate.gender==1?'assets/images/arabian-man.png':'assets/images/arabian-woman.png'
   userId=this.userDate.id
   imgUrl:any=null
   private ApiService = inject(ApiService)
   private router = inject(Router)
+  showConfirmMessage: boolean = false
+  private confirm = inject(ConfirmMsgService)
   roleList:any[]=[]
   genderList=gender
   minEndDate:Date =new Date()
@@ -172,8 +190,9 @@ userDataInfo:any[]=[]
     this.minEndDate=date
   }
   tyepMode() {
-    let result = 'View'
+    let result = 'Edit'
     this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
+    console.log("ProfileComponent  tyepMode  this.bredCrumb.crumbs[1].label:", this.bredCrumb.crumbs[1].label)
     return result
   }
  
@@ -192,84 +211,49 @@ userDataInfo:any[]=[]
       if (res){
         this.form.patchValue(res.data)
         this.imgUrl=res.data.imgSrc?environment.baseImageUrl+res.data.imgSrc:this.defaultImage
-        this.userDataInfo=[{
-          icon:'pi pi-address-book',
-          title:'Name',
-          value:res.data.fullName
-        },
-        {
-          icon:'pi pi-user',
-          title:'Gender',
-          value:res.data.genderId==1?'Male':'Female'
-        },
-        {
-          icon:'pi pi-at',
-          title:'Email',
-          value:res.data.email
-        }
-        ,{
-          icon:'pi pi-phone',
-          title:'Mobile',
-          value:res.data.mobileNumber
-        }
-        ,{
-          icon:'pi pi-unlock',
-          title:'Role',
-          value:res.data.roleId
-        }
-        ,{
-          icon:'pi  pi-circle-on',
-          title:'Status',
-          value:res.data.isActive?'active':'deactive'
-        },
-        {
-          icon:'pi pi-address-book',
-          title:'UserName',
-          value:res.data.userName
-        }
-      ]
       }
     })
   }
 
-  // onSubmit() {   
-  //     delete this.form.value.password
-  //     delete this.form.value.confirmPassword
-  //     this.API_forEditItem(this.form.value)
+  onSubmit() {   
+      delete this.form.value.password
+      delete this.form.value.confirmPassword
+      this.API_forEditItem(this.form.value)
     
-  // }
+  }
 
   navigateToPageTable() {
   this.router.navigateByUrl(global_routeUrl)
   }
 
-  // cancel() {
-  //   const hasValue = this.confirm.formHasValue(this.form)
-  //   if (hasValue && this.tyepMode() == 'Edit')
-  //     this.showConfirmMessage = !this.showConfirmMessage
-  //   else
-  //     this.navigateToPageTable()
+  cancel() {
+    const hasValue = this.confirm.formHasValue(this.form)
+    if (hasValue && this.tyepMode() == 'Edit')
+      this.showConfirmMessage = !this.showConfirmMessage
+    else
+      this.navigateToPageTable()
 
-  // }
+  }
 
-  // onConfirmMessage() {
-  //   this.navigateToPageTable()
+  onConfirmMessage() {
+    this.navigateToPageTable()
 
-  // }
-onEditProfile(){
-  // this.mode='Edit'
-  this.router.navigateByUrl(global_routeUrl+this.userDate.id)
-}
+  }
+// onEditProfile(){
+//   this.mode='Edit'
+//   this.bredCrumb
+//   console.log("ProfileComponent  onEditProfile   this.bredCrumb:",  this.bredCrumb)
+// }
 
-  // API_forEditItem(payload: any) {
-  //   this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
-  //     if (res){
-  //       this.API_getItemDetails()
-  //     }
+  API_forEditItem(payload: any) {
+    this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
+      if (res){
+        this.navigateToPageTable()
+      }
        
 
-  //   })
-  // }
+    })
+  }
 
 
 }
