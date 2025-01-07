@@ -65,6 +65,12 @@ export class LoginComponent {
       if(data.message == 'Otp Is Not Valid') {
         this.toaster.errorToaster(data.message)
       } else {
+        let dataUser:any ={
+          img:data.data.imgSrc,
+          id:data.data.userId,
+          gender:data.data.gender
+        }
+        localStorage.setItem('userData',JSON.stringify(dataUser))
         localStorage.setItem('token', data.data.accessToken);
         this.router.navigate(['/dashboard']);
       }

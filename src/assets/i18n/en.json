@@ -204,6 +204,12 @@
       "specialOrderEnum":"Special Order",
       "specialOrderStatusEnum":"Status"
     }
+  },
+  "profile":{
+    "pageName":"Profile",
+    "pageName_Edit_crumb":"Edit Profile",
+    "pageName_View_crumb":"View Profile"
+
   }
 
 }

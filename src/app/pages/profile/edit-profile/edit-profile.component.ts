@@ -3,10 +3,9 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf, TitleCasePipe } from '@angular/common';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
-import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.component";
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
@@ -15,46 +14,56 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { gender } from '../../../conts';
-import { Password } from 'primeng/password';
+import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
+import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
+import { environment } from '../../../../environments/environment.prod';
+import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 
-const global_PageName = 'admin.pageName';
+const global_PageName = 'profile.pageName';
 const global_API_deialis =  'admin/GetById';
-const global_API_create =  'admin/Create';
 const global_API_update =  'admin/Update';
-const global_routeUrl = 'settings/admin'
-
+const global_routeUrl = '/profile'
 @Component({
-  selector: 'app-admin-details',
+  selector: 'app-edit-profile',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    TranslatePipe,
-    SelectComponent, 
-    ButtonModule, 
-    NgIf, 
-    DialogComponent, 
-    TitleCasePipe, 
-    InputTextComponent, 
-    RouterModule, 
-    BreadcrumpComponent, 
-    CheckBoxComponent,
+            ReactiveFormsModule,
+            TranslatePipe,
+            SelectComponent, 
+            ButtonModule, 
+            NgIf, 
+            DialogComponent, 
+            TitleCasePipe, 
+            InputTextComponent, 
+            RouterModule, 
+            BreadcrumpComponent, 
+            CheckBoxComponent,
+            EditModeImageComponent,
+            UploadFileComponent,
   ],
-  templateUrl: './admin-details.component.html',
-  styleUrl: './admin-details.component.scss'
+  templateUrl: './edit-profile.component.html',
+  styleUrl: './edit-profile.component.scss'
 })
-export class AdminDetailsComponent {
+export class EditProfileComponent {
+
 pageName = signal<string>(global_PageName);
+
+  userDate=JSON.parse(localStorage.getItem('userData')as any);
+  defaultImage=this.userDate.gender==1?'assets/images/arabian-man.png':'assets/images/arabian-woman.png'
+  userId=this.userDate.id
+  imgUrl:any=null
   private ApiService = inject(ApiService)
   private router = inject(Router)
-  private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   roleList:any[]=[]
   genderList=gender
-
   minEndDate:Date =new Date()
-   selectedLang: any;
-    languageService = inject(LanguageService);
+  selectedLang: any;
+  languageService = inject(LanguageService);
+  editMode: boolean = false;
+  showUserImage:boolean=true
 
   form = new FormGroup({
     firstName: new FormControl('', {
@@ -104,9 +113,9 @@ pageName = signal<string>(global_PageName);
         Validators.required,
       ]
     }),
-    imgSrc: new FormControl(null),
+    imgSrc:new FormControl(''),
     isActive: new FormControl<boolean>(true),
-    userId: new FormControl(this.getID | 0),
+    userId: new FormControl( this.userId| 0),
   })
 
   bredCrumb: IBreadcrumb = {
@@ -116,14 +125,17 @@ pageName = signal<string>(global_PageName);
         routerLink: '/dashboard',
       },
       {
-        label: this.pageName(),
+        label: this.languageService.translate(this.pageName()),
       },
     ]
   }
 
-  get getID() {
-    return this.route.snapshot.params['id']
-  }
+
+  // get isRequiredError(): boolean {
+  //   const control = this.form.get('imgSrc');
+  //   return control?.touched && control?.hasError('required') || false;
+  // }
+
 
   ngOnInit() {
     this.pageName.set(global_PageName)
@@ -135,24 +147,32 @@ pageName = signal<string>(global_PageName);
 
     })
    
-    if (this.tyepMode() !== 'Add'){
+    
       this.API_getItemDetails()
       this.removePasswordValidation()
-    }else{
-      console.log('ggg',this.form.value)
-    }
+ 
 
 
   }
 
-  onPasswordChanged(value:any){
-        this.form.get('confirmPassword')?.reset()
-  }
-  onConfirmPasswordChanged(value:string){
-        const ctrlConfirm =this.form.controls.confirmPassword
-        ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
-        ctrlConfirm.updateValueAndValidity()
-  }
+  // onPasswordChanged(value:any){
+  //       this.form.get('confirmPassword')?.reset()
+  // }
+  // onConfirmPasswordChanged(value:string){
+  //       const ctrlConfirm =this.form.controls.confirmPassword
+  //       ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
+  //       ctrlConfirm.updateValueAndValidity()
+  // }
+    editImageProps: IEditImage = {
+      props: {
+        visible: true,
+        imgSrc: ''
+      },
+      onEditBtn: (e?: Event) => {
+        this.editImageProps.props.visible = false;
+        this.editMode = false;
+      }
+    };
   getAllRoles(){
     this.ApiService.get('role/GetAll').subscribe((res:any)=>{
        if(res.data){
@@ -170,19 +190,12 @@ pageName = signal<string>(global_PageName);
     this.minEndDate=date
   }
   tyepMode() {
-    const url = this.router.url;
-    let result = 'Add'
-    if (url.includes('edit')) result = 'Edit'
-    else if (url.includes('view')) result = 'View'
-    else result = 'Add'
-
+    let result = 'Edit'
     this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
+    console.log("ProfileComponent  tyepMode  this.bredCrumb.crumbs[1].label:", this.bredCrumb.crumbs[1].label)
     return result
   }
-  asd(item:any){
-  console.log("AdminDetailsComponent  asd  item:", item)
-
-  }
+ 
   removePasswordValidation(){
     const ctrlform =this.form.controls
 
@@ -194,27 +207,23 @@ pageName = signal<string>(global_PageName);
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
-      if (res)
+    this.ApiService.get(`${global_API_deialis}/${this.userId}`).subscribe((res: any) => {
+      if (res){
         this.form.patchValue(res.data)
+        this.imgUrl=res.data.imgSrc?environment.baseImageUrl+res.data.imgSrc:this.defaultImage
+      }
     })
   }
 
-  onSubmit() {
-    const payload = {
-      ...this.form.value
-    }
-    if (this.tyepMode() == 'Add')
-      this.API_forAddItem(payload)
-    else{
+  onSubmit() {   
       delete this.form.value.password
       delete this.form.value.confirmPassword
       this.API_forEditItem(this.form.value)
-    }
+    
   }
 
   navigateToPageTable() {
-    this.router.navigateByUrl(global_routeUrl)
+  this.router.navigateByUrl(global_routeUrl)
   }
 
   cancel() {
@@ -230,19 +239,19 @@ pageName = signal<string>(global_PageName);
     this.navigateToPageTable()
 
   }
-
-
-  API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload, { showAlert: true, message: `Add ${this.pageName()} Successfuly` }).subscribe(res => {
-      if (res)
-        this.navigateToPageTable()
-    })
-  }
+// onEditProfile(){
+//   this.mode='Edit'
+//   this.bredCrumb
+//   console.log("ProfileComponent  onEditProfile   this.bredCrumb:",  this.bredCrumb)
+// }
 
   API_forEditItem(payload: any) {
     this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
-      if (res)
+      if (res){
         this.navigateToPageTable()
+      }
+       
+
     })
   }
 
