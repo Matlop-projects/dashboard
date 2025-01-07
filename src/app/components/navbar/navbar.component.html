@@ -6,6 +6,15 @@
       </div>
 
     <div class="option-section">
+      <div class="notifications-section">
+        <span class="pi pi-bell" (click)="op.toggle($event)"></span>
+        <p-popover #op>
+          <div class="flex flex-col gap-4 w-[25rem]">
+<div class="">test</div>
+<div class="">asdasdasdasdasdas</div>
+          </div>
+      </p-popover>
+      </div>
       <div class="lang-section">
         <p-select [options]="langOptions" [(ngModel)]="selectedLang" (onChange)="onLangChange()" optionLabel="name"
           optionValue="code">
@@ -23,14 +32,7 @@
           </ng-template>
         </p-select>
       </div>
-      <div class="notifications-section">
-        <span class="pi pi-bell" (click)="op.toggle($event)"></span>
-        <p-popover #op>
-          <div class="flex flex-col gap-4 w-[25rem]">
 
-          </div>
-      </p-popover>
-      </div>
       <div class="logout-section" (click)="logout()" routerLink='/auth/login'>
         <span class="pi pi-sign-out"></span>
       </div>
