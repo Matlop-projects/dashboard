@@ -13,15 +13,16 @@ import { TitleCasePipe, NgIf } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { order_status } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName = 'Order'
+const global_pageName = 'order.pageName'
 const global_router_edit_url = '/order/edit'
-const global_API_getAll = global_pageName + '/GetAllWitPagination'
+const global_API_getAll =   'order/GetAllWitPagination'
 
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [TableComponent,NgIf,SelectComponent, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,NgIf,SelectComponent, TitleCasePipe,TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })

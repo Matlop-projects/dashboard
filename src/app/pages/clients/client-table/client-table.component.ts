@@ -13,7 +13,7 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName = 'Client';
+const global_pageName = 'client.pageName';
 const global_API_Name = 'Client';
 const global_router_add_url_in_Table = '/client/add';
 const global_router_view_url = '/client/view';
@@ -96,9 +96,9 @@ export class ClientTableComponent {
   }
 
   clientStatuslist = [
-    { id: null, name: 'All' },
-    { id: true, name: 'Active' },
-    { id: false, name: 'Deactive' },
+    { id: null, name: 'shared.all' },
+    { id: true, name: 'shared.active' },
+    { id: false, name: 'shared.not_active' },
   ];
 
   totalCount: number = 0;

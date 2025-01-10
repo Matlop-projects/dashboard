@@ -15,7 +15,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { SelectComponent } from '../../../components/select/select.component';
 import { special_order_enum, special_order_status } from '../../../conts';
 
-const global_pageName = 'Special Orders'
+const global_pageName = 'special_order.pageName'
 const global_router_add_url_in_Table = '/special-order/add'
 const global_router_view_url = 'special-order/view'
 const global_router_edit_url = 'special-order/edit'

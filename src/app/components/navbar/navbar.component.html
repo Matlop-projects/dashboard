@@ -1,7 +1,7 @@
 <div class="navbar-container">
   <div class="content">
       <div class="search-section  pr-pl-30-small-screen">
-        <p-autocomplete  [placeholder]="'Search Pages'" [(ngModel)]="value" [suggestions]="items"
+        <p-autocomplete  placeholder="{{'nav.search'|translate}}" [(ngModel)]="value" [suggestions]="items"
           (completeMethod)="search($event)" />
       </div>
 

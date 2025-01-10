@@ -5,11 +5,12 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ModuleTypeEnum } from './type-module.enum';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [Popover, CommonModule, RouterModule, DialogModule, NgFor, NgIf],
+  imports: [Popover,TranslatePipe, CommonModule, RouterModule, DialogModule, NgFor, NgIf],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.scss'
 })

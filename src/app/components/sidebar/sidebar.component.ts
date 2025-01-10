@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, UpperCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Tooltip } from 'primeng/tooltip';
 import { LanguageService } from '../../services/language.service';
@@ -10,7 +10,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NgFor , Tooltip , TranslateModule , RouterModule , RouterLinkActive],
+  imports: [NgFor , Tooltip ,UpperCasePipe, TranslateModule , RouterModule , RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

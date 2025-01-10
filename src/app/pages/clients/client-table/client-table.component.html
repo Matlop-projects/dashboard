@@ -2,7 +2,7 @@
   <div class="content">
     <div class="title-bredcrumb-section">
       <div class="title">
-        <h2>{{pageName()|translate|titlecase}} {{'shared.list'|translate}}</h2>
+        <h2>{{'client.list'|translate|titlecase}}</h2>
       </div>
       <div class="breadcrumb">
         <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,7 +10,7 @@
     </div>
     <div class="details-container">
       <div class="action-filter">
-        <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}} {{pageName()|translate|titlecase}}</a>
+        <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}}</a>
         <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
 
@@ -51,7 +51,7 @@
           name="arTitle"
           class="form-control"
           [(ngModel)]="objectSearch.userName"
-          placeholder="Enter{{'client.form.fullName'|translate}}"
+          placeholder="{{'shared.enter'|translate}} {{'client.form.fullName'|translate}}"
         />
       </div>
 
@@ -64,7 +64,7 @@
           name="email"
           class="form-control"
           [(ngModel)]="objectSearch.email"
-          placeholder="Enter {{'client.form.email'|translate}}"
+          placeholder="{{'shared.enter'|translate}} {{'client.form.email'|translate}}"
         />
       </div>
 
@@ -78,7 +78,7 @@
           [(ngModel)]="objectSearch.isActive"
         >
           <option *ngFor="let item of clientStatuslist" [ngValue]="item.id">
-            {{ item.name }}
+            {{ item.name|translate }}
           </option>
         </select>
       </div>

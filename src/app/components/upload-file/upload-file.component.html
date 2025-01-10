@@ -6,13 +6,15 @@
 accept="image/*"
 maxFileSize="1000000"
 mode="advanced"
+chooseLabel="{{'actions.choose_image'|translate}}" 
+cancelLabel="{{'actions.cancel'|translate}}"
 >
     <ng-template #empty>
-        <div>Drag and drop image to here to upload.</div>
+        <div>{{'shared.drag_drop_img'|translate}}</div>
     </ng-template>
     <ng-template #content>
         <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} {{'shared.bytes'|translate}}</li>
         </ul>
     </ng-template>
 </p-fileupload>

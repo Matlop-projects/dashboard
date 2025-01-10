@@ -13,12 +13,12 @@ import { TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName = 'Service'
+const global_pageName = 'services.pageName'
 const global_router_add_url_in_Table = '/service/add'
 const global_router_view_url = '/service/view'
 const global_router_edit_url = '/service/edit'
-const global_API_getAll = global_pageName + '/GetAllServiceWithPagination'
-const global_API_delete = global_pageName + '/DeleteService?id'
+const global_API_getAll = 'Service' + '/GetAllServiceWithPagination'
+const global_API_delete = 'Service' + '/DeleteService?id'
 
 @Component({
   selector: 'app-services-table',

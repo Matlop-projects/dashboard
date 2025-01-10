@@ -1,12 +1,13 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component , forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FileUpload, UploadEvent } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-upload-file',
   standalone: true,
-  imports: [FileUpload, NgFor, NgIf],
+  imports: [FileUpload, NgFor, NgIf,TranslatePipe],
   templateUrl: './upload-file.component.html',
   styleUrl: './upload-file.component.scss',
   providers: [

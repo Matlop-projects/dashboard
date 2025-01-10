@@ -8,11 +8,12 @@ import { PasswordModule } from 'primeng/password';
 import { NgIf } from '@angular/common';
 import { ToasterService } from '../../services/toaster.service';
 import { IDialog } from '../modal/modal.interface';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-otp-modal',
   standalone: true,
-  imports: [ModalComponent, FormsModule, InputTextModule, PasswordModule, ButtonModule, InputOtp, NgIf],
+  imports: [ModalComponent,TranslatePipe, FormsModule, InputTextModule, PasswordModule, ButtonModule, InputOtp, NgIf],
   templateUrl: './otp-modal.component.html',
   styleUrls: ['./otp-modal.component.scss']
 })

@@ -22,12 +22,6 @@
                     [label]="'services.form.name_ar'" [control]="form.get('nameAr')"></app-input-text>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                <app-editor [label]="'services.form.desc_en'" [control]="form.get('descriptionEn')"></app-editor>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                <app-editor [label]="'services.form.desc_ar'" [control]="form.get('descriptionAr')"></app-editor>
-              </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                     [label]="'services.form.no_tech'" [control]="form.get('numOfTechnicals')"></app-input-text>
               </div>
@@ -35,9 +29,18 @@
                  <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'"
                     [label]="'services.form.priority'" [control]="form.get('priorityView')"></app-input-text>
               </div>
-              <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                 <app-check-box [isToggle]="true" [label]="'services.form.isActive'" [control]="form.get('isActive')"></app-check-box>
-              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+               <app-check-box [isToggle]="true" [label]="'services.form.isActive'" [control]="form.get('isActive')"></app-check-box>
+            </div>
+             <div class="row mt-4">
+               <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-editor [label]="'services.form.desc_en'" [control]="form.get('descriptionEn')"></app-editor>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                  <app-editor [label]="'services.form.desc_ar'" [control]="form.get('descriptionAr')"></app-editor>
+                </div>
+             </div>
+          
               <div class="upload-image-section mt-4 mb-4" *ngIf="!editMode">
                 <label class="mb-2" >{{'shared.upload_img'|translate}}</label>
                  <app-upload-file formControlName="image"></app-upload-file>

@@ -96,9 +96,9 @@ export class TechnicalTableComponent {
   }
 
   clientStatuslist = [
-    { id: null, name: 'All' },
-    { id: true, name: 'Active' },
-    { id: false, name: 'Deactive' },
+    { id: null, name: 'shared.all' },
+    { id: true, name: 'shared.ctive' },
+    { id: false, name: 'shared.deactive' },
   ];
 
   totalCount: number = 0;

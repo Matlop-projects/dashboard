@@ -4,6 +4,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { InputTextModule } from 'primeng/inputtext';
 import { DatePicker } from 'primeng/datepicker';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-time-picker',
@@ -13,7 +14,8 @@ import { DatePicker } from 'primeng/datepicker';
     ReactiveFormsModule,
     ValidationHandlerPipePipe,
     InputTextModule,
-    DatePicker
+    DatePicker,
+    TranslatePipe
   ],
   templateUrl: './time-picker.component.html',
   styleUrl: './time-picker.component.scss'

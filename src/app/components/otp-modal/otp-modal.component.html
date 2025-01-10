@@ -1,10 +1,10 @@
 <app-modal [dialogProps]="dialogProps">
   <div class="otp-content">
     <div class="title">
-      <p>Verify Your Mobile Number</p>
+      <p>{{'otp.verify_mobile_no'|translate}}</p>
     </div>
     <div class="desc">
-      <p>Please enter the 4-digit code we sent to <span>{{ mobileNumber }}</span> </p>
+      <p>{{'otp.enter_degits'|translate}} <span>{{ mobileNumber }}</span> </p>
     </div>
     <div class="otp">
       <p-inputotp (onChange)="checkOtpValue($event)" [(ngModel)]="otp" [length]="4">
@@ -25,7 +25,7 @@
     </div>
     <div class="timer">
       {{ getFormattedTimer() }}
-      <span *ngIf="timer === 0" (click)="resend()" class="resend-link">Resend</span>
+      <span *ngIf="timer === 0" (click)="resend()" class="resend-link">{{'otp.resend'|translate}}</span>
     </div>
   </div>
 </app-modal>

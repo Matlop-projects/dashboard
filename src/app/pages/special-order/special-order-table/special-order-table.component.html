@@ -2,7 +2,7 @@
     <div class="content">
       <div class="title-bredcrumb-section">
         <div class="title">
-          <h2>{{pageName()|translate|titlecase}} {{'shared.list'|translate}}</h2>
+          <h2>{{'special_order.list'|translate|titlecase}}</h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -44,7 +44,7 @@
      
       <div  class="form-group mb-2">
         <app-select 
-        placeholder="{{'shared.select'}} {{'special_order.form.client'|translate}}"
+        placeholder="{{'shared.select'|translate}} {{'special_order.form.client'|translate}}"
          class="w-100" 
          [list]="clientList"
           label="{{'special_order.form.client'|translate}}"
@@ -54,7 +54,7 @@
 
       <div class="form-group mb-3">
         <app-select 
-        placeholder="'{{'shared.select'}} {{'special_order.form.specialOrderEnum'|translate}}'"
+        placeholder="{{'shared.select'|translate}} {{'special_order.form.specialOrderEnum'|translate}}"
          class="w-100" 
          [list]="specialOrderEnumList"
           label=" {{'special_order.form.specialOrderEnum'|translate}}"

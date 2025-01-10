@@ -1,5 +1,8 @@
 {
   "GENERAL": "General",
+  "Add":"Add",
+  "Edit":"Edit",
+  "View":"View",
   "validation_message":{
     "minlength_validation":"length should be more than",
     "maxlength_validation":"length should be more less than",
@@ -22,7 +25,8 @@
     "edit":"Edit",
     "cancel":"Cancel",
     "confirm":"Confirm",
-    "close":"Close"
+    "close":"Close",
+    "choose_image":"Choose"
   },
   "shared":{
     "list":"List",
@@ -34,21 +38,55 @@
     "active":"active",
     "not_active":"deactive",
     "upload_img":"Upload Image",
-    "uploaded_img":">Uploaded Image",
-    "img_required":"Image upload is required."
+    "uploaded_img":"Uploaded Image",
+    "img_required":"Image upload is required.",
+    "all":"All",
+    "drag_drop_img":"Drag and drop image to here to upload.",
+    "bytes":"bytes"
   },
   "login":{
      "welcome":"Welcome Back!",
      "sign_to_dashboard":"Sign In To Access Dashboard",
      "userName":"User Name",
-     "Username_required":"Username is required",
+     "userName_required":"Username is required",
       "password":"Password",
      "password_required":"Password is required",
      "btn_login":"login",
      "forget_password":"Forget Password"
   },
+  "otp":{
+    "verify_mobile_no":"Verify Your Mobile Number",
+    "enter_degits":"Please enter the 4-digit code we sent to",
+    "resend":"Resend"
+  },
+  "nav":{
+    "search":"Search Pages"
+  },
+  "side_bar":{
+      "dashboard":"DASHBOARD",
+      "clients":"CLIENTS",
+      "orders":"ORDERS",
+      "special_orders":"SPECIAL ORDERS",
+      "technicals":"Technicals",
+      "services":"Services",
+      "working_hours":"WORKING HOURS",
+      "country":"COUNTRIES",
+      "city":"CITIES",
+      "reason":"CANCEL REASON",
+      "complaint":"COMPLAINT",
+      "contract":"CONTRACT TYPE",
+      "copone":"COPONE",
+      "payment":"PAYMENT WAY",
+      "pkg":"PACKAGE",
+      "technical_sp":"TECHNICAL SPECIALIST",
+      "contact":"CONTACT US",
+      "about":"ABOUT US",
+      "setting":"settings"
+  },
   "client":{
     "pageName":"Clients",
+    "pageTitle":"Client",
+    "list":"Client List",
     "pageName_filter":"Filter Client",
     "pageName_Add_crumb":"Add Client",
     "pageName_Edit_crumb":"Edit Client",
@@ -228,6 +266,8 @@
   },
   "special_order":{
     "pageName":"Special Orders",
+    "list":"Special Orders List",
+    "title":"Special Order",
     "pageName_filter":"Filter Special Order",
     "pageName_Add_crumb":"Add Special Order",
     "pageName_Edit_crumb":"Edit Special Order",
@@ -244,6 +284,8 @@
   },
   "order":{
     "pageName":"Orders",
+    "list":"Order List",
+    "title":"order",
     "pageName_filter":"Filter  Order",
     "pageName_Add_crumb":"Add  Order",
     "pageName_Edit_crumb":"Edit  Order",
@@ -281,6 +323,12 @@
        "edit":"Edit"
     },
     "form":{
+      "client_name":"Client Name",
+      "select_client":"Select Client",
+      "select_order_status":"Select order status",
+      "order_status":"Order status",
+      "pkg":"Package",
+      "select_pkg":"Select Package",
       "email":"Email",
       "mobile":"Mobile",
       "status":"Status",
@@ -305,7 +353,9 @@
     "end":"End Date"
   },
   "tech":{
-    "pageName":"Technial",
+    "pageName":"Technials",
+    "list":"Technials List",
+     "titel":"Technial",
     "pageName_filter":"Filter Technical",
     "pageName_Add_crumb":"Add Technical",
     "pageName_Edit_crumb":"Edit Technical",
@@ -330,6 +380,8 @@
   },
   "services":{
     "pageName":"Services",
+    "list":"Services List",
+    "title":"Service",
     "pageName_filter":"Filter Services",
     "pageName_Add_crumb":"Add Service",
     "pageName_Edit_crumb":"Edit Service",
@@ -345,6 +397,15 @@
       "priority":"Priority of View",
       "isActive":"Is Active"
     }
+  },
+  "notifications":{
+    "title":"Notifications",
+    "no_notifications":"No notifications found",
+    "new":"New",
+    "seen":"Seen",
+    "id":"ID",
+    "message":"Message",
+    "created":"Created"
   }
 
 }
