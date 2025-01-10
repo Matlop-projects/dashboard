@@ -10,12 +10,13 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-working-hours-table',
   standalone: true,
-  imports: [TableComponent, FormsModule, PaginationComponent, BreadcrumpComponent, DrawerComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TranslatePipe, FormsModule, PaginationComponent, BreadcrumpComponent, DrawerComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './working-hours-table.component.html',
   styleUrl: './working-hours-table.component.scss'
 })

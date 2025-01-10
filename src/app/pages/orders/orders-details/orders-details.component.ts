@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { ApiService } from '../../../services/api.service';
@@ -14,21 +14,24 @@ import { GalleryComponent } from '../../../components/gallery/gallery.component'
 import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-orders-details',
   standalone: true,
-  imports: [BreadcrumpComponent, GalleryComponent , TextareaModule , FloatLabel,  RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent,TranslatePipe, GalleryComponent , TextareaModule , FloatLabel,  RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './orders-details.component.html',
   styleUrl: './orders-details.component.scss'
 })
 export class OrdersDetailsComponent {
+    pageName = signal<string>('');
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private tosater = inject(ToasterService);
    private imageUrl = environment.baseImageUrl
+  translateService=inject(TranslateService)
 
 
   showConfirmMessage: boolean = false;
@@ -107,6 +110,7 @@ export class OrdersDetailsComponent {
   driverTitle = 'Add New Driver';
 
   ngOnInit() {
+    this.pageName.set('order.pageName')
     this.getOrderDetails();
     this.getTechnicalList();
     this.getOrderTimeSchedule();
@@ -119,16 +123,17 @@ export class OrdersDetailsComponent {
     return +id;
   }
 
-  typeMode(): string {
+  tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit Order';
-      return 'edit';
-    } else {
-      this.bredCrumb.crumbs[1].label = 'View Order';
-      return 'view';
-    }
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+  
+    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
+    return result
   }
+
 
   getOrderDetails() {
     this.ApiService.get(`Order/Get/${this.orderId}`).subscribe((res: any) => {

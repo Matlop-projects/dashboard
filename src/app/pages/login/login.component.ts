@@ -9,11 +9,12 @@ import { ToasterService } from '../../services/toaster.service'; // Import here
 import { ApiService } from '../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
 import { OtpModalComponent } from '../../components/otp-modal/otp-modal.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [OtpModalComponent, NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule],
+  imports: [OtpModalComponent,TranslatePipe, NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [ApiService]

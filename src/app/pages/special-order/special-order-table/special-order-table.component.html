@@ -2,7 +2,7 @@
     <div class="content">
       <div class="title-bredcrumb-section">
         <div class="title">
-          <h2>{{pageName()|translate|titlecase}} {{'list'|translate}}</h2>
+          <h2>{{pageName()|translate|titlecase}} {{'shared.list'|translate}}</h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -27,7 +27,7 @@
       </div>
     </div>
   </div>
-   <app-drawer [visible]="showFilter"  header="Filter Special orders" (onClose)="onCloseFilter($event)">
+   <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
@@ -44,17 +44,17 @@
      
       <div  class="form-group mb-2">
         <app-select 
-        [placeholder]="'Select client'"
+        placeholder="{{'shared.select'}} {{'special_order.form.client'|translate}}"
          class="w-100" 
          [list]="clientList"
-          [label]="'client'"
+          label="{{'special_order.form.client'|translate}}"
           (onSelectedValue)="onSelectedValue($event,'clinet')"
         ></app-select>
       </div>
 
       <div class="form-group mb-3">
         <app-select 
-        [placeholder]="'Select special order'"
+        placeholder="'{{'shared.select'}} {{'special_order.form.specialOrderEnum'|translate}}'"
          class="w-100" 
          [list]="specialOrderEnumList"
           label=" {{'special_order.form.specialOrderEnum'|translate}}"
@@ -63,7 +63,7 @@
       </div>
       <div class="form-group mb-3">
         <app-select 
-        [placeholder]="'Select client'"
+        placeholder="{{'special_order.form.specialOrderStatusEnum'|translate}}"
          class="w-100" 
          [list]="specialOrderStatusList"
           label=" {{'special_order.form.specialOrderStatusEnum'|translate}}"

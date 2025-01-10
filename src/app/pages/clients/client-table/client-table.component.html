@@ -2,7 +2,7 @@
   <div class="content">
     <div class="title-bredcrumb-section">
       <div class="title">
-        <h2>{{pageName()|titlecase}} List </h2>
+        <h2>{{pageName()|translate|titlecase}} {{'shared.list'|translate}}</h2>
       </div>
       <div class="breadcrumb">
         <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,7 +10,7 @@
     </div>
     <div class="details-container">
       <div class="action-filter">
-        <a [routerLink]="global_router_add_url_in_Table"> + Add New {{pageName()}}</a>
+        <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}} {{pageName()|translate|titlecase}}</a>
         <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
 
@@ -26,57 +26,56 @@
     </div>
   </div>
 </div>
-<app-drawer [visible]="showFilter" [header]="'Filter ' + pageName()" (onClose)="onCloseFilter($event)">
+<app-drawer [visible]="showFilter" header="{{pageName()}}_{{'filter'}}"  (onClose)="onCloseFilter($event)">
   <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
     <div class="form-content">
       <!-- Full Name -->
       <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle">Full Name</label>
+        <label class="mb-1" for="enTitle">{{'client.form.fullName'|translate}}</label>
         <input
           type="text"
           id="enTitle"
           name="enTitle"
           class="form-control"
           [(ngModel)]="objectSearch.fullName"
-          placeholder="Enter Full Name"
+          placeholder="{{'shared.enter'|translate}} {{'client.form.fullName'|translate}}"
         />
       </div>
 
       <!-- Username -->
       <div class="form-group mb-3">
-        <label class="mb-1" for="arTitle">Username</label>
+        <label class="mb-1" for="arTitle">{{'client.form.userName'|translate}}</label>
         <input
           type="text"
           id="arTitle"
           name="arTitle"
           class="form-control"
           [(ngModel)]="objectSearch.userName"
-          placeholder="Enter Username"
+          placeholder="Enter{{'client.form.fullName'|translate}}"
         />
       </div>
 
       <!-- Email -->
       <div class="form-group mb-3">
-        <label class="mb-1" for="email">Email</label>
+        <label class="mb-1" for="email">{{'client.form.email'|translate}}</label>
         <input
           type="text"
           id="email"
           name="email"
           class="form-control"
           [(ngModel)]="objectSearch.email"
-          placeholder="Enter email"
+          placeholder="Enter {{'client.form.email'|translate}}"
         />
       </div>
 
       <!-- Status Dropdown -->
       <div class="form-group mb-3">
-        <label class="mb-1" for="status"> Client Status</label>
+        <label class="mb-1" for="status">{{'client.form.status'|translate}}</label>
         <select
           id="status"
           name="status"
           class="form-control"
           [(ngModel)]="objectSearch.isActive"
-          placeholder="Select Status"
         >
           <option *ngFor="let item of clientStatuslist" [ngValue]="item.id">
             {{ item.name }}
@@ -86,8 +85,8 @@
     </div>
 
     <div class="search-form-actions d-flex">
-      <button type="submit" class="btn btn-primary submit-btn">Submit</button>
-      <button type="button" class="btn btn-danger reset-btn" (click)="reset()">Reset</button>
+      <button type="submit" class="btn btn-primary submit-btn">{{'actions.submit'|translate}}</button>
+      <button type="button" class="btn btn-danger reset-btn" (click)="reset()">{{'actions.reset'|translate}}</button>
     </div>
   </form>
 </app-drawer>

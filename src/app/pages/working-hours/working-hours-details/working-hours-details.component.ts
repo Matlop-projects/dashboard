@@ -1,30 +1,34 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { BreadcrumpComponent } from "../../../components/breadcrump/breadcrump.component";
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { DatePickerComponent } from "../../../components/time-picker/time-picker.component";
 import { ToasterService } from '../../../services/toaster.service';
 import { parseISO } from 'date-fns';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
 
+const global_PageName = 'working_hours.pageName';
 
 @Component({
   selector: 'app-working-hours-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf, RouterModule, BreadcrumpComponent, DatePickerComponent],
+  imports: [ReactiveFormsModule,TranslatePipe,TitleCasePipe, ButtonModule, NgIf, RouterModule, BreadcrumpComponent, DatePickerComponent],
   templateUrl: './working-hours-details.component.html',
   styleUrl: './working-hours-details.component.scss'
 })
 export class WorkingHoursDetailsComponent {
-
+  pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private toaster = inject(ToasterService);
-
+  selectedLang: any;
+  languageService = inject(LanguageService);
   form = new FormGroup({
     startDate: new FormControl(null, {
       validators: [
@@ -55,24 +59,20 @@ export class WorkingHoursDetailsComponent {
   }
 
   ngOnInit() {
-    console.log(this.router.url)
-    if (this.tyepMode() !== 'add')
+    this.pageName.set(global_PageName)
+    if (this.tyepMode() !== 'Add')
       this.getWorkingHours();
   }
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit Working Hours';
-      return 'edit'
-    } else if (url.includes('view')) {
-      this.bredCrumb.crumbs[1].label = 'View Working Hours';
-      return 'view'
-    } else {
-      this.bredCrumb.crumbs[1].label = 'Add Working Hours';
-      return 'add'
-    }
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
 
+    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
+    return result
   }
 
   getWorkingHours() {

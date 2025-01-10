@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Select } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { Tooltip } from 'primeng/tooltip';
@@ -17,24 +17,29 @@ import { environment } from '../../../../environments/environment';
 import { GalleryComponent } from '../../../components/gallery/gallery.component';
 import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
 
 
+const global_PageName = 'special_order.pageName';
 
 @Component({
   selector: 'app-special-order-details',
   standalone: true,
-  imports: [BreadcrumpComponent, TextareaModule , FloatLabel , GalleryComponent, InputNumber, InputIcon, IconField, FormsModule, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent,TranslatePipe,TitleCasePipe, TextareaModule , FloatLabel , GalleryComponent, InputNumber, InputIcon, IconField, FormsModule, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './special-order-details.component.html',
   styleUrl: './special-order-details.component.scss'
 })
 export class SpecialOrderDetailsComponent {
-
+  pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private tosater = inject(ToasterService);
   private imageUrl = environment.baseImageUrl
-
+selectedLang: any;
+  languageService = inject(LanguageService);
+ 
 
   showConfirmMessage: boolean = false;
   clientDetails: any;
@@ -94,6 +99,7 @@ export class SpecialOrderDetailsComponent {
   driverTitle = 'Add New Driver';
 
   ngOnInit() {
+    this.pageName.set(global_PageName)
     this.getSpecialOrderDetails();
     this.getTechnicalList();
     this.getDriversList();
@@ -105,15 +111,15 @@ export class SpecialOrderDetailsComponent {
     return +id;
   }
 
-  typeMode(): string {
+  tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit Order';
-      return 'edit';
-    } else {
-      this.bredCrumb.crumbs[1].label = 'View Order';
-      return 'view';
-    }
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+
+    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
+    return result
   }
 
   getSpecialOrderDetails() {

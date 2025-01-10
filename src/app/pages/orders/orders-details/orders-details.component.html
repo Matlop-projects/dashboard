@@ -3,7 +3,7 @@
     <div class="row mb-3">
       <div class="page-details mb-3">
         <div class="title">
-          <h2>{{typeMode()==='edit' ? 'Edit' : 'View'}} Order</h2>
+          <h2>{{tyepMode()|translate|titlecase}} {{pageName()|translate|titlecase}}</h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -14,7 +14,7 @@
       <div class="col-lg-4 col-md-6 col-sm-12 client-deatils-container">
         <div class="content">
           <div class="title-section">
-            <p>Client Details</p>
+            <p>{{'order.client_details'|translate}}</p>
           </div>
           <div class="desc">
             <div class="main-details">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="details">
                   <div class="title">
-                    <p>Email</p>
+                    <p>{{'order.form.email'|translate}}</p>
                   </div>
                   <div class="desc">
                     <p>{{this.clientDetails?.email}}</p>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="details">
                   <div class="title">
-                    <p>Mobile</p>
+                    <p>{{'order.form.mobile'|translate}}</p>
                   </div>
                   <div class="desc">
                     <p>{{this.clientDetails?.mobileNumber}}</p>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="details">
                   <div class="title">
-                    <p>Status</p>
+                    <p>{{'order.form.status'|translate}}</p>
                   </div>
                   <div class="desc">
                     <p style="color: #30d50d;">{{this.clientDetails?.isActive == true ? 'Active' : 'Inactive'}}</p>
@@ -82,7 +82,7 @@
 
         <div class="table-container mt-3" style="height: 293px">
           <div class="title-section mb-4">
-            <p>Note</p>
+            <p>{{'order.form.note'|translate}}</p>
           </div>
           <p-floatlabel variant="on">
             <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
@@ -94,12 +94,12 @@
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
         <div class="content">
           <div class="title-section">
-            <p>Order Details</p>
+            <p>{{'order.order_details'|translate}}</p>
           </div>
           <div class="desc">
             <div class="details order-status-dropdown">
               <div class="title">
-                <p>Order Status</p>
+                <p>{{'order.order_status'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p-select [options]="statuses" (onChange)="onStatusChange()" [(ngModel)]="orderStatusValue"
@@ -108,7 +108,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Order Id</p>
+                <p>{{'order.order_id'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.orderId}}</p>
@@ -116,7 +116,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Payment Way</p>
+                <p>{{'order.payment'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.paymentWayName ?  orderDetails.paymentWayName: '-'}}</p>
@@ -124,7 +124,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Package</p>
+                <p>{{'order.pkg'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.packageName ? orderDetails.packageName : '-'}}</p>
@@ -132,7 +132,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Copone</p>
+                <p>{{'order.copone'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.coponeName ? orderDetails.coponeName: '-'}}</p>
@@ -140,7 +140,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Location</p>
+                <p>{{'order.location'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.locationName ? orderDetails.locationName: '-'}}</p>
@@ -148,7 +148,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Next Visit Date</p>
+                <p>{{'order.next_visit'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.nextVistDate ? convertDate(orderDetails.nextVistDate): '-'}}</p>
@@ -156,7 +156,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Total Price</p>
+                <p>{{'order.total_price'|translate}}</p>
               </div>
               <div class="details-desc total-price">
                 <p>{{orderDetails.orderTotal ? orderDetails.orderTotal: '-'}} <span>SAR</span></p>
@@ -164,7 +164,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Order Status</p>
+                <p>{{'order.order_status'|translate}}</p>
               </div>
               <div class="details-desc status-details"
                 [style.backgroundColor]="getColorById(orderDetails.orderStatusEnum)">
@@ -179,14 +179,14 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="table-container">
           <div class="title-section mb-4">
-            <p>Order's Providers</p>
+            <p>{{'order.order_provider'|translate}}</p>
             <span class="d-flex align-center" style="gap: 10px;">
-              <div class="add-provider" pTooltip="Add New Technical" tooltipPosition="top" (click)="openTechnicalModal()">
-               Technical
+              <div class="add-provider" pTooltip="{{'order.tool_tip.add_tech'|translate}}" tooltipPosition="top" (click)="openTechnicalModal()">
+                <p>{{'order.technical'|translate}}</p>
                 <i class="pi pi-plus"></i>
               </div>
-              <div class="add-provider driver" pTooltip="Add New Driver" tooltipPosition="top" (click)="openDriverModal()">
-                Driver
+              <div class="add-provider driver" pTooltip="{{'order.tool_tip.add_driver'|translate}}" tooltipPosition="top" (click)="openDriverModal()">
+                <p>{{'order.driver'|translate}}</p>
                 <i class="pi pi-plus"></i>
               </div>
             </span>
@@ -194,10 +194,10 @@
           <table class="p-datatable">
             <thead class="p-datatable-thead">
               <tr>
-                <th>Technical ID</th>
-                <th>Technical Name</th>
-                <th>Technical Type</th>
-                <th>Edit Technical</th>
+                <th>{{'order.table.tech_id'|translate}}</th>
+                <th>{{'order.table.tech_Name'|translate}}</th>
+                <th>{{'order.table.tech_type'|translate}}</th>
+                <th>{{'order.table.edit_tech'|translate}}</th>
               </tr>
             </thead>
             <tbody class="p-datatable-tbody">
@@ -218,18 +218,18 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="table-container">
           <div class="title-section mb-4">
-            <p>Order's Addtional Item</p>
-            <div class="add-provider" pTooltip="Add New Addtional Item" tooltipPosition="top" (click)="openAdditinaolModal()">
+            <p class="c-white">{{'order.order_add_item'|translate}}</p>
+            <div class="add-provider" pTooltip="{{'order.tool_tip.add_item'|translate}}" tooltipPosition="top" (click)="openAdditinaolModal()">
               <i class="pi pi-plus"></i>
             </div>
           </div>
           <table class="p-datatable">
             <thead class="p-datatable-thead">
               <tr>
-                <th>Additinal ID</th>
-                <th>Description</th>
-                <th>Additinal Price</th>
-                <th>Edit</th>
+                <th>{{'order.table.add_id'|translate}}</th>
+                <th>{{'order.table.desc'|translate}}</th>
+                <th>{{'order.table.add_price'|translate}}</th>
+                <th>{{'order.table.edit'|translate}}</th>
               </tr>
             </thead>
             <tbody class="p-datatable-tbody">
@@ -252,7 +252,7 @@
       <div class="col-lg-12">
         <div class="table-container">
           <div class="title-section">
-            <p>Order Image</p>
+            <p>{{'order.order_img'|translate}}</p>
           </div>
 
           <div class="order-image-desc">
@@ -261,7 +261,7 @@
             </ng-container>
             <ng-container *ngIf="this.imageList.length == 0">
               <img src="assets/images/empty-state.png" alt="empty state">
-              <p>No Image Available</p>
+              <p>{{'order.no_image'|translate}}</p>
             </ng-container>
           </div>
         </div>
@@ -270,7 +270,7 @@
 
     <div class="order-time-schedule-section">
       <div class="title-section">
-        <p>Order Time Schedule</p>
+        <p>{{'order.item_schedule'|translate}}</p>
       </div>
       <div class="card-container row">
         <ng-container *ngFor="let item of orderTimeSchedule">
@@ -322,7 +322,7 @@
   <div class="content" style="width: 300px;">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
       <div class="form-group mb-2">
-        <label for="price">Price</label>
+        <label for="price">{{'order.form.price'|translate}}</label>
         <input
         type="number"
         id="additionalPrice"
@@ -334,13 +334,13 @@
         class="form-control"
         />
         <div *ngIf="additionalPrice.invalid && (additionalPrice.dirty || additionalPrice.touched)" class="error">
-          <div *ngIf="additionalPrice.errors?.['required']">Price is required.</div>
-          <div *ngIf="additionalPrice.errors?.['min']">Price must be at least 1 SAR.</div>
+          <div *ngIf="additionalPrice.errors?.['required']">{{'order.form.price_required'|translate}}</div>
+          <div *ngIf="additionalPrice.errors?.['min']">{{'order.form.price_atleast'|translate}}</div>
         </div>
       </div>
 
       <div class="form-group mb-4">
-        <label for="note">Note</label>
+        <label for="note">{{'order.form.note'|translate}}</label>
         <textarea
         id="note"
         name="note"
@@ -350,12 +350,12 @@
         class="form-control"
         ></textarea>
         <div *ngIf="note.invalid && (note.dirty || note.touched)" class="error">
-          <div *ngIf="note.errors?.['required']">Note is required.</div>
+          <div *ngIf="note.errors?.['required']">{{'order.form.note_required'|translate}}</div>
         </div>
       </div>
       <!-- Submit Button -->
       <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-        Submit
+       {{'shared.submit'|translate}}
       </button>
     </form>
   </div>

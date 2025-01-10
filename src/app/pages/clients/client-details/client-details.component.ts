@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -19,20 +19,27 @@ import { CheckBoxComponent } from "../../../components/check-box/check-box.compo
 import { DatePickerComponent } from "../../../components/date-picker/date-picker.component";
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
+
+const global_PageName = 'client.pageName';
+
 @Component({
   selector: 'app-client-details',
   standalone: true,
-  imports: [ReactiveFormsModule,EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+  imports: [ReactiveFormsModule,TranslatePipe,TitleCasePipe ,EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './client-details.component.html',
   styleUrl: './client-details.component.scss'
 })
 export class ClientDetailsComponent {
-
+  pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   userTypeList = userType
+    selectedLang: any;
+    languageService = inject(LanguageService);
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
     firstName: new FormControl('', {
@@ -146,22 +153,19 @@ export class ClientDetailsComponent {
   }
 
   ngOnInit() {
-    if (this.tyepMode() !== 'add')
+    if (this.tyepMode() != 'add')
       this.getClientsDetails()
   }
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit Client';
-      return 'edit'
-    } else if (url.includes('view')) {
-      this.bredCrumb.crumbs[1].label = 'View Client';
-      return 'view'
-    } else {
-      this.bredCrumb.crumbs[1].label = 'Add Client';
-      return 'add'
-    }
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+
+    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
+    return result
   }
 
 

@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -14,22 +14,28 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { userType } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
+
+const global_PageName = 'district.pageName';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, NgIf,SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TitleCasePipe, TranslatePipe,ButtonModule, NgIf,SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
 
 export class FagsDetailsComponent implements OnInit {
-
+pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   userTypeList=userType
+ selectedLang: any;
+  languageService = inject(LanguageService); 
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
     enTitle: new FormControl('', {
@@ -79,22 +85,20 @@ export class FagsDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.tyepMode() !== 'add')
-      this.getFaqsDetails()
+    this.pageName.set(global_PageName)
+    if (this.tyepMode() !== 'Add')
+      this.getFaqsDetails()   
   }
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit FAQs';
-      return 'edit'
-    } else if (url.includes('view')) {
-      this.bredCrumb.crumbs[1].label = 'View FAQs';
-      return 'view'
-    } else {
-      this.bredCrumb.crumbs[1].label = 'Add FAQs';
-      return 'add'
-    }
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+
+    this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
+    return result
   }
 
   getFaqsDetails() {

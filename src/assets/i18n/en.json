@@ -1,12 +1,5 @@
 {
   "GENERAL": "General",
-  
-  "faqs":{
-    "validation_english_title":"title is only english"
-  },
-  "pkg":{
-   "visit_number_isMax":"Visit Number should be less than or equal"
-  },
   "validation_message":{
     "minlength_validation":"length should be more than",
     "maxlength_validation":"length should be more less than",
@@ -36,9 +29,52 @@
     "add_new":"Add New",
     "filter":"Filter",
     "enter":"Enter",
+    "select":"Select",
     "view_more":"View More",
     "active":"active",
-    "not_active":"deactive"
+    "not_active":"deactive",
+    "upload_img":"Upload Image",
+    "uploaded_img":">Uploaded Image",
+    "img_required":"Image upload is required."
+  },
+  "login":{
+     "welcome":"Welcome Back!",
+     "sign_to_dashboard":"Sign In To Access Dashboard",
+     "userName":"User Name",
+     "Username_required":"Username is required",
+      "password":"Password",
+     "password_required":"Password is required",
+     "btn_login":"login",
+     "forget_password":"Forget Password"
+  },
+  "client":{
+    "pageName":"Clients",
+    "pageName_filter":"Filter Client",
+    "pageName_Add_crumb":"Add Client",
+    "pageName_Edit_crumb":"Edit Client",
+    "pageName_View_crumb":"View Client",
+    "form":{
+      "firstName":"First Name",
+      "lastName":"Last Name",
+      "fullName":"Full Nameee",
+      "userName":"User Name",
+      "mobileNumber":"Mobile Number",
+      "email":"Email",
+      "password":"Password",
+      "confirmPassword":"Confirm Password",
+      "pinCode":"Pin Code",
+      "gender":"Gender",
+      "date":"Date of Birth",
+      "status":"Client Status",
+      "isActive":"Is Active",
+      "select_status":"Select Status"
+    }
+  },
+  "faqs":{
+    "validation_english_title":"title is only english"
+  },
+  "pkg":{
+   "visit_number_isMax":"Visit Number should be less than or equal"
   },
   "dashboard":{
     "pageName":"Dashboard",
@@ -200,9 +236,59 @@
       "specialOrderId":"Order Id",
       "amount":"amount",
       "media":"Media",
-      "clientId":"}lient",
+      "clientId":"client",
+      "client":"Client",
       "specialOrderEnum":"Special Order",
       "specialOrderStatusEnum":"Status"
+    }
+  },
+  "order":{
+    "pageName":"Orders",
+    "pageName_filter":"Filter  Order",
+    "pageName_Add_crumb":"Add  Order",
+    "pageName_Edit_crumb":"Edit  Order",
+    "pageName_View_crumb":"View  Order",
+    "client_details":"Client Details",
+    "order_details":"Order Details",
+    "order_status":"Order status",
+    "order_id":"Order Id",
+    "order_add_item":"Order's Addtional Item",
+    "order_img":"Order Image",
+    "payment":"payment Way",
+    "pkg":"Package",
+    "copone":"Copone",
+    "location":"Location",
+    "next_visit":"Next Visit Date",
+    "total_price":"Total Price",
+    "order_provider":"Order's Providers",
+    "technical":"Technical",
+    "driver":"Driver",
+    "no_image":"No Image Available",
+    "item_schedule":"Order Time Schedule",
+   "tool_tip":{
+     "add_tech":"Add New Technical",
+     "add_driver":"Add New Driver",
+     "add_item":"Add New Addtional Item"
+   },
+    "table":{
+       "tech_id":"Technical ID",
+       "tech_Name":"Technical Name",
+       "tech_type":"Technical Type",
+       "edit_tech":"Edit Technical",
+       "add_id":"Additinal ID",
+       "add_price":"Additinal Price",
+       "desc":"Description",
+       "edit":"Edit"
+    },
+    "form":{
+      "email":"Email",
+      "mobile":"Mobile",
+      "status":"Status",
+      "note":"Note",
+      "note_required":"Note is required.",
+      "price":"Price",
+      "price_required":"Price is required.",
+      "price_atleast":"Price must be at least 1 SAR."
     }
   },
   "profile":{
@@ -210,6 +296,13 @@
     "pageName_Edit_crumb":"Edit Profile",
     "pageName_View_crumb":"View Profile"
 
+  },
+  "working_hours":{
+    "pageName":"Working Hours",
+    "title":"Working Hours List",
+    "add_new":"Add New",
+    "start":"Start Date",
+    "end":"End Date"
   }
 
 }

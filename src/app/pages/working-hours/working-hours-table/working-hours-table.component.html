@@ -2,7 +2,7 @@
   <div class="content">
     <div class="title-bredcrumb-section">
       <div class="title">
-        <h2>Working Hours List</h2>
+        <h2>{{'working_hours.title'|translate}}</h2>
       </div>
       <div class="breadcrumb">
         <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,7 +10,7 @@
     </div>
     <div class="details-container">
       <div class="action-filter">
-        <a routerLink="/working_hours/add"> + Add New</a>
+        <a routerLink="/working_hours/add"> + {{'working_hours.add_new'|translate}}</a>
       </div>
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="workingHoursList" [showrecordIndex]="true" [actions]="tableActions"></app-table>

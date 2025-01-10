@@ -3,28 +3,28 @@
     <div class="form-section">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="details d-flex flex-col">
-          <h2>Welcome Back!</h2>
-          <p>Sign In To Access Dashboard</p>
+          <h2>{{'login.welcome'|translate}}</h2>
+          <p>{{'login.sign_to_dashboard'|translate}}</p>
         </div>
         <div class="d-flex flex-col gap-2">
-          <label  for="email">Username</label>
+          <label  for="email">{{'login.Username'|translate}}</label>
           <input pInputText id="userName" formControlName="userName" />
           <small *ngIf="loginForm.get('userName')?.hasError('required') && loginForm.get('userName')?.touched">
-            Username is required
+            {{'login.Username_required'|translate}}  
           </small>
         </div>
         <div class="d-flex flex-col gap-2 ">
-          <label for="password">Password</label>
+          <label for="password"> {{'login.password'|translate}}  </label>
           <p-password formControlName="password" [toggleMask]="true" [feedback]="false"></p-password>
           <small *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-            Password is required
+            {{'login.password_required'|translate}}
           </small>
         </div>
         <div class="actions">
-          <button type="submit" class="send-btn">Login
+          <button type="submit" class="send-btn"> {{'login.btn_login'|translate}}
             <span class="pi pi-arrow-right"></span>
           </button>
-          <a routerLink='/auth/forget_password'>Forget Password</a>
+          <a routerLink='/auth/forget_password'>{{'login.forget_password'|translate}}</a>
         </div>
       </form>
     </div>

@@ -11,6 +11,7 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const global_pageName = 'Client';
 const global_API_Name = 'Client';
@@ -27,6 +28,7 @@ const global_API_block = global_API_Name + '/Delete?userId';
   imports: [
     TableComponent,
     TitleCasePipe,
+    TranslatePipe,
     PaginationComponent,
     FormsModule,
     DrawerComponent,
