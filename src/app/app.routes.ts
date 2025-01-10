@@ -59,6 +59,7 @@ import { DistrictDetailsComponent } from './pages/district/district-details/dist
 import { AdminTableComponent } from './pages/admin/admin-table/admin-table.component';
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
 import { EditProfileComponent } from './pages/profile/edit-profile/edit-profile.component';
+import { AddNotificationsComponent } from './pages/add-notifications/add-notifications.component';
 
 export const routes: Routes = [
   {
@@ -123,6 +124,8 @@ export const routes: Routes = [
            { path: 'admin/add', component: AdminDetailsComponent },
            { path: 'admin/edit/:id', component: AdminDetailsComponent },
            { path: 'admin/view/:id', component: AdminDetailsComponent },
+
+           { path: 'add_notification', component: AddNotificationsComponent },
 
         ]
       },

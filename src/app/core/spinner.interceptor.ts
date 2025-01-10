@@ -6,8 +6,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
   const spinner = inject(NgxSpinnerService);
 
-  // Show the spinner before handling the request
-  spinner.show();
+  // Check if the URL contains 'Notification/GetNotifications'
+  if (!req.url.includes('Notification/GetNotifications')) {
+    // Show the spinner only if the URL does not contain 'Notification/GetNotifications'
+    spinner.show();
+  }
 
   return next(req).pipe(
     catchError((error) => {
@@ -17,7 +20,9 @@ export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
     }),
     finalize(() => {
       // Hide the spinner once the request is completed (success or error)
-      spinner.hide();
+      if (!req.url.includes('Notification/GetNotifications')) {
+        spinner.hide();
+      }
     })
   );
 };

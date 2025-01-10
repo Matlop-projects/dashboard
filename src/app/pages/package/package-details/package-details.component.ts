@@ -17,6 +17,8 @@ import { CheckBoxComponent } from '../../../components/check-box/check-box.compo
 import { packageHourVistList, PackageTypeList } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
+import { parseISO } from 'date-fns';
+
 
 
 const global_PageName = 'package';
@@ -180,27 +182,26 @@ export class PackageDetailsComponent {
         this.workingTimeList=[]
         res.data.map((item:any) => {
           this.workingTimeList.push({
-             name:this.convertToHours(item.startDate)+' - '+this.convertToHours(item.endDate) ,
+             name:this.convertToHours(parseISO(item.startDate))+' - '+this.convertToHours(parseISO(item.endDate)) ,
              code:item.workTimeId,
           })
         })
+        console.log(this.workingTimeList);
        }
     })
   }
 
-  convertToHours(timestamp:string){
+  convertToHours(timestamp: any) {
     const date: Date = new Date(timestamp);
-
-    let hours: number = date.getUTCHours();
-    const minutes: number = date.getUTCMinutes();
+    let hours: number = date.getHours();  // Use local time (getHours() instead of getUTCHours())
+    const minutes: number = date.getMinutes();
     const ampm: string = hours >= 12 ? 'PM' : 'AM';
-    
-    hours = hours % 12 || 12; // 12-hour format, 0 should be 12
-    
-    // Format the time as hh:mm AM/PM
+    hours = hours % 12 || 12; // Convert to 12-hour format
     const formattedTime: string = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-    return formattedTime
-  }
+    return formattedTime;
+}
+
+
   getAllContract(){
     this.ApiService.post('ContractType/GetAllContractTypeList',{}).subscribe((res:any)=>{
       if(res.data){
@@ -218,18 +219,18 @@ export class PackageDetailsComponent {
     let visitNumberControl =this.form.get('visitNumber');
     visitNumberControl?.reset()
      const maxNumber=[0,1,5,20,60,120,240]
-    visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[item],this.languageService.translate('pkg.visit_number_isMax'))]); 
-   visitNumberControl?.updateValueAndValidity(); 
-    
+    visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[item],this.languageService.translate('pkg.visit_number_isMax'))]);
+   visitNumberControl?.updateValueAndValidity();
+
   }
   onVisitNumberChange(value:string){
     if(this.form.value.typeOfPackage && this.tyepMode()=='Edit'){
       let visitNumberControl =this.form.get('visitNumber');
       const maxNumber=[0,1,5,20,60,120,240]
-     visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[this.form.value.typeOfPackage],this.languageService.translate('pkg.visit_number_isMax'))]); 
-    visitNumberControl?.updateValueAndValidity(); 
+     visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[this.form.value.typeOfPackage],this.languageService.translate('pkg.visit_number_isMax'))]);
+    visitNumberControl?.updateValueAndValidity();
     }
-  
+
   }
 
   tyepMode() {
@@ -260,7 +261,7 @@ export class PackageDetailsComponent {
           packageWorkTimes:pkWorkingTime
         })
       }
-        
+
     })
   }
 
@@ -268,7 +269,7 @@ export class PackageDetailsComponent {
     let workingTimeId:any=[]
     let workTimePayload:any=[]
     workingTimeId=this.form.value.packageWorkTimes
-   
+
     if (this.tyepMode() == 'Add'){
       workingTimeId.map((item:any) => {
         workTimePayload.push({
@@ -295,7 +296,7 @@ export class PackageDetailsComponent {
       })
         this.API_forEditItem(this.form.value)
     }
-    
+
   }
 
   navigateToPageTable() {
