@@ -63,9 +63,9 @@ export class SettingsComponent {
         routerLink: '/settings/admin'
       },
       {
-        label: 'Features',
-        icon: 'pi pi-star',
-        // routerLink:'/settings/faqs'
+        label: 'Add Notification',
+        icon: 'pi pi-bell',
+        routerLink:'/settings/add_notification'
       }
     ]
   }

@@ -8,9 +8,9 @@ import { LanguageService } from '../../services/language.service';
 import { ToasterService } from '../../services/toaster.service';
 import { DOCUMENT, NgFor } from '@angular/common';
 import { PrimeNG } from 'primeng/config';
-import { Popover } from 'primeng/popover';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputTextModule } from 'primeng/inputtext';
+import { NotificationsComponent } from "../notifications/notifications.component";
 
 
 
@@ -22,7 +22,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ TranslateModule , RouterModule , AutoComplete, FormsModule , Select ,Popover, InputGroup, InputTextModule , NgFor],
+  imports: [TranslateModule, RouterModule, AutoComplete, FormsModule, Select, NotificationsComponent , InputGroup, InputTextModule, NgFor, NotificationsComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

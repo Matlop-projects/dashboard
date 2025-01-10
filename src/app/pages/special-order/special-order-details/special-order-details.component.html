@@ -135,6 +135,14 @@
                 <p>{{orderDetails.specialOrderEnum == 1 ? 'Emergency' : 'Special'}}</p>
               </div>
             </div>
+            <div class="details" *ngIf="orderDetails.specialOrderEnum != 1">
+              <div class="title">
+                <p>Special Order Date</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderDetails.specialOrderDate | date}}</p>
+              </div>
+            </div>
             <div class="details">
               <div class="title">
                 <p>Order Status</p>
