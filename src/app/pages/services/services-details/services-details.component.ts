@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
@@ -16,6 +16,7 @@ import { EditorComponent } from '../../../components/editor/editor.component';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-services-details',
@@ -25,6 +26,8 @@ import { environment } from '../../../../environments/environment';
     ReactiveFormsModule,
     ButtonModule,
     NgIf,
+    TranslatePipe,
+    TitleCasePipe,
     InputTextComponent,
     DialogComponent,
     CheckBoxComponent,
@@ -35,12 +38,14 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './services-details.component.scss'
 })
 export class ServicesDetailsComponent {
-
+  pageName = signal<string>('');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+    private translateService = inject(TranslateService)
+  
   form = new FormGroup({
     nameEn: new FormControl('', {
       validators: [
@@ -122,23 +127,21 @@ export class ServicesDetailsComponent {
   }
 
   ngOnInit() {
+    this.pageName.set('services.pageName')
     console.log(this.router.url)
-    if (this.tyepMode() !== 'add')
+    if (this.tyepMode() !== 'Add')
       this.getServiceDetails()
   }
 
   tyepMode() {
     const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit Service';
-      return 'edit'
-    } else if (url.includes('view')) {
-      this.bredCrumb.crumbs[1].label = 'View Service';
-      return 'view'
-    } else {
-      this.bredCrumb.crumbs[1].label = 'Add Service';
-      return 'add'
-    }
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+
+    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
+    return result
   }
 
   getServiceDetails() {

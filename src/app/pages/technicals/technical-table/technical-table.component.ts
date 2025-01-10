@@ -11,8 +11,9 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='Technical';
+const global_pageName='tech.pageName';
 const global_API_Name='Technical';
 const global_router_add_url_in_Table ='/technical/add';
 const global_router_view_url ='/technical/view';
@@ -27,6 +28,7 @@ const global_API_block=global_API_Name+'/Delete?userId';
   imports: [
     TableComponent,
     TitleCasePipe,
+    TranslatePipe,
     PaginationComponent,
     FormsModule,
     DrawerComponent,

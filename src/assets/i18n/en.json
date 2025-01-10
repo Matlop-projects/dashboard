@@ -303,6 +303,48 @@
     "add_new":"Add New",
     "start":"Start Date",
     "end":"End Date"
+  },
+  "tech":{
+    "pageName":"Technial",
+    "pageName_filter":"Filter Technical",
+    "pageName_Add_crumb":"Add Technical",
+    "pageName_Edit_crumb":"Edit Technical",
+    "pageName_View_crumb":"View Technical",
+    "form":{
+      "fullName":"Full Name",
+      "userName":"User Name",
+      "email":"email",
+      "client_status":"Client Status",
+      "firstName":"First Name",
+      "lastName":"Last Name",
+      "mobileNumber":"Mobile Number",
+      "pinCode":"Pin Code",
+      "password":"Password",
+      "confirmPassword":"Confirm Password",
+      "gender":"Gender",
+      "dateOfBirth":"Date of Birth",
+      "tech_type":"Technical Type",
+      "tech_specialist":"Technical Specialist",
+      "isActive":"Is Active"
+    }
+  },
+  "services":{
+    "pageName":"Services",
+    "pageName_filter":"Filter Services",
+    "pageName_Add_crumb":"Add Service",
+    "pageName_Edit_crumb":"Edit Service",
+    "pageName_View_crumb":"View Service",
+    "form":{
+      "title_en":"English Title",
+      "title_ar":"Arabic Title",
+      "name_en":"Name (en)",
+      "name_ar":"Name (ar)",
+      "desc_en":"Description (en)",
+      "desc_ar":"Description (ar)",
+      "no_tech":"Number of Technicals",
+      "priority":"Priority of View",
+      "isActive":"Is Active"
+    }
   }
 
 }

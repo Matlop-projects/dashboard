@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -20,21 +20,23 @@ import { DatePickerComponent } from "../../../components/date-picker/date-picker
 import { LanguageService } from '../../../services/language.service';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-technical-details',
   standalone: true,
   imports: [ReactiveFormsModule, 
      EditModeImageComponent,
-    ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+    ButtonModule, NgIf,TranslatePipe, SelectComponent,TitleCasePipe, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './technical-details.component.html',
   styleUrl: './technical-details.component.scss'
 })
 export class TechnicalDetailsComponent {
-
+  pageName = signal<string>('');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
+    private translateService = inject(TranslateService)
   languageService = inject(LanguageService);
   selectedLang: any;
 
@@ -172,6 +174,7 @@ export class TechnicalDetailsComponent {
   }
 
   ngOnInit() {
+    this.pageName.set('tech.pageName')
     this.getTechnicalSpecialist();
     this.selectedLang = this.languageService.translationService.currentLang;
     if (this.tyepMode() !== 'add') {
@@ -197,19 +200,18 @@ onConfirmPasswordChanged(value:string){
     ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
     ctrlConfirm.updateValueAndValidity()
 }
-  tyepMode() {
-    const url = this.router.url;
-    if (url.includes('edit')) {
-      this.bredCrumb.crumbs[1].label = 'Edit Technical';
-      return 'edit'
-    } else if (url.includes('view')) {
-      this.bredCrumb.crumbs[1].label = 'View Technical';
-      return 'view'
-    } else {
-      this.bredCrumb.crumbs[1].label = 'Add Technical';
-      return 'add'
-    }
-  }
+ 
+tyepMode() {
+  const url = this.router.url;
+  let result = 'Add'
+  if (url.includes('edit')) result = 'Edit'
+  else if (url.includes('view')) result = 'View'
+  else result = 'Add'
+
+  this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
+  return result
+}
+
 
 
   getTechnicalsDetails() {

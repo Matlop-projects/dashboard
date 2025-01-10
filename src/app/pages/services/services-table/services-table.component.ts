@@ -11,6 +11,7 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const global_pageName = 'Service'
 const global_router_add_url_in_Table = '/service/add'
@@ -22,7 +23,7 @@ const global_API_delete = global_pageName + '/DeleteService?id'
 @Component({
   selector: 'app-services-table',
   standalone: true,
-  imports: [TableComponent, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TranslatePipe, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './services-table.component.html',
   styleUrl: './services-table.component.scss'
 })
