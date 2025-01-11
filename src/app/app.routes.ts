@@ -79,14 +79,14 @@ export const routes: Routes = [
   {
     path: '',
     component: HomeLayoutComponent,
-    canActivate: [],
+    canActivate: [authGuard], // Applying authGuard to the home layout
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'working_hours', component: WorkingHoursTableComponent },
       { path: 'working_hours/add', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
       { path: 'working_hours/view/:id', component: WorkingHoursDetailsComponent },
-      { path: 'settings', component: SettingsComponent ,
+      { path: 'settings', component: SettingsComponent, canActivate: [authGuard],  // Apply authGuard to settings
         children: [
           { path: 'faqs', component: FaqsTableComponent },
           { path: 'faqs/add', component: FagsDetailsComponent },
@@ -103,35 +103,33 @@ export const routes: Routes = [
           { path: 'privacy_policy/edit/:id', component: PrivacyPolicyDetailsComponent },
           { path: 'privacy_policy/view/:id', component: PrivacyPolicyDetailsComponent },
 
-           {path:'social_media',component:SocialMediaUpdateComponent},
+          {path:'social_media',component:SocialMediaUpdateComponent},
 
-           { path: 'slider', component: SliderTableComponent },
-           { path: 'slider/add', component: SliderDetailsComponent },
-           { path: 'slider/edit/:id', component: SliderDetailsComponent },
-           { path: 'slider/view/:id', component: SliderDetailsComponent },
+          { path: 'slider', component: SliderTableComponent },
+          { path: 'slider/add', component: SliderDetailsComponent },
+          { path: 'slider/edit/:id', component: SliderDetailsComponent },
+          { path: 'slider/view/:id', component: SliderDetailsComponent },
 
-           { path: 'roles', component: RoleTableComponent },
-           { path: 'role/add', component: RoleDetailsComponent },
-           { path: 'role/edit/:id', component: RoleDetailsComponent },
-           { path: 'role/view/:id', component: RoleDetailsComponent },
+          { path: 'roles', component: RoleTableComponent },
+          { path: 'role/add', component: RoleDetailsComponent },
+          { path: 'role/edit/:id', component: RoleDetailsComponent },
+          { path: 'role/view/:id', component: RoleDetailsComponent },
 
-           { path: 'district', component: DistrictTableComponent },
-           { path: 'district/add', component: DistrictDetailsComponent },
-           { path: 'district/edit/:id', component: DistrictDetailsComponent },
-           { path: 'district/view/:id', component: DistrictDetailsComponent },
+          { path: 'district', component: DistrictTableComponent },
+          { path: 'district/add', component: DistrictDetailsComponent },
+          { path: 'district/edit/:id', component: DistrictDetailsComponent },
+          { path: 'district/view/:id', component: DistrictDetailsComponent },
 
-           { path: 'admin', component: AdminTableComponent },
-           { path: 'admin/add', component: AdminDetailsComponent },
-           { path: 'admin/edit/:id', component: AdminDetailsComponent },
-           { path: 'admin/view/:id', component: AdminDetailsComponent },
+          { path: 'admin', component: AdminTableComponent },
+          { path: 'admin/add', component: AdminDetailsComponent },
+          { path: 'admin/edit/:id', component: AdminDetailsComponent },
+          { path: 'admin/view/:id', component: AdminDetailsComponent },
 
-           { path: 'add_notification', component: AddNotificationsComponent },
-
+          { path: 'add_notification', component: AddNotificationsComponent },
         ]
       },
       { path: 'profile', component: ProfileComponent },
       { path: 'profile/edit/:id', component: EditProfileComponent },
-
 
       { path: 'services', component: ServicesTableComponent },
       { path: 'service/add', component: ServicesDetailsComponent },
@@ -209,10 +207,9 @@ export const routes: Routes = [
       { path: 'about-us/edit/:id', component: AboutUsDetailsComponent },
 
       { path: 'special-order', component: SpecialOrderTableComponent },
-      // { path: 'special-order/add', component: SpecialOrderDetailsComponent },
       { path: 'special-order/view/:id', component: SpecialOrderDetailsComponent },
       { path: 'special-order/edit/:id', component: SpecialOrderDetailsComponent },
     ]
   },
-  {path: '**', component: NotFoundComponent}
+  { path: '**', component: NotFoundComponent }
 ];

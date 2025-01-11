@@ -64,6 +64,13 @@ export class NavbarComponent {
       ? document.getElementsByTagName('html')[0].setAttribute('lang', 'en')
       : document.getElementsByTagName('html')[0].setAttribute('lang', 'ar');
 
+      document.documentElement.setAttribute('lang', this.selectedLang);
+      if (this.selectedLang === 'ar') {
+        document.documentElement.classList.add('arabic');
+      } else {
+        document.documentElement.classList.remove('arabic');
+      }
+
   }
 
   logout() {

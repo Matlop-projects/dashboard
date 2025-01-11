@@ -59,13 +59,6 @@ export class SpecialOrderTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
     ]
   }
 
@@ -97,33 +90,49 @@ export class SpecialOrderTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName)
     this.API_getAll();
-    this.getAllClients()
+    this.getAllClients();
+    this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
-      this.getAllClients()
+      this.getAllClients();
+      this.getBreadCrumb();
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'specialOrderId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'amount', header: 'Amount', type: EType.text, show: true },
-      { keyName: 'clientId', header: 'Client Id', type: EType.text, show: true },
-      { keyName: 'specialOrderName', header: 'Order Type', type: EType.text, show: true },
-      { keyName: 'specialOrderStatusName', header: 'Status', type: EType.specialOrderStatus, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-
-    ]
-    this.columnsSmallTable = [
-      { keyName: 'specialOrderId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'amount', header: 'Amount', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'clientId', header: 'Client Id', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'specialOrderStatusName', header: 'Status', type: EType.specialOrderStatus, show: true, showAs: ETableShow.content },
-
+      { keyName: 'specialOrderId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'amount', header: this.languageService.translate('special_order.form.amount'), type: EType.text, show: true },
+      { keyName: 'clientId', header: this.languageService.translate('special_order.form.clientId'), type: EType.text, show: true },
+      { keyName: 'specialOrderName', header: this.languageService.translate('special_order.form.specialOrderEnum'), type: EType.text, show: true },
+      { keyName: 'specialOrderStatusName', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
+
+    this.columnsSmallTable = [
+      { keyName: 'specialOrderId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'amount', header: this.languageService.translate('special_order.form.amount'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'clientId', header: this.languageService.translate('special_order.form.clientId'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'specialOrderStatusName', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, showAs: ETableShow.content },
+    ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
   openFilter() {

@@ -46,7 +46,7 @@
   <ng-container *ngIf="type=='card'">
     <p-card class="as-card">
       <div class="d-flex justify-content-between">
-        <span class="gray">Actions</span>
+        <span class="gray">{{'client.form.action' | translate}}</span>
         <div class="d-flex justify-content-end actions-icon actions-icon-in-small-table" *ngIf="actions">
           <div *ngFor="let action of actions">
             <div class="" (click)="onAction(action,record,$event)">
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-     
+
       <hr *ngIf="actions.length!==0">
       <div class="card-content">
         <div *ngFor="let item of sortedItemsIncolsHeaderSmallTable">
@@ -67,11 +67,11 @@
               <span *ngIf="item.type !==EType.status">{{ record[item.keyName]}}</span>
               <span *ngIf="item.type ==EType.status">
                 <span class="active" *ngIf="record[item.keyName]==true">
-                  <span class="pi pi-circle-on" style="color:green;font-size: .5rem"></span> 
+                  <span class="pi pi-circle-on" style="color:green;font-size: .5rem"></span>
                  {{'shared.active'|translate}}
                 </span>
                 <span class="not-active" *ngIf="record[item.keyName]==false">
-                  <span class="pi  pi-circle-off" style="font-size: .5rem"></span> 
+                  <span class="pi  pi-circle-off" style="font-size: .5rem"></span>
                   {{'shared.not_active'|translate}}
                 </span>
               </span>
