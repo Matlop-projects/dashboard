@@ -123,13 +123,7 @@ export class ClientDetailsComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'Client',
-      },
+     
     ]
   }
 
@@ -153,6 +147,11 @@ export class ClientDetailsComponent {
   }
 
   ngOnInit() {
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
     if (this.tyepMode() != 'Add')
       this.getClientsDetails()
   }
@@ -164,11 +163,23 @@ export class ClientDetailsComponent {
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
 
-    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
+    // this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
     return result
   }
 
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
 
   onPasswordChanged(value:any){
     this.form.get('confirmPassword')?.reset()

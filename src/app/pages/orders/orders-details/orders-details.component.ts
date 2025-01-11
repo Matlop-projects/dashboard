@@ -15,6 +15,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
 
 
 @Component({
@@ -39,8 +40,8 @@ export class OrdersDetailsComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      { label: 'Home', routerLink: '/dashboard' },
-      { label: 'Order' },
+      // { label: 'Home', routerLink: '/dashboard' },
+      // { label: 'Order' },
     ]
   };
 
@@ -108,15 +109,33 @@ export class OrdersDetailsComponent {
   driversList: any;
   driverValue: any;
   driverTitle = 'Add New Driver';
-
+ selectedLang: any;
+    languageService = inject(LanguageService);
   ngOnInit() {
     this.pageName.set('order.pageName')
+    this.getBreadCrumb();
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
     this.getOrderDetails();
     this.getTechnicalList();
     this.getOrderTimeSchedule();
     this.getDriversList();
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   get orderId(): number {
     const id = this.route.snapshot.params['id'];
     this.providerObject.orderId = +id;
@@ -130,7 +149,7 @@ export class OrdersDetailsComponent {
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
   
-    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
+    // this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
     return result
   }
 
