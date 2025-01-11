@@ -74,13 +74,7 @@ export class TechnicalTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
+
     ]
   }
 
@@ -117,29 +111,46 @@ export class TechnicalTableComponent {
     this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
-    this.displayTableCols(this.selectedLang)
+    this.displayTableCols(this.selectedLang);
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'userId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'firstName', header: 'First Name', type: EType.text, show: true },
-      { keyName: 'lastName', header: 'Last name', type: EType.text, show: true },
-      { keyName: 'username', header: 'Username', type: EType.text, show: true },
-      { keyName: 'email', header: 'Email', type: EType.text, show: true },
-      { keyName: 'isActive', header: 'Active', type: EType.boolean, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-
-    ]
-    this.columnsSmallTable = [
-      { keyName: 'fisrtName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'userId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Name (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'userId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'firstName', header: this.languageService.translate('tech.form.firstName'), type: EType.text, show: true },
+      { keyName: 'lastName', header: this.languageService.translate('tech.form.lastName'), type: EType.text, show: true },
+      { keyName: 'username', header: this.languageService.translate('tech.form.userName'), type: EType.text, show: true },
+      { keyName: 'email', header: this.languageService.translate('tech.form.email'), type: EType.text, show: true },
+      { keyName: 'isActive', header: this.languageService.translate('tech.form.isActive'), type: EType.boolean, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
+
+    this.columnsSmallTable = [
+      { keyName: 'fisrtName', header: this.languageService.translate('Id'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'userId', header: this.languageService.translate('tech.form.userName'), type: EType.id, show: false },
+      { keyName: currentLang === 'ar' ? 'arDescription' : 'enDescription', header: this.languageService.translate('tech.form.fullName'), type: EType.editor, showAs: ETableShow.content }
+    ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
   openFilter() {

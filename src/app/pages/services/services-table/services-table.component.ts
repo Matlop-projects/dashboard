@@ -55,13 +55,7 @@ export class ServicesTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
+
     ]
   }
 
@@ -89,30 +83,48 @@ export class ServicesTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName)
     this.API_getAll();
+    this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'serviceId', header: 'Id', type: EType.id, show: true },
-      { keyName: currentLang == 'ar' ? 'nameAr' : 'nameEn', header: 'Name', type: EType.text, show: true },
-      { keyName: 'numOfTechnicals', header: 'Number of Technical', type: EType.text, show: true },
-      { keyName: 'priorityView', header: 'Priority of View', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'serviceId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: currentLang === 'ar' ? 'nameAr' : 'nameEn', header: this.languageService.translate('services.form.name_en'), type: EType.text, show: true },
+      { keyName: 'numOfTechnicals', header: this.languageService.translate('services.form.no_tech'), type: EType.text, show: true },
+      { keyName: 'priorityView', header: this.languageService.translate('services.form.priority'), type: EType.text, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
     this.columnsSmallTable = [
-      { keyName: currentLang == 'ar' ? 'nameAr' : 'nameEn', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'serviceId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'numOfTechnicals', header: 'Number of Technical', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'priorityView', header: 'Priority of View', type: EType.text, showAs: ETableShow.content }
+      { keyName: currentLang === 'ar' ? 'nameAr' : 'nameEn', header: this.languageService.translate('services.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'serviceId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'numOfTechnicals', header: this.languageService.translate('services.form.no_tech'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'priorityView', header: this.languageService.translate('services.form.priority'), type: EType.text, showAs: ETableShow.content }
     ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
 

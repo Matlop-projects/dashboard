@@ -3,6 +3,9 @@
   "Add": "إضافة",
   "Edit": "تعديل",
   "View": "عرض",
+  "Home": "الرئيسية",
+  "Id": "الرقم",
+  "Action": "خيارات",
   "validation_message": {
     "minlength_validation": "يجب أن يكون الطول أكثر من",
     "maxlength_validation": "يجب أن يكون الطول أقل من",
@@ -105,7 +108,8 @@
       "date": "تاريخ الميلاد",
       "status": "حالة العميل",
       "isActive": "نشط",
-      "select_status": "اختر الحالة"
+      "select_status": "اختر الحالة",
+      "action":"خيارات"
     }
   },
   "faqs": {
@@ -336,7 +340,8 @@
       "note_required": "الملاحظة مطلوبة",
       "price": "السعر",
       "price_required": "السعر مطلوب",
-      "price_atleast": "يجب أن يكون السعر على الأقل 1 ريال"
+      "price_atleast": "يجب أن يكون السعر على الأقل 1 ريال",
+      "paymentWay": "طريقة الدفع"
     }
   },
   "profile": {
@@ -405,5 +410,17 @@
     "id": "المعرف",
     "message": "الرسالة",
     "created": "تاريخ الإنشاء"
+  },
+  "settings": {
+    "publicPages": "الصفحات العامة",
+    "faqs": "الأسئلة المتكررة",
+    "termsConditions": "الشروط والأحكام",
+    "privacyPolicy": "سياسة الخصوصية",
+    "socialMedia": "وسائل التواصل الاجتماعي",
+    "slider": "المنزلق",
+    "roles": "الأدوار",
+    "district": "المنطقة",
+    "admin": "الإدارة",
+    "addNotification": "إضافة إشعار"
   }
 }

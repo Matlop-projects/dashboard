@@ -1,12 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import "primeicons/primeicons.css";
+@import "./assets/scss/fonts";
 
 :root {
   --main-text-color: redF2F3E;
 }
 
+// // Outfit
+// @font-face {
+//   font-family: 'Bahij';
+//   src: url('./assets/fonts/');
+// }
+
+// @font-face {
+//   font-family: 'Bahij';
+//   src: url('../assets/fonts/Bahij/Janna-Regular.ttf');
+// }
+
 body {
+
+  font-family: 'Bahij', sans-serif;
+  background: #F2F3F5;
+  &:lang(ar) {
+    font-family: 'Bahij', sans-serif;
+  }
 
   p,
   span,
@@ -420,3 +438,10 @@ small {
 }
 
 /// end of the code of edit image
+
+
+.arabic body {
+  font-family: 'Bahij', sans-serif !important;
+}
+
+

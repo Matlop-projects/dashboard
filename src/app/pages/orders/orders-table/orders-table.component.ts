@@ -44,15 +44,7 @@ export class OrdersTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: [ ]
   }
 
   objectSearch = {
@@ -89,33 +81,50 @@ export class OrdersTableComponent {
     this.getAllClients()
     this.getAllPackages()
     this.selectedLang = this.languageService.translationService.currentLang;
-    this.displayTableCols(this.selectedLang)
+    this.displayTableCols(this.selectedLang);
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
-      this.getAllClients()
-      this.getAllPackages()
+      this.getAllClients();
+      this.getAllPackages();
+      this.getBreadCrumb();
     })
+}
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'orderId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'clientName', header: 'Client Name', type: EType.text, show: true },
-      { keyName: 'paymentWayName', header: 'Payment Way', type: EType.text, show: true },
-      { keyName: 'orderTotal', header: 'Order Total', type: EType.text, show: true },
-      { keyName: 'packageName', header: 'Package', type: EType.text, show: true },
-      { keyName: 'orderStatusName', header: 'Status', type: EType.orderStatus, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'orderId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'clientName', header: this.languageService.translate('order.form.client_name'), type: EType.text, show: true },
+      { keyName: 'paymentWayName', header: this.languageService.translate('order.form.paymentWay'), type: EType.text, show: true },
+      { keyName: 'orderTotal', header: this.languageService.translate('order.form.price'), type: EType.text, show: true },
+      { keyName: 'packageName', header: this.languageService.translate('order.form.pkg'), type: EType.text, show: true },
+      { keyName: 'orderStatusName', header: this.languageService.translate('order.form.order_status'), type: EType.orderStatus, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
     this.columnsSmallTable = [
-      { keyName: 'orderId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'clientName', header: 'Client Name', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'orderTotal', header: 'Order Total', type: EType.text, showAs: ETableShow.content }
+      { keyName: 'orderId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'clientName', header: this.languageService.translate('order.form.client_name'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'orderTotal', header: this.languageService.translate('order.form.price'), type: EType.text, showAs: ETableShow.content }
     ];
   }
+
 
   getAllClients(){
    this.ApiService.get('Client/GetAllActive').subscribe((res:any)=>{

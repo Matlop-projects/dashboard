@@ -19,17 +19,19 @@ export class ToasterService {
     this.messageService.add({
       severity: 'success',
       summary: 'Success',
-      detail: this.languageService.translate(message),
+      detail: message,
       life: 4000,
     });
   }
 
   errorToaster(message: string) {
+    console.log('Toaster called:', message);
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
-      detail: this.languageService.translate(message),
+      detail: message,
       life: 4000,
     });
+    console.log('MessageService added the error toast');
   }
 }
