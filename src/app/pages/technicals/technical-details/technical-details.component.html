@@ -33,17 +33,17 @@
             <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'tech.form.mobileNumber'"
               [control]="form.get('mobileNumber')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()=='add'">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()=='Add'">
             <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'tech.form.pinCode'"
               [control]="form.get('pinCode')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()=='add'">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()=='Add'">
             <app-input-text type="password"
             (onValueChange)="onPasswordChanged($event)" [showPasswordWeakness]="true"
              [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'tech.form.password'"
               [control]="form.get('password')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()=='add'">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()=='Add'">
             <app-input-text type="password"
             (onValueChange)="onConfirmPasswordChanged($event)"
             [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"

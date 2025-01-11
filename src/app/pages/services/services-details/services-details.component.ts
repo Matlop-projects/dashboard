@@ -159,7 +159,7 @@ export class ServicesDetailsComponent {
       ...this.form.value,
       serviceId: this.serviceId,
     }
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() === 'Add')
       this.addService(payload)
     else
       this.editService(payload)

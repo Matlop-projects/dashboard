@@ -266,7 +266,7 @@ tyepMode() {
   }
 
   onSubmit() {
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() === 'Add')
       this.addFQS( this.form.value)
     else{
       delete this.form.value.confirmPassword
