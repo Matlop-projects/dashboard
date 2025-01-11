@@ -429,6 +429,21 @@
     "district": "District",
     "admin": "Admin",
     "addNotification": "Add Notification"
+  },
+  "complaint":{
+    "pageName":"Complaint",
+      "list":"Complaint List",
+      "titel":"Complaint",
+      "pageName_filter":"Filter Complaint",
+      "pageName_Add_crumb":"Add Complaint",
+      "pageName_Edit_crumb":"Edit Complaint",
+      "pageName_View_crumb":"View Complaint",
+    "form":{
+      "name":"Name",
+      "email":"Email",
+      "phone":"Phone Number",
+      "message":"Message"
+    }
   }
 
 }

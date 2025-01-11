@@ -427,5 +427,21 @@
     "district": "المنطقة",
     "admin": "الإدارة",
     "addNotification": "إضافة إشعار"
+  },
+  "complaint": {
+  "pageName": "الشكاوى",
+  "list": "قائمة الشكاوى",
+  "titel": "الشكوي",
+  "pageName_filter": "تصفية الشكاوى",
+  "pageName_Add_crumb": "إضافة شكوى",
+  "pageName_Edit_crumb": "تعديل شكوى",
+  "pageName_View_crumb": "عرض شكوى",
+  "form": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "message": "الرسالة"
   }
+}
+
 }
