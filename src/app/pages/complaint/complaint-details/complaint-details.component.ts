@@ -94,7 +94,7 @@ export class ComplaintDetailsComponent {
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate('complaint.pageName_View_crumb'),
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
         },
       ]
     }
@@ -107,7 +107,7 @@ export class ComplaintDetailsComponent {
     else if (url.includes('view')) result= 'View'
     else result= 'Add'
 
-    this.bredCrumb.crumbs[1].label = result+' '+this.pageName();
+    // this.bredCrumb.crumbs[1].label = this.languageService.translate(this.pageName()+ '_'+result+'_crumb');
     return result
   }
 
