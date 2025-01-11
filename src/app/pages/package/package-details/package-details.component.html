@@ -2,7 +2,7 @@
     <div class="row">
         <div class="page-details mb-3">
             <div class="title mb-4">
-                <h2>{{tyepMode()|titlecase}} {{pageName()|titlecase}}</h2>
+                <h2>{{'pkg.list'|translate|titlecase}} </h2>
             </div>
             <div class="breadcrumb">
                 <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -15,23 +15,23 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Name (en)'" [control]="form.get('nameEn')">
+                            [label]="'pkg.form.nameEn'" [control]="form.get('nameEn')">
                         </app-input-text>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Name (ar)'" [control]="form.get('nameAr')">
+                            [label]="'pkg.form.nameAr'" [control]="form.get('nameAr')">
                         </app-input-text>
                     </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Provider Number'" [control]="form.get('providerNumber')">
+                            [label]="'pkg.form.provider_no'" [control]="form.get('providerNumber')">
                         </app-input-text>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                        [label]="'Visit Hours'" [control]="form.get('visitHours')" [list]="visitHoursList">
+                        [label]="'pkg.form.visit_hr'" [control]="form.get('visitHours')" [list]="visitHoursList">
                         </app-select>
                         <!-- <app-input-text [readOnly]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''" [disabled]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''"
                             [label]="'Visit Hours'" [control]="form.get('visitHours')">
@@ -39,53 +39,53 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="typeOfPackageList.length!==0">
                         <app-select  (onSelectedValue)="onTypepkgSelected($event)"  [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Type Of Package'" [placeholder]="form.get('typeOfPackage')?.value" [control]="form.get('typeOfPackage')" class="w-100"
+                            [label]="'pkg.form.type_pkg'" [placeholder]="form.get('typeOfPackage')?.value" [control]="form.get('typeOfPackage')" class="w-100"
                             [list]="typeOfPackageList">
                         </app-select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-input-text (onValueChange)="onVisitNumberChange($event)" [readOnly]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''" [disabled]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''"
-                            [label]="'Visit Number'" [control]="form.get('visitNumber')">
+                            [label]="'pkg.form.visit_no'" [control]="form.get('visitNumber')">
                         </app-input-text>
                     </div>
                 
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Contarct Type'" [placeholder]="form.get('contractTypeId')?.value" [control]="form.get('contractTypeId')" class="w-100"
+                            [label]="'pkg.form.contract_typ'" [placeholder]="form.get('contractTypeId')?.value" [control]="form.get('contractTypeId')" class="w-100"
                             [list]="contractTypeList">
                         </app-select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Price'" [control]="form.get('price')">
+                            [label]="'pkg.form.price'" [control]="form.get('price')">
                         </app-input-text>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-select [type]="'multi'" [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                            [label]="'Working Time'" [placeholder]="form.get('packageWorkTimes')?.value" [control]="form.get('packageWorkTimes')" class="w-100"
+                            [label]="'pkg.form.working_time'" [placeholder]="form.get('packageWorkTimes')?.value" [control]="form.get('packageWorkTimes')" class="w-100"
                             [list]="workingTimeList">
                         </app-select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
-                        <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'is Active'"
+                        <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'pkg.form.isActive'"
                             [control]="form.get('isActive')"></app-check-box>
                     </div>
                      <div class="row">
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                             <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                                [label]="'Description (en)'" [control]="form.get('descriptionEn')"></app-editor>
+                                [label]="'pkg.form.desc_en'" [control]="form.get('descriptionEn')"></app-editor>
                         </div>
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                             <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                                [label]="'Description (ar)'" [control]="form.get('descriptionAr')"></app-editor>
+                                [label]="'pkg.form.desc_ar'" [control]="form.get('descriptionAr')"></app-editor>
                         </div>
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                             <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                                [label]="'Instraction (en)'" [control]="form.get('enInstraction')"></app-editor>
+                                [label]="'pkg.form.instr_en'" [control]="form.get('enInstraction')"></app-editor>
                         </div>
                         <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                             <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-                                [label]="'Instraction (ar)'" [control]="form.get('arInstraction')"></app-editor>
+                                [label]="'pkg.form.instr_ar'" [control]="form.get('arInstraction')"></app-editor>
                         </div>
                      </div>
 

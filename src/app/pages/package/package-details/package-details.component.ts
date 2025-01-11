@@ -133,13 +133,13 @@ export class PackageDetailsComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
+      // {
+      //   label: 'Home',
+      //   routerLink: '/dashboard',
+      // },
+      // {
+      //   label: this.pageName(),
+      // },
     ]
   }
 
@@ -150,6 +150,7 @@ export class PackageDetailsComponent {
   }
 
   ngOnInit() {
+    this.getBreadCrumb()
     this.getAllContract()
     this.getAllWorkingTime()
     this.pageName.set(global_PageName)
@@ -165,9 +166,23 @@ export class PackageDetailsComponent {
       this.API_getItemDetails();
       this.getAllContract()
       this.getAllWorkingTime()
-
+    this.getBreadCrumb()
 
     })
+  }
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate('complaint.pageName_View_crumb'),
+        },
+      ]
+    }
   }
 
   // getWorkTimeByPkgId(){

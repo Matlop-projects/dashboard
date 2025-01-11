@@ -32,6 +32,8 @@
     "choose_image": "اختيار"
   },
   "shared": {
+    "confirmation":"تأكيد",
+    "confirmation_lost":"سوف تفقد كل تغير البيانات ؟",
     "list": "قائمة",
     "add_new": "إضافة جديد",
     "filter": "تصفية",
@@ -115,10 +117,27 @@
   "faqs": {
     "validation_english_title": "العنوان باللغة الإنجليزية فقط"
   },
-  "pkg": {
-    "pageName":"الباقات",
-    "visit_number_isMax": "يجب أن يكون عدد الزيارات أقل من أو يساوي"
-  },
+"pkg": {
+  "pageName": "الباقات",
+  "list": "قائمة الباقات",
+  "visit_number_isMax": "يجب أن يكون عدد الزيارات أقل من أو يساوي",
+  "form": {
+    "nameEn": "الاسم (بالإنجليزية)",
+    "nameAr": "الاسم (بالعربية)",
+    "provider_no": "رقم المزود",
+    "visit_hr": "ساعات الزيارة",
+    "type_pkg": "نوع الباقة",
+    "visit_no": "عدد الزيارات",
+    "contract_typ": "نوع العقد",
+    "price": "السعر",
+    "working_time": "وقت العمل",
+    "isActive": "نشط",
+    "desc_en": "الوصف (بالإنجليزية)",
+    "desc_ar": "الوصف (بالعربية)",
+    "instr_en": "التعليمات (بالإنجليزية)",
+    "instr_ar": "التعليمات (بالعربية)"
+  }
+},
   "dashboard": {
     "pageName": "لوحة التحكم",
     "client": "عدد العملاء",
