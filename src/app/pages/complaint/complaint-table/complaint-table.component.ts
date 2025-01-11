@@ -11,6 +11,8 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+
 
 const global_pageName='complaint'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
@@ -22,7 +24,7 @@ const global_API_delete=global_pageName+'/Delete?requestId'
 @Component({
   selector: 'app-complaint-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe, PaginationComponent,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './complaint-table.component.html',
   styleUrl: './complaint-table.component.scss'
 })
@@ -53,13 +55,6 @@ export class ComplaintTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
     ]
   }
 
@@ -101,21 +96,22 @@ export class ComplaintTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'complaintId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'name', header: 'Name', type: EType.text, show: true },
-      { keyName: 'email', header: 'email', type: EType.text, show: true },
-      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, show: true },
-      { keyName: 'message', header: 'message', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'complaintId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'name', header: this.languageService.translate('complaint.form.name'), type: EType.text, show: true },
+      { keyName: 'email', header: this.languageService.translate('complaint.form.email'), type: EType.text, show: true },
+      { keyName: 'phoneNumber', header: this.languageService.translate('complaint.form.phone'), type: EType.text, show: true },
+      { keyName: 'message', header: this.languageService.translate('complaint.form.message'), type: EType.text, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
+    ];
 
-    ]
     this.columnsSmallTable = [
-      { keyName: 'complaintId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'name', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'phoneNumber', header: 'Phone', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'message', header: 'Message', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'complaintId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'name', header: this.languageService.translate('complaint.form.name'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'phoneNumber', header: this.languageService.translate('complaint.form.phone'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'message', header: this.languageService.translate('complaint.form.message'), type: EType.editor, showAs: ETableShow.content }
     ];
   }
+
 
   getBreadCrumb() {
     this.bredCrumb = {
@@ -125,7 +121,7 @@ export class ComplaintTableComponent {
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()),
+          label: this.languageService.translate('complaint.pageName'),
         },
       ]
     }

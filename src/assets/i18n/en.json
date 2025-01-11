@@ -121,31 +121,31 @@
   },
   "dashboard":{
     "pageName":"Dashboard",
-    "count":"Count",
-    "client":"client",
-    "technical":"technical",
-    "order":"order",
-    "contractType":"contract Type",
-    "package":"package",
-    "paymentWay":"payment Way",
-    "service":"service",
-    "workingTime":"working Time",
-    "termsAndConditions":"terms And Conditions",
-    "technicalSpecialist":"technical Specialist",
-    "orderAdditionalItems":"order Additional Items",
-    "FAQs":"FAQs",
-    "country":"country",
-    "coupon":"coupon",
-    "complaint":"Complaint",
-    "city":"City",
-    "cancelReason":"cancel Reason",
-    "admin":"Admin",
-    "driver":"Driver",
-    "specialOrder":"Special Order"
+    "client":"clients Count",
+    "technical":"technical  Count",
+    "order":"order Count",
+    "contractType":"contract Type Count",
+    "package":"package Count",
+    "paymentWay":"payment Way Count",
+    "service":"service Count",
+    "workingTime":"working Time Count",
+    "termsAndConditions":"terms And Conditions Count",
+    "technicalSpecialist":"technical Specialist Count",
+    "orderAdditionalItems":"order Additional Items Count",
+    "FAQs":"FAQs Count",
+    "country":"country Count",
+    "coupon":"coupon Count",
+    "complaint":"Complaint Count",
+    "city":"City Count",
+    "cancelReason":"cancel Reason Count",
+    "admin":"Admin Count",
+    "driver":"Driver Count",
+    "specialOrder":"Special Order Count"
 
   },
   "cancel_reason":{
     "pageName":"Cancel Reason",
+    "list":"Cancel Reason List",
     "pageName_filter":"Filter Cancel Reason",
     "pageName_Add_crumb":"Add Cancel Reason",
     "pageName_Edit_crumb":"Edit Cancel Reason",
@@ -194,6 +194,7 @@
   },
   "city":{
     "pageName":"City",
+    "list":"Cities List",
     "pageName_filter":"Filter City",
     "pageName_Add_crumb":"Add City",
     "pageName_Edit_crumb":"Edit City",
@@ -211,6 +212,7 @@
   },
   "country":{
     "pageName":"Country",
+    "list":"Countries List",
     "pageName_filter":"Filter Country",
     "pageName_Add_crumb":"Add Country",
     "pageName_Edit_crumb":"Edit Country",
@@ -230,6 +232,7 @@
   },
   "contact_us":{
     "pageName":"Contact Us",
+    "list":"Contact List",
     "pageName_filter":"Filter Contact US",
     "pageName_Add_crumb":"Add Contact Us",
     "pageName_Edit_crumb":"Edit Contact Us",
@@ -243,6 +246,7 @@
   },
   "about_us":{
     "pageName":"About Us",
+    "list":"About Us List",
     "pageName_filter":"Filter About US",
     "pageName_Add_crumb":"Add About Us",
     "pageName_Edit_crumb":"Edit About Us",
@@ -257,6 +261,7 @@
   },
   "contract":{
     "pageName":"Contract Type",
+    "list":"Contracts List",
     "pageName_filter":"Filter Contract Type",
     "pageName_Add_crumb":"Add Contract Type",
     "pageName_Edit_crumb":"Edit Contract Type",
@@ -424,6 +429,21 @@
     "district": "District",
     "admin": "Admin",
     "addNotification": "Add Notification"
+  },
+  "complaint":{
+    "pageName":"Complaint",
+      "list":"Complaint List",
+      "titel":"Complaint",
+      "pageName_filter":"Filter Complaint",
+      "pageName_Add_crumb":"Add Complaint",
+      "pageName_Edit_crumb":"Edit Complaint",
+      "pageName_View_crumb":"View Complaint",
+    "form":{
+      "name":"Name",
+      "email":"Email",
+      "phone":"Phone Number",
+      "message":"Message"
+    }
   }
 
 }

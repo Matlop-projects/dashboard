@@ -45,7 +45,7 @@ export class ContactUsTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -54,13 +54,6 @@ export class ContactUsTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
     ]
   }
 
@@ -84,34 +77,50 @@ export class ContactUsTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
-    this.displayTableCols(this.selectedLang)
+    this.displayTableCols(this.selectedLang);
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'contactUsId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'name', header: 'name', type: EType.text, show: true },
-      { keyName: 'email', header: 'email', type: EType.text, show: true },
-      { keyName: 'mobile', header: 'mobile', type: EType.text, show: true },
-      { keyName: 'message', header: 'message', type: EType.editor, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-
-    ]
-    this.columnsSmallTable = [
-      { keyName: 'contactUsId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'name', header: 'name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'email', header: 'email', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'mobile', header: 'mobile', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'message', header: 'message', type: EType.editor, show: true, showAs: ETableShow.content  },
-
+      { keyName: 'contactUsId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'name', header: this.languageService.translate('contact_us.form.name'), type: EType.text, show: true },
+      { keyName: 'email', header: this.languageService.translate('contact_us.form.email'), type: EType.text, show: true },
+      { keyName: 'mobile', header: this.languageService.translate('contact_us.form.mobile'), type: EType.text, show: true },
+      { keyName: 'message', header: this.languageService.translate('contact_us.form.message'), type: EType.editor, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
     ];
+
+    this.columnsSmallTable = [
+      { keyName: 'contactUsId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'name', header: this.languageService.translate('contact_us.form.name'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'email', header: this.languageService.translate('contact_us.form.email'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'mobile', header: this.languageService.translate('contact_us.form.mobile'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'message', header: this.languageService.translate('contact_us.form.message'), type: EType.editor, showAs: ETableShow.content },
+    ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate('contact_us.pageName'),
+        },
+      ]
+    }
   }
 
   openFilter() {
