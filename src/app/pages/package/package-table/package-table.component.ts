@@ -46,7 +46,7 @@ export class PackageTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -88,13 +88,15 @@ export class PackageTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
-    this.displayTableCols(this.selectedLang)
+    this.displayTableCols(this.selectedLang);
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
@@ -118,6 +120,20 @@ export class PackageTableComponent {
       { keyName: 'visitNumber', header: 'Visit Number', type: EType.text, show: true },
 
     ];
+  }
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
   openFilter() {
