@@ -18,22 +18,23 @@ import { packageHourVistList, PackageTypeList } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
 import { parseISO } from 'date-fns';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 
-const global_PageName = 'package';
-const global_API_deialis = global_PageName + '/GetPackage';
-const global_API_create = global_PageName + '/CreatePackage';
-const global_API_update = global_PageName + '/UpdatePackage';
+const global_PageName = 'pkg.pageName';
+const global_API_deialis = 'package' + '/GetPackage';
+const global_API_create = 'package' + '/CreatePackage';
+const global_API_update = 'package' + '/UpdatePackage';
 // const global_API_get_workTime =global_PageName+'/GetWorkTimeByPacakgeId/';
 const global_API_get_all_workTime ='WorkingTime/GetAll'
 
-const global_routeUrl = global_PageName
+const global_routeUrl = 'package'
 
 @Component({
   selector: 'app-package-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule,SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TranslatePipe, TitleCasePipe, ButtonModule,SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './package-details.component.html',
   styleUrl: './package-details.component.scss'
 })

@@ -112,6 +112,7 @@
     "validation_english_title": "العنوان باللغة الإنجليزية فقط"
   },
   "pkg": {
+    "pageName":"الباقات",
     "visit_number_isMax": "يجب أن يكون عدد الزيارات أقل من أو يساوي"
   },
   "dashboard": {

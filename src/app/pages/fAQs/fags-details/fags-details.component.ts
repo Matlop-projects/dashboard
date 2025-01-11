@@ -113,7 +113,7 @@ pageName = signal<string>(global_PageName);
       ...this.form.value,
       questionId: this.faqsID,
     }
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() === 'Add')
       this.addFQS(payload)
     else
       this.editFQS(payload)

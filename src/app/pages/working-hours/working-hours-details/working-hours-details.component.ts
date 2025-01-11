@@ -103,7 +103,7 @@ export class WorkingHoursDetailsComponent {
         workTimeId: this.workingHoursId,
       };
 
-      if (this.tyepMode() === 'add') {
+      if (this.tyepMode() === 'Add') {
         this.addWorkingHour(payload);
       } else {
         this.editWorkingHours(payload);

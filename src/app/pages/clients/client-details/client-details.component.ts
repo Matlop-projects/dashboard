@@ -153,7 +153,7 @@ export class ClientDetailsComponent {
   }
 
   ngOnInit() {
-    if (this.tyepMode() != 'add')
+    if (this.tyepMode() != 'Add')
       this.getClientsDetails()
   }
 
@@ -216,7 +216,7 @@ onConfirmPasswordChanged(value:string){
   }
   onSubmit() {
 
-    if (this.tyepMode() === 'add')
+    if (this.tyepMode() === 'Add')
       this.addFQS(this.form.value)
     else{
       delete this.form.value.confirmPassword

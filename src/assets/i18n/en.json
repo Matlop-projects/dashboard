@@ -112,6 +112,7 @@
     "validation_english_title":"title is only english"
   },
   "pkg":{
+    "pageName":"Packages",
    "visit_number_isMax":"Visit Number should be less than or equal"
   },
   "dashboard":{
