@@ -144,6 +144,7 @@
   },
   "cancel_reason": {
     "pageName": "سبب الإلغاء",
+    "list":"قائمة سبب الالغاء",
     "pageName_filter": "تصفية أسباب الإلغاء",
     "pageName_Add_crumb": "إضافة سبب إلغاء",
     "pageName_Edit_crumb": "تعديل سبب الإلغاء",
@@ -192,6 +193,7 @@
   },
   "city": {
     "pageName": "المدينة",
+    "list":"قائمة المدن",
     "pageName_filter": "تصفية المدن",
     "pageName_Add_crumb": "إضافة مدينة",
     "pageName_Edit_crumb": "تعديل مدينة",
@@ -229,6 +231,7 @@
   },
   "contact_us": {
     "pageName": "اتصل بنا",
+    "list":"قائمة التواصل ",
     "pageName_filter": "تصفية الرسائل",
     "pageName_Add_crumb": "إضافة رسالة",
     "pageName_Edit_crumb": "تعديل رسالة",
@@ -242,6 +245,7 @@
   },
   "about_us": {
     "pageName": "من نحن",
+    "list":"قائمة من نحن",
     "pageName_filter": "تصفية من نحن",
     "pageName_Add_crumb": "إضافة من نحن",
     "pageName_Edit_crumb": "تعديل من نحن",
@@ -256,6 +260,7 @@
   },
   "contract": {
     "pageName": "نوع العقد",
+    "list":"نوع العقود",
     "pageName_filter": "تصفية أنواع العقود",
     "pageName_Add_crumb": "إضافة نوع عقد",
     "pageName_Edit_crumb": "تعديل نوع عقد",

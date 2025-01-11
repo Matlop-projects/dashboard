@@ -145,6 +145,7 @@
   },
   "cancel_reason":{
     "pageName":"Cancel Reason",
+    "list":"Cancel Reason List",
     "pageName_filter":"Filter Cancel Reason",
     "pageName_Add_crumb":"Add Cancel Reason",
     "pageName_Edit_crumb":"Edit Cancel Reason",
@@ -193,6 +194,7 @@
   },
   "city":{
     "pageName":"City",
+    "list":"Cities List",
     "pageName_filter":"Filter City",
     "pageName_Add_crumb":"Add City",
     "pageName_Edit_crumb":"Edit City",
@@ -230,6 +232,7 @@
   },
   "contact_us":{
     "pageName":"Contact Us",
+    "list":"Contact List",
     "pageName_filter":"Filter Contact US",
     "pageName_Add_crumb":"Add Contact Us",
     "pageName_Edit_crumb":"Edit Contact Us",
@@ -243,6 +246,7 @@
   },
   "about_us":{
     "pageName":"About Us",
+    "list":"About Us List",
     "pageName_filter":"Filter About US",
     "pageName_Add_crumb":"Add About Us",
     "pageName_Edit_crumb":"Edit About Us",
@@ -257,6 +261,7 @@
   },
   "contract":{
     "pageName":"Contract Type",
+    "list":"Contracts List",
     "pageName_filter":"Filter Contract Type",
     "pageName_Add_crumb":"Add Contract Type",
     "pageName_Edit_crumb":"Edit Contract Type",
