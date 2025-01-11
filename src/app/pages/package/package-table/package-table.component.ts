@@ -13,6 +13,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const global_pageName='package'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
@@ -24,7 +25,7 @@ const global_API_delete=global_pageName+'/DeletePackage?id'
 @Component({
   selector: 'app-package-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe,SelectComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe,SelectComponent, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './package-table.component.html',
   styleUrl: './package-table.component.scss'
 })
@@ -46,7 +47,7 @@ export class PackageTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -55,13 +56,6 @@ export class PackageTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
     ]
   }
 
@@ -88,36 +82,52 @@ export class PackageTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
-    this.displayTableCols(this.selectedLang)
+    this.displayTableCols(this.selectedLang);
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'packageId', header: 'Id', type: EType.id, show: true },
-      { keyName: currentLang =='ar'?'nameAr':'nameEn', header: 'Name', type: EType.text,show: true },
-      { keyName: currentLang =='ar'?'descriptionAr':'descriptionEn', header: 'Description', type: EType.editor,show: true},
-      { keyName: 'providerNumber', header: 'Provider Number', type: EType.text, show: true },
-      { keyName: 'typeOfPackage', header: 'Type Of Package', type: EType.text, show: true },
-      { keyName: 'visitNumber', header: 'Visit Number', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-
-    ]
-    this.columnsSmallTable = [
-      { keyName: 'packageId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'nameAr':'nameEn', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: currentLang =='ar'?'descriptionAr':'descriptionEn', header: 'Description', type: EType.editor, showAs: ETableShow.header },
-      { keyName: 'providerNumber', header: 'Provider Number', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'typeOfPackage', header: 'Type Of Package', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'visitNumber', header: 'Visit Number', type: EType.text, show: true },
-
+      { keyName: 'packageId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: currentLang === 'ar' ? 'nameAr' : 'nameEn', header: this.languageService.translate('pkg.form.nameEn'), type: EType.text, show: true },
+      { keyName: currentLang === 'ar' ? 'descriptionAr' : 'descriptionEn', header: this.languageService.translate('pkg.form.desc_en'), type: EType.editor, show: true },
+      { keyName: 'providerNumber', header: this.languageService.translate('pkg.form.provider_no'), type: EType.text, show: true },
+      { keyName: 'typeOfPackage', header: this.languageService.translate('pkg.form.type_pkg'), type: EType.text, show: true },
+      { keyName: 'visitNumber', header: this.languageService.translate('pkg.form.visit_no'), type: EType.text, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
     ];
+
+    this.columnsSmallTable = [
+      { keyName: 'packageId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: currentLang === 'ar' ? 'nameAr' : 'nameEn', header: this.languageService.translate('pkg.form.nameEn'), type: EType.text, showAs: ETableShow.header },
+      { keyName: currentLang === 'ar' ? 'descriptionAr' : 'descriptionEn', header: this.languageService.translate('pkg.form.desc_en'), type: EType.editor, showAs: ETableShow.header },
+      { keyName: 'providerNumber', header: this.languageService.translate('pkg.form.provider_no'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'typeOfPackage', header: this.languageService.translate('pkg.form.type_pkg'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'visitNumber', header: this.languageService.translate('pkg.form.visit_no'), type: EType.text, showAs: ETableShow.content },
+    ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate('pkg.pageName'),
+        },
+      ]
+    }
   }
 
   openFilter() {

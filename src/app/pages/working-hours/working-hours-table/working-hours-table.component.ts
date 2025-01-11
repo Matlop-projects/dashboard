@@ -8,7 +8,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
-import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -16,7 +15,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
   selector: 'app-working-hours-table',
   standalone: true,
-  imports: [TableComponent,TranslatePipe, FormsModule, PaginationComponent, BreadcrumpComponent, DrawerComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TranslatePipe, FormsModule, PaginationComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './working-hours-table.component.html',
   styleUrl: './working-hours-table.component.scss'
 })
@@ -74,31 +73,56 @@ export class WorkingHoursTableComponent {
     { keyName: 'endDate', header: 'End Time', type: EType.time, show: true },
     { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
   ];
-
   columnsSmallTable: IcolHeaderSmallTable[] = [];
   totalCount: number = 0;
 
   selectedLang: any;
   languageService = inject(LanguageService);
   ngOnInit() {
-    this.getAllFAQS();
+    this.getWorkingHours();
+    this.displaySmallTableCols(this.selectedLang);
     this.selectedLang = this.languageService.translationService.currentLang;
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displaySmallTableCols(this.selectedLang)
+      this.displaySmallTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
     // this.data=products
     // this.paginatorOptions.totalRecords=this.data.length
   }
 
-  displaySmallTableCols(currentLang:string){
-    this.columnsSmallTable =[
-      { keyName: 'startDate', header: 'Start Time', type: EType.time, showAs: ETableShow.header },
-      { keyName: 'workTimeId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'endDate', header: 'End Time', type: EType.time, showAs: ETableShow.content }
+  displaySmallTableCols(currentLang: string) {
+    this.columns = [
+      { keyName: 'workTimeId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'startDate', header: this.languageService.translate('working_hours.start'), type: EType.time, show: true  },
+      { keyName: 'endDate', header: this.languageService.translate('working_hours.end'), type: EType.time, show: true  },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true }
+    ];
+
+    this.columnsSmallTable = [
+      { keyName: 'workTimeId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'startDate', header: this.languageService.translate('working_hours.start'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'endDate', header: this.languageService.translate('working_hours.end'), type: EType.text, showAs: ETableShow.content }
     ];
   }
-  getAllFAQS() {
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate('working_hours.pageName'),
+        },
+      ]
+    }
+  }
+
+  getWorkingHours() {
     this.ApiService.post('WorkingTime/GetAllWithPagination' , this.searchObject).subscribe((res: any) => {
       if (res) {
         this.workingHoursList = res.data.dataList;
@@ -111,7 +135,7 @@ export class WorkingHoursTableComponent {
 
   onPageChange(event: any) {
     this.searchObject.pageNumber = event;
-   this,this.getAllFAQS();
+   this,this.getWorkingHours();
   }
 
 

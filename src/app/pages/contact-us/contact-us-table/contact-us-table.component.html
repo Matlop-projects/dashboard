@@ -10,20 +10,20 @@
       </div>
       <div class="details-container">
         <div class="action-filter">
-            <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}} {{pageName()|translate|titlecase}}</a>
+            <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}}</a>
           <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
         </div>
-      
+
        <div class="table-view">
         <app-table [colsHeader]="columns" [records]="dataList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
        </div>
        <div class="responsive-accordions">
           <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="dataList"  [actions]="tableActions">
-  
+
           </app-table-small-screen>
       </div>
          <app-pagination (onPageChange)="onPageChange($event)" [totalCount]="totalCount"></app-pagination>
-  
+
       </div>
     </div>
   </div>
@@ -46,10 +46,9 @@
          <button type="submit" class="btn btn-primary submit-btn">{{'actions.submit'|translate}}</button>
          <button type="button" class="btn btn-danger reset-btn" (click)="reset()">{{'actions.reset'|translate}}</button>
        </div>
- 
+
      </form>
   </app-drawer>
-  
-  
-  
-  
+
+
+

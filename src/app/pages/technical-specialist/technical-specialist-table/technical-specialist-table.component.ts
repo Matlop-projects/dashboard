@@ -12,6 +12,8 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
+import { TranslatePipe } from '@ngx-translate/core';
+
 
 const global_pageName='Technical Specialist'
 const global_router_add_url_in_Table ='/technical-specialist/add'
@@ -24,7 +26,7 @@ const global_API_delete='technicalSpecialist/Delete?requestId'
 @Component({
   selector: 'app-technical-specialist-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, TranslatePipe , DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './technical-specialist-table.component.html',
   styleUrl: './technical-specialist-table.component.scss'
 })
@@ -48,7 +50,7 @@ export class TechnicalSpecialistTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -57,13 +59,6 @@ export class TechnicalSpecialistTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
     ]
   }
 
@@ -90,29 +85,46 @@ export class TechnicalSpecialistTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
+    this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'technicalSpecialistId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Name (en)', type: EType.text,show: true },
-      { keyName: 'arName', header: 'Name (ar)', type: EType.text,show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-
-    ]
-    this.columnsSmallTable = [
-      { keyName: 'technicalSpecialistId', header: 'Id', type: EType.id, show: false },
-      { keyName:  'enName', header: 'Name (en)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'arName', header: 'Name (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'technicalSpecialistId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'enName', header: this.languageService.translate('tech_sp.form.name_en'), type: EType.text, show: true },
+      { keyName: 'arName', header: this.languageService.translate('tech_sp.form.name_ar'), type: EType.text, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
     ];
+
+    this.columnsSmallTable = [
+      { keyName: 'technicalSpecialistId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'enName', header: this.languageService.translate('tech_sp.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName', header: this.languageService.translate('tech_sp.form.name_ar'), type: EType.text, showAs: ETableShow.header },
+    ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate('tech_sp.pageName'),
+        },
+      ]
+    }
   }
 
   openFilter() {

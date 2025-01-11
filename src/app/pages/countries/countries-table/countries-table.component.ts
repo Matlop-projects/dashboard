@@ -47,7 +47,7 @@ export class CountriesTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -90,36 +90,52 @@ export class CountriesTableComponent {
   ngOnInit() {
     this.pageName.set('country.pageName')
     this.API_getAll();
+    this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
- 
-  displayTableCols(currentLang:string){
+
+  displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'img', header: 'image', type: EType.image, show: false },
-      { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
-      { keyName: 'phoneLength', header: 'Phone Length', type: EType.text, show: true },
-      { keyName: 'phoneCode', header: 'Phone Code', type: EType.text, show: true },
-      { keyName: 'shortName', header: 'Short Name', type: EType.text, show: true },
-      { keyName: 'status', header: 'active', type: EType.toggle, toggleOptions:global_toggleOptions, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true }
+      { keyName: 'countryId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'img', header: this.languageService.translate('country.form.image'), type: EType.image, show: false },
+      { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('country.form.name_en'), type: EType.text, show: true },
+      { keyName: 'phoneLength', header: this.languageService.translate('country.form.phoneLength'), type: EType.text, show: true },
+      { keyName: 'phoneCode', header: this.languageService.translate('country.form.phoneCode'), type: EType.text, show: true },
+      { keyName: 'shortName', header: this.languageService.translate('country.form.shortName'), type: EType.text, show: true },
+      { keyName: 'status', header: this.languageService.translate('country.form.status'), type: EType.toggle, toggleOptions: global_toggleOptions, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true }
     ];
 
-    this.columnsSmallTable =[
-      { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'countryId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang =='ar'?'arDescription':'enDescription', header: 'Description', type: EType.editor, showAs: ETableShow.content },
-      { keyName: 'status', header: 'active', type: EType.status, toggleOptions:global_toggleOptions, show: true },
-
+    this.columnsSmallTable = [
+      { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('country.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'countryId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: currentLang === 'ar' ? 'arDescription' : 'enDescription', header: this.languageService.translate('country.form.content'), type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'status', header: this.languageService.translate('form.status'), type: EType.status, toggleOptions: global_toggleOptions, show: true },
     ];
   }
 
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
 
   openFilter() {
     this.showFilter = true

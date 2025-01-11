@@ -49,13 +49,6 @@ export class CitiesTableComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'Cities',
-      },
     ]
   }
 
@@ -84,32 +77,49 @@ export class CitiesTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getAllCities();
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
-  displayTableCols(currentLang:string){
+  displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'cityId', header: 'Id', type: EType.id, show: true },
-      { keyName:  currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, show: true },
-      { keyName: 'postalCode', header: 'Postal Code', type: EType.text, show: true },
-      { keyName: 'latitude', header: 'latitude', type: EType.text, show: true },
-      { keyName: 'longitude', header: 'longitude', type: EType.text, show: true },
-      { keyName: 'shortCut', header: 'Short Name', type: EType.text, show: true },
-      { keyName: 'status', header: 'active', type: EType.toggle, toggleOptions:global_toggleOptions, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'cityId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('city.form.name_en'), type: EType.text, show: true },
+      { keyName: 'postalCode', header: this.languageService.translate('city.form.postalCode'), type: EType.text, show: true },
+      { keyName: 'latitude', header: this.languageService.translate('city.form.latitude'), type: EType.text, show: true },
+      { keyName: 'longitude', header: this.languageService.translate('city.form.longitude'), type: EType.text, show: true },
+      { keyName: 'shortCut', header: this.languageService.translate('city.form.shortName'), type: EType.text, show: true },
+      { keyName: 'status', header: this.languageService.translate('city.form.status'), type: EType.toggle, toggleOptions: global_toggleOptions, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true }
     ];
 
-    this.columnsSmallTable =[
-      { keyName: currentLang =='ar'?'arName':'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'cityId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'postalCode', header: 'postalCode', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'latitude', header: 'latitude', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'longitude', header: 'longitude', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'shortCut', header: 'Short Name', type: EType.text, showAs: ETableShow.content }
+    this.columnsSmallTable = [
+      { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('city.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'cityId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'postalCode', header: this.languageService.translate('city.form.postalCode'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'latitude', header: this.languageService.translate('city.form.latitude'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'longitude', header: this.languageService.translate('city.form.longitude'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'shortCut', header: this.languageService.translate('city.form.shortName'), type: EType.text, showAs: ETableShow.content }
     ];
+  }
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
   getAllCities() {
