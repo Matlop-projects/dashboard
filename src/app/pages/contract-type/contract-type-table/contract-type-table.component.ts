@@ -44,7 +44,7 @@ export class ContractTypeTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -87,7 +87,7 @@ export class ContractTypeTableComponent {
   selectedLang: any;
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
@@ -99,22 +99,37 @@ export class ContractTypeTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'contractTypeId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
-      { keyName: 'noOfVisit', header: 'No. Visit', type: EType.text, show: true },
-      { keyName: 'isActive', header: 'Active', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
-
-    ]
-    this.columnsSmallTable = [
-      { keyName: 'contractTypeId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'enName', header: 'Name', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'arName', header: 'Phone', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'noOfVisit', header: 'No. Visit', type: EType.editor, showAs: ETableShow.content },
-      { keyName: 'isActive', header: 'Active', type: EType.editor, showAs: ETableShow.content }
-
+      { keyName: 'contractTypeId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'enName', header: this.languageService.translate('contract.form.name_en'), type: EType.text, show: true },
+      { keyName: 'arName', header: this.languageService.translate('contract.form.name_ar'), type: EType.text, show: true },
+      { keyName: 'noOfVisit', header: this.languageService.translate('contract.form.noOfVisit'), type: EType.text, show: true },
+      { keyName: 'isActive', header: this.languageService.translate('contract.form.status'), type: EType.text, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true }
     ];
+
+    this.columnsSmallTable = [
+      { keyName: 'contractTypeId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'enName', header: this.languageService.translate('contract.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName', header: this.languageService.translate('contract.form.name_ar'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'noOfVisit', header: this.languageService.translate('contract.form.noOfVisit'), type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'isActive', header: this.languageService.translate('contract.form.status'), type: EType.editor, showAs: ETableShow.content }
+    ];
+  }
+
+
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
   openFilter() {

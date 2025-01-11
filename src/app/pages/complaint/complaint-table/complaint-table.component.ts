@@ -89,11 +89,13 @@ export class ComplaintTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName)
     this.API_getAll();
+    this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      this.displayTableCols(this.selectedLang)
+      this.displayTableCols(this.selectedLang);
+      this.getBreadCrumb();
     })
   }
 
@@ -113,6 +115,20 @@ export class ComplaintTableComponent {
       { keyName: 'phoneNumber', header: 'Phone', type: EType.text, showAs: ETableShow.header },
       { keyName: 'message', header: 'Message', type: EType.editor, showAs: ETableShow.content }
     ];
+  }
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
   }
 
   openFilter() {
