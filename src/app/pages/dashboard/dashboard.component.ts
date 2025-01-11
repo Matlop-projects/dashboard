@@ -37,7 +37,7 @@ export class DashboardComponent {
     { name: 'dashboard.complaint', value: 0, img: 'assets/images/dashboard/bad.png', route: '/complaint', id: 'complaintCount' },
     { name: 'dashboard.city', value: 0, img: 'assets/images/dashboard/cityscape.png', route: '/city', id: 'cityCount' },
     { name: 'dashboard.admin', value: 0, img: 'assets/images/dashboard/no-data.png', route: '/settings/admin', id: 'adminCount' },
-    // { name: 'dashboard.driver', value: 0, img: 'assets/images/dashboard/package.png', route: '/driver', id: 'driverCount' },
+    { name: 'dashboard.driver', value: 0, img: 'assets/images/dashboard/package.png', route: '/technicals', id: 'driverCount' },
     { name: 'dashboard.specialOrder', value: 0, img: 'assets/images/dashboard/coronavirus.png', route: '/special-order', id: 'specialOrderCount' },
 
   ];
