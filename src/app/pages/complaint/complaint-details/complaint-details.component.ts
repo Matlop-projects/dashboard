@@ -87,7 +87,6 @@ export class ComplaintDetailsComponent {
   }
 
   getBreadCrumb() {
-    console.log('ffff',this.languageService.translate('complaint.pageName_View_crumb'))
     this.bredCrumb = {
       crumbs: [
         {
