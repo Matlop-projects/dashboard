@@ -78,6 +78,7 @@ export class TechnicalSpecialistDetailsComponent {
   }
 
   getBreadCrumb() {
+    console.log("Techni ", this.languageService.translate(this.pageName()))
     this.bredCrumb = {
       crumbs: [
         {
