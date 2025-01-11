@@ -11,6 +11,7 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { LanguageService } from '../../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const global_PageName = 'Technical Specialist';
 const global_API_deitalis = 'technicalSpecialist/GetById';
@@ -21,7 +22,7 @@ const global_routeUrl = 'technical-specialist'
 @Component({
   selector: 'app-technical-specialist-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, RouterModule, BreadcrumpComponent],
+  imports: [ReactiveFormsModule,TranslatePipe, TitleCasePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, RouterModule, BreadcrumpComponent],
   templateUrl: './technical-specialist-details.component.html',
   styleUrl: './technical-specialist-details.component.scss'
 })
