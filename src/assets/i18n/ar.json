@@ -406,6 +406,19 @@
       "isActive": "نشط"
     }
   },
+  "tech_sp": {
+  "pageName": "المتخصص الفني",
+  "list": "قائمة المتخصصين الفنيين",
+  "titel": "المتخصص الفني",
+  "pageName_filter": "تصفية المتخصصين الفنيين",
+  "pageName_Add_crumb": "إضافة متخصص فني",
+  "pageName_Edit_crumb": "تعديل متخصص فني",
+  "pageName_View_crumb": "عرض متخصص فني",
+  "form": {
+    "name_en": "الاسم (بالإنجليزية)",
+    "name_ar": "الاسم (بالعربية)"
+  }
+},
   "services": {
     "pageName": "الخدمات",
     "list":"قائمة الخدمات",

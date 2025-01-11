@@ -9,8 +9,12 @@
     border-radius: 6px;
     padding: 10px;
     margin-top: 10px;
-    max-height: 150px;
-    min-width: 150px;
+    height: 150px;
+    width: 150px;
+    img{
+        width:100%
+    }
+  
   }
   .content-info{
       // margin: 0px 50px;

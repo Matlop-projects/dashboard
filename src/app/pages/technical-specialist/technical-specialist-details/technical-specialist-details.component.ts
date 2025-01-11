@@ -13,7 +13,7 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_PageName = 'Technical Specialist';
+const global_PageName = 'tech_sp.pageName';
 const global_API_deitalis = 'technicalSpecialist/GetById';
 const global_API_create = 'technicalSpecialist/Create';
 const global_API_update = 'technicalSpecialist/update';
@@ -52,13 +52,7 @@ export class TechnicalSpecialistDetailsComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
+    
     ]
   }
 
@@ -70,6 +64,7 @@ export class TechnicalSpecialistDetailsComponent {
 
   ngOnInit() {
     this.pageName.set(global_PageName)
+    this.getBreadCrumb()
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
 
@@ -77,10 +72,25 @@ export class TechnicalSpecialistDetailsComponent {
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.API_getItemDetails();
+      this.getBreadCrumb()
+
     })
   }
 
-
+  getBreadCrumb() {
+    console.log("Techni ", this.languageService.translate(this.pageName()))
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   tyepMode() {
     const url = this.router.url;
     let result = 'Add'

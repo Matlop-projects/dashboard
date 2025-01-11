@@ -409,30 +409,17 @@
       "isActive":"Is Active"
     }
   },
-  "tech_specialist":{
+  "tech_sp":{
     "pageName":"Technial Specialist",
-    "list":"Technials List",
-     "titel":"Technial",
-    "pageName_filter":"Filter Technical",
-    "pageName_Add_crumb":"Add Technical",
-    "pageName_Edit_crumb":"Edit Technical",
-    "pageName_View_crumb":"View Technical",
+    "list":"Technial Specialist List",
+     "titel":"Technial Specialist",
+    "pageName_filter":"Filter Technical Specialist",
+    "pageName_Add_crumb":"Add Technical Specialist",
+    "pageName_Edit_crumb":"Edit Technical Specialist",
+    "pageName_View_crumb":"View Technical Specialist",
     "form":{
-      "fullName":"Full Name",
-      "userName":"User Name",
-      "email":"email",
-      "client_status":"Client Status",
-      "firstName":"First Name",
-      "lastName":"Last Name",
-      "mobileNumber":"Mobile Number",
-      "pinCode":"Pin Code",
-      "password":"Password",
-      "confirmPassword":"Confirm Password",
-      "gender":"Gender",
-      "dateOfBirth":"Date of Birth",
-      "tech_type":"Technical Type",
-      "tech_specialist":"Technical Specialist",
-      "isActive":"Is Active"
+     "name_en":"Name (en)",
+     "name_ar":"Name (ar)"
     }
   },
   "services":{
