@@ -33,7 +33,7 @@ export class TechnicalSpecialistDetailsComponent {
   private route = inject(ActivatedRoute)
   private confirm = inject(ConfirmMsgService)
   showConfirmMessage: boolean = false
-  
+
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -52,7 +52,6 @@ export class TechnicalSpecialistDetailsComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-    
     ]
   }
 
