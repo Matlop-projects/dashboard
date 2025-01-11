@@ -11,6 +11,6 @@ import { Dialog } from 'primeng/dialog';
 })
 export class DialogComponent {
 @Input()visible:boolean=false
-@Input()header:string='Confirmation'
-@Input()message:string='You will lost your changes ?'
+@Input()header:string='shared.confirmation'
+@Input()message:string='shared.confirmation_lost'
 }

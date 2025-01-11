@@ -95,7 +95,7 @@ export class ComplaintDetailsComponent {
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate('ببب'),
+          label: this.languageService.translate('complaint.pageName_View_crumb'),
         },
       ]
     }

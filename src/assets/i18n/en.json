@@ -32,6 +32,8 @@
     "choose_image":"Choose"
   },
   "shared":{
+    "confirmation":"Confirmation",
+    "confirmation_lost":"You will lost your changes ?",
     "list":"List",
     "add_new":"Add New",
     "filter":"Filter",
@@ -117,7 +119,25 @@
   },
   "pkg":{
     "pageName":"Packages",
-   "visit_number_isMax":"Visit Number should be less than or equal"
+    "pageName_View_crumb":"View Package",
+    "list":"Packages List",
+   "visit_number_isMax":"Visit Number should be less than or equal",
+   "form":{
+    "nameEn":"Name (en)",
+    "nameAr":"Name (ar)",
+    "provider_no":"Provider Number",
+    "visit_hr":"Visit Hours",
+    "type_pkg":"Type Of Package",
+    "visit_no":"Visit Number",
+    "contract_typ":"Contract Type",
+    "price":"Price",
+    "working_time":"Working Time",
+    "isActive":"Is Active",
+    "desc_en":"Description (en)",
+    "desc_ar":"Description (ar)",
+    "instr_en":"Instraction (en)",
+    "instr_ar":"Instraction (ar)"
+   }
   },
   "dashboard":{
     "pageName":"Dashboard",
