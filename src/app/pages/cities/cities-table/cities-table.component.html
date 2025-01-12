@@ -30,26 +30,26 @@
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">{{pageName()|translate}} (en)</label>
+         <label class="mb-1" for="enTitle">{{'city.form.name_en'|translate}} </label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
            [(ngModel)]="citySearch.enName"
-           placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (en)"
+           placeholder="{{'shared.enter'|translate}} {{'city.form.name_en'|translate}}"
          />
        </div>
  
        <div  class="form-group mb-3">
-         <label class="mb-1" for="arTitle">{{pageName()|translate}} (ar)</label>
+         <label class="mb-1" for="arTitle">{{'city.form.name_ar'|translate}} </label>
          <input
            type="text"
            id="arTitle"
            name="arTitle"
            class="form-control"
            [(ngModel)]="citySearch.arName"
-           placeholder="Enter {{pageName()|translate}} (ar)"
+           placeholder="{{'shared.enter'|translate}}  {{'city.form.name_ar'|translate}}"
          />
        </div>
        <div  class="form-group mb-3">
@@ -60,7 +60,7 @@
           name="arTitle"
           class="form-control"
           [(ngModel)]="citySearch.postalCode"
-          placeholder="Enter {{'city.form.postalCode'|translate}}"
+          placeholder="{{'shared.enter'|translate}}  {{'city.form.postalCode'|translate}}"
         />
       </div>
       </div>

@@ -49,7 +49,9 @@
     "all":"All",
     "drag_drop_img":"Drag and drop image to here to upload.",
     "bytes":"bytes",
-    "no_data_found":"No date found"
+    "no_data_found":"No date found",
+    "en":"en",
+    "ar":"ar"
   },
   "login":{
      "welcome":"Welcome Back!",
