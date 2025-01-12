@@ -51,8 +51,7 @@ export class TechnicalSpecialistDetailsComponent {
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-    ]
+    crumbs: []
   }
 
   selectedLang: any;
@@ -76,6 +75,15 @@ export class TechnicalSpecialistDetailsComponent {
     })
   }
 
+  tyepMode() {
+    const url = this.router.url;
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+    return result
+  }
+
   getBreadCrumb() {
     console.log("Techni ", this.languageService.translate(this.pageName()))
     this.bredCrumb = {
@@ -85,22 +93,12 @@ export class TechnicalSpecialistDetailsComponent {
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()),
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
         },
       ]
     }
   }
-  tyepMode() {
-    const url = this.router.url;
-    let result = 'Add'
-    if (url.includes('edit')) result = 'Edit'
-    else if (url.includes('view')) result = 'View'
-    else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
-    return result
-  }
-
+  
   API_getItemDetails() {
     if(this.getID)
     this.ApiService.get(`${global_API_deitalis}/${this.getID}`).subscribe((res: any) => {

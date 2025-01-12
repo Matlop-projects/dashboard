@@ -65,15 +65,7 @@ export class PaymentWayTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
   objectSearch = {
@@ -100,11 +92,13 @@ export class PaymentWayTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName) 
     this.API_getAll();
+    this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb();
     })
   }
 
@@ -130,7 +124,19 @@ export class PaymentWayTableComponent {
   openFilter() {
     this.showFilter = true
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   onCloseFilter(event: any) {
     this.showFilter = false
   }

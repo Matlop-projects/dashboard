@@ -163,6 +163,14 @@ export class PackageDetailsComponent {
 
     })
   }
+  tyepMode() {
+    const url = this.router.url;
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+    return result
+  }
 
   getBreadCrumb() {
     this.bredCrumb = {
@@ -172,7 +180,7 @@ export class PackageDetailsComponent {
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate('complaint.pageName_View_crumb'),
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
         },
       ]
     }
@@ -242,16 +250,6 @@ export class PackageDetailsComponent {
 
   }
 
-  tyepMode() {
-    const url = this.router.url;
-    let result = 'Add'
-    if (url.includes('edit')) result = 'Edit'
-    else if (url.includes('view')) result = 'View'
-    else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
-    return result
-  }
 
   API_getItemDetails() {
     if (this.getID)

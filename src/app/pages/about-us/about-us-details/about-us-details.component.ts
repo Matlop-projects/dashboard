@@ -18,6 +18,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
+import { LanguageService } from '../../../services/language.service';
 
 const global_PageName = 'about_us.pageName';
 const global_API_deialis =  'aboutUs/GetById';
@@ -109,9 +110,15 @@ export class AboutUsDetailsComponent {
     const control = this.form.get('image');
     return control?.touched && control?.hasError('required') || false;
   }
-
+ selectedLang: any;
+  languageService = inject(LanguageService);
   ngOnInit() {
     this.pageName.set(global_PageName)
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    }); 
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
   }
@@ -125,9 +132,20 @@ export class AboutUsDetailsComponent {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
     return result
+  }
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
   }
 
   API_getItemDetails() {

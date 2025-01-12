@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -50,18 +50,11 @@ export class ContractTypeTableComponent {
   ]
   private ApiService = inject(ApiService)
   languageService = inject(LanguageService);
+  private router = inject(Router)
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.languageService.translate(this.pageName()),
-      },
-    ]
+    crumbs: []
   }
 
   objectSearch = {
@@ -89,11 +82,13 @@ export class ContractTypeTableComponent {
   ngOnInit() {
     this.pageName.set(global_pageName)
     this.API_getAll();
+    this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb()
     })
   }
 
@@ -126,7 +121,7 @@ export class ContractTypeTableComponent {
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()),
+          label: this.languageService.translate(this.pageName())
         },
       ]
     }

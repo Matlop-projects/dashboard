@@ -100,9 +100,14 @@ selectedLang: any;
 
   ngOnInit() {
     this.pageName.set(global_PageName)
+    this.getBreadCrumb()
     this.getSpecialOrderDetails();
     this.getTechnicalList();
     this.getDriversList();
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
   }
 
   get orderId(): number {
@@ -117,9 +122,22 @@ selectedLang: any;
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
     return result
+  }
+
+  
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
   }
 
   getSpecialOrderDetails() {

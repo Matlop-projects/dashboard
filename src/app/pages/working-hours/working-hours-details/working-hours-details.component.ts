@@ -43,23 +43,21 @@ export class WorkingHoursDetailsComponent {
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'Working Hours',
-      },
-    ]
+    crumbs: []
   }
 
   get workingHoursId() {
     return this.route.snapshot.params['id'];
   }
+ 
 
   ngOnInit() {
     this.pageName.set(global_PageName)
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
     if (this.tyepMode() !== 'Add')
       this.getWorkingHours();
   }
@@ -70,9 +68,20 @@ export class WorkingHoursDetailsComponent {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
     return result
+  }
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
   }
 
   getWorkingHours() {

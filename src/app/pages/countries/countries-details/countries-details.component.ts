@@ -16,6 +16,7 @@ import { IEditImage } from '../../../components/edit-mode-image/editImage.interf
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment.prod';
+import { LanguageService } from '../../../services/language.service';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
@@ -108,15 +109,7 @@ export class CountriesDetailsComponent implements OnInit {
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'Add Country',
-      },
-    ]
+    crumbs: []
   }
 
   get countryID() {
@@ -127,11 +120,16 @@ export class CountriesDetailsComponent implements OnInit {
     const control = this.form.get('img');
     return control?.touched && control?.hasError('required') || false;
   }
-
+ selectedLang: any;
+  languageService = inject(LanguageService);
   ngOnInit() {
     this.pageName.set('country.pageName')
-    console.log(this.router.url)
-    if (this.tyepMode() !== 'Add')
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    }); 
+     if (this.tyepMode() !== 'Add')
       this.getCountryDetails()
   }
 
@@ -141,11 +139,21 @@ export class CountriesDetailsComponent implements OnInit {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-  
-    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
     return result
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   editImageProps: IEditImage = {
     props: {
       visible: true,

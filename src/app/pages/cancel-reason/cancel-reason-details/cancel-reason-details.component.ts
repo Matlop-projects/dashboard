@@ -15,6 +15,7 @@ import { UploadFileComponent } from "../../../components/upload-file/upload-file
 import { SelectComponent } from '../../../components/select/select.component';
 import { userType } from '../../../conts';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-cancel-reason-details',
@@ -79,9 +80,15 @@ export class CancelReasonDetailsComponent {
   get getID() {
     return this.route.snapshot.params['id']
   }
-
+ selectedLang: any;
+  languageService = inject(LanguageService);
   ngOnInit() {
     this.pageName.set('cancel_reason.pageName')
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    }); 
     if (this.tyepMode() !== 'Add')
       this.getCancelReasonsDetails()
   }
@@ -92,11 +99,21 @@ export class CancelReasonDetailsComponent {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
     return result
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   getCancelReasonsDetails() {
     this.ApiService.get(`CancelReason/GetCancelReason/${this.getID}`).subscribe((res: any) => {
       if (res)

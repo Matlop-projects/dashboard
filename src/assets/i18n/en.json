@@ -122,6 +122,9 @@
   "pkg":{
     "pageName":"Packages",
     "pageName_View_crumb":"View Package",
+    "pageName_filter":"Filter Package",
+    "pageName_Add_crumb":"Add Package",
+    "pageName_Edit_crumb":"Edit Package",
     "list":"Packages List",
    "visit_number_isMax":"Visit Number should be less than or equal",
    "form":{
@@ -383,6 +386,10 @@
   },
   "working_hours":{
     "pageName":"Working Hours",
+    "pageName_filter":"Filter Working Hours",
+    "pageName_Add_crumb":"Add Working Hours",
+    "pageName_Edit_crumb":"Edit Working Hours",
+    "pageName_View_crumb":"View Working Hours",
     "title":"Working Hours List",
     "add_new":"Add New",
     "start":"Start Date",

@@ -176,6 +176,7 @@ export class TechnicalDetailsComponent {
   ngOnInit() {
     this.pageName.set('tech.pageName')
     this.getTechnicalSpecialist();
+    this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     if (this.tyepMode() !== 'add') {
       this.getTechnicalsDetails();
@@ -183,6 +184,7 @@ export class TechnicalDetailsComponent {
     }
 
     this.languageService.translationService.onLangChange.subscribe(() => {
+      this.getBreadCrumb()
       this.selectedLang = this.languageService.translationService.currentLang;
       this.technicalSpecialist = this.specialistOriginal.map((item: any) => ({
         code: item.technicalSpecialistId,
@@ -191,7 +193,19 @@ export class TechnicalDetailsComponent {
     );
     })
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   onPasswordChanged(value:any){
     this.form.get('confirmPassword')?.reset()
 }
@@ -207,8 +221,6 @@ tyepMode() {
   if (url.includes('edit')) result = 'Edit'
   else if (url.includes('view')) result = 'View'
   else result = 'Add'
-
-  this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
   return result
 }
 

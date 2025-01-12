@@ -99,12 +99,14 @@ export class CityDetailsComponent {
   ngOnInit() {
     this.pageName.set('city.pageName')
     this.getAllCountries()
+    this.getBreadCrumb()
     if(this.tyepMode()!=='Add')
       this.getCityDetails()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getAllCountries()
+      this.getBreadCrumb()
 
     })
   
@@ -127,9 +129,20 @@ tyepMode() {
   if (url.includes('edit')) result = 'Edit'
   else if (url.includes('view')) result = 'View'
   else result = 'Add'
-
-  this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
   return result
+}
+getBreadCrumb() {
+  this.bredCrumb = {
+    crumbs: [
+      {
+        label:  this.languageService.translate('Home'),
+        routerLink: '/dashboard',
+      },
+      {
+        label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+      },
+    ]
+  }
 }
   getCityDetails() {
     this.ApiService.get(`City/GetById/${this.cityID}`).subscribe((res: any) => {

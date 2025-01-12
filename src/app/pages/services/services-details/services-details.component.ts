@@ -17,6 +17,7 @@ import { EditModeImageComponent } from '../../../components/edit-mode-image/edit
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-services-details',
@@ -125,10 +126,16 @@ export class ServicesDetailsComponent {
     const control = this.form.get('image');
     return control?.touched && control?.hasError('required') || false;
   }
-
+ selectedLang: any;
+    languageService = inject(LanguageService);
+ 
   ngOnInit() {
     this.pageName.set('services.pageName')
-    console.log(this.router.url)
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
     if (this.tyepMode() !== 'Add')
       this.getServiceDetails()
   }
@@ -139,11 +146,21 @@ export class ServicesDetailsComponent {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
     return result
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   getServiceDetails() {
     this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
       if (res) {
