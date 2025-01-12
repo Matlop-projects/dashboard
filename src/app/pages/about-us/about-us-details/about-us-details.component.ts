@@ -19,7 +19,7 @@ import { IEditImage } from '../../../components/edit-mode-image/editImage.interf
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
 
-const global_PageName = 'About Us';
+const global_PageName = 'about_us.pageName';
 const global_API_deialis =  'aboutUs/GetById';
 const global_API_create =  'aboutUs/Create';
 const global_API_update =  'aboutUs/Update';

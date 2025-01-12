@@ -6,6 +6,7 @@
   "Home": "الرئيسية",
   "Id": "الرقم",
   "Action": "خيارات",
+  "Actions": "خيارات",
   "validation_message": {
     "minlength_validation": "يجب أن يكون الطول أكثر من",
     "maxlength_validation": "يجب أن يكون الطول أقل من",
@@ -498,7 +499,23 @@
   "desc_ar":"الوصف (عربي)",
   "desc_en":"الوصف (إنجليزي)",
    "status": "الحالة",
-  "used_x": "تم استخدامه X مرات"
+  "used_x": "تم استخدامه X مرات",
+  "used":"استخدام"
+  }
+},
+"payment":{
+  "pageName": "طريقة الدفع",
+  "list": "قائمة طرق الدفع",
+  "title": "طريقة الدفع",
+  "pageName_filter": "تصفية طرق الدفع",
+  "pageName_Add_crumb": "إضافة طريقة دفع",
+  "pageName_Edit_crumb": "تعديل طريقة دفع",
+  "pageName_View_crumb": "عرض طريقة دفع",
+  "form": {
+    "name_ar": "الاسم (عربي)",
+    "name_en": "الاسم (إنجليزي)",
+    "desc_ar":"الوصف (عربي)",
+    "desc_en":"الوصف (إنجليزي)"
   }
 }
 

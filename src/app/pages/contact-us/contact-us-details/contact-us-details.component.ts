@@ -14,7 +14,7 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_PageName = 'Contact Us';
+const global_PageName = 'contact_us.pageName';
 const global_API_deialis =  'contactUs/GetById';
 const global_API_create =  'contactUs/Create';
 const global_API_update =  'contactUs/Update';

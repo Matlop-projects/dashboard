@@ -11,8 +11,9 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='Payment Way'
+const global_pageName='payment.pageName'
 const global_API_Name='paymentWay'
 const global_router_add_url_in_Table ='/'+global_API_Name+'/add'
 const global_router_view_url =global_API_Name+'/view'
@@ -32,7 +33,8 @@ const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
     BreadcrumpComponent,
      RouterModule, 
      InputTextModule, 
-     TableSmallScreenComponent
+     TableSmallScreenComponent,
+     TranslatePipe
     ],
   templateUrl: './payment-way-table.component.html',
   styleUrl: './payment-way-table.component.scss'
@@ -108,18 +110,20 @@ export class PaymentWayTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'paymentId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'Description (Ar)', type: EType.editor, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'paymentId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'enName', header: this.languageService.translate('payment.form.name_en'), type: EType.text, show: true },
+      { keyName: 'arName', header: this.languageService.translate('payment.form.name_ar'), type: EType.text, show: true },
+      { keyName: 'enDescription', header: this.languageService.translate('payment.form.desc_en'), type: EType.editor, show: true },
+      { keyName: 'arDescription', header: this.languageService.translate('payment.form.desc_ar'), type: EType.editor, show: true },
+      { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: currentLang == 'ar' ? 'arName' : 'enName', header: 'Name (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName:  'enName', header: this.languageService.translate('payment.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName' , header: this.languageService.translate('payment.form.name_ar'), type: EType.text, showAs: ETableShow.header },
       { keyName: 'paymentId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Name (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName: 'enDescription', header: this.languageService.translate('payment.form.desc_en'), type: EType.editor, showAs: ETableShow.content },
+      { keyName:  'arDescription' , header: this.languageService.translate('payment.form.desc_ar'), type: EType.editor, showAs: ETableShow.content }
     ];
   }
 

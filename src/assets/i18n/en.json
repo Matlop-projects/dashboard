@@ -6,6 +6,7 @@
   "Home": "Home",
   "Id": "Id",
   "Action": "Action",
+  "Actions": "Actions",
   "validation_message":{
     "minlength_validation":"length should be more than",
     "maxlength_validation":"length should be more less than",
@@ -483,7 +484,7 @@
     }
   },
   "copone":{
-    "pageName":"Copone",
+      "pageName":"Copone",
       "list":"Copone List",
       "title":"Copone",
       "pageName_filter":"Filter Copone",
@@ -501,8 +502,24 @@
       "desc_ar":"Description (ar)",
       "desc_en":"Description (en)",
       "status":"Status",
-      "used_x":"Used For X Times"
+      "used_x":"Used For X Times",
+      "used":"Used"
     }
+  },
+  "payment":{
+    "pageName":"Payment Way",
+    "list":"Payment Way List",
+    "title":"Payment Way",
+    "pageName_filter":"Filter Payment Way",
+    "pageName_Add_crumb":"Add Payment Way",
+    "pageName_Edit_crumb":"Edit Payment Way",
+    "pageName_View_crumb":"View Payment Way",
+  "form":{
+    "name_ar":"Name (ar)",
+    "name_en":"Name (en)",
+    "desc_ar":"Description (ar)",
+    "desc_en":"Description (en)"
+  }
   }
 
 }

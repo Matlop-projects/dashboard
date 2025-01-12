@@ -12,8 +12,9 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_PageName ='Payment Way';
+const global_PageName ='payment.pageName';
 const global_API_Name ='paymentWay';
 const global_API_deialis = global_API_Name + '/GetPaymentWay';
 const global_API_create = global_API_Name + '/CreatePaymentWay';
@@ -23,7 +24,7 @@ const global_routeUrl = global_API_Name
 @Component({
   selector: 'app-payment-way-details',
   standalone: true,
-  imports: [ReactiveFormsModule,NgIf,TitleCasePipe,DialogComponent, ButtonModule, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,NgIf,TranslatePipe,TitleCasePipe,DialogComponent, ButtonModule, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './payment-way-details.component.html',
   styleUrl: './payment-way-details.component.scss'
 })

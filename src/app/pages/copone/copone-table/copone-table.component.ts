@@ -105,22 +105,22 @@ export class CoponeTableComponent {
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'coponeId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'code', header: 'Code', type: EType.text, show: true },
-      { keyName: 'startDate', header: 'Start date', type: EType.date, show: true },
-      { keyName: 'endDate', header: 'End Date', type: EType.date, show: true },
-      { keyName: 'numberOfUsing', header: 'Used', type: EType.text, show: true },
-      { keyName: 'usedForXTimes', header: 'For X Time', type: EType.toggle,toggleOptions:global_toggleOptions, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'coponeId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'code', header: this.languageService.translate('copone.form.code'), type: EType.text, show: true },
+      { keyName: 'startDate', header: this.languageService.translate('copone.form.start'), type: EType.date, show: true },
+      { keyName: 'endDate', header: this.languageService.translate('copone.form.end'), type: EType.date, show: true },
+      { keyName: 'numberOfUsing', header: this.languageService.translate('copone.form.used'), type: EType.text, show: true },
+      { keyName: 'usedForXTimes', header: this.languageService.translate('copone.form.used_x'), type: EType.toggle,toggleOptions:global_toggleOptions, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'coponeId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'code', header: 'Code', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'startDate', header: 'Start', type: EType.date, showAs: ETableShow.content },
-      { keyName: 'endDate', header: 'end', type: EType.date, showAs: ETableShow.content },
-      { keyName: 'numberOfUsing', header: 'used', type: EType.text, show: true },
-      { keyName: 'usedForXTimes', header: 'used', type: EType.text, show: true },
+      { keyName: 'coponeId', header:  this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'code', header: this.languageService.translate('copone.form.code'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'startDate', header: this.languageService.translate('copone.form.start'), type: EType.date, showAs: ETableShow.content },
+      { keyName: 'endDate', header: this.languageService.translate('copone.form.end'), type: EType.date, showAs: ETableShow.content },
+      { keyName: 'numberOfUsing', header: this.languageService.translate('copone.form.used'), type: EType.text, show: true },
+      { keyName: 'usedForXTimes', header: this.languageService.translate('copone.form.used_x'), type: EType.text, show: true },
 
     ];
   }
