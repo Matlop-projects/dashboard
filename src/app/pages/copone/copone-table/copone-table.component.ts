@@ -13,6 +13,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
+import { TranslatePipe } from '@ngx-translate/core';
 
 const global_pageName='copone'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
@@ -27,7 +28,7 @@ const global_toggleOptions:IToggleOptions={
 @Component({
   selector: 'app-copone-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe,SelectComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe,TranslatePipe,SelectComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './copone-table.component.html',
   styleUrl: './copone-table.component.scss'
 })

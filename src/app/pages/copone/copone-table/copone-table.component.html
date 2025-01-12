@@ -2,7 +2,7 @@
     <div class="content">
       <div class="title-bredcrumb-section">
         <div class="title">
-          <h2>{{pageName()|titlecase}} List </h2>
+          <h2>{{'copone.pageName' |translate|titlecase}} </h2>
         </div>
         <div class="breadcrumb">
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,7 +10,7 @@
       </div>
       <div class="details-container">
         <div class="action-filter">
-          <a [routerLink]="global_router_add_url_in_Table"> + Add New {{pageName()}}</a>
+          <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}}</a>
           <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
         </div>
       
@@ -27,18 +27,18 @@
       </div>
     </div>
   </div>
-  <app-drawer [visible]="showFilter"  [header]="'Filter '+pageName()" (onClose)="onCloseFilter($event)">
+  <app-drawer [visible]="showFilter"  header="{{pageName()}}_{{'filter'}}" (onClose)="onCloseFilter($event)">
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">Code</label>
+         <label class="mb-1" for="enTitle">{{'copone.form.code'|translate }}</label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
            [(ngModel)]="objectSearch.code"
-           placeholder="Enter  Code"
+           placeholder="{{'shared.enter'|translate}}  {{'copone.form.code'|translate }}"
          />
        </div>
  
@@ -46,7 +46,7 @@
          <app-select [placeholder]="objectSearch.couponType?objectSearch.couponType:'Select Copone Type'"
         [(ngModel)]="objectSearch.couponType"
          class="w-100" [list]="coponeTypeList" 
-         [label]="'Copone Type'">
+         label="{{'copone.form.coponeType'|translate }}">
         </app-select>
        </div>
 
@@ -54,16 +54,15 @@
         <app-select [placeholder]="objectSearch.offerType?objectSearch.offerType:'Select Offer Type'"
         [(ngModel)]="objectSearch.offerType"
          class="w-100" [list]="offerTypeList" 
-         [label]="'Offer Type'">
+         label="{{'copone.form.offerType'|translate }}">
         </app-select>
       </div>
       
       </div>
-       <div class="search-form-actions d-flex">
-         <button type="submit" class="btn btn-primary submit-btn">Submit</button>
-         <button type="button" class="btn btn-danger reset-btn" (click)="reset()">Reset</button>
-       </div>
- 
+      <div class="search-form-actions d-flex">
+        <button type="submit" class="btn btn-primary submit-btn">{{'actions.submit'|translate}}</button>
+        <button type="button" class="btn btn-danger reset-btn" (click)="reset()">{{'actions.reset'|translate}}</button>
+      </div>
      </form>
   </app-drawer>
   
