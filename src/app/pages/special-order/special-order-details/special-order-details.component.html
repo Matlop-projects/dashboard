@@ -14,7 +14,7 @@
       <div class="col-lg-4 col-md-6 col-sm-12 client-deatils-container">
         <div class="content">
           <div class="title-section">
-            <p>Client Details</p>
+            <p>{{'order.client_details'|translate}}</p>
           </div>
           <div class="desc">
             <div class="main-details">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="details">
                   <div class="title">
-                    <p>Email</p>
+                    <p>{{'order.form.email'|translate}}</p>
                   </div>
                   <div class="desc">
                     <p>{{this.clientDetails?.email}}</p>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="details">
                   <div class="title">
-                    <p>Mobile</p>
+                    <p>{{'order.form.mobile'|translate}}</p>
                   </div>
                   <div class="desc">
                     <p>{{this.clientDetails?.mobileNumber}}</p>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="details">
                   <div class="title">
-                    <p>Status</p>
+                    <p>{{'order.form.status'|translate}}</p>
                   </div>
                   <div class="desc">
                     <p style="color: #30d50d;">{{this.clientDetails?.isActive == true ? 'Active' : 'Inactive'}}</p>
@@ -81,7 +81,7 @@
         </div>
         <div class="table-container mt-3" style="height: 293px">
           <div class="title-section mb-4">
-            <p>Note</p>
+            <p>{{'order.form.note'|translate}}</p>
           </div>
           <p-floatlabel variant="on">
             <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
@@ -93,12 +93,12 @@
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
         <div class="content">
           <div class="title-section">
-            <p>Order Details</p>
+            <p>{{'order.order_details'|translate}}</p>
           </div>
           <div class="desc">
             <div class="details order-status-dropdown">
               <div class="title">
-                <p>Order Status</p>
+                <p> {{'order.order_status'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p-select [options]="statuses" (onChange)="onStatusChange()" [(ngModel)]="orderStatusValue"
@@ -107,7 +107,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Amount</p>
+                <p>{{'special_order.amount'|translate}}</p>
               </div>
               <div class="details-desc total-price">
                 <div class="amount">
@@ -121,7 +121,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Order Id</p>
+                <p>{{'order.order_id'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.specialOrderId}}</p>
@@ -129,7 +129,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Special Order Type</p>
+                <p>{{'special_order.order_type'|translate}}</p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.specialOrderEnum == 1 ? 'Emergency' : 'Special'}}</p>
@@ -137,7 +137,7 @@
             </div>
             <div class="details" *ngIf="orderDetails.specialOrderEnum != 1">
               <div class="title">
-                <p>Special Order Date</p>
+                <p>{{'special_order.order_date'|translate}} </p>
               </div>
               <div class="details-desc">
                 <p>{{orderDetails.specialOrderDate | date}}</p>
@@ -145,7 +145,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>Order Status</p>
+                <p>{{'order.order_status'|translate}}</p>
               </div>
               <div class="details-desc status-details"
                 [style.backgroundColor]="getColorById(orderDetails.specialOrderStatus)">
@@ -160,14 +160,14 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="table-container">
           <div class="title-section mb-4">
-            <p>Order's Providers</p>
+            <p> {{'order.order_provider'|translate}}</p>
             <span class="d-flex align-center" style="gap: 10px;">
               <div class="add-provider" pTooltip="Add New Technical" tooltipPosition="top" (click)="openTechnicalModal()">
-               Technical
+                {{'order.technical'|translate}}
                 <i class="pi pi-plus"></i>
               </div>
               <div class="add-provider driver" pTooltip="Add New Driver" tooltipPosition="top" (click)="openDriverModal()">
-                Driver
+                {{'order.driver'|translate}}
                 <i class="pi pi-plus"></i>
               </div>
             </span>
@@ -175,10 +175,10 @@
           <table class="p-datatable">
             <thead class="p-datatable-thead">
               <tr>
-                <th>Technical ID</th>
-                <th>Technical Name</th>
-                <th>Technical Type</th>
-                <th>Edit Technical</th>
+                <th>{{'order.table.tech_id'|translate}} </th>
+                <th>{{'order.table.tech_Name'|translate}}</th>
+                <th>{{'order.table.tech_type'|translate}}</th>
+                <th>{{'order.table.edit_tech'|translate}}</th>
               </tr>
             </thead>
             <tbody class="p-datatable-tbody">
@@ -201,7 +201,7 @@
       <div class="col-lg-6 col-md-6 col-sm-12">
         <div class="table-container">
           <div class="title-section">
-            <p>Order Image</p>
+            <p>{{'order.order_img'|translate}}</p>
           </div>
 
           <div class="order-image-desc">
@@ -210,7 +210,7 @@
             </ng-container>
             <ng-container *ngIf="this.imageList.length == 0">
               <img src="assets/images/empty-state.png" alt="empty state">
-              <p>No Image Available</p>
+              <p>{{'order.no_image'|translate}}</p>
             </ng-container>
           </div>
         </div>

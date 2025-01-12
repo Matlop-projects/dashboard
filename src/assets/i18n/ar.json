@@ -301,6 +301,9 @@
     "pageName_Add_crumb": "إضافة طلب خاص",
     "pageName_Edit_crumb": "تعديل طلب خاص",
     "pageName_View_crumb": "عرض طلب خاص",
+    "amount": "القيمة",
+    "order_type": "نوع الطلب الخاص",
+    "order_date": "تاريخ الطلب الخاص",
     "form": {
       "specialOrderId": "رقم الطلب",
       "amount": "المبلغ",

@@ -303,6 +303,9 @@
     "pageName_Add_crumb":"Add Special Order",
     "pageName_Edit_crumb":"Edit Special Order",
     "pageName_View_crumb":"View Special Order",
+    "amount":"Amount",
+    "order_type":" Special Order Type",
+    "order_date":"Special Order Date",
     "form":{
       "specialOrderId":"Order Id",
       "amount":"amount",
