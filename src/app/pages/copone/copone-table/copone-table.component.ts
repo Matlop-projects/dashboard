@@ -15,12 +15,12 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='copone'
-const global_router_add_url_in_Table ='/'+global_pageName+'/add'
-const global_router_view_url =global_pageName+'/view'
-const global_router_edit_url =global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAllWithPagination'
-const global_API_delete=global_pageName+'/Delete?requestId'
+const global_pageName='copone.pageName'
+const global_router_add_url_in_Table ='/'+'copone'+'/add'
+const global_router_view_url ='copone'+'/view'
+const global_router_edit_url ='copone'+'/edit'
+const global_API_getAll ='copone'+'/GetAllWithPagination'
+const global_API_delete='copone'+'/Delete?requestId'
 const global_toggleOptions:IToggleOptions={
   apiName:'copone/Update',
   autoCall:true,

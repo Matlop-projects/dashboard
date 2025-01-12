@@ -47,7 +47,8 @@
     "img_required":"Image upload is required.",
     "all":"All",
     "drag_drop_img":"Drag and drop image to here to upload.",
-    "bytes":"bytes"
+    "bytes":"bytes",
+    "no_data_found":"No date found"
   },
   "login":{
      "welcome":"Welcome Back!",
@@ -381,7 +382,7 @@
     "title":"Working Hours List",
     "add_new":"Add New",
     "start":"Start Date",
-    "end":"End Datesssss"
+    "end":"End Date"
   },
   "tech":{
     "pageName":"Technials",
@@ -476,6 +477,28 @@
       "email":"Email",
       "phone":"Phone Number",
       "message":"Message"
+    }
+  },
+  "copone":{
+    "pageName":"Copone",
+      "list":"Copone List",
+      "title":"Copone",
+      "pageName_filter":"Filter Copone",
+      "pageName_Add_crumb":"Add Copone",
+      "pageName_Edit_crumb":"Edit Copone",
+      "pageName_View_crumb":"View Copone",
+    "form":{
+      "code":"Code",
+      "coponeType":"Copone Type",
+      "offerType":"Offer Type",
+      "usedNumber":"Used Number",
+      "amount":"Amount",
+      "start":"Start Date",
+      "end":"End Date",
+      "desc_ar":"Description (ar)",
+      "desc_en":"Description (en)",
+      "status":"Status",
+      "used_x":"Used For X Times"
     }
   }
 

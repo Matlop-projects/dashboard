@@ -16,17 +16,18 @@ import { DatePickerComponent } from '../../../components/date-picker/date-picker
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_PageName = 'copone';
-const global_API_deialis = global_PageName + '/GetById';
-const global_API_create = global_PageName + '/Create';
-const global_API_update = global_PageName + '/Update';
-const global_routeUrl = global_PageName
+const global_PageName = 'copone.pageName';
+const global_API_deialis = 'copone' + '/GetById';
+const global_API_create = 'copone' + '/Create';
+const global_API_update = 'copone' + '/Update';
+const global_routeUrl = 'copone'
 
 @Component({
   selector: 'app-copone-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe, ButtonModule,SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, TitleCasePipe,TranslatePipe, ButtonModule,SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './copone-details.component.html',
   styleUrl: './copone-details.component.scss'
 })

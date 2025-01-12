@@ -7,6 +7,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CheckBoxComponent } from '../check-box/check-box.component';
 import { environment } from '../../../environments/environment';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface IToggleOptions {
   autoCall: boolean,
@@ -57,7 +58,7 @@ export interface IcolHeader {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf, TooltipModule, DialogComponent, CheckBoxComponent],
+  imports: [TableModule, NgFor, NgIf,TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
