@@ -31,25 +31,25 @@
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">{{pageName()|translate}}  name (en)</label>
+         <label class="mb-1" for="enTitle">{{'about_us.form.name_en'|translate}} </label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
            [(ngModel)]="objectSearch.enName"
-           placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (en)"
+           placeholder="{{'shared.enter'|translate}} {{'about_us.form.name_en'|translate}}"
          />
        </div>
        <div class="form-group mb-3">
-        <label class="mb-1" for="enTitle">{{pageName()|translate}}  name (ar)</label>
+        <label class="mb-1" for="enTitle">{{'about_us.form.name_ar'|translate}}</label>
         <input
           type="text"
           id="enTitle"
           name="enTitle"
           class="form-control"
           [(ngModel)]="objectSearch.arName"
-          placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (ar)"
+          placeholder="{{'shared.enter'|translate}} {{'about_us.form.name_ar'|translate}}"
         />
       </div>
       </div>

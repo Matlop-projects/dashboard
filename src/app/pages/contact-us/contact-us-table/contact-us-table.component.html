@@ -31,14 +31,14 @@
     <form #myForm="ngForm" (ngSubmit)="onSubmitFilter()" body class="h-100 search-form d-flex">
       <div class="form-content">
        <div class="form-group mb-3">
-         <label class="mb-1" for="enTitle">{{pageName()|translate}} name</label>
+         <label class="mb-1" for="enTitle">{{'contact_us.form.name'|translate}}</label>
          <input
            type="text"
            id="enTitle"
            name="enTitle"
            class="form-control"
            [(ngModel)]="objectSearch.name"
-           placeholder="{{'shared.enter'|translate}} {{pageName()|translate}} (en)"
+           placeholder="{{'shared.enter'|translate}} {{'contact_us.form.name'|translate}}"
          />
        </div>
       </div>

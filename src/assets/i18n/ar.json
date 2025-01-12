@@ -257,12 +257,12 @@
     }
   },
   "contact_us": {
-    "pageName": "اتصل بنا",
+    "pageName": "رسالة تواصل",
     "list":"قائمة التواصل ",
-    "pageName_filter": "تصفية الرسائل",
-    "pageName_Add_crumb": "إضافة رسالة",
-    "pageName_Edit_crumb": "تعديل رسالة",
-    "pageName_View_crumb": "عرض رسالة",
+    "pageName_filter": "تصفية التواصل",
+    "pageName_Add_crumb": "إضافة رسالة تواصل",
+    "pageName_Edit_crumb": "تعديل رسالة تواصل",
+    "pageName_View_crumb": "عرض رسالة تواصل",
     "form": {
       "name": "الاسم",
       "email": "البريد الإلكتروني",

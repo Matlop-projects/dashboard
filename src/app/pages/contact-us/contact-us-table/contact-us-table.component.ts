@@ -13,7 +13,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='Contact Us'
+const global_pageName='contact_us.pageName'
 const global_router_add_url_in_Table ='/contact-us/add'
 const global_router_view_url ='contact-us/view'
 const global_router_edit_url ='contact-us/edit'
