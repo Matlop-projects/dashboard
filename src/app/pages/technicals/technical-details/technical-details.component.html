@@ -79,9 +79,9 @@
           <div class="upload-image-section mt-4 mb-4" *ngIf="!editMode">
             <label class="mb-2">{{'shared.upload_img'|translate}}</label>
             <app-upload-file formControlName="imgSrc"></app-upload-file>
-            <div *ngIf="isRequiredError" class="error-message mt-2">
+            <!-- <div *ngIf="isRequiredError" class="error-message mt-2">
               {{'shared.img_required'|translate}}
-            </div>
+            </div> -->
           </div>
           <div class="edit-mode-section mt-2" *ngIf="editMode">
             <label class="mb-2" >{{'shared.uploaded_img'|translate}}</label>

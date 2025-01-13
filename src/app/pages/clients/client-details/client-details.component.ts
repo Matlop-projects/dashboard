@@ -90,12 +90,7 @@ export class ClientDetailsComponent {
 
     //   ]
     // }),
-    imgSrc: new FormControl('', {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
+    imgSrc: new FormControl(''),
     gender: new FormControl('', {
       validators: [
         Validators.required,
@@ -209,7 +204,7 @@ onConfirmPasswordChanged(value:string){
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
         console.log("ClientDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc :", this.editImageProps.props.imgSrc )
-      this.removeValidators()
+        this.removeValidators()
       }
     });
   }
@@ -230,6 +225,7 @@ onConfirmPasswordChanged(value:string){
     if (this.tyepMode() === 'Add')
       this.addFQS(this.form.value)
     else{
+      this.removeValidators()
       delete this.form.value.confirmPassword
       delete this.form.value.password
       delete this.form.value.pinCode
@@ -238,10 +234,10 @@ onConfirmPasswordChanged(value:string){
       
   }
 
-  get isRequiredError(): boolean {
-    const control = this.form.get('imgSrc');
-    return control?.touched && control?.hasError('required') || false;
-  }
+  // get isRequiredError(): boolean {
+  //   const control = this.form.get('imgSrc');
+  //   return control?.touched && control?.hasError('required') || false;
+  // }
 
   cancel() {
     const hasValue = this.confirm.formHasValue(this.form)

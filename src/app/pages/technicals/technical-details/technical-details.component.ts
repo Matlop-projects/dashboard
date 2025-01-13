@@ -92,12 +92,7 @@ export class TechnicalDetailsComponent {
 
     //   ]
     // }),
-    imgSrc: new FormControl('', {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
+    imgSrc: new FormControl(''),
     gender: new FormControl('', {
       validators: [
         Validators.required,
@@ -288,10 +283,10 @@ tyepMode() {
     }
   }
 
-  get isRequiredError(): boolean {
-    const control = this.form.get('imgSrc');
-    return control?.touched && control?.hasError('required') || false;
-  }
+  // get isRequiredError(): boolean {
+  //   const control = this.form.get('imgSrc');
+  //   return control?.touched && control?.hasError('required') || false;
+  // }
 
   cancel() {
     const hasValue = this.confirm.formHasValue(this.form)

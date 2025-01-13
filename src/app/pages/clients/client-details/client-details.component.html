@@ -33,17 +33,17 @@
             <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'client.form.mobileNumber'"
               [control]="form.get('mobileNumber')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()=='add'">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()=='Add'">
             <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'client.form.pinCode'"
               [control]="form.get('pinCode')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()=='add'">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="tyepMode()=='Add'">
             <app-input-text type="password" (onValueChange)="onPasswordChanged($event)" [showPasswordWeakness]="true"  [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'client.form.password'"
               [control]="form.get('password')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()=='add'">
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4"*ngIf="tyepMode()=='Add'">
             <app-input-text type="password" (onValueChange)="onConfirmPasswordChanged($event)" [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
-              [label]="'client.form,confirmPassword'" [control]="form.get('confirmPassword')"></app-input-text>
+              [label]="'client.form.confirmPassword'" [control]="form.get('confirmPassword')"></app-input-text>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
             <app-select [placeholder]="form.get('gender')?.value" class="w-100" [list]="gender" [label]="'client.form.gender'"
@@ -64,9 +64,9 @@
           <div class="upload-image-section mt-4 mb-4" *ngIf="!editMode">
             <label class="mb-2">{{'shared.upload_img'|translate}}</label>
             <app-upload-file formControlName="imgSrc"></app-upload-file>
-            <div *ngIf="isRequiredError" class="error-message mt-2">
+            <!-- <div *ngIf="isRequiredError" class="error-message mt-2">
               {{'shared.img_required'|translate}}
-            </div>
+            </div> -->
           </div>
           <div class="edit-mode-section mt-2" *ngIf="editMode">
             <label class="mb-2">{{'shared.uploaded_img'|translate}}</label>
