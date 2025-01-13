@@ -119,7 +119,24 @@
     }
   },
   "faqs":{
-    "validation_english_title":"title is only english"
+    "validation_english_title":"title is only english",
+    "pageName":"FAQS",
+    "list":"FAQS",
+    "pageName_View_crumb":"View FAQS",
+    "pageName_filter":"Filter FAQS",
+    "pageName_Add_crumb":"Add FAQS",
+    "pageName_Edit_crumb":"Edit FAQS",
+    "form":{
+      "question_en":"Question (en)",
+      "question_ar":"Question (ar)",
+      "answer_en":"Answer (en)",
+      "answer_ar":"Answer (ar)",
+      "title_en":"English Title",
+      "title_ar":"Arabic Title",
+      "desc_ar":"Description (ar)",
+      "desc_en":"Description (en)",
+      "userType":"User Type"
+    }
   },
   "pkg":{
     "pageName":"Packages",

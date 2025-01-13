@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
@@ -10,16 +10,20 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
+import { TranslatePipe } from '@ngx-translate/core';
+import { TitleCasePipe } from '@angular/common';
 
+const global_pageName = 'faqs.pageName';
 
 @Component({
   selector: 'app-faqs',
   standalone: true,
-  imports: [TableComponent, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TranslatePipe,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './faqs-table.component.html',
   styleUrl: './faqs-table.component.scss'
 })
 export class FaqsTableComponent {
+  pageName = signal<string>(global_pageName);
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -44,15 +48,7 @@ export class FaqsTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'FAQs',
-      },
-    ]
+    crumbs: [ ]
   }
 
   faqSearchCreteria = {
@@ -80,29 +76,47 @@ export class FaqsTableComponent {
     this.getAllFAQS();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    this.getBreadCrumb()
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb()
+
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'questionId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enTitle', header: 'Question (en)', type: EType.text, show: true },
-      { keyName: 'arTitle', header: 'Question (ar)', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'Answer (en)', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'Answer (Ar)', type: EType.editor, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'questionId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'enTitle', header: this.languageService.translate('faqs.form.question_en'), type: EType.text, show: true },
+      { keyName: 'arTitle', header: this.languageService.translate('faqs.form.question_ar'), type: EType.text, show: true },
+      { keyName: 'enDescription', header: this.languageService.translate('faqs.form.desc_en'), type: EType.editor, show: true },
+      { keyName: 'arDescription', header:  this.languageService.translate('faqs.form.desc_ar'), type: EType.editor, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: currentLang == 'ar' ? 'arTitle' : 'enTitle', header: 'Question (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName:  'enTitle', header: this.languageService.translate('faqs.form.question_en'), type: EType.text, showAs: ETableShow.header },
       { keyName: 'questionId', header: 'Id', type: EType.id, show: false },
-      { keyName: currentLang == 'ar' ? 'arDescription' : 'enDescription', header: 'Question (ar)', type: EType.editor, showAs: ETableShow.content }
+      { keyName:  'arTitle' , header: this.languageService.translate('faqs.form.question_ar'), type: EType.editor, showAs: ETableShow.content },
+      { keyName:  'enDescription' , header: this.languageService.translate('faqs.form.desc_en'), type: EType.editor, showAs: ETableShow.content },
+      { keyName:  'arDescription' , header: this.languageService.translate('faqs.form.desc_ar'), type: EType.editor, showAs: ETableShow.content }
+
     ];
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   openFilter() {
     this.showFilter = true
   }

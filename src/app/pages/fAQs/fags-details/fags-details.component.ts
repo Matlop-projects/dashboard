@@ -17,7 +17,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 
-const global_PageName = 'district.pageName';
+const global_PageName = 'faqs.pageName';
 
 @Component({
   selector: 'app-fags-details',
@@ -69,15 +69,7 @@ pageName = signal<string>(global_PageName);
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'FAQs',
-      },
-    ]
+    crumbs: [ ]
   }
 
   get faqsID() {
@@ -86,6 +78,11 @@ pageName = signal<string>(global_PageName);
 
   ngOnInit() {
     this.pageName.set(global_PageName)
+    this.getBreadCrumb()
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    }); 
     if (this.tyepMode() !== 'Add')
       this.getFaqsDetails()   
   }
@@ -96,9 +93,20 @@ pageName = signal<string>(global_PageName);
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
     return result
+  }
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
   }
 
   getFaqsDetails() {
