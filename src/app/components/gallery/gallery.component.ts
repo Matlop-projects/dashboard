@@ -28,6 +28,11 @@ export class GalleryComponent {
   //   ]
   // }
 
+ngOnInit(): void {
+ console.log(this.mediaList);
+
+}
+
   openImage(image: string) {
     this.visible = true;
     this.imageSrc = image;

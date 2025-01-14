@@ -16,7 +16,7 @@ const global_pageName='TermsAndConditions';
 const global_router_add_url_in_Table ='/settings/terms_conditions/add';
 const global_router_view_url ='/settings/terms_conditions/view';
 const global_router_edit_url ='/settings/terms_conditions/edit';
-const global_API_getAll =global_pageName+'/GetAllTermsAndConditions';
+const global_API_getAll =global_pageName+'/GetAllWithPagination';
 const global_API_delete=global_pageName+'/DeleteTermsAndConditions?requestId';
 @Component({
   selector: 'app-terms-conditions-table',
