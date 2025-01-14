@@ -51,22 +51,16 @@ export class CountriesDetailsComponent implements OnInit {
     enName: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyEnglishValidators(),
+        Validations.englishCharsValidator(),
       ],
     }),
     arName: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.onlyArabicValidators()
+        Validations.arabicCharsValidator()
       ]
     }),
     currency: new FormControl('', {
-      validators: [
-        Validators.required,
-        Validations.onlyCharacterValidator()
-      ]
-    }),
-    nationality: new FormControl('', {
       validators: [
         Validators.required,
         Validations.onlyCharacterValidator()
@@ -84,28 +78,12 @@ export class CountriesDetailsComponent implements OnInit {
         Validations.onlyNumberValidator()
       ]
     }),
-    shortName: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    content: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
     status: new FormControl(true),
     img: new FormControl(null, {
       validators: [
         Validators.required,
       ]
-    }),
-    timeZone: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -128,7 +106,7 @@ export class CountriesDetailsComponent implements OnInit {
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
-    }); 
+    });
      if (this.tyepMode() !== 'Add')
       this.getCountryDetails()
   }

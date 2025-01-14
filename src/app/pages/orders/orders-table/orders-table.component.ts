@@ -17,7 +17,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 const global_pageName = 'order.pageName'
 const global_router_edit_url = '/order/edit'
-const global_API_getAll =   'order/GetAllWitPagination'
+const global_API_getAll =   'order/GetAllWitPaginationDashboard'
 
 @Component({
   selector: 'app-orders-table',
