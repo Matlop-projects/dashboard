@@ -22,7 +22,7 @@ export class DashboardComponent {
   items: any[] = [
     { name: 'dashboard.client', value: 0, img: 'assets/images/dashboard/client.png', route: '/clients', id: 'clientCount' },
     { name: 'dashboard.technical', value: 0, img: 'assets/images/dashboard/technical-support.png', route: '/technicals', id: 'technicalCount' },
-    { name: 'dashboard.order', value: 0, img: 'assets/images/dashboard/checklist.png', route: '/dashboard', id: 'orderCount' },
+    { name: 'dashboard.order', value: 0, img: 'assets/images/dashboard/checklist.png', route: '/orders', id: 'orderCount' },
     { name: 'dashboard.contractType', value: 0, img: 'assets/images/dashboard/contract.png', route: '/contract-type', id: 'contractTypeCount' },
     { name: 'dashboard.package', value: 0, img: 'assets/images/dashboard/package.png', route: '/package', id: 'packageCount' },
     { name: 'dashboard.paymentWay', value: 0, img: 'assets/images/dashboard/payment-method.png', route: '/paymentWay', id: 'paymentWayCount' },
