@@ -13,7 +13,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='District'
+const global_pageName='district.pageName'
 const global_router_add_url_in_Table ='/settings/district/add'
 const global_router_view_url ='settings/district/view'
 const global_router_edit_url ='settings/district/edit'
@@ -53,15 +53,7 @@ export class DistrictTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
   objectSearch = {
@@ -88,34 +80,48 @@ export class DistrictTableComponent {
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb();
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'districtId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Name (en)', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Name (ar)', type: EType.text, show: true },
-      { keyName: 'cityName', header: 'City', type: EType.text, show: true },
-      { keyName: 'enDescription', header: 'Description (en)', type: EType.editor, show: true },
-      { keyName: 'arDescription', header: 'Description (ar)', type: EType.editor, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'districtId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'enName', header:  this.languageService.translate('district.form.name_en'), type: EType.text, show: true },
+      { keyName: 'arName', header: this.languageService.translate('district.form.name_ar'), type: EType.text, show: true },
+      { keyName: 'cityName', header:  this.languageService.translate('district.form.city'), type: EType.text, show: true },
+      { keyName: 'enDescription', header:  this.languageService.translate('district.form.desc_en'), type: EType.editor, show: true },
+      { keyName: 'arDescription', header:  this.languageService.translate('district.form.desc_ar'), type: EType.editor, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'districtId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'enName', header: 'enName', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'arName', header: 'arName', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'cityName', header: 'City', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'enDescription', header: 'enDescription', type: EType.editor, showAs: ETableShow.content },
-      { keyName: 'arDescription', header: 'arDescription', type: EType.editor, show: true, showAs: ETableShow.content  },
+      { keyName: 'districtId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'enName', header:this.languageService.translate('district.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName', header: this.languageService.translate('district.form.name_ar'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'cityName', header: this.languageService.translate('district.form.city'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'enDescription', header: this.languageService.translate('district.form.desc_en'), type: EType.editor, showAs: ETableShow.content },
+      { keyName: 'arDescription', header:this.languageService.translate('district.form.desc_ar'), type: EType.editor, show: true, showAs: ETableShow.content  },
 
     ];
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   openFilter() {
     this.showFilter = true
   }

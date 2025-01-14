@@ -205,6 +205,7 @@
   },
   "admin":{
     "pageName":"Admin",
+    "list":"Admin List",
     "pageName_filter":"Filter Admin",
     "pageName_Add_crumb":"Add Admin",
     "pageName_Edit_crumb":"Edit Admin",
@@ -225,6 +226,7 @@
   },
   "district":{
     "pageName":"District",
+    "list":"District List",
     "pageName_filter":"Filter District",
     "pageName_Add_crumb":"Add District",
     "pageName_Edit_crumb":"Edit District",
@@ -401,7 +403,14 @@
   "profile":{
     "pageName":"Profile",
     "pageName_Edit_crumb":"Edit Profile",
-    "pageName_View_crumb":"View Profile"
+    "pageName_View_crumb":"View Profile",
+    "userName":"User Name",
+    "status":"Status",
+    "role":"Role",
+    "mobile":"Mobile",
+    "email":"Email",
+    "gender":"Gender",
+    "name":"Name"
 
   },
   "working_hours":{
@@ -614,14 +623,14 @@
   },
   "roles":{
     "pageName":"Roles",
-    "list":"Roles",
+    "list":"Roles List",
     "pageName_filter":"Filter Roles",
     "pageName_Add_crumb":"Add Role",
     "pageName_Edit_crumb":"Edit Role",
     "pageName_View_crumb":"View Role",
     "form":{
-       "title_ar":" Title (ar)",
-       "title_en":" Title (en)",
+       "title_ar":" Role (ar)",
+       "title_en":" Role (en)",
        "assign_roles":"Assign Roles"
     }
   }

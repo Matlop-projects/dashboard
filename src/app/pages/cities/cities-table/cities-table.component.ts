@@ -88,7 +88,7 @@ export class CitiesTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'cityId', header: this.languageService.translate('Id'), type: EType.id, show: true },
-      { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('city.form.name_en'), type: EType.text, show: true },
+      { keyName: 'enName', header: this.languageService.translate('city.form.name_en'), type: EType.text, show: true },
       { keyName: 'postalCode', header: this.languageService.translate('city.form.postalCode'), type: EType.text, show: true },
       { keyName: 'latitude', header: this.languageService.translate('city.form.latitude'), type: EType.text, show: true },
       { keyName: 'longitude', header: this.languageService.translate('city.form.longitude'), type: EType.text, show: true },
@@ -98,7 +98,7 @@ export class CitiesTableComponent {
     ];
 
     this.columnsSmallTable = [
-      { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('city.form.name_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'enName', header: this.languageService.translate('city.form.name_en'), type: EType.text, showAs: ETableShow.header },
       { keyName: 'cityId', header: this.languageService.translate('Id'), type: EType.id, show: false },
       { keyName: 'postalCode', header: this.languageService.translate('city.form.postalCode'), type: EType.text, showAs: ETableShow.content },
       { keyName: 'latitude', header: this.languageService.translate('city.form.latitude'), type: EType.text, showAs: ETableShow.content },

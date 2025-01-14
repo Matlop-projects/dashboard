@@ -13,14 +13,14 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='Admin'
+const global_pageName='admin.pageName'
 const global_router_add_url_in_Table ='/settings/admin/add'
 const global_router_view_url ='settings/admin/view'
 const global_router_edit_url ='settings/admin/edit'
 const global_API_getAll ='admin/GetAllWithPagination'
 const global_API_deialis =  'admin/GetById';
 const global_toggleOptions:IToggleOptions={
-apiName:global_pageName+'/Update',
+apiName:"Admin"+'/Update',
 autoCall:true,
 }
 @Component({
@@ -56,15 +56,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
   objectSearch = {
@@ -91,32 +83,49 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
   ngOnInit() {
     this.pageName.set(global_pageName) 
     this.API_getAll();
+    this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb();
+
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'userId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'fullName', header: 'Full Name', type: EType.text, show: true },
-      { keyName: 'email', header: 'Email', type: EType.text, show: true },
-      { keyName: 'userName', header: 'userName', type: EType.text, show: true },
-      { keyName: 'isActive', header: 'active', type: EType.toggle, toggleOptions:global_toggleOptions, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'userId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'fullName', header: this.languageService.translate('admin.form.fullName'), type: EType.text, show: true },
+      { keyName: 'email', header:this.languageService.translate('admin.form.email'), type: EType.text, show: true },
+      { keyName: 'userName', header: this.languageService.translate('admin.form.userName'), type: EType.text, show: true },
+      { keyName: 'isActive', header: this.languageService.translate('admin.form.status'), type: EType.toggle, toggleOptions:global_toggleOptions, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'userId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'fullName', header: 'Full Name', type: EType.text, show: true },
-      { keyName: 'email', header: 'arName', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'userName', header: 'enName', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'userId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'fullName', header: this.languageService.translate('admin.form.fullName'), type: EType.text, show: true },
+      { keyName: 'email', header: this.languageService.translate('admin.form.email'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'userName', header: this.languageService.translate('admin.form.userName'), type: EType.text, showAs: ETableShow.header },
     ];
   }
 
+  
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   openFilter() {
     this.showFilter = true
   }

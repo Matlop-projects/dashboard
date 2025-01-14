@@ -101,15 +101,7 @@ userDataInfo:any[]=[]
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.languageService.translate(this.pageName()),
-      },
-    ]
+    crumbs: []
   }
 
 
@@ -122,10 +114,12 @@ userDataInfo:any[]=[]
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getAllRoles()
+    this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getAllRoles()
+      this.getBreadCrumb()
 
     })
    
@@ -173,10 +167,21 @@ userDataInfo:any[]=[]
   }
   tyepMode() {
     let result = 'View'
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
     return result
   }
- 
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   removePasswordValidation(){
     const ctrlform =this.form.controls
 
@@ -194,37 +199,37 @@ userDataInfo:any[]=[]
         this.imgUrl=res.data.imgSrc?environment.baseImageUrl+res.data.imgSrc:this.defaultImage
         this.userDataInfo=[{
           icon:'pi pi-address-book',
-          title:'Name',
+          title:'profile.name',
           value:res.data.fullName
         },
         {
           icon:'pi pi-user',
-          title:'Gender',
+          title:'profile.gender',
           value:res.data.genderId==1?'Male':'Female'
         },
         {
           icon:'pi pi-at',
-          title:'Email',
+          title:'profile.email',
           value:res.data.email
         }
         ,{
           icon:'pi pi-phone',
-          title:'Mobile',
+          title:'profile.mobile',
           value:res.data.mobileNumber
         }
         ,{
           icon:'pi pi-unlock',
-          title:'Role',
+          title:'profile.role',
           value:res.data.roleId
         }
         ,{
           icon:'pi  pi-circle-on',
-          title:'Status',
+          title:'profile.status',
           value:res.data.isActive?'active':'deactive'
         },
         {
           icon:'pi pi-address-book',
-          title:'UserName',
+          title:'profile.userName',
           value:res.data.userName
         }
       ]

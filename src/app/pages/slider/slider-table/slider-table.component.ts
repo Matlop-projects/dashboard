@@ -11,17 +11,18 @@ import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_pageName='slider'
-const global_router_add_url_in_Table ='/settings/'+global_pageName+'/add'
-const global_router_view_url ='/settings/'+global_pageName+'/view'
-const global_router_edit_url ='/settings/'+global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAll'
-const global_API_delete=global_pageName+'/Delete?requestId'
+const global_pageName='slider.pageName'
+const global_router_add_url_in_Table ='/settings/'+"slider"+'/add'
+const global_router_view_url ='/settings/'+"slider"+'/view'
+const global_router_edit_url ='/settings/'+"slider"+'/edit'
+const global_API_getAll ="slider"+'/GetAll'
+const global_API_delete="slider"+'/Delete?requestId'
 @Component({
   selector: 'app-slider-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe, PaginationComponent, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe, PaginationComponent,TranslatePipe, FormsModule, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './slider-table.component.html',
   styleUrl: './slider-table.component.scss'
 })
@@ -52,15 +53,7 @@ export class SliderTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
   objectSearch = {
@@ -91,34 +84,49 @@ export class SliderTableComponent {
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    this.getBreadCrumb()
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb()
+
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'sliderId', header: 'Id', type: EType.id, show: true },
+      { keyName: 'sliderId', header:  this.languageService.translate('Id'), type: EType.id, show: true },
       // { keyName: 'imageEn', header: 'Image (en)', type: EType.image, show: true },
       // { keyName: 'imageAr', header: 'Image (ar)', type: EType.image, show: true },
-      { keyName: 'titleEn', header: 'Title (en)', type: EType.text, show: true },
-      { keyName: 'titleAr', header: 'Title (ar)', type: EType.text, show: true },
-      { keyName: 'displayOrder', header: 'Display Order', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'titleEn', header:  this.languageService.translate('slider.form.title_en'), type: EType.text, show: true },
+      { keyName: 'titleAr', header:  this.languageService.translate('slider.form.title_ar'), type: EType.text, show: true },
+      { keyName: 'displayOrder', header: this.languageService.translate('slider.form.displayOrder'), type: EType.text, show: true },
+      { keyName: '', header:  this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'sliderId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'titleEn', header: 'Title (en)', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'titleAr', header: 'Title (ar)', type: EType.text, showAs: ETableShow.header },
+      { keyName: 'sliderId', header:  this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'titleEn', header:  this.languageService.translate('slider.form.title_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'titleAr', header:  this.languageService.translate('slider.form.title_ar'), type: EType.text, showAs: ETableShow.header },
       // { keyName: 'imageEn', header: 'Image (en)', type: EType.text, showAs: ETableShow.content },
       // { keyName: 'imageAr', header: 'Image (ar)', type: EType.text, showAs: ETableShow.content },
-      { keyName: 'displayOrder', header: 'Display Order', type: EType.text, showAs: ETableShow.content },
+      { keyName: 'displayOrder', header: this.languageService.translate('slider.form.displayOrder'), type: EType.text, showAs: ETableShow.content },
 
     ];
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   openFilter() {
     this.showFilter = true
   }

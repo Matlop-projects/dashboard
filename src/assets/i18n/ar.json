@@ -204,6 +204,7 @@
   },
   "admin": {
     "pageName": "المدير",
+    "list":"قائمة المدراء",
     "pageName_filter": "تصفية المدراء",
     "pageName_Add_crumb": "إضافة مدير",
     "pageName_Edit_crumb": "تعديل مدير",
@@ -223,7 +224,8 @@
     }
   },
   "district": {
-    "pageName": "المنطقة",
+    "pageName": "المناطق",
+    "list":"قائمة المناطق",
     "pageName_filter": "تصفية المناطق",
     "pageName_Add_crumb": "إضافة منطقة",
     "pageName_Edit_crumb": "تعديل منطقة",
@@ -400,7 +402,14 @@
   "profile": {
     "pageName": "الملف الشخصي",
     "pageName_Edit_crumb": "تعديل الملف الشخصي",
-    "pageName_View_crumb": "عرض الملف الشخصي"
+    "pageName_View_crumb": "عرض الملف الشخصي",
+    "userName":"اسم المستخدم",
+    "status":"الحالة",
+    "role":"الدور",
+    "mobile":"الجوال",
+    "email":"البريد الإلكتروني",
+    "gender":"الجنس",
+    "name":"الاسم"
   },
   "working_hours": {
     "pageName": "ساعات العمل",
@@ -611,14 +620,14 @@
 },
 "roles": {
   "pageName": "الأدوار",
-  "list": "الأدوار",
+  "list": "قائمة الأدوار",
   "pageName_filter": "تصفية الأدوار",
   "pageName_Add_crumb": "إضافة دور",
   "pageName_Edit_crumb": "تعديل دور",
   "pageName_View_crumb": "عرض دور",
   "form": {
-    "title_ar": "العنوان (عربي)",
-    "title_en": "العنوان (إنجليزي)",
+    "title_ar": "الدور (عربي)",
+    "title_en": "الدور (إنجليزي)",
     "assign_roles": "تعيين الأدوار"
   }
 }

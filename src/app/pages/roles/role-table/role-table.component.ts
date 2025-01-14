@@ -12,12 +12,12 @@ import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
 
-const global_pageName='Role';
+const global_pageName='roles.pageName';
 const global_router_add_url_in_Table ='/settings/role/add';
 const global_router_view_url ='/settings/role/view';
 const global_router_edit_url ='/settings/role/edit';
-const global_API_getAll =global_pageName+'/GetAll';
-const global_API_delete=global_pageName+'/Delete?roleId';
+const global_API_getAll ="Role"+'/GetAll';
+const global_API_delete="Role"+'/Delete?roleId';
 
 @Component({
   selector: 'app-role-table',
@@ -29,7 +29,7 @@ const global_API_delete=global_pageName+'/Delete?roleId';
 export class RoleTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table;
-  pageName =signal<string>('Roles');
+  pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -53,15 +53,7 @@ export class RoleTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
 
@@ -78,31 +70,45 @@ export class RoleTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set('Role')
+    this.pageName.set(global_pageName)
     this.API_getAll();
+    this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
+      this.getBreadCrumb()
     })
   }
 
   displayTableCols(currentLang: string) {
     this.columns = [
-      { keyName: 'roleId', header: 'Id', type: EType.id, show: true },
-      { keyName: 'enName', header: 'Role En', type: EType.text, show: true },
-      { keyName: 'arName', header: 'Role Ar', type: EType.text, show: true },
-      { keyName: '', header: 'Actions', type: EType.actions, actions: this.tableActions, show: true },
+      { keyName: 'roleId', header: this.languageService.translate('Id'), type: EType.id, show: true },
+      { keyName: 'enName', header:this.languageService.translate('roles.form.title_en'), type: EType.text, show: true },
+      { keyName: 'arName', header:this.languageService.translate('roles.form.title_ar'), type: EType.text, show: true },
+      { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
 
     ]
     this.columnsSmallTable = [
-      { keyName: 'roleId', header: 'Id', type: EType.id, show: false },
-      { keyName: 'enName', header: 'Role En', type: EType.text, showAs: ETableShow.header },
-      { keyName: 'arName', header: 'Role Ar', type: EType.text, showAs: ETableShow.header }
+      { keyName: 'roleId', header: this.languageService.translate('Id'), type: EType.id, show: false },
+      { keyName: 'enName', header:this.languageService.translate('roles.form.title_en'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'arName', header: this.languageService.translate('roles.form.title_ar'), type: EType.text, showAs: ETableShow.header }
     ];
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()),
+        },
+      ]
+    }
+  }
   openFilter() {
     this.showFilter = true
   }

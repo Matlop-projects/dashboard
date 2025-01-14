@@ -21,7 +21,7 @@
           <div class="info d-flex justify-content-between flex-wrap" *ngFor="let item of userDataInfo">
               <div>
                 <span [class]="item.icon"></span>
-                <span class="bold black"> {{item.title}}</span>
+                <span class="bold black"> {{item.title|translate}}</span>
               </div>
 
               <div class="text-start value">
