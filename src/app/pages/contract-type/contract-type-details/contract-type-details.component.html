@@ -22,7 +22,7 @@
                 [control]="form.get('arName')"></app-input-text>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-              <app-select [placeholder]="form.get('serviceId')?.value" class="w-100" [list]="servicesList" [label]="'contract.form.services'"
+              <app-select [type]="'multi'" [placeholder]="form.get('serviceId')?.value" class="w-100" [list]="servicesList" [label]="'contract.form.services'"
               [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"  [control]="form.get('serviceId')"></app-select>
            </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-2">

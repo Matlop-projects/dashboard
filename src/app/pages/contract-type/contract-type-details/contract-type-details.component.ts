@@ -37,6 +37,7 @@ export class ContractTypeDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+  serviceContractValues:any[]=[]
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -57,11 +58,8 @@ export class ContractTypeDetailsComponent {
       ]
     }),
     isActive: new FormControl(false),
-    serviceId: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
+    serviceId: new FormControl<any>('',Validators.required),
+    serviceContract:new FormControl<any>(''),
     contractTypeId: new FormControl(this.getID | 0, Validators.required),
   })
 
@@ -116,7 +114,19 @@ export class ContractTypeDetailsComponent {
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res){
+        let serviceContract:number []=[]
         this.form.patchValue(res.data)
+        this.form.value.serviceContract.map((item:any)=>{
+          serviceContract.push(item.serviceId)
+           this.serviceContractValues.push({
+            serviceContractId:item.serviceContractId,
+            serviceId:item.serviceId
+           })
+        })
+        this.form.patchValue({
+          serviceContract: serviceContract,
+          serviceId:serviceContract
+        })
       }
 
 
@@ -125,13 +135,39 @@ export class ContractTypeDetailsComponent {
   }
 
   onSubmit() {
-    const payload = {
-      ...this.form.value,
+  
+    let serviceId:any =[]
+    let servicePayload:any=[]
+    serviceId=this.form.value.serviceId
+    if (this.tyepMode() == 'Add'){
+      serviceId.map((item:any)=>{
+        servicePayload.push({
+          serviceContractId:0,
+          contractId:0,
+          serviceId:item
+        })
+      })
+      this.form.patchValue({
+        serviceContract: servicePayload
+      })
+
+      this.API_forAddItem(this.form.value)
     }
-    if (this.tyepMode() == 'Add')
-      this.API_forAddItem(payload)
-    else
-      this.API_forEditItem(payload)
+     
+    else{
+      serviceId.map((id:any)=>{
+        servicePayload.push({
+          serviceContractId:this.serviceContractValues.filter(item => item.serviceId === id)[0]?.serviceContractId ? this.serviceContractValues.filter(item => item.serviceId === id)[0]?.serviceContractId : 0,
+          contractId:+this.getID,
+          serviceId:id
+        })
+      })
+      this.form.patchValue({
+        serviceContract: servicePayload
+      })
+      this.API_forEditItem(this.form.value)
+    }
+     
   }
 
   navigateToPageTable() {
