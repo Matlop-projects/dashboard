@@ -2,7 +2,7 @@
   <div class="row">
       <div class="page-details mb-3">
           <div class="title mb-4">
-              <h2> {{pageName()}}</h2>
+              <h2> {{pageName()|translate}}</h2>
           </div>
           <div class="breadcrumb">
               <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -15,17 +15,17 @@
               <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
                       <app-input-text
-                          [label]="'title'" [control]="form.get('title')"></app-input-text>
+                          [label]="'notifications.form.title'" [control]="form.get('title')"></app-input-text>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
                       <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userTypeList"
-                          [label]="'cancel_reason.form.userType'" [control]="form.get('userType')">
+                          [label]="'notifications.form.userType'" [control]="form.get('userType')">
                       </app-select>
                   </div>
 
                       <div class=" mt-2 col-lg-12 col-md-12 col-sm-12 mt-3">
                         <div class="title-section mb-2">
-                          <p>Note</p>
+                          <p>{{'notifications.form.note'|translate}}</p>
                         </div>
                           <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full"
                           formControlName='body' [style]="{ width: '100%' }"></textarea>

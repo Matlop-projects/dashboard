@@ -16,13 +16,14 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { Checkbox } from 'primeng/checkbox';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CheckBoxComponent } from "../../../components/check-box/check-box.component";
+import { LanguageService } from '../../../services/language.service';
 
 
 
-const global_PageName='Role';
-const global_API_deialis=global_PageName+'/GetById';
-const global_API_create=global_PageName+'/Create';
-const global_API_update=global_PageName+'/Update';
+const global_PageName='roles.pageName';
+const global_API_deialis='Role'+'/GetById';
+const global_API_create='Role'+'/Create';
+const global_API_update='Role'+'/Update';
 const global_routeUrl ='/settings/roles'
 @Component({
   selector: 'app-role-details',
@@ -33,7 +34,7 @@ const global_routeUrl ='/settings/roles'
 })
 export class RoleDetailsComponent {
 
-  pageName =signal<string>('Role');
+  pageName =signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -60,15 +61,7 @@ export class RoleDetailsComponent {
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
   checkToggle: boolean = true;
 
@@ -76,9 +69,19 @@ export class RoleDetailsComponent {
     return this.route.snapshot.params['id']
   }
 
+  selectedLang: any;
+  languageService = inject(LanguageService);
+  
   ngOnInit() {
     this.getAllControllersActions()
-    this.pageName.set('Role')
+    this.pageName.set(global_PageName)
+    this.getBreadCrumb();
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+      this.getAllControllersActions()
+
+    });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
   }
@@ -89,11 +92,21 @@ export class RoleDetailsComponent {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.pageName();
     return result
   }
-
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   onToggle(checked:boolean,controller:any,action:any,index:number){
     if(checked){
            this.selectedRoles.push({

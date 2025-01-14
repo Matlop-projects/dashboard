@@ -13,8 +13,9 @@ import { userType } from '../../conts';
 import { SelectComponent } from '../../components/select/select.component';
 import { IEditImage } from '../../components/edit-mode-image/editImage.interface';
 import { TextareaModule } from 'primeng/textarea';
+import { LanguageService } from '../../services/language.service';
 
-const global_PageName = 'Add Notification';
+const global_PageName = 'notifications.pageName';
 const global_API_create =  'Notification/send';
 
 @Component({
@@ -66,15 +67,7 @@ export class AddNotificationsComponent {
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
   get getID() {
@@ -85,9 +78,39 @@ export class AddNotificationsComponent {
     const control = this.form.get('image');
     return control?.touched && control?.hasError('required') || false;
   }
+  selectedLang: any;
+    languageService = inject(LanguageService);
 
   ngOnInit() {
     this.pageName.set(global_PageName)
+    this.getBreadCrumb();
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
+  }
+
+  tyepMode() {
+    const url = this.router.url;
+    let result='Add'
+    if (url.includes('edit')) result='Edit'
+    else if (url.includes('view')) result= 'View'
+    else result= 'Add'
+    return result
+  }
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
   }
 
   onSubmit() {

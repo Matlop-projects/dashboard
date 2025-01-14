@@ -75,15 +75,24 @@ export class ComplaintDetailsComponent {
     languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.getBreadCrumb();
+   
     this.pageName.set(global_PageName)
-
+    this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
     });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
+  }
+
+  tyepMode() {
+    const url = this.router.url;
+    let result='Add'
+    if (url.includes('edit')) result='Edit'
+    else if (url.includes('view')) result= 'View'
+    else result= 'Add'
+    return result
   }
 
   getBreadCrumb() {
@@ -100,17 +109,7 @@ export class ComplaintDetailsComponent {
     }
   }
 
-  tyepMode() {
-    const url = this.router.url;
-    let result='Add'
-    if (url.includes('edit')) result='Edit'
-    else if (url.includes('view')) result= 'View'
-    else result= 'Add'
-
-    // this.bredCrumb.crumbs[1].label = this.languageService.translate(this.pageName()+ '_'+result+'_crumb');
-    return result
-  }
-
+ 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res)

@@ -30,7 +30,8 @@
     "cancel": "إلغاء",
     "confirm": "تأكيد",
     "close": "إغلاق",
-    "choose_image": "اختيار"
+    "choose_image": "اختيار",
+    "update":"تحديث"
   },
   "shared": {
     "confirmation":"تأكيد",
@@ -472,13 +473,20 @@
     }
   },
   "notifications": {
+    "pageName":"الإشعارات",
+    "pageName_Add_crumb":"إضافة إشعار",
     "title": "الإشعارات",
     "no_notifications": "لا توجد إشعارات",
     "new": "جديد",
     "seen": "مقروء",
     "id": "المعرف",
     "message": "الرسالة",
-    "created": "تاريخ الإنشاء"
+    "created": "تاريخ الإنشاء",
+    "form":{
+      "title":"العنوان",
+      "userType":"نوع المستخدم",
+      "note":"ملاحظة"
+    }
   },
   "settings": {
     "publicPages": "الصفحات العامة",
@@ -543,6 +551,75 @@
     "name_en": "الاسم (إنجليزي)",
     "desc_ar":"الوصف (عربي)",
     "desc_en":"الوصف (إنجليزي)"
+  }
+},
+"termsAndConditions": {
+  "pageName": "الشروط والأحكام",
+  "list": "قائمة الشروط والأحكام",
+  "pageName_filter": "تصفية الشروط والأحكام",
+  "pageName_Add_crumb": "إضافة شرط وحكم",
+  "pageName_Edit_crumb": "تعديل شرط وحكم",
+  "pageName_View_crumb": "عرض شرط وحكم",
+  "form": {
+    "title_ar": "العنوان (عربي)",
+    "title_en": "العنوان (إنجليزي)",
+    "desc_en": "الوصف (إنجليزي)",
+    "desc_ar": "الوصف (عربي)"
+  }
+},
+"privacy": {
+  "pageName": "الخصوصية والسياسة",
+  "list": "قائمة الخصوصية والسياسة",
+  "pageName_filter": "تصفية الخصوصية والسياسة",
+  "pageName_Add_crumb": "إضافة الخصوصية والسياسة",
+  "pageName_Edit_crumb": "تعديل الخصوصية والسياسة",
+  "pageName_View_crumb": "عرض الخصوصية والسياسة",
+  "form": {
+    "title_ar": "العنوان (عربي)",
+    "title_en": "العنوان (إنجليزي)",
+    "desc_en": "الوصف (إنجليزي)",
+    "desc_ar": "الوصف (عربي)"
+  }
+},
+"slider": {
+  "pageName": "عارض الصور",
+  "list": "قائمة عارض الصور",
+  "pageName_filter": "تصفية عارض الصور",
+  "pageName_Add_crumb": "إضافة عارض الصور",
+  "pageName_Edit_crumb": "تعديل عارض الصور",
+  "pageName_View_crumb": "عرض عارض الصور",
+  "form": {
+    "img_ar": "الصورة (عربي)",
+    "img_en": "الصورة (إنجليزي)",
+    "upload_img_en": "تحميل الصورة (إنجليزي)",
+    "upload_img_ar": "تحميل الصورة (عربي)",
+    "title_ar": "العنوان (عربي)",
+    "title_en": "العنوان (إنجليزي)",
+    "displayOrder": "ترتيب العرض",
+    "view_type": "نوع العرض"
+  }
+},
+"social_media": {
+  "title": "قائمة وسائل التواصل الاجتماعي",
+  "facebook": "فيسبوك",
+  "instgram": "إنستغرام",
+  "tikTok": "تيك توك",
+  "youTube": "يوتيوب",
+  "whats": "رقم واتساب",
+  "instr_ar": "التعليمات الأساسية (عربي)",
+  "instr_en": "التعليمات الأساسية (إنجليزي)"
+},
+"roles": {
+  "pageName": "الأدوار",
+  "list": "الأدوار",
+  "pageName_filter": "تصفية الأدوار",
+  "pageName_Add_crumb": "إضافة دور",
+  "pageName_Edit_crumb": "تعديل دور",
+  "pageName_View_crumb": "عرض دور",
+  "form": {
+    "title_ar": "العنوان (عربي)",
+    "title_en": "العنوان (إنجليزي)",
+    "assign_roles": "تعيين الأدوار"
   }
 }
 

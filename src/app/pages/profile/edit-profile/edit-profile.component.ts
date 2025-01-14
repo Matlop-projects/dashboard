@@ -119,15 +119,7 @@ pageName = signal<string>(global_PageName);
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.languageService.translate(this.pageName()),
-      },
-    ]
+    crumbs: []
   }
 
 
@@ -140,21 +132,35 @@ pageName = signal<string>(global_PageName);
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getAllRoles()
+    this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getAllRoles()
-
+      this.getBreadCrumb()
     })
-   
-    
       this.API_getItemDetails()
       this.removePasswordValidation()
- 
-
-
   }
 
+  tyepMode() {
+    let result = 'Edit'
+    return result
+  }
+
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
+  }
   // onPasswordChanged(value:any){
   //       this.form.get('confirmPassword')?.reset()
   // }
@@ -189,12 +195,7 @@ pageName = signal<string>(global_PageName);
   onStartDateChange(date:Date){
     this.minEndDate=date
   }
-  tyepMode() {
-    let result = 'Edit'
-    this.bredCrumb.crumbs[1].label = result + ' ' + this.languageService.translate(this.pageName());
-    console.log("ProfileComponent  tyepMode  this.bredCrumb.crumbs[1].label:", this.bredCrumb.crumbs[1].label)
-    return result
-  }
+
  
   removePasswordValidation(){
     const ctrlform =this.form.controls

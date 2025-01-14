@@ -5,6 +5,8 @@ import { EditorComponent } from '../../../components/editor/editor.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToasterService } from '../../../services/toaster.service';
 import { Validations } from '../../../validations';
+import { TranslatePipe } from '@ngx-translate/core';
+import { TitleCasePipe } from '@angular/common';
 
 interface ISocialMedia {
   whatsAppNumber:string,
@@ -19,7 +21,7 @@ interface ISocialMedia {
 @Component({
   selector: 'app-social-media-update',
   standalone: true,
-  imports: [InputTextComponent,EditorComponent,ReactiveFormsModule],
+  imports: [InputTextComponent,TranslatePipe,TitleCasePipe,EditorComponent,ReactiveFormsModule],
   templateUrl: './social-media-update.component.html',
   styleUrl: './social-media-update.component.scss'
 })

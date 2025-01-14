@@ -12,23 +12,25 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
+import { LanguageService } from '../../../services/language.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
-const global_PageName='PrivacyPolicy';
-const global_API_deialis=global_PageName+'/GetById';
-const global_API_create=global_PageName+'/Create';
-const global_API_update=global_PageName+'/Update';
+const global_PageName='privacy.pageName';
+const global_API_deialis='PrivacyPolicy'+'/GetById';
+const global_API_create='PrivacyPolicy'+'/Create';
+const global_API_update='PrivacyPolicy'+'/Update';
 const global_routeUrl ='/settings/privacy_policy'
 
 @Component({
   selector: 'app-privacy-policy-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TitleCasePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TitleCasePipe,TranslatePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './privacy-policy-details.component.html',
   styleUrl: './privacy-policy-details.component.scss'
 })
 export class PrivacyPolicyDetailsComponent {
 
-  pageName =signal<string>('Privacy and Policy');
+  pageName =signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -64,23 +66,22 @@ export class PrivacyPolicyDetailsComponent {
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: this.pageName(),
-      },
-    ]
+    crumbs: []
   }
 
   get getID() {
     return this.route.snapshot.params['id']
   }
+  selectedLang: any;
+    languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set('Privacy and Policy')
+    this.pageName.set(global_PageName)
+    this.getBreadCrumb();
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getBreadCrumb();
+    });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
   }
@@ -91,9 +92,20 @@ export class PrivacyPolicyDetailsComponent {
     if (url.includes('edit')) result='Edit'
     else if (url.includes('view')) result= 'View'
     else result= 'Add'
-
-    this.bredCrumb.crumbs[1].label = result+' '+this.pageName();
     return result
+  }
+  getBreadCrumb() {
+    this.bredCrumb = {
+      crumbs: [
+        {
+          label:  this.languageService.translate('Home'),
+          routerLink: '/dashboard',
+        },
+        {
+          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+        },
+      ]
+    }
   }
 
   API_getItemDetails() {
