@@ -8,6 +8,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { CheckBoxComponent } from '../check-box/check-box.component';
 import { environment } from '../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
+import { ToasterService } from '../../services/toaster.service';
 
 export interface IToggleOptions {
   autoCall: boolean,
@@ -81,7 +82,9 @@ export class TableComponent implements OnInit, OnChanges {
   ApiService = inject(ApiService);
   router = inject(Router);
   eventEmitValue: any = { action: {}, record: {} }
-  imageBaseUrl=environment.baseImageUrl
+  imageBaseUrl=environment.baseImageUrl;
+  toaster = inject(ToasterService);
+
   ngOnInit() {
     this.filterdRecords = this.records;
   }
@@ -130,7 +133,9 @@ export class TableComponent implements OnInit, OnChanges {
         this.filterdRecords = this.filterdRecords.filter((item: any) => item[this.getNameOfIDHeader()] != id)
         this.reloadGetAllApi.emit(true);
       }
-    })
+    }, err => {
+      this.toaster.errorToaster(err.error.message)
+      })
   }
 
   onActiveConfirmMessage() {
@@ -142,12 +147,14 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   callActiveApi(action: ITableAction, id: any) {
-  
+
     this.ApiService.putWithId(action.apiName_or_route, id).subscribe(res => {
       if (res) {
         this.reloadGetAllApi.emit(true);
       }
-    })
+    }, err => {
+      this.toaster.errorToaster(err.error.message)
+      })
   }
 
   convertDate(originalDate: string) {
@@ -192,6 +199,8 @@ export class TableComponent implements OnInit, OnChanges {
       if (res) {
         // sweet alert is active or not
       }
+    }, err => {
+    this.toaster.errorToaster(err.error.message)
     })
   }
 
