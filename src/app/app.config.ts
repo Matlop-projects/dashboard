@@ -14,6 +14,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ToasterService } from './services/toaster.service';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ToastrModule } from 'ngx-toastr';
 
 const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) =>
   new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,7 +53,9 @@ export const appConfig: ApplicationConfig = {
           useFactory: httpLoaderFactory,
           deps: [HttpClient],
         },
-      })
+      }),
+      ToastrModule.forRoot(),
+
     ])
   ]
 };

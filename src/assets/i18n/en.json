@@ -34,6 +34,13 @@
     "update":"Update"
   },
   "shared":{
+    "errors":{
+     "login":"Login failed",
+     "post_request":"Failed to perform POST operation",
+     "get_request":"Failed to perform GET operation",
+     "put_request":"Failed to perform PUT operation",
+     "delete_request":"Failed to perform DELETE operation"
+    },
     "confirmation":"Confirmation",
     "confirmation_lost":"You will lost your changes ?",
     "list":"List",

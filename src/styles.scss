@@ -2,9 +2,50 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
 @import "primeicons/primeicons.css";
 @import "./assets/scss/fonts";
+@import 'ngx-toastr/toastr';
 
 :root {
   --main-text-color: redF2F3E;
+}
+
+.toast-success {
+  width:400px!important;
+  background-color: #F1FDF5 !important; 
+  color:#43B66D!important;
+  .toast-message , .toast-close-button {
+    color:#414D60!important;
+  }
+  .toast-icon{
+    display: none !important;
+    color: #4caf50 !important;
+    font-size: 30px !important;
+  }
+
+}
+
+// .toast-success .toast-icon {
+//   content: url('assets/images/arabian-man.png') !important; /* Path to your custom icon */
+//   width: 300px!important; /* Adjust the size */
+//   height: 300px!important; /* Adjust the size */
+// }
+
+// ::ng-deep .toast-success .toast-icon {
+//   color: #4caf50 !important;
+//   font-size: 30px !important;
+// }
+  .toast-error {
+    background-color: #FDF2F2 !important; 
+    color:#DE3232!important;
+    .toast-message , .toast-close-button , .toast-icon{
+      color:#414D60!important;
+    }
+    
+  }
+
+
+
+.toast-warning {
+  background-color: #ffc369 !important; 
 }
 
 // // Outfit

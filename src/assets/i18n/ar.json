@@ -34,6 +34,13 @@
     "update":"تحديث"
   },
   "shared": {
+    "errors": {
+    "login": "فشل تسجيل الدخول",
+    "post_request": "فشل في تنفيذ عملية POST",
+    "get_request": "فشل في تنفيذ عملية GET",
+    "put_request": "فشل في تنفيذ عملية PUT",
+    "delete_request": "فشل في تنفيذ عملية DELETE"
+    },
     "confirmation":"تأكيد",
     "confirmation_lost":"سوف تفقد كل تغير البيانات ؟",
     "list": "قائمة",
