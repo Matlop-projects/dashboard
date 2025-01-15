@@ -23,9 +23,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 
 const global_PageName = 'slider.pageName';
-const global_API_deialis = global_PageName + '/GetById';
-const global_API_create = global_PageName + '/Create';
-const global_API_update = global_PageName + '/Update';
+const global_API_deialis = 'Slider' + '/GetById';
+const global_API_create = 'Slider' + '/Create';
+const global_API_update = 'Slider' + '/Update';
 const global_routeUrl = 'settings/'+global_PageName
 
 @Component({
