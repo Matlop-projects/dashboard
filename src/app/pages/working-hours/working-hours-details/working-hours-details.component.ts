@@ -49,7 +49,7 @@ export class WorkingHoursDetailsComponent {
   get workingHoursId() {
     return this.route.snapshot.params['id'];
   }
- 
+
 
   ngOnInit() {
     this.pageName.set(global_PageName)
@@ -126,15 +126,19 @@ export class WorkingHoursDetailsComponent {
 
   addWorkingHour(payload: any) {
     this.ApiService.post('WorkingTime/CreateWorkingTime', payload, { showAlert: true, message: 'Working Hours Added Successfuly' }).subscribe(res => {
-      if (res)
+      if (res){
+        this.toaster.successToaster('Added Successfully');
         this.router.navigateByUrl('working_hours')
+      }
     })
   }
 
   editWorkingHours(payload: any) {
     this.ApiService.put('WorkingTime/UpdateWorkingTime', payload, { showAlert: true, message: 'Working Hours Updated Successfuly' }).subscribe(res => {
-      if (res)
+      if (res){
+        this.toaster.successToaster('Edited Successfully');
         this.router.navigateByUrl('working_hours')
+      }
     })
   }
 

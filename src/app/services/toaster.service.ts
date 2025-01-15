@@ -8,30 +8,34 @@ import { LanguageService } from './language.service';
 export class ToasterService {
 
 
-  // messageService = inject(MessageService);
+  messageService = inject(MessageService);
   languageService = inject(LanguageService);
 
-  constructor(private messageService :MessageService) { }
+  constructor() { }
 
   successToaster(message: string) {
     console.log(message);
 
+   setTimeout(() => {
     this.messageService.add({
       severity: 'success',
       summary: 'Success',
       detail: message,
       life: 4000,
     });
+   }, 300);
   }
 
   errorToaster(message: string) {
-    console.log('Toaster called:', message);
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: message,
-      life: 4000,
-    });
-    console.log('MessageService added the error toast');
+    console.log('Toaster called with message:', message);
+    setTimeout(() => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: message,
+        life: 4000,
+      });
+      console.log('MessageService.add invoked');
+    }, 300);
   }
 }

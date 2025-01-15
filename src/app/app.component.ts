@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FormsModule } from '@angular/forms';
@@ -22,5 +22,11 @@ import { ConfirmMsgService } from './services/confirm-msg.service';
 
 export class AppComponent {
 
+
+ toaster = inject(ToasterService);
+
+
+ngOnInit(): void {
+}
 
 }

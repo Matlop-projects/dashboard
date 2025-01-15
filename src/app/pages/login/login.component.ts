@@ -52,7 +52,9 @@ export class LoginComponent {
         localStorage.removeItem('token');
         this.toaster.errorToaster(res.message)
       }
-    })
+    },
+  err => {
+  })
   }
 
   getOtpValue(e: any) {
