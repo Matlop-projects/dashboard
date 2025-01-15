@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, take, catchError, throwError } from 'rxjs';
 import { ToasterService } from './toaster.service';
+import { NgxToasterService } from './ngx-toaster.service';
 
 export interface IOptions {
   showAlert: boolean;
@@ -16,6 +17,7 @@ const baseUrl = environment.baseUrl;
 })
 export class ApiService {
   private toaster = inject(ToasterService);
+  private ngxToaster = inject(NgxToasterService);
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +25,7 @@ export class ApiService {
     return this.http.post(baseUrl + `Authentication/login`, object).pipe(
       take(1),
       catchError((error) => {
-        this.toaster.errorToaster(error?.error?.message || 'Login failed');
+        this.toaster.errorToaster(error?.error?.message || 'shared.errors.login');
         return throwError(() => error);
       })
     );
@@ -33,11 +35,12 @@ export class ApiService {
     return this.http.post(`${baseUrl}${APIName}`, body).pipe(
       take(1),
       map((res: any) => {
-        options.showAlert ? this.toaster.successToaster(options.message) : '';
+        if(res.message && options.showAlert)
+          this.ngxToaster.success(res.message)
         return res;
       }),
       catchError((error) => {
-        this.toaster.errorToaster(error?.error?.message || 'Failed to perform POST operation');
+        this.ngxToaster.error(error?.error?.message || 'shared.errors.post_request')
         return throwError(() => error);
       })
     );
@@ -53,11 +56,12 @@ export class ApiService {
     return this.http.get(`${baseUrl}${APIName}?${queryParams.join('&')}`).pipe(
       take(1),
       map((res: any) => {
-        options.showAlert ? this.toaster.successToaster(options.message) : '';
-        return res;
+        if(res.message && options.showAlert)
+          this.ngxToaster.success(res.message)
+          return res;
       }),
       catchError((error) => {
-        this.toaster.errorToaster(error?.error?.message || 'Failed to perform GET operation');
+        this.ngxToaster.error(error?.error?.message || 'shared.errors.get_request')
         return throwError(() => error);
       })
     );
@@ -67,11 +71,12 @@ export class ApiService {
     return this.http.put(`${baseUrl}${APIName}`, body).pipe(
       take(1),
       map((res: any) => {
-        options.showAlert ? this.toaster.successToaster(options.message) : '';
+        if(res.message)
+          this.ngxToaster.success(res.message)
         return res;
       }),
       catchError((error) => {
-        this.toaster.errorToaster(error?.error?.message || 'Failed to perform PUT operation');
+        this.ngxToaster.error(error?.error?.message || 'shared.errors.put_request')
         return throwError(() => error);
       })
     );
@@ -81,11 +86,12 @@ export class ApiService {
     return this.http.put(`${baseUrl}${APIName}=${id}`, {}).pipe(
       take(1),
       map((res: any) => {
-        options.showAlert ? this.toaster.successToaster(options.message) : '';
+        if(res.message)
+          this.ngxToaster.success(res.message)
         return res;
       }),
       catchError((error) => {
-        this.toaster.errorToaster(error?.error?.message || 'Failed to perform PUT operation');
+        this.ngxToaster.error(error?.error?.message || 'shared.errors.put_request')
         return throwError(() => error);
       })
     );
@@ -95,11 +101,12 @@ export class ApiService {
     return this.http.delete(`${baseUrl}${APIName}=${id}`).pipe(
       take(1),
       map((res: any) => {
-        options.showAlert ? this.toaster.successToaster(options.message) : '';
+        if(res.message)
+          this.ngxToaster.success(res.message)
         return res;
       }),
       catchError((error) => {
-        this.toaster.errorToaster(error?.error?.message || 'Failed to perform DELETE operation');
+        this.ngxToaster.error(error?.error?.message || 'shared.errors.delete_request')
         return throwError(() => error);
       })
     );
