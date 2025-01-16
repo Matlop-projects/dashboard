@@ -108,6 +108,7 @@
     "pageName_Add_crumb": "إضافة عميل",
     "pageName_Edit_crumb": "تعديل عميل",
     "pageName_View_crumb": "عرض عميل",
+    "notActive": "غير نشط",
     "form": {
       "firstName": "الاسم الأول",
       "lastName": "الاسم الأخير",

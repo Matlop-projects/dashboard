@@ -26,13 +26,13 @@ const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
   standalone: true,
   imports: [
     TableComponent,
-    TitleCasePipe, 
-    PaginationComponent, 
-    FormsModule, 
-    DrawerComponent, 
+    TitleCasePipe,
+    PaginationComponent,
+    FormsModule,
+    DrawerComponent,
     BreadcrumpComponent,
-     RouterModule, 
-     InputTextModule, 
+     RouterModule,
+     InputTextModule,
      TableSmallScreenComponent,
      TranslatePipe
     ],
@@ -57,7 +57,7 @@ export class PaymentWayTableComponent {
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -70,7 +70,7 @@ export class PaymentWayTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     enName: "",
@@ -90,7 +90,7 @@ export class PaymentWayTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -182,7 +182,7 @@ export class PaymentWayTableComponent {
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       enName: "",

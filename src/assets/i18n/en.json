@@ -108,6 +108,7 @@
     "pageName_Add_crumb":"Add Client",
     "pageName_Edit_crumb":"Edit Client",
     "pageName_View_crumb":"View Client",
+    "notActive": "Not Active",
     "form":{
       "firstName":"First Name",
       "lastName":"Last Name",

@@ -72,12 +72,12 @@ export class CoponeDetailsComponent {
         Validations.onlyNumberValidator()
       ]
     }),
-    startDate: new FormControl('', {
+    startDate: new FormControl(null, {
       validators: [
         Validators.required,
       ]
     }),
-    endDate: new FormControl('', {
+    endDate: new FormControl(null, {
       validators: [
         Validators.required,
       ]
@@ -114,7 +114,7 @@ export class CoponeDetailsComponent {
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
-    }); 
+    });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
   }
