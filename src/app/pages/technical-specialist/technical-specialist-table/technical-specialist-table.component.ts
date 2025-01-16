@@ -64,7 +64,7 @@ export class TechnicalSpecialistTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     enName:'',
@@ -174,7 +174,7 @@ export class TechnicalSpecialistTableComponent {
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       enName:'',

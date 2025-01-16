@@ -48,7 +48,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url, 
+      apiName_or_route: global_router_edit_url,
       autoCall: true
     }
   ]
@@ -61,7 +61,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     isActive: null,
@@ -81,7 +81,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName) 
+    this.pageName.set(global_pageName)
     this.API_getAll();
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -112,7 +112,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
     ];
   }
 
-  
+
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
@@ -183,13 +183,13 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       isActive: null,
       fullName: "",
       userName: "",
-      email: "" 
+      email: ""
     }
     this.API_getAll();
     this.showFilter = false

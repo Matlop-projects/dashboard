@@ -60,7 +60,7 @@ export class ComplaintTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     name: "",
@@ -176,7 +176,7 @@ export class ComplaintTableComponent {
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       name: "",

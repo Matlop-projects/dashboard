@@ -233,24 +233,24 @@ export class PackageDetailsComponent {
     })
   }
 
-  onTypepkgSelected(item: any) {
-    let visitNumberControl = this.form.get('visitNumber');
-    visitNumberControl?.reset()
-    const maxNumber = [0, 1, 20, 60, 120, 240  ,5]
-    visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[item], this.languageService.translate('pkg.visit_number_isMax'))]);
-    visitNumberControl?.updateValueAndValidity();
+  // onTypepkgSelected(item: any) {
+  //   let visitNumberControl = this.form.get('visitNumber');
+  //   visitNumberControl?.reset()
+  //   const maxNumber = [0, 1, 20, 60, 120, 240  ,5]
+  //   visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[item], this.languageService.translate('pkg.visit_number_isMax'))]);
+  //   visitNumberControl?.updateValueAndValidity();
 
-  }
+  // }
 
-  onVisitNumberChange(value: string) {
-    if (this.form.value.typeOfPackage && this.tyepMode() == 'Edit') {
-      let visitNumberControl = this.form.get('visitNumber');
-      const maxNumber = [0, 1, 20, 60, 120, 240 , 5]
-      visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[this.form.value.typeOfPackage], this.languageService.translate('pkg.visit_number_isMax'))]);
-      visitNumberControl?.updateValueAndValidity();
-    }
+  // onVisitNumberChange(value: string) {
+  //   if (this.form.value.typeOfPackage && this.tyepMode() == 'Edit') {
+  //     let visitNumberControl = this.form.get('visitNumber');
+  //     const maxNumber = [0, 1, 20, 60, 120, 240 , 5]
+  //     visitNumberControl?.setValidators([Validations.isEqualNumber(maxNumber[this.form.value.typeOfPackage], this.languageService.translate('pkg.visit_number_isMax'))]);
+  //     visitNumberControl?.updateValueAndValidity();
+  //   }
 
-  }
+  // }
 
 
   API_getItemDetails() {

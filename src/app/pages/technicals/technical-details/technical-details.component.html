@@ -2,7 +2,7 @@
   <div class="row">
     <div class="page-details mb-3">
       <div class="title">
-        <h2>{{tyepMode()|translate|titlecase}} {{pageName()|translate|titlecase}}</h2>
+        <h2>{{tyepMode()|translate|titlecase}} {{pageName()|translate|titlecase}} <span>{{ userStatus ? '': 'client.notActive' | translate}}</span></h2>
       </div>
       <div class="breadcrumb">
         <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class=" form-container">
-    <div class="reactive-form">
+    <div class="reactive-form" [ngClass]="{ 'red-border': tyepMode() != 'Add' && userStatus == false }">
       <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">

@@ -68,7 +68,7 @@ export class CountriesTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     enName: "",
@@ -185,7 +185,7 @@ export class CountriesTableComponent {
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       enName: "",

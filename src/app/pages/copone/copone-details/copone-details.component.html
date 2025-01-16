@@ -31,14 +31,14 @@
                 <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'copone.form.amount'"
                   [control]="form.get('amount')"></app-input-text>
               </div>
-            
+
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-date-picker (changeDate)="onStartDateChange($event)" class="w-100" [placeholder]="form.get('startDate')?.value" [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'copone.form.start'"
                 [control]="form.get('startDate')"></app-date-picker>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                <app-date-picker 
-                [minDate]="minEndDate"  [readOnly]="tyepMode()=='View'||form.get('startDate')?.value ==''" [placeholder]="form.get('endDate')?.value" [disabled]="tyepMode()=='View'||form.get('startDate')?.value ==''" [label]="'copone.form.end'"
+                <app-date-picker
+                [minDate]="minEndDate"  [readOnly]="tyepMode()=='View'||form.get('startDate')?.value ==null" [placeholder]="form.get('endDate')?.value" [disabled]="tyepMode()=='View'||form.get('startDate')?.value == null" [label]="'copone.form.end'"
                 [control]="form.get('endDate')"></app-date-picker>
               </div>
               <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
@@ -47,23 +47,23 @@
                  class="w-100" [list]="coponeTypeList">
                 </app-select>
               </div>
-              
+
               <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                 <div class="d-flex justify-content-start">
                   <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.status'" [control]="form.get('status')"></app-check-box>
                   <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.used_x'" [control]="form.get('usedForXTimes')"></app-check-box>
-              
+
                 </div>
               </div>
-             
+
               <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'copone.form.desc_en'" [control]="form.get('enDescription')"></app-editor>
               </div>
               <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'copone.form.desc_ar'" [control]="form.get('arDescription')"></app-editor>
               </div>
-           
-           
+
+
             <div class="actions mt-5 text-center">
               <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='View'">
                 <span *ngIf="tyepMode()=='Add'">{{'actions.add'|translate}}</span>
@@ -74,12 +74,12 @@
              </button>
             </div>
           </div>
-  
+
         </form>
       </div>
     </div>
   </div>
-  
+
   <app-dialog [visible]="showConfirmMessage">
     <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> {{'actions.close'|translate}}</button>
     <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()">  {{'actions.confirm'|translate}}</button>

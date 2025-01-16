@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf, TitleCasePipe } from '@angular/common';
+import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -21,13 +21,14 @@ import { EditModeImageComponent } from '../../../components/edit-mode-image/edit
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { DatePickerModule } from 'primeng/datepicker';
 
 const global_PageName = 'client.pageName';
 
 @Component({
   selector: 'app-client-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TranslatePipe,TitleCasePipe ,EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+  imports: [ReactiveFormsModule,TranslatePipe,TitleCasePipe , NgClass, DatePickerModule ,EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './client-details.component.html',
   styleUrl: './client-details.component.scss'
 })
@@ -102,7 +103,7 @@ export class ClientDetailsComponent {
 
       ]
     }),
-    dateOfBirth: new FormControl(false, {
+    dateOfBirth: new FormControl(null, {
       validators: [
         Validators.required,
 
@@ -118,7 +119,7 @@ export class ClientDetailsComponent {
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
-     
+
     ]
   }
 
@@ -136,6 +137,7 @@ export class ClientDetailsComponent {
   };
 
   editMode: boolean = false;
+  userStatus: boolean = true;
 
   get userId() {
     return this.route.snapshot.params['id']
@@ -189,6 +191,7 @@ onConfirmPasswordChanged(value:string){
     this.ApiService.get(`Client/GetById/${this.userId}`).subscribe((res: any) => {
       if (res && res.data) {
         const clientData = res.data;
+        this.userStatus = res.data.isActive;
 
         // Convert `dateOfBirth` to a Date object if it exists
         if (clientData.dateOfBirth) {
@@ -231,7 +234,7 @@ onConfirmPasswordChanged(value:string){
       delete this.form.value.pinCode
       this.editFQS(this.form.value)
     }
-      
+
   }
 
   // get isRequiredError(): boolean {

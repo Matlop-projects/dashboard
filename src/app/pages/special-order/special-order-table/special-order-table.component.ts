@@ -64,7 +64,7 @@ export class SpecialOrderTableComponent {
 
   objectSearch = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     specialOrderId:  null,//text
@@ -209,7 +209,7 @@ getAllClients(){
   reset() {
     this.objectSearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       specialOrderId: null,
