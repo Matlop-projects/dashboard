@@ -4,11 +4,11 @@
      [minDate]="minDate"
      [maxDate]="maxDate"
      (ngModelChange)="onDateChange($event)"
-     [placeholder]="placeholder" 
-     [readonlyInput]="readOnly" 
-     [disabled]="disabled" 
+     [placeholder]="placeholder"
+     [readonlyInput]="readOnly"
+     [disabled]="disabled"
      [formControl]="control"
-     dateFormat="yy-mm-dd" 
+     dateFormat="dd-mm-yy"
      [showIcon]="true" />
      <div  *ngIf="control.errors && control.touched || (control.value && control.errors)">
         <span class="text-danger"> {{control.errors|validationHandlerPipe}}</span>

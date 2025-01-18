@@ -63,7 +63,7 @@ export class CitiesTableComponent {
   totalCount: number = 0;
    citySearch={
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     enName: "",
@@ -155,7 +155,7 @@ export class CitiesTableComponent {
   reset() {
     this.citySearch = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       enName: "",

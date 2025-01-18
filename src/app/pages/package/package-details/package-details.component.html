@@ -37,18 +37,20 @@
                             [label]="'Visit Hours'" [control]="form.get('visitHours')">
                         </app-input-text> -->
                     </div>
+                    <!-- (onSelectedValue)="onTypepkgSelected($event)" -->
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4" *ngIf="typeOfPackageList.length!==0">
-                        <app-select  (onSelectedValue)="onTypepkgSelected($event)"  [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                        <app-select    [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
                             [label]="'pkg.form.type_pkg'" [placeholder]="form.get('typeOfPackage')?.value" [control]="form.get('typeOfPackage')" class="w-100"
                             [list]="typeOfPackageList">
                         </app-select>
                     </div>
+                    <!-- (onValueChange)="onVisitNumberChange($event)" -->
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-                        <app-input-text (onValueChange)="onVisitNumberChange($event)" [readOnly]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''" [disabled]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''"
+                        <app-input-text  [readOnly]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''" [disabled]="tyepMode()=='View'||form.get('typeOfPackage')?.value==''"
                             [label]="'pkg.form.visit_no'" [control]="form.get('visitNumber')">
                         </app-input-text>
                     </div>
-                
+
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
                             [label]="'pkg.form.contract_typ'" [placeholder]="form.get('contractTypeId')?.value" [control]="form.get('contractTypeId')" class="w-100"
@@ -100,7 +102,7 @@
                          </button>
                     </div>
                 </div>
-         
+
             </form>
         </div>
     </div>

@@ -53,7 +53,7 @@ export class FaqsTableComponent {
 
   faqSearchCreteria = {
     pageNumber: 0,
-    pageSize: 7,
+    pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
     enTitle: "",
@@ -151,7 +151,7 @@ export class FaqsTableComponent {
   reset() {
     this.faqSearchCreteria = {
       pageNumber: 0,
-      pageSize: 7,
+      pageSize: 8,
       sortingExpression: "",
       sortingDirection: 0,
       enTitle: "",

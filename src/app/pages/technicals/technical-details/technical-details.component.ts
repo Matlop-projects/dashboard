@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf, TitleCasePipe } from '@angular/common';
+import { NgIf, TitleCasePipe, NgClass } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -25,9 +25,9 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-technical-details',
   standalone: true,
-  imports: [ReactiveFormsModule, 
+  imports: [ReactiveFormsModule,
      EditModeImageComponent,
-    ButtonModule, NgIf,TranslatePipe, SelectComponent,TitleCasePipe, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+    ButtonModule, NgIf,TranslatePipe, SelectComponent, NgClass,TitleCasePipe, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './technical-details.component.html',
   styleUrl: './technical-details.component.scss'
 })
@@ -36,7 +36,7 @@ export class TechnicalDetailsComponent {
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
-    private translateService = inject(TranslateService)
+  private translateService = inject(TranslateService)
   languageService = inject(LanguageService);
   selectedLang: any;
 
@@ -104,7 +104,7 @@ export class TechnicalDetailsComponent {
 
       ]
     }),
-    dateOfBirth: new FormControl(false, {
+    dateOfBirth: new FormControl(null, {
       validators: [
         Validators.required,
 
@@ -134,6 +134,7 @@ export class TechnicalDetailsComponent {
   ]
 
   technicalSpecialist: any;
+  userStatus: boolean = true;
 
 
   bredCrumb: IBreadcrumb = {
@@ -173,7 +174,7 @@ export class TechnicalDetailsComponent {
     this.getTechnicalSpecialist();
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
-    if (this.tyepMode() !== 'add') {
+    if (this.tyepMode() !==  'Add') {
       this.getTechnicalsDetails();
 
     }
@@ -209,7 +210,7 @@ onConfirmPasswordChanged(value:string){
     ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
     ctrlConfirm.updateValueAndValidity()
 }
- 
+
 tyepMode() {
   const url = this.router.url;
   let result = 'Add'
@@ -225,6 +226,7 @@ tyepMode() {
     this.ApiService.get(`Technical/GetById/${this.userId}`).subscribe((res: any) => {
       if (res && res.data) {
         const technicalData = res.data;
+        this.userStatus = res.data.isActive;
 
         // Convert `dateOfBirth` to a Date object if it exists
         if (technicalData.dateOfBirth) {
