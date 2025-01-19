@@ -41,13 +41,13 @@ pageName = signal<string>(global_PageName);
     enTitle: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.englishCharsValidator('faqs.validation_english_title'),
+        Validations.editorEnglishCharsValidator('faqs.validation_english_title'),
       ],
     }),
     arTitle: new FormControl('', {
       validators: [
         Validators.required,
-        Validations.arabicCharsValidator('isArabic')
+        Validations.editorArabicCharsValidator('isArabic')
       ]
     }),
     enDescription: new FormControl('', {
