@@ -39,7 +39,8 @@
     "post_request": "فشل في تنفيذ عملية POST",
     "get_request": "فشل في تنفيذ عملية GET",
     "put_request": "فشل في تنفيذ عملية PUT",
-    "delete_request": "فشل في تنفيذ عملية DELETE"
+    "delete_request": "فشل في تنفيذ عملية DELETE",
+    "submit": "إرسال"
     },
     "confirmation":"تأكيد",
     "confirmation_lost":"سوف تفقد كل تغير البيانات ؟",
@@ -404,8 +405,13 @@
       "price": "السعر",
       "price_required": "السعر مطلوب",
       "price_atleast": "يجب أن يكون السعر على الأقل 1 ريال",
-      "paymentWay": "طريقة الدفع"
-    }
+      "paymentWay": "طريقة الدفع",
+      "date": "تاريخ الانشاء"
+    },
+  "delete_order_confirmation": "هل أنت متأكد أنك تريد حذف هذا الطلب؟",
+    "delete_provider_confirmation": "هل أنت متأكد أنك تريد حذف هذا المزود؟",
+    "delete_order_button": "حذف الطلب",
+    "delete_provider_button": "حذف المزود"
   },
   "profile": {
     "pageName": "الملف الشخصي",

@@ -38,7 +38,12 @@ export class OrdersTableComponent {
       name: EAction.edit,
       apiName_or_route: global_router_edit_url,
       autoCall: true
-    }
+    },
+    // {
+    //   name: EAction.delete,
+    //   apiName_or_route: 'Order/Deleteorder/',
+    //   autoCall: true
+    // },
   ]
   private ApiService = inject(ApiService)
 
@@ -114,6 +119,7 @@ export class OrdersTableComponent {
       { keyName: 'paymentWayName', header: this.languageService.translate('order.form.paymentWay'), type: EType.text, show: true },
       { keyName: 'orderTotal', header: this.languageService.translate('order.form.price'), type: EType.text, show: true },
       { keyName: 'packageName', header: this.languageService.translate('order.form.pkg'), type: EType.text, show: true },
+      { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
       { keyName: 'orderStatusName', header: this.languageService.translate('order.form.order_status'), type: EType.orderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];

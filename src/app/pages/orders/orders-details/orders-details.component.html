@@ -82,7 +82,7 @@
 
         <div class="table-container mt-3" style="height: 293px">
           <div class="title-section mb-4">
-            <p>{{'order.form.note'|translate}}</p>
+            <p >{{'order.form.note'|translate}}</p>
           </div>
           <p-floatlabel variant="on">
             <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
@@ -93,8 +93,9 @@
       </div>
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
         <div class="content">
-          <div class="title-section">
-            <p>{{'order.order_details'|translate}}</p>
+          <div class="title-section d-flex justify-content-between align-items-center pt-2 pb-2">
+            <p class="m-0 p-0">{{'order.order_details'|translate}}</p>
+            <button class="delete-order-btn" (click)="openDeleteModal('deleteOrder')">{{'order.delete_order_button' | translate}}</button>
           </div>
           <div class="desc">
             <div class="details order-status-dropdown">
@@ -164,6 +165,14 @@
             </div>
             <div class="details">
               <div class="title">
+                <p>{{'order.total_additional_price' | translate}}</p>
+              </div>
+              <div class="details-desc total-price">
+                <p>{{orderDetails.totalWithAdditional ? orderDetails.totalWithAdditional: '-'}} <span>SAR</span></p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
                 <p>{{'order.order_status'|translate}}</p>
               </div>
               <div class="details-desc status-details"
@@ -208,6 +217,7 @@
                 <td>
                   <div class="actions-icon">
                     <span class="pi pi-pen-to-square" title="Edit" (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId ,assignment.technicalType)"></span>
+                    <span class="pi pi-trash" title="Edit" (click)="openDeleteModal('deleteProvider' , assignment)"></span>
                   </div>
                 </td>
               </tr>
@@ -359,4 +369,23 @@
       </button>
     </form>
   </div>
+</app-modal>
+
+<app-modal [dialogProps]="deleteModal">
+  <ng-container *ngIf="this.deleteType == 'deleteOrder'">
+    <div class="title">
+      <h3>{{'order.delete_order_confirmation' | translate}}</h3>
+    </div>
+    <div class="content d-flex justify-content-end" >
+      <button (click)="deleteOrder()" class="delete-order-btn"> {{'order.delete_order_button' | translate}}</button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="this.deleteType == 'deleteProvider'">
+    <div class="title">
+      <h3>{{'order.delete_provider_confirmation' | translate}}</h3>
+    </div>
+    <div class="content d-flex justify-content-end" >
+      <button (click)="deleteProvider()" class="delete-order-btn">{{'order.delete_provider_button' | translate}}</button>
+    </div>
+  </ng-container>
 </app-modal>

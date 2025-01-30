@@ -92,8 +92,10 @@
       </div>
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
         <div class="content">
-          <div class="title-section">
+          <div class="title-section d-flex justify-content-between align-items-center pt-2 pb-2">
             <p>{{'order.order_details'|translate}}</p>
+            <button class="delete-order-btn" (click)="openDeleteModal('deleteOrder')">{{'order.delete_order_button' | translate}}</button>
+
           </div>
           <div class="desc">
             <div class="details order-status-dropdown">
@@ -190,7 +192,8 @@
                   <div class="actions-icon">
                     <span class="pi pi-pen-to-square" title="Edit"
                       (click)="editProvider(assignment.technicalId , assignment.specialOrderTechnicalAssignmentId ,assignment.technicalType )"></span>
-                  </div>
+                      <span class="pi pi-trash" title="Edit" (click)="openDeleteModal('deleteProvider' , assignment)"></span>
+                    </div>
                 </td>
               </tr>
             </tbody>
@@ -243,3 +246,21 @@
     </div>
   </app-modal>
 
+  <app-modal [dialogProps]="deleteModal">
+    <ng-container *ngIf="this.deleteType == 'deleteOrder'">
+      <div class="title">
+        <h3>{{'order.delete_order_confirmation' | translate}}</h3>
+      </div>
+      <div class="content d-flex justify-content-end" >
+        <button (click)="deleteOrder()" class="delete-order-btn"> {{'order.delete_order_button' | translate}}</button>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="this.deleteType == 'deleteProvider'">
+      <div class="title">
+        <h3>{{'order.delete_provider_confirmation' | translate}}</h3>
+      </div>
+      <div class="content d-flex justify-content-end" >
+        <button (click)="deleteProvider()" class="delete-order-btn">{{'order.delete_provider_button' | translate}}</button>
+      </div>
+    </ng-container>
+  </app-modal>
