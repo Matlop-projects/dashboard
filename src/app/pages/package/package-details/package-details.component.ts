@@ -46,7 +46,8 @@ export class PackageDetailsComponent {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   typeOfPackageList: any[] = PackageTypeList
-  contractTypeList: any[] = []
+  contractTypeList: any[] = [];
+  serviceTypeList: any[] = [];
   workingTimeList: any[] = []
   packageWorkTimesValues: any[] = []
   visitHoursList: any = packageHourVistList
@@ -64,7 +65,7 @@ export class PackageDetailsComponent {
         Validations.arabicCharsValidator()
       ]
     }),
-    providerNumber: new FormControl<any>('', {
+    providerNumber: new FormControl<any>(null, {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
@@ -120,6 +121,11 @@ export class PackageDetailsComponent {
         Validators.required,
       ]
     }),
+    serviceId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    }),
     packageWorkTimes: new FormControl<any>('', {
       validators: [
         Validators.required,
@@ -144,7 +150,7 @@ export class PackageDetailsComponent {
 
   ngOnInit() {
     this.getBreadCrumb()
-    this.getAllContract()
+    this.getAllServices()
     this.getAllWorkingTime()
     this.pageName.set(global_PageName)
     if (this.tyepMode() !== 'Add') {
@@ -157,7 +163,7 @@ export class PackageDetailsComponent {
       this.selectedLang = this.languageService.translationService.currentLang;
       console.log("CityDetailsComponent  this.languageService.translationService.onLangChange.subscribe   this.selectedLang:", this.selectedLang)
       this.API_getItemDetails();
-      this.getAllContract()
+      this.getAllServices();
       this.getAllWorkingTime()
       this.getBreadCrumb()
 
@@ -219,19 +225,48 @@ export class PackageDetailsComponent {
   }
 
 
-  getAllContract() {
-    this.ApiService.post('ContractType/GetAllContractTypeList', {}).subscribe((res: any) => {
+   // Fetch all services
+   getAllServices() {
+    this.ApiService.get('Service/GetAll').subscribe((res: any) => {
       if (res.data) {
-        this.contractTypeList = []
-        res.data.map((item: any) => {
-          this.contractTypeList.push({
-            name: this.selectedLang == 'ar' ? item.arName : item.enName,
-            code: item.contractTypeId
-          })
-        })
+        this.serviceTypeList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.nameAr : item.nameEn,
+          code: item.serviceId,
+        }));
       }
-    })
+    });
   }
+
+  getAllContract(serviceId: any) {
+    console.log("Fetching contracts for serviceId:", serviceId);
+
+    if (!serviceId) {
+      this.contractTypeList = [];
+      return;
+    }
+
+    this.ApiService.get(`ContractType/GetByServiceId/${serviceId}`).subscribe((res: any) => {
+      if (res.data) {
+        this.contractTypeList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.arName : item.enName,
+          code: item.contractTypeId,
+        }));
+        console.log("Contracts Updated:", this.contractTypeList);
+      }
+    });
+  }
+
+
+  onServiceChange(serviceId: any) {
+    console.log("Service changed to:", serviceId);
+    if (!serviceId) {
+      this.contractTypeList = []; // Clear contracts if no service is selected
+      return;
+    }
+    this.form.get('serviceId')?.setValue(serviceId);
+    this.getAllContract(serviceId);
+  }
+
 
   // onTypepkgSelected(item: any) {
   //   let visitNumberControl = this.form.get('visitNumber');
@@ -254,25 +289,36 @@ export class PackageDetailsComponent {
 
 
   API_getItemDetails() {
-    if (this.getID)
+    if (this.getID) {
       this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
         if (res) {
-          let pkWorkingTime: number[] = []
-          this.form.patchValue(res.data)
+          let pkWorkingTime: number[] = [];
+          this.form.patchValue(res.data);
+
+          // Ensure packageWorkTimes is properly formatted
           this.form.value.packageWorkTimes.map((item: any) => {
-            pkWorkingTime.push(item.workTimeId)
+            pkWorkingTime.push(item.workTimeId);
             this.packageWorkTimesValues.push({
               workTimeId: item.workTimeId,
               packageWorkTimeId: item.packageWorkTimeId
-            })
-          })
+            });
+          });
+
           this.form.patchValue({
             packageWorkTimes: pkWorkingTime
-          })
-        }
+          });
 
-      })
+          // Trigger contract list update based on the existing serviceId
+          const selectedServiceId = this.form.get('serviceId')?.value;
+          if (selectedServiceId) {
+            console.log("Edit Mode - Fetching contracts for serviceId:", selectedServiceId);
+            this.onServiceChange(selectedServiceId);  // Call onServiceChange
+          }
+        }
+      });
+    }
   }
+
 
   onSubmit() {
     let workingTimeId: any = []
@@ -290,6 +336,7 @@ export class PackageDetailsComponent {
       this.form.patchValue({
         packageWorkTimes: workTimePayload
       })
+      this.form.value.providerNumber = Number( this.form.value.providerNumber);
       this.API_forAddItem(this.form.value)
     }
     else {
@@ -303,6 +350,7 @@ export class PackageDetailsComponent {
       this.form.patchValue({
         packageWorkTimes: workTimePayload
       })
+      this.form.value.providerNumber = Number( this.form.value.providerNumber);
       this.API_forEditItem(this.form.value)
     }
 

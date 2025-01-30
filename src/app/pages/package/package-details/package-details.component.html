@@ -50,11 +50,17 @@
                             [label]="'pkg.form.visit_no'" [control]="form.get('visitNumber')">
                         </app-input-text>
                     </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                      <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                          [label]="'pkg.form.service_type'" (onSelectedValue)="onServiceChange($event)" [placeholder]="form.get('serviceId')?.value" [control]="form.get('serviceId')" class="w-100"
+                          [list]="serviceTypeList">
+                      </app-select>
+                  </div>
 
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
                         <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
                             [label]="'pkg.form.contract_typ'" [placeholder]="form.get('contractTypeId')?.value" [control]="form.get('contractTypeId')" class="w-100"
-                            [list]="contractTypeList">
+                            [list]="contractTypeList"  [disabled]="tyepMode() == 'View' || !form.get('serviceId')?.value" >
                         </app-select>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
