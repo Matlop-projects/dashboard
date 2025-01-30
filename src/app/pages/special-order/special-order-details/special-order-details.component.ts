@@ -39,7 +39,7 @@ export class SpecialOrderDetailsComponent {
   private imageUrl = environment.baseImageUrl
 selectedLang: any;
   languageService = inject(LanguageService);
- 
+
 
   showConfirmMessage: boolean = false;
   clientDetails: any;
@@ -63,6 +63,16 @@ selectedLang: any;
     onHide: () => { },
     onShow: () => { }
   };
+
+
+    deleteModal: IDialog = {
+        props: { visible: false },
+        onHide: () => { },
+        onShow: () => { }
+      };
+
+      deletedProviderId: string = '';
+      deleteType: string = '';
 
 
 
@@ -89,7 +99,7 @@ selectedLang: any;
   imageList: any;
 
 
-
+  specialOrderId: any;
 
   providerTitle = 'Add New Provider';
 
@@ -112,6 +122,7 @@ selectedLang: any;
 
   get orderId(): number {
     const id = this.route.snapshot.params['id'];
+    this.specialOrderId = this.route.snapshot.params['id'];
     this.providerObject.specialOrderId = +id;
     return +id;
   }
@@ -125,7 +136,7 @@ selectedLang: any;
     return result
   }
 
-  
+
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
@@ -315,6 +326,27 @@ selectedLang: any;
         this.tosater.successToaster('Order Amount Updated Successfully')
       });
     }
+  }
+
+  openDeleteModal(actionType: string , item?: any) {
+    this.deleteType = actionType;
+    this.deleteModal.props.visible = true;
+      if(item){
+        this.deletedProviderId = item.specialOrderTechnicalAssignmentId
+      }
+  }
+
+  deleteOrder() {
+    this.ApiService.deleteWithoutParam('SpecialOrder/Deleteorder', this.specialOrderId.toString()).subscribe((res: any) => {
+      this.tosater.successToaster('Order Item Deleted Successfully');
+      this.router.navigate(['/special-order']);
+    })
+  }
+
+  deleteProvider() {
+    this.ApiService.deleteWithoutParam('SpecialOrder/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
+      this.tosater.successToaster('Provider Deleted Successfully');
+    })
   }
 
 }

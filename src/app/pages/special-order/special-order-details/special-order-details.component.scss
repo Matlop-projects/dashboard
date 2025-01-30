@@ -352,5 +352,17 @@
     }
   }
 
+  .delete-order-btn {
+    border-radius: 6px;
+    border: 1px solid white;
+    background-color: red;
+    color: white;
+    padding: 6px;
+
+    &:hover {
+      background-color: rgb(195, 23, 23);
+    }
+  }
+
 
 }

@@ -21,18 +21,18 @@ import { LanguageService } from '../../../services/language.service';
 @Component({
   selector: 'app-orders-details',
   standalone: true,
-  imports: [BreadcrumpComponent,TranslatePipe, GalleryComponent , TextareaModule , FloatLabel,  RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, TranslatePipe, GalleryComponent, TextareaModule, FloatLabel, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './orders-details.component.html',
   styleUrl: './orders-details.component.scss'
 })
 export class OrdersDetailsComponent {
-    pageName = signal<string>('');
+  pageName = signal<string>('');
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private tosater = inject(ToasterService);
-   private imageUrl = environment.baseImageUrl
-  translateService=inject(TranslateService)
+  private imageUrl = environment.baseImageUrl
+  translateService = inject(TranslateService)
 
 
   showConfirmMessage: boolean = false;
@@ -58,6 +58,12 @@ export class OrdersDetailsComponent {
   };
 
   additinalModal: IDialog = {
+    props: { visible: false },
+    onHide: () => { },
+    onShow: () => { }
+  };
+
+  deleteModal: IDialog = {
     props: { visible: false },
     onHide: () => { },
     onShow: () => { }
@@ -105,12 +111,17 @@ export class OrdersDetailsComponent {
 
   orderTimeSchedule: any;
 
+  deleteType: string = '';
+
 
   driversList: any;
   driverValue: any;
   driverTitle = 'Add New Driver';
- selectedLang: any;
-    languageService = inject(LanguageService);
+  selectedLang: any;
+  languageService = inject(LanguageService);
+
+  deletedProviderId: string = '';
+
   ngOnInit() {
     this.pageName.set('order.pageName')
     this.getBreadCrumb();
@@ -127,11 +138,11 @@ export class OrdersDetailsComponent {
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
@@ -148,7 +159,7 @@ export class OrdersDetailsComponent {
     if (url.includes('edit')) result = 'Edit'
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
-  
+
     // this.bredCrumb.crumbs[1].label =this.translateService.instant(this.pageName()+ '_'+result+'_crumb');
     return result
   }
@@ -161,9 +172,9 @@ export class OrdersDetailsComponent {
         this.orderTechnicalAssignments = res.data.orderTechnicalAssignments;
         this.additonalItemList = res.data.orderAddtionalItem;
         this.imageList = res.data.media;
-        if(this.imageList.length != 0) {
+        if (this.imageList.length != 0) {
           this.addUrltoMedia(this.imageList);
-         }
+        }
         this.setOrderStatusById(res.data.orderStatusEnum);
         this.getClientData(res.data.clientId);
       }
@@ -172,9 +183,9 @@ export class OrdersDetailsComponent {
 
 
   addUrltoMedia(list: any) {
-    console.log( this.imageList);
+    console.log(this.imageList);
     list.forEach((data: any) => {
-       data.src = this.imageUrl + data.src;
+      data.src = this.imageUrl + data.src;
     });
   }
 
@@ -264,23 +275,23 @@ export class OrdersDetailsComponent {
     });
   }
 
-  onProviderChange(type:string) {
-    if(type === 't') {
-     this.providerObject.technicalId = this.providerValue.userId;
-     if (this.providerCase == 'new') {
-       this.addNewTechnical();
-     } else {
-       this.editTechnical();
-     }
+  onProviderChange(type: string) {
+    if (type === 't') {
+      this.providerObject.technicalId = this.providerValue.userId;
+      if (this.providerCase == 'new') {
+        this.addNewTechnical();
+      } else {
+        this.editTechnical();
+      }
     } else {
-     this.providerObject.technicalId = this.driverValue.userId;
-     if (this.providerCase == 'new') {
-       this.addNewTechnical();
-     } else {
-       this.editTechnical();
-     }
+      this.providerObject.technicalId = this.driverValue.userId;
+      if (this.providerCase == 'new') {
+        this.addNewTechnical();
+      } else {
+        this.editTechnical();
+      }
     }
-   }
+  }
 
   // editProvider(technicalId: number, orderTechnicalAssignmentId: any) {
   //   this.providerObject.orderTechnicalAssignmentId = orderTechnicalAssignmentId;
@@ -296,7 +307,7 @@ export class OrdersDetailsComponent {
 
   editProvider(technicalId: number, orderTechnicalAssignmentId: any, technicalType: number) {
     this.providerObject.orderTechnicalAssignmentId = orderTechnicalAssignmentId;
-    if(technicalType === 1) {
+    if (technicalType === 1) {
       this.dialogProps.props.visible = true;
       this.providerTitle = 'Edit Provider';
       this.providerCase = 'edit';
@@ -306,11 +317,11 @@ export class OrdersDetailsComponent {
       this.providerCase = 'edit';
     }
 
-    this.setTechnicalById(technicalId , technicalType);
+    this.setTechnicalById(technicalId, technicalType);
   }
 
-  setTechnicalById(id: number , typeId: number): void {
-    if(typeId === 1) {
+  setTechnicalById(id: number, typeId: number): void {
+    if (typeId === 1) {
       this.providerValue = this.providerList.find((data: any) => data.userId === id);
     } else {
       this.driverValue = this.driversList.find((data: any) => data.userId === id);
@@ -384,5 +395,26 @@ export class OrdersDetailsComponent {
     } else {
       console.log('Form is invalid');
     }
+  }
+
+  openDeleteModal(actionType: string , item?: any) {
+    this.deleteType = actionType;
+    this.deleteModal.props.visible = true;
+      if(item){
+        this.deletedProviderId = item.orderTechnicalAssignmentId
+      }
+  }
+
+  deleteOrder() {
+    this.ApiService.deleteWithoutParam('Order/Deleteorder', this.orderId.toString()).subscribe((res: any) => {
+      this.tosater.successToaster('Order Item Deleted Successfully');
+      this.router.navigate(['/orders']);
+    })
+  }
+
+  deleteProvider() {
+    this.ApiService.deleteWithoutParam('Order/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
+      this.tosater.successToaster('Provider Deleted Successfully');
+    })
   }
 }

@@ -111,4 +111,19 @@ export class ApiService {
       })
     );
   }
+
+  deleteWithoutParam<T>(APIName: string, id: string, options: IOptions = { showAlert: false, message: '' }): Observable<T> {
+    return this.http.delete(`${baseUrl}${APIName}/${id}`).pipe(
+      take(1),
+      map((res: any) => {
+        if(res.message)
+          this.ngxToaster.success(res.message)
+        return res;
+      }),
+      catchError((error) => {
+        this.ngxToaster.error(error?.error?.message || 'shared.errors.delete_request')
+        return throwError(() => error);
+      })
+    );
+  }
 }

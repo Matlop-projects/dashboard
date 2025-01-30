@@ -49,6 +49,11 @@ export class ClientTableComponent {
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
+      name: EAction.delete,
+      apiName_or_route: 'Client/Delete?userId',
+      autoCall: true
+    },
+    {
       name: EAction.view,
       apiName_or_route: global_router_view_url,
       autoCall: true

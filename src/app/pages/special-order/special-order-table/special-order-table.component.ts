@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
-import { RouterModule } from '@angular/router';
+import {  RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -54,7 +54,8 @@ export class SpecialOrderTableComponent {
       autoCall: true
     }
   ]
-  private ApiService = inject(ApiService)
+  private ApiService = inject(ApiService);
+
 
 
   bredCrumb: IBreadcrumb = {
@@ -107,6 +108,7 @@ export class SpecialOrderTableComponent {
       { keyName: 'specialOrderId', header: this.languageService.translate('Id'), type: EType.id, show: true },
       { keyName: 'amount', header: this.languageService.translate('special_order.form.amount'), type: EType.text, show: true },
       { keyName: 'clientId', header: this.languageService.translate('special_order.form.clientId'), type: EType.text, show: true },
+      { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
       { keyName: 'specialOrderName', header: this.languageService.translate('special_order.form.specialOrderEnum'), type: EType.text, show: true },
       { keyName: 'specialOrderStatusName', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
@@ -222,5 +224,7 @@ getAllClients(){
     this.API_getAll();
     this.showFilter = false
   }
+
+
 }
 

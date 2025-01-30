@@ -138,16 +138,16 @@ export class TableComponent implements OnInit, OnChanges {
       })
   }
 
+
+
   onActiveConfirmMessage() {
     let action = this.eventEmitValue.action;
     let recordId = this.eventEmitValue.record[this.getNameOfIDHeader()];
     this.showActiveConfirmationMessage = false;
-
     this.callActiveApi(action, recordId);
   }
 
   callActiveApi(action: ITableAction, id: any) {
-
     this.ApiService.putWithId(action.apiName_or_route, id).subscribe(res => {
       if (res) {
         this.reloadGetAllApi.emit(true);

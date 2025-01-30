@@ -39,7 +39,7 @@ export class LoginComponent {
     this.loginForm = this.fb.group({
       userName: ['superadmin@admin.com', [Validators.required]],
       password: ['Admin@VL', [Validators.required]],
-      loginMethod: [1]
+      loginMethod: [2]
     });
 
     this.translate.setDefaultLang('en');
@@ -104,7 +104,7 @@ export class LoginComponent {
         }
         localStorage.setItem('userData', JSON.stringify(dataUser))
         localStorage.setItem('token', data.data.accessToken);
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       }
     })
   }
