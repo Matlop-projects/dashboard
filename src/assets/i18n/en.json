@@ -170,7 +170,8 @@
     "desc_en":"Description (en)",
     "desc_ar":"Description (ar)",
     "instr_en":"Instraction (en)",
-    "instr_ar":"Instraction (ar)"
+    "instr_ar":"Instraction (ar)",
+    "service_type": "Services"
    }
   },
   "dashboard":{
