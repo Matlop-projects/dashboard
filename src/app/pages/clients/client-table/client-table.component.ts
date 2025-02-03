@@ -141,17 +141,17 @@ export class ClientTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'userId', header: this.languageService.translate('Id'), type: EType.id, show: true },
-      { keyName: 'firstName', header: this.languageService.translate('client.form.firstName'), type: EType.text, show: true },
-      { keyName: 'lastName', header: this.languageService.translate('client.form.lastName'), type: EType.text, show: true },
+      { keyName: 'fullName', header: this.languageService.translate('client.form.name'), type: EType.text, show: true },
       { keyName: 'username', header: this.languageService.translate('client.form.userName'), type: EType.text, show: true },
+      { keyName: 'mobileNumber', header: this.languageService.translate('client.form.mobile'), type: EType.text, show: true },
       { keyName: 'email', header: this.languageService.translate('client.form.email'), type: EType.text, show: true },
       { keyName: 'isActive', header: this.languageService.translate('client.form.status'), type: EType.boolean, show: true },
       { keyName: '', header: this.languageService.translate('client.form.action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
     this.columnsSmallTable = [
       { keyName: 'userId', header: this.languageService.translate('client.form.userName'), type: EType.id, show: false },
-      { keyName: 'firstName', header: this.languageService.translate('client.form.firstName'), type: EType.text, showAs: ETableShow.header },
-      { keyName: 'lastName', header: this.languageService.translate('client.form.lastName'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'fullName', header: this.languageService.translate('client.form.name'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'mobileNumber', header: this.languageService.translate('client.form.mobile'), type: EType.text, showAs: ETableShow.header },
       { keyName: currentLang === 'ar' ? 'arDescription' : 'enDescription', header: this.languageService.translate('client.form.fullName'), type: EType.editor, showAs: ETableShow.content }
     ];
   }

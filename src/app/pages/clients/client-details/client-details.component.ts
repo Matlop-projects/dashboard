@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { DatePipe, NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -22,13 +22,17 @@ import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { DatePickerModule } from 'primeng/datepicker';
+import { Panel } from 'primeng/panel';
+import { WalletDialogComponent } from '../../../components/wallet-dialog/wallet-dialog.component';
+
+
 
 const global_PageName = 'client.pageName';
 
 @Component({
   selector: 'app-client-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TranslatePipe,TitleCasePipe , NgClass, DatePickerModule ,EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+  imports: [ReactiveFormsModule, TranslatePipe, NgFor, WalletDialogComponent, DatePipe, TitleCasePipe, Panel, NgClass, DatePickerModule, EditModeImageComponent, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './client-details.component.html',
   styleUrl: './client-details.component.scss'
 })
@@ -39,9 +43,12 @@ export class ClientDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   userTypeList = userType
-    selectedLang: any;
-    languageService = inject(LanguageService);
-  private confirm = inject(ConfirmMsgService)
+  selectedLang: any;
+  languageService = inject(LanguageService);
+  private confirm = inject(ConfirmMsgService);
+  clientOrdersList: any[] = [];
+  clientWalletBalance: any;
+
   form = new FormGroup({
     firstName: new FormControl('', {
       validators: [
@@ -109,7 +116,7 @@ export class ClientDetailsComponent {
 
       ]
     }),
-    userId:new FormControl(this.userId|0)
+    userId: new FormControl(this.userId | 0)
   })
 
   gender = [
@@ -138,6 +145,7 @@ export class ClientDetailsComponent {
 
   editMode: boolean = false;
   userStatus: boolean = true;
+  clientid: any;
 
   get userId() {
     return this.route.snapshot.params['id']
@@ -149,8 +157,14 @@ export class ClientDetailsComponent {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
     });
-    if (this.tyepMode() != 'Add')
-      this.getClientsDetails()
+    console.log(this.tyepMode());
+
+    if (this.tyepMode() != 'Add') {
+      this.clientid = this.route.snapshot.params['id']
+      this.getClientsDetails();
+      this.getClientOrders();
+      this.getClientWalletAmount();
+    }
   }
 
   tyepMode() {
@@ -168,66 +182,65 @@ export class ClientDetailsComponent {
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
   }
 
-  onPasswordChanged(value:any){
+  onPasswordChanged(value: any) {
     this.form.get('confirmPassword')?.reset()
-}
-onConfirmPasswordChanged(value:string){
-    const ctrlConfirm =this.form.controls.confirmPassword
+  }
+
+  onConfirmPasswordChanged(value: string) {
+    const ctrlConfirm = this.form.controls.confirmPassword
     ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
     ctrlConfirm.updateValueAndValidity()
-}
+  }
 
   getClientsDetails() {
     this.ApiService.get(`Client/GetById/${this.userId}`).subscribe((res: any) => {
       if (res && res.data) {
         const clientData = res.data;
         this.userStatus = res.data.isActive;
-
         // Convert `dateOfBirth` to a Date object if it exists
         if (clientData.dateOfBirth) {
           clientData.dateOfBirth = new Date(clientData.dateOfBirth);
         }
-
         const password = res.data?.password;
         if (password) {
           this.form.get('confirmPassword')?.setValue(password);
         }
-
         this.form.patchValue(clientData);
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
-        console.log("ClientDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc :", this.editImageProps.props.imgSrc )
+        console.log("ClientDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc :", this.editImageProps.props.imgSrc)
         this.removeValidators()
       }
     });
   }
-  removeValidators(){
-    const ctrlform =this.form.controls
+
+  removeValidators() {
+    const ctrlform = this.form.controls
     ctrlform.confirmPassword.removeValidators(Validators.required)
     ctrlform.confirmPassword.updateValueAndValidity()
     ctrlform.password.removeValidators(Validators.required)
     ctrlform.password.updateValueAndValidity()
     ctrlform.pinCode.removeValidators(Validators.required)
     ctrlform.pinCode.updateValueAndValidity()
-      delete this.form.value.confirmPassword
-      delete this.form.value.password
-      delete this.form.value.pinCode
+    delete this.form.value.confirmPassword
+    delete this.form.value.password
+    delete this.form.value.pinCode
   }
-  onSubmit() {
 
+  onSubmit() {
     if (this.tyepMode() === 'Add')
       this.addFQS(this.form.value)
-    else{
+    else {
       this.removeValidators()
       delete this.form.value.confirmPassword
       delete this.form.value.password
@@ -248,12 +261,10 @@ onConfirmPasswordChanged(value:string){
       this.showConfirmMessage = !this.showConfirmMessage
     else
       this.router.navigateByUrl('/clients')
-
   }
 
   onConfirmMessage() {
     this.router.navigateByUrl('/clients')
-
   }
 
   addFQS(payload: any) {
@@ -270,6 +281,30 @@ onConfirmPasswordChanged(value:string){
     })
   }
 
+  getClientOrders() {
+    this.ApiService.get(`Order/GetOrdersByClientIdDashboard/${this.clientid}`).subscribe((res: any) => {
+      console.log(res);
+      this.clientOrdersList = res.data;
+    })
+  }
+
+  goOrder(id: any){
+    console.log(id);
+    this.router.navigate(['/order/edit' , id])
+  }
+
+  getClientWalletAmount() {
+    this.ApiService.get(`Wallet/GetBalanceClientId/${this.clientid}`).subscribe((data: any) => {
+      console.log(data.data.balance);
+      this.clientWalletBalance = data.data.balance;
+    })
+  }
+
+  onAmountAdded(success: boolean) {
+    if (success) {
+      this.getClientWalletAmount(); // Call a function to refresh data or perform other actions
+    }
+  }
 
 }
 

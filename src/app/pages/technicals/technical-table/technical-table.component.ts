@@ -128,17 +128,19 @@ export class TechnicalTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'userId', header: this.languageService.translate('Id'), type: EType.id, show: true },
-      { keyName: 'firstName', header: this.languageService.translate('tech.form.firstName'), type: EType.text, show: true },
-      { keyName: 'lastName', header: this.languageService.translate('tech.form.lastName'), type: EType.text, show: true },
-      { keyName: 'username', header: this.languageService.translate('tech.form.userName'), type: EType.text, show: true },
+      { keyName: 'fullName', header: this.languageService.translate('client.form.name'), type: EType.text, show: true },
+      { keyName: 'username', header: this.languageService.translate('client.form.userName'), type: EType.text, show: true },
+      { keyName: 'mobileNumber', header: this.languageService.translate('client.form.mobile'), type: EType.text, show: true },
+      { keyName: currentLang === 'ar' ? 'technicalEmployeeNameAr' : 'technicalEmployeeNameEn', header: this.languageService.translate('client.form.emName'), type: EType.text, show: true },
+      { keyName: currentLang === 'ar'  ? 'technicalSpecializeNameAr' : 'technicalSpecializeNameEn', header: this.languageService.translate('client.form.emSpetialization'), type: EType.text, show: true },
       { keyName: 'email', header: this.languageService.translate('tech.form.email'), type: EType.text, show: true },
       { keyName: 'isActive', header: this.languageService.translate('tech.form.isActive'), type: EType.boolean, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
     this.columnsSmallTable = [
-      { keyName: 'fisrtName', header: this.languageService.translate('Id'), type: EType.text, showAs: ETableShow.header },
-      { keyName: 'userId', header: this.languageService.translate('tech.form.userName'), type: EType.id, show: false },
+      { keyName: 'fullName', header: this.languageService.translate('client.form.name'), type: EType.text, showAs: ETableShow.header },
+      { keyName: 'mobileNumber', header: this.languageService.translate('client.form.mobile'), type: EType.text, showAs: ETableShow.header },      { keyName: 'userId', header: this.languageService.translate('tech.form.userName'), type: EType.id, show: false },
       { keyName: currentLang === 'ar' ? 'arDescription' : 'enDescription', header: this.languageService.translate('tech.form.fullName'), type: EType.editor, showAs: ETableShow.content }
     ];
   }

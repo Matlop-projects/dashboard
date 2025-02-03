@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf, TitleCasePipe, NgClass } from '@angular/common';
+import { NgIf, TitleCasePipe, NgClass, NgFor, DatePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
@@ -21,13 +21,14 @@ import { LanguageService } from '../../../services/language.service';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-
+import { Panel } from 'primeng/panel';
+import { WalletDialogComponent } from '../../../components/wallet-dialog/wallet-dialog.component';
 @Component({
   selector: 'app-technical-details',
   standalone: true,
   imports: [ReactiveFormsModule,
-     EditModeImageComponent,
-    ButtonModule, NgIf,TranslatePipe, SelectComponent, NgClass,TitleCasePipe, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+    EditModeImageComponent,
+    ButtonModule, NgIf, TranslatePipe, Panel, NgFor, WalletDialogComponent, DatePipe, SelectComponent, NgClass, TitleCasePipe, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './technical-details.component.html',
   styleUrl: './technical-details.component.scss'
 })
@@ -39,6 +40,10 @@ export class TechnicalDetailsComponent {
   private translateService = inject(TranslateService)
   languageService = inject(LanguageService);
   selectedLang: any;
+  technicalOrdersList: any[] = [];
+  clientWalletBalance: any;
+
+
 
   showConfirmMessage: boolean = false
   userTypeList = userType
@@ -120,7 +125,7 @@ export class TechnicalDetailsComponent {
         Validators.required,
       ]
     }),
-    userId:new FormControl(this.userId|0)
+    userId: new FormControl(this.userId | 0)
   })
 
   gender = [
@@ -150,6 +155,7 @@ export class TechnicalDetailsComponent {
   }
 
   maxDate = new Date();
+  technicalId: any
 
   editImageProps: IEditImage = {
     props: {
@@ -174,9 +180,11 @@ export class TechnicalDetailsComponent {
     this.getTechnicalSpecialist();
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
-    if (this.tyepMode() !==  'Add') {
+    if (this.tyepMode() !== 'Add') {
+      this.technicalId = this.route.snapshot.params['id'];
       this.getTechnicalsDetails();
-
+      this.getClientWalletAmount();
+      this.getClientOrders();
     }
 
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -186,39 +194,39 @@ export class TechnicalDetailsComponent {
         code: item.technicalSpecialistId,
         name: this.selectedLang === 'ar' ? item.arName : item.enName
       })
-    );
+      );
     })
   }
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
   }
-  onPasswordChanged(value:any){
+  onPasswordChanged(value: any) {
     this.form.get('confirmPassword')?.reset()
-}
-onConfirmPasswordChanged(value:string){
-    const ctrlConfirm =this.form.controls.confirmPassword
+  }
+  onConfirmPasswordChanged(value: string) {
+    const ctrlConfirm = this.form.controls.confirmPassword
     ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
     ctrlConfirm.updateValueAndValidity()
-}
+  }
 
-tyepMode() {
-  const url = this.router.url;
-  let result = 'Add'
-  if (url.includes('edit')) result = 'Edit'
-  else if (url.includes('view')) result = 'View'
-  else result = 'Add'
-  return result
-}
+  tyepMode() {
+    const url = this.router.url;
+    let result = 'Add'
+    if (url.includes('edit')) result = 'Edit'
+    else if (url.includes('view')) result = 'View'
+    else result = 'Add'
+    return result
+  }
 
 
 
@@ -249,8 +257,8 @@ tyepMode() {
 
   }
 
-  removeValidators(){
-    const ctrlform =this.form.controls
+  removeValidators() {
+    const ctrlform = this.form.controls
     ctrlform.confirmPassword.removeValidators(Validators.required)
     ctrlform.confirmPassword.updateValueAndValidity()
     ctrlform.password.removeValidators(Validators.required)
@@ -262,10 +270,10 @@ tyepMode() {
     this.ApiService.get(`TechnicalSpecialist/GetAll`).subscribe((res: any) => {
       if (res && res.data) {
         console.log(res);
-       this.specialistOriginal =  res.data
+        this.specialistOriginal = res.data
         this.technicalSpecialist = res.data;
 
-        this.technicalSpecialist =  this.specialistOriginal.map((item: any) => ({
+        this.technicalSpecialist = this.specialistOriginal.map((item: any) => ({
           code: item.technicalSpecialistId,
           name: this.selectedLang === 'ar' ? item.arName : item.enName
         }));
@@ -276,8 +284,8 @@ tyepMode() {
 
   onSubmit() {
     if (this.tyepMode() === 'Add')
-      this.addFQS( this.form.value)
-    else{
+      this.addFQS(this.form.value)
+    else {
       delete this.form.value.confirmPassword
       delete this.form.value.password
       delete this.form.value.pinCode
@@ -318,6 +326,31 @@ tyepMode() {
     })
   }
 
+
+  getClientOrders() {
+    this.ApiService.get(`Order/GetOrdersByTechnicalIdDashboard/${this.technicalId}`).subscribe((res: any) => {
+      console.log(res);
+      this.technicalOrdersList = res.data;
+    })
+  }
+
+  goOrder(id: any) {
+    console.log(id);
+    this.router.navigate(['/order/edit', id])
+  }
+
+  getClientWalletAmount() {
+    this.ApiService.get(`Wallet/GetBalanceClientId/${this.technicalId}`).subscribe((data: any) => {
+      console.log(data.data.balance);
+      this.clientWalletBalance = data.data.balance;
+    })
+  }
+
+  onAmountAdded(success: boolean) {
+    if (success) {
+      this.getClientWalletAmount(); // Call a function to refresh data or perform other actions
+    }
+  }
 
 }
 

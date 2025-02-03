@@ -120,6 +120,9 @@ export class OrdersTableComponent {
       { keyName: 'orderTotal', header: this.languageService.translate('order.form.price'), type: EType.text, show: true },
       { keyName: 'packageName', header: this.languageService.translate('order.form.pkg'), type: EType.text, show: true },
       { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
+      { keyName: currentLang === 'ar'  ? 'serviceNameAr' : 'serviceNameEn', header: this.languageService.translate('SERVICE_NAME'), type: EType.text, show: true },
+      { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.date, show: true },
+      { keyName: 'visitNumber', header: this.languageService.translate('visitNumber'), type: EType.text, show: true },
       { keyName: 'orderStatusName', header: this.languageService.translate('order.form.order_status'), type: EType.orderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
@@ -151,12 +154,13 @@ export class OrdersTableComponent {
       if(res.data)
         res.data.map((item:any)=>{
       this.packageList.push({
-        name:this.selectedLang=='en' ?item.nameEn:item.nameAr,
-        code:item.packageId
+        name: this.selectedLang == 'en' ? item.nameEn : item.nameAr,
+        code: item.packageId
       })
       })
      })
   }
+
   onSelectedValue(selectedItem:any,value:string){
       if(value=='package')
         this.objectSearch.packageId=selectedItem
@@ -180,11 +184,17 @@ export class OrdersTableComponent {
     this.showFilter = false
   }
 
+
   API_getAll() {
     this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
+
+        this.dataList.forEach((data: any ) => {
+data.visitNumber = data.package.visitNumber
+        })
+
         this.filteredData = [...this.dataList];
         console.log( this.dataList);
 

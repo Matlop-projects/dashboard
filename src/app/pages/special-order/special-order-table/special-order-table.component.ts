@@ -109,6 +109,9 @@ export class SpecialOrderTableComponent {
       { keyName: 'amount', header: this.languageService.translate('special_order.form.amount'), type: EType.text, show: true },
       { keyName: 'clientId', header: this.languageService.translate('special_order.form.clientId'), type: EType.text, show: true },
       { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
+      // { keyName: currentLang === 'ar'  ? 'serviceNameAr' : 'serviceNameEn', header: this.languageService.translate('SERVICE_NAME'), type: EType.text, show: true },
+      // { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.date, show: true },
+      // { keyName: 'visitNumber', header: this.languageService.translate('visitNumber'), type: EType.text, show: true },
       { keyName: 'specialOrderName', header: this.languageService.translate('special_order.form.specialOrderEnum'), type: EType.text, show: true },
       { keyName: 'specialOrderStatusName', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
@@ -149,6 +152,9 @@ export class SpecialOrderTableComponent {
     this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
+        this.dataList.forEach((data: any ) => {
+          data.visitNumber = data.package.visitNumber
+                  })
         this.totalCount = res.data.totalCount;
         this.filteredData = [...this.dataList];
       }
@@ -202,7 +208,7 @@ getAllClients(){
   })
  }
   onSubmitFilter() {
-    let specialOrderId:any =     Number(this.objectSearch.specialOrderId)
+    let specialOrderId:any =Number(this.objectSearch.specialOrderId)
     this.objectSearch.specialOrderId=specialOrderId
 
     this.API_getAll();

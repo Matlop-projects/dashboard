@@ -1,13 +1,16 @@
-import { NgFor, TitleCasePipe } from '@angular/common';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { Knob } from 'primeng/knob';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ NgFor , RouterModule,TranslatePipe,TitleCasePipe],
+  imports: [NgFor, RouterModule, NgIf, TranslatePipe, TitleCasePipe, Knob ,FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -15,8 +18,11 @@ export class DashboardComponent {
 
   private ApiService = inject(ApiService);
 
+  staticDetails: any;
+
   ngOnInit(): void {
     this.getDashboardDetails();
+    this.getStaticData();
   }
 
   items: any[] = [
@@ -30,7 +36,7 @@ export class DashboardComponent {
     { name: 'dashboard.workingTime', value: 0, img: 'assets/images/dashboard/timetable.png', route: '/working_hours', id: 'workingTimeCount' },
     { name: 'dashboard.termsAndConditions', value: 0, img: 'assets/images/dashboard/terms-and-conditions.png', route: '/settings/terms_conditions', id: 'termsAndConditionsCount' },
     { name: 'dashboard.technicalSpecialist', value: 0, img: 'assets/images/dashboard/public-relations.png', route: '/technical-specialist', id: 'technicalSpecialistCount' },
-    { name: 'dashboard.orderAdditionalItems', value: 0, img: 'assets/images/dashboard/checklist.png', route: '/dashboard', id: 'orderAdditionalItemsCount' },
+    // { name: 'dashboard.orderAdditionalItems', value: 0, img: 'assets/images/dashboard/checklist.png', route: '/dashboard', id: 'orderAdditionalItemsCount' },
     { name: 'dashboard.FAQs', value: 0, img: 'assets/images/dashboard/faq.png', route: '/settings/faqs', id: 'faQsCount' },
     { name: 'dashboard.country', value: 0, img: 'assets/images/dashboard/coronavirus.png', route: '/country', id: 'countryCount' },
     { name: 'dashboard.coupon', value: 0, img: 'assets/images/dashboard/coupons.png', route: '/copone', id: 'coponeCount' },
@@ -49,9 +55,16 @@ export class DashboardComponent {
     this.ApiService.get('Dashborad/GetAll').subscribe((res: any) => {
       console.log(res);
       this.updateItemsWithData(res.data);
-
     })
   }
+
+  getStaticData() {
+    this.ApiService.get('Dashborad/GetAllOrderStatistics').subscribe((res: any) => {
+      console.log(res);
+      this.staticDetails = res.data
+    })
+  }
+
   updateItemsWithData(data: any) {
     this.items.forEach((item: any) => {
       if (data.hasOwnProperty(item.id)) {

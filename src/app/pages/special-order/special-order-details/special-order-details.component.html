@@ -131,6 +131,14 @@
             </div>
             <div class="details">
               <div class="title">
+                <p>{{'order.total_tech_number'|translate}}</p>
+              </div>
+              <div class="details-desc">
+                <p>{{orderTechnicalAssignments.length != 0 ?orderTechnicalAssignments.length :  0}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
                 <p>{{'special_order.order_type'|translate}}</p>
               </div>
               <div class="details-desc">
@@ -180,6 +188,8 @@
                 <th>{{'order.table.tech_id'|translate}} </th>
                 <th>{{'order.table.tech_Name'|translate}}</th>
                 <th>{{'order.table.tech_type'|translate}}</th>
+                <th>{{'order.table.mobile'|translate}}</th>
+                <th>{{'order.table.specialize'|translate}}</th>
                 <th>{{'order.table.edit_tech'|translate}}</th>
               </tr>
             </thead>
@@ -188,6 +198,8 @@
                 <td>{{ assignment.technicalId }}</td>
                 <td>{{ assignment.technicalName || '-' }}</td>
                 <td>{{ assignment.technicalTypeName || '-' }}</td>
+                <td>{{ assignment.technicalPhoneNumber || '-' }}</td>
+                <td>{{ selectedLang == 'ar' ? assignment.technicalSpecializeNameAr : assignment.technicalSpecializeNameEn }}</td>
                 <td>
                   <div class="actions-icon">
                     <span class="pi pi-pen-to-square" title="Edit"

@@ -9,6 +9,23 @@
       </div>
     </div>
   </div>
+
+  <div class="client-wallet-section mt-3 mb-3" *ngIf="tyepMode() != 'Add'">
+    <div class="wallet-details">
+      <img width="64" src="assets/images/wallet.png" alt="wallet">
+      <div class="desc">
+        <div class="title">
+          <p>{{ 'WALLET_DIALOG.WALLET_AMOUNT' | translate}}</p>
+        </div>
+        <div class="amount" >
+          <p>{{clientWalletBalance}} <span>{{'SAR' | translate}}</span></p>
+        </div>
+      </div>
+    </div>
+    <app-wallet-dialog (amountAdded)="onAmountAdded($event)" [clientId]="technicalId"></app-wallet-dialog>
+  </div>
+
+
   <div class=" form-container">
     <div class="reactive-form" [ngClass]="{ 'red-border': tyepMode() != 'Add' && userStatus == false }">
       <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
@@ -101,6 +118,73 @@
         </div>
 
       </form>
+    </div>
+  </div>
+  <div class="row mt-3 mb-4" *ngIf="tyepMode() != 'Add'">
+    <div class="col-lf-12">
+      <p-panel [header]="'CLIENT_ORDERS' | translate" [toggleable]="true">
+        <div class="client-orders-list" *ngIf="technicalOrdersList.length != 0">
+          <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12" *ngFor="let order of technicalOrdersList">
+              <div class="order-card" (click)="goOrder(order.orderId)">
+                <div class="content">
+                  <div class="row">
+                    <div class="col-lg-6 mt-2 mb-2">
+                      <div class="title">
+                        <p>{{ 'ORDER_ID' | translate }}</p>
+                      </div>
+                      <div class="desc">
+                        <p>{{order.orderId}}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-2 mb-2">
+                      <div class="title">
+                        <p>{{ 'STATUS' | translate }}</p>
+                      </div>
+                      <div class="desc">
+                        <p>{{order.orderStatusName}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 mt-2 mb-2">
+                      <div class="title">
+                        <p>{{ 'CREATION_TIME' | translate }}</p>
+                      </div>
+                      <div class="desc">
+                        <p>{{order.creationTime | date: 'dd/MM/yyyy'}}</p>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 mt-2 mb-2">
+                      <div class="title">
+                        <p>{{ 'PACKAGE_NAME' | translate }}</p>
+                      </div>
+                      <div class="desc">
+                        <p>{{ selectedLang == 'ar' ? order.package.nameAr : order.package.nameEn}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6 mt-2 mb-2">
+                      <div class="title">
+                        <p>{{ 'SERVICE_NAME' | translate }}</p>
+                      </div>
+                      <div class="desc">
+                        <p>{{ selectedLang == 'ar' ? order.serviceNameAr : order.serviceNameEn}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="empty-state" *ngIf="technicalOrdersList.length == 0">
+          <h3>
+            {{ 'NO_ORDERS_AVAILABLE' | translate }}
+          </h3>
+        </div>
+      </p-panel>
     </div>
   </div>
 </div>
