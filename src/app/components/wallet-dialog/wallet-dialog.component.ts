@@ -38,14 +38,14 @@ export class WalletDialogComponent {
     this.walletForm = this.fb.group({
       walletTransactionId: 0,
       transactionType: 1,
-      clientId: [null], // Add clientId to the form
+      userId: [null], // Add clientId to the form
       amount: [null, [Validators.required, Validators.min(1)]], // Validation for required and minimum value
     });
   }
 
   // Open the dialog
   showDialog() {
-    this.walletForm.patchValue({ clientId: +this.clientId }); // Set clientId in the form
+    this.walletForm.patchValue({ userId: +this.clientId }); // Set clientId in the form
     this.displayDialog = true;
   }
 
