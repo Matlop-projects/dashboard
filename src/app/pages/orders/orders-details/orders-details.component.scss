@@ -1,4 +1,8 @@
  ::ng-deep {
+
+  p {
+    margin: 0 !important;
+  }
   .order-details-container {
     .page-details {
       display: flex;
@@ -214,6 +218,12 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          padding: 5px;
+          border: none;
+
+          p {
+            color: white;
+          }
 
           i {
             font-size: 10px;
@@ -221,6 +231,11 @@
 
           &:hover {
             background-color: rgb(30, 128, 30);
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            background-color: rgb(187, 187, 187);
           }
         }
 

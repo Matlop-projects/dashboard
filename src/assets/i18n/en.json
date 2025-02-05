@@ -671,6 +671,7 @@
   "visitNumber" : "Visits Number",
   "nextVisit": "Next Visit",
   "SAR": "SAR",
+  "Status_Action": "Status Action",
   "WALLET_DIALOG": {
     "TITLE": "Enter Amount",
     "WALLET_AMOUNT": "Wallet Amount",

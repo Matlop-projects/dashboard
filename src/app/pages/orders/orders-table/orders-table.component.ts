@@ -14,24 +14,25 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { order_status } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { DatePicker } from 'primeng/datepicker';
 
 const global_pageName = 'order.pageName'
 const global_router_edit_url = '/order/edit'
-const global_API_getAll =   'order/GetAllWitPaginationDashboard'
+const global_API_getAll = 'order/GetAllWitPaginationDashboard'
 
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [TableComponent,NgIf,SelectComponent, TitleCasePipe,TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, NgIf, SelectComponent, TitleCasePipe, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, DatePicker],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })
 export class OrdersTableComponent {
 
   pageName = signal<string>(global_pageName);
-  orderStatus=order_status
-  clientList:any[]=[]
-  packageList:any[]=[]
+  orderStatus = order_status
+  clientList: any[] = []
+  packageList: any[] = []
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -49,8 +50,66 @@ export class OrdersTableComponent {
 
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [ ]
+    crumbs: []
   }
+
+  statuses = [
+    {
+      id: 0,
+      color: '#c1cd6a',
+      nameAr: 'قيد الانتظار',
+      nameEn: 'Pending'
+    },
+    {
+      id: 1,
+      color: '#c1cd6a',
+      nameAr: 'مدفوع',
+      nameEn: 'Paid'
+    },
+    {
+      id: 2,
+      color: '#b16acd',
+      nameAr: 'مخصص للمزود',
+      nameEn: 'AssignedToProvider'
+    },
+    {
+      id: 3,
+      color: '#ccc053',
+      nameAr: 'في الطريق',
+      nameEn: 'InTheWay'
+    },
+    {
+      id: 4,
+      color: '#9b9d9c',
+      nameAr: 'محاولة حل المشكلة',
+      nameEn: 'TryingSolveProblem'
+    },
+    {
+      id: 5,
+      color: '#49e97c',
+      nameAr: 'محلول',
+      nameEn: 'Solved'
+    },
+    {
+      id: 6,
+      color: '#49e97c',
+      nameAr: 'تأكيد العميل',
+      nameEn: 'ClientConfirmation'
+    },
+    {
+      id: 7,
+      color: '#49e97c',
+      nameAr: 'مكتمل',
+      nameEn: 'Completed'
+    },
+    {
+      id: 8,
+      color: '#e94949',
+      nameAr: 'ملغي',
+      nameEn: 'Canceled'
+    }
+  ];
+
 
   objectSearch = {
     "pageNumber": 0,
@@ -58,9 +117,10 @@ export class OrdersTableComponent {
     "sortingExpression": "",
     "sortingDirection": 0,
     // "technicalId": null,
-    "clientId":null,
+    "clientId": null,
     // "paymentWayId": null,
     "orderStatus": null,
+    "nextVistTime": null,
     "packageId": null,
     // "coponeId": null,
     // "orderSubTotal": null,
@@ -74,6 +134,8 @@ export class OrdersTableComponent {
   filteredData: any;
   dataList: any = []
   columns: IcolHeader[] = [];
+  maxDate = new Date();
+
 
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
@@ -95,13 +157,13 @@ export class OrdersTableComponent {
       this.getAllPackages();
       this.getBreadCrumb();
     })
-}
+  }
 
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
@@ -120,10 +182,11 @@ export class OrdersTableComponent {
       { keyName: 'orderTotal', header: this.languageService.translate('order.form.price'), type: EType.text, show: true },
       { keyName: 'packageName', header: this.languageService.translate('order.form.pkg'), type: EType.text, show: true },
       { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
-      { keyName: currentLang === 'ar'  ? 'serviceNameAr' : 'serviceNameEn', header: this.languageService.translate('SERVICE_NAME'), type: EType.text, show: true },
+      { keyName: currentLang === 'ar' ? 'serviceNameAr' : 'serviceNameEn', header: this.languageService.translate('SERVICE_NAME'), type: EType.text, show: true },
       { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.date, show: true },
       { keyName: 'visitNumber', header: this.languageService.translate('visitNumber'), type: EType.text, show: true },
-      { keyName: 'orderStatusName', header: this.languageService.translate('order.form.order_status'), type: EType.orderStatus, show: true },
+      { keyName: currentLang === 'ar' ? 'orderStatusAr' : 'orderStatusEn', header: this.languageService.translate('order.form.order_status'), type: EType.orderStatus, show: true },
+      { keyName: 'showOrderStatusButton', header: this.languageService.translate('Status_Action'), type: EType.changeOrderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
@@ -135,49 +198,51 @@ export class OrdersTableComponent {
   }
 
 
-  getAllClients(){
-   this.ApiService.get('Client/GetAllActive').subscribe((res:any)=>{
-    this.clientList=[]
-    if(res.data)
-      res.data.map((item:any)=>{
-    this.clientList.push({
-      name:item.firstName,
-      code:item.userId
+  getAllClients() {
+    this.ApiService.get('Client/GetAllActive').subscribe((res: any) => {
+      this.clientList = []
+      if (res.data)
+        res.data.map((item: any) => {
+          this.clientList.push({
+            name: item.firstName,
+            code: item.userId
+          })
+        })
     })
-    })
-   })
   }
 
-  getAllPackages(){
-    this.ApiService.get('Package/GetAllPackage').subscribe((res:any)=>{
-      this.packageList=[]
-      if(res.data)
-        res.data.map((item:any)=>{
-      this.packageList.push({
-        name: this.selectedLang == 'en' ? item.nameEn : item.nameAr,
-        code: item.packageId
-      })
-      })
-     })
+  getAllPackages() {
+    this.ApiService.get('Package/GetAllPackage').subscribe((res: any) => {
+      this.packageList = []
+      if (res.data)
+        res.data.map((item: any) => {
+          this.packageList.push({
+            name: this.selectedLang == 'en' ? item.nameEn : item.nameAr,
+            code: item.packageId
+          })
+        })
+    })
   }
 
-  onSelectedValue(selectedItem:any,value:string){
-      if(value=='package')
-        this.objectSearch.packageId=selectedItem
-      else   if(value=='status')
-        this.objectSearch.orderStatus=selectedItem
-      else
-      this.objectSearch.clientId=selectedItem
-
+  onSelectedValue(selectedItem: any, value: string) {
+    if (value == 'package') {
+      this.objectSearch.packageId = selectedItem;
+    }
+    else if (value == 'status') {
+      this.objectSearch.orderStatus = selectedItem;
+    }
+    else if (value == 'clinet') {
+      this.objectSearch.clientId = selectedItem
+    } else {
+      this.objectSearch.nextVistTime = selectedItem
+    }
   }
 
   openFilter() {
     this.showFilter = true
-    this.objectSearch.clientId=null
-    this.objectSearch.orderStatus=null
-    this.objectSearch.packageId=null
-
-
+    this.objectSearch.clientId = null
+    this.objectSearch.orderStatus = null
+    this.objectSearch.packageId = null
   }
 
   onCloseFilter(event: any) {
@@ -191,17 +256,32 @@ export class OrdersTableComponent {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
 
-        this.dataList.forEach((data: any ) => {
-data.visitNumber = data.package.visitNumber
-        })
+        // Iterate over each data item
+        this.dataList.forEach((data: any) => {
+          // For example, copying visitNumber from nested package object
+          data.visitNumber = data.package.visitNumber;
+
+          // Find the matching status object using the orderStatusEnum property
+          const statusObj = this.statuses.find((status: any) => status.id === data.orderStatusEnum);
+          if (statusObj) {
+            // Create two new properties with Arabic and English values
+            data.orderStatusAr = statusObj.nameAr;
+            data.orderStatusEn = statusObj.nameEn;
+          }
+
+        if(data.paymentWayId == 1 && data.orderStatusEnum == 0) {
+            data.showOrderStatusButton = true
+        } else {
+          data.showOrderStatusButton = false
+        }
+        });
 
         this.filteredData = [...this.dataList];
-        console.log( this.dataList);
-
+        console.log(this.dataList);
       }
-
-    })
+    });
   }
+
 
   onPageChange(event: any) {
     console.log(event);
@@ -237,7 +317,8 @@ data.visitNumber = data.package.visitNumber
       "sortingExpression": "",
       "sortingDirection": 0,
       // "technicalId": null,
-      "clientId":null,
+      "clientId": null,
+      nextVistTime: null,
       // "paymentWayId": null,
       "orderStatus": null,
       "packageId": null,
@@ -248,6 +329,12 @@ data.visitNumber = data.package.visitNumber
     }
     this.API_getAll();
     this.showFilter = false
+  }
+
+  reloadGetAllApi(e: any) {
+    if (e) {
+      this.API_getAll();
+    }
   }
 
 }

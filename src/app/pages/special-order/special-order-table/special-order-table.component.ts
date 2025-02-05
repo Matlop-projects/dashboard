@@ -63,6 +63,27 @@ export class SpecialOrderTableComponent {
     ]
   }
 
+  statuses = [
+    {
+      id: 1,
+      color: '#c1cd6a',
+      nameAr: 'قيد الانتظار',
+      nameEn: 'Pending'
+    },
+    {
+      id: 2,
+      color: '#3fac4e',
+      nameAr: 'مكتمل',
+      nameEn: 'Completed'
+    },
+    {
+      id: 3,
+      color: '#c32722',
+      nameAr: 'ملغي',
+      nameEn: 'Canceled'
+    }
+  ];
+
   objectSearch = {
     pageNumber: 0,
     pageSize: 8,
@@ -113,7 +134,7 @@ export class SpecialOrderTableComponent {
       // { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.date, show: true },
       // { keyName: 'visitNumber', header: this.languageService.translate('visitNumber'), type: EType.text, show: true },
       { keyName: 'specialOrderName', header: this.languageService.translate('special_order.form.specialOrderEnum'), type: EType.text, show: true },
-      { keyName: 'specialOrderStatusName', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, show: true },
+      { keyName: currentLang === 'ar' ? 'orderStatusAr' : 'orderStatusEn', header: this.languageService.translate('order.form.order_status'), type: EType.specialOrderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
@@ -152,10 +173,19 @@ export class SpecialOrderTableComponent {
     this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
-        this.dataList.forEach((data: any ) => {
-          data.visitNumber = data.package.visitNumber
-                  })
+
         this.totalCount = res.data.totalCount;
+        this.dataList.forEach((data: any) => {
+          // Find the matching status object using the orderStatusEnum property
+          const statusObj = this.statuses.find((status: any) => status.id === data.specialOrderStatus);
+          if (statusObj) {
+            // Create two new properties with Arabic and English values
+            data.orderStatusAr = statusObj.nameAr;
+            data.orderStatusEn = statusObj.nameEn;
+          }
+        });
+        console.log(this.dataList);
+
         this.filteredData = [...this.dataList];
       }
 

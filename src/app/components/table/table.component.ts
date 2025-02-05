@@ -9,6 +9,7 @@ import { CheckBoxComponent } from '../check-box/check-box.component';
 import { environment } from '../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ToasterService } from '../../services/toaster.service';
+import { LanguageService } from '../../services/language.service';
 
 export interface IToggleOptions {
   autoCall: boolean,
@@ -22,11 +23,13 @@ export enum EAction {
   block = "block",
   active = "active"
 }
+
 export interface ITableAction {
   name: EAction,
   apiName_or_route: string,
   autoCall: boolean
 }
+
 export enum EType {
   id = "id",
   text = "text",
@@ -41,12 +44,15 @@ export enum EType {
   boolean = 'boolean',
   toggle = 'toggle',
   orderStatus = 'orderStatus',
-  specialOrderStatus = 'specialOrderStatus'
+  specialOrderStatus = 'specialOrderStatus',
+  changeOrderStatus = 'changeOrderStatus'
 }
+
 interface INested {
   img: string,
   text: string
 }
+
 export interface IcolHeader {
   header: string,
   keyName: string,
@@ -56,14 +62,14 @@ export interface IcolHeader {
   show?: boolean,
   toggleOptions?: IToggleOptions
 }
+
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf,TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
+  imports: [TableModule, NgFor, NgIf, TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
-
 export class TableComponent implements OnInit, OnChanges {
 
   @Input() showrecordIndex = false;
@@ -74,22 +80,32 @@ export class TableComponent implements OnInit, OnChanges {
   @Input() actions: any[] = [];
   @Output() onActionCliked = new EventEmitter();
   @Output() onstatusChanged = new EventEmitter();
-
   @Output() reloadGetAllApi = new EventEmitter();
+
   showConfirmMessage: boolean = false;
   showBlockConfirmationMessage: boolean = false;
   showActiveConfirmationMessage: boolean = false;
+
   ApiService = inject(ApiService);
   router = inject(Router);
-  eventEmitValue: any = { action: {}, record: {} }
-  imageBaseUrl=environment.baseImageUrl;
   toaster = inject(ToasterService);
+
+  selectedLang: any;
+
+  // Inject LanguageService to access the current language.
+  private languageService = inject(LanguageService);
+
+  eventEmitValue: any = { action: {}, record: {} }
+  imageBaseUrl = environment.baseImageUrl;
 
   ngOnInit() {
     this.filterdRecords = this.records;
+    this.selectedLang = this.languageService.translationService.currentLang;
+
   }
 
   ngOnChanges() {
+    this.selectedLang = this.languageService.translationService.currentLang;
     this.filterdRecords = this.records;
   }
 
@@ -135,10 +151,8 @@ export class TableComponent implements OnInit, OnChanges {
       }
     }, err => {
       this.toaster.errorToaster(err.error.message)
-      })
+    })
   }
-
-
 
   onActiveConfirmMessage() {
     let action = this.eventEmitValue.action;
@@ -154,7 +168,7 @@ export class TableComponent implements OnInit, OnChanges {
       }
     }, err => {
       this.toaster.errorToaster(err.error.message)
-      })
+    })
   }
 
   convertDate(originalDate: string) {
@@ -187,53 +201,129 @@ export class TableComponent implements OnInit, OnChanges {
         col: col
       })
     }
-
-
   }
 
   api_update(checkedValue: boolean, record: any, col: any) {
-    let payload = record
-    payload[col.keyName] = checkedValue
+    let payload = record;
+    payload[col.keyName] = checkedValue;
 
     this.ApiService.put(col.toggleOptions.apiName, payload).subscribe(res => {
       if (res) {
-        // sweet alert is active or not
+        // Optionally add any success handling here
       }
     }, err => {
-    this.toaster.errorToaster(err.error.message)
+      this.toaster.errorToaster(err.error.message)
     })
   }
 
+  onStatusChange(orderId: any) {
+    this.ApiService.put(
+      `Order/ChangeStatus?OrderId=${orderId}&orderStatusEnum=1`,
+      {}
+    ).subscribe(() => {
+      this.reloadGetAllApi.emit(true);
+    });
+  }
+
+  // Updated: Order Status array with dynamic language fields.
   getOrderStatusColorById(id: number): string | null {
-
     const statuses = [
-      { name: 'Pending', id: 0, color: '#c1cd6a' },
-      { name: 'Paid', id: 1, color: '#c1cd6a' },
-      { name: 'AssignedToProvider', id: 2, color: '#b16acd' },
-      { name: 'InTheWay', id: 3, color: '#ccc053' },
-      { name: 'TryingSolveProblem', id: 4, color: '#9b9d9c' },
-      { name: 'Solved', id: 5, color: '#49e97c' },
-      { name: 'ClientConfirmation', id: 6, color: '#49e97c' },
-      { name: 'Completed', id: 7, color: '#49e97c' },
-      { name: 'Canceled', id: 8, color: '#e94949' }
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+        id: 0,
+        color: '#c1cd6a',
+        nameAr: 'قيد الانتظار',
+        nameEn: 'Pending'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'مدفوع' : 'Paid',
+        id: 1,
+        color: '#c1cd6a',
+        nameAr: 'مدفوع',
+        nameEn: 'Paid'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'مخصص للمزود' : 'AssignedToProvider',
+        id: 2,
+        color: '#b16acd',
+        nameAr: 'مخصص للمزود',
+        nameEn: 'AssignedToProvider'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'في الطريق' : 'InTheWay',
+        id: 3,
+        color: '#ccc053',
+        nameAr: 'في الطريق',
+        nameEn: 'InTheWay'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'محاولة حل المشكلة' : 'TryingSolveProblem',
+        id: 4,
+        color: '#9b9d9c',
+        nameAr: 'محاولة حل المشكلة',
+        nameEn: 'TryingSolveProblem'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'محلول' : 'Solved',
+        id: 5,
+        color: '#49e97c',
+        nameAr: 'محلول',
+        nameEn: 'Solved'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'تأكيد العميل' : 'ClientConfirmation',
+        id: 6,
+        color: '#49e97c',
+        nameAr: 'تأكيد العميل',
+        nameEn: 'ClientConfirmation'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'مكتمل' : 'Completed',
+        id: 7,
+        color: '#49e97c',
+        nameAr: 'مكتمل',
+        nameEn: 'Completed'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'ملغي' : 'Canceled',
+        id: 8,
+        color: '#e94949',
+        nameAr: 'ملغي',
+        nameEn: 'Canceled'
+      }
     ];
-
-
 
     const status = statuses.find(status => status.id === id);
     return status ? status.color : null;
   }
 
+  // Updated: Special Order Status array with dynamic language fields.
   getSpecialOrderStatusColorById(id: number): string | null {
     const statuses = [
-      { name: 'Pending', id: 1, color: '#c1cd6a' },
-      { name: 'Completed', id: 2, color: '#3fac4e' },
-      { name: 'Canceled', id: 3, color: '#c32722' }
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+        id: 1,
+        color: '#c1cd6a',
+        nameAr: 'قيد الانتظار',
+        nameEn: 'Pending'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'مكتمل' : 'Completed',
+        id: 2,
+        color: '#3fac4e',
+        nameAr: 'مكتمل',
+        nameEn: 'Completed'
+      },
+      {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'ملغي' : 'Canceled',
+        id: 3,
+        color: '#c32722',
+        nameAr: 'ملغي',
+        nameEn: 'Canceled'
+      }
     ];
 
     const status = statuses.find(status => status.id === id);
-
     return status ? status.color : null;
   }
-
 }
