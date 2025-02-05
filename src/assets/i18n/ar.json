@@ -671,6 +671,7 @@
   "visitNumber": "عدد الزيارات ",
   "nextVisit": "الزيارة التالية",
   "SAR": "ريال",
+  "Status_Action": "حالة دفع الطلب",
   "WALLET_DIALOG": {
     "TITLE": "اضف مبلغ",
     "WALLET_AMOUNT": "مبلغ المحفظة",

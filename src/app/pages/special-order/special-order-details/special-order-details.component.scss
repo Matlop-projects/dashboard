@@ -215,13 +215,24 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          padding: 5px;
+          border: none;
 
           i {
             font-size: 10px;
           }
 
+          p {
+            color: white;
+          }
+
           &:hover {
             background-color: rgb(30, 128, 30);
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            background-color: rgb(187, 187, 187);
           }
         }
 

@@ -69,17 +69,7 @@ export class OrdersDetailsComponent {
     onShow: () => { }
   };
 
-  statuses = [
-    { name: 'Pending', id: 0, color: '#c1cd6a' },
-    { name: 'Paid', id: 1, color: '#c1cd6a' },
-    { name: 'AssignedToProvider', id: 2, color: '#b16acd' },
-    { name: 'InTheWay', id: 3, color: '#ccc053' },
-    { name: 'TryingSolveProblem', id: 4, color: '#9b9d9c' },
-    { name: 'Solved', id: 5, color: '#49e97c' },
-    { name: 'ClientConfirmation', id: 6, color: '#49e97c' },
-    { name: 'Completed', id: 7, color: '#49e97c' },
-    { name: 'Canceled', id: 8, color: '#e94949' }
-  ];
+  statuses: any[] = [];
 
   orderStatusValue: any;
   orderDetails: any;
@@ -121,13 +111,148 @@ export class OrdersDetailsComponent {
   languageService = inject(LanguageService);
 
   deletedProviderId: string = '';
+  checkOrderStatus: any;
 
   ngOnInit() {
-    this.pageName.set('order.pageName')
+    this.statuses = [
+      {
+        name: this.selectedLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+        id: 0,
+        color: '#c1cd6a',
+        nameAr: 'قيد الانتظار',
+        nameEn: 'Pending'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مدفوع' : 'Paid',
+        id: 1,
+        color: '#c1cd6a',
+        nameAr: 'مدفوع',
+        nameEn: 'Paid'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مخصص للمزود' : 'AssignedToProvider',
+        id: 2,
+        color: '#b16acd',
+        nameAr: 'مخصص للمزود',
+        nameEn: 'AssignedToProvider'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'في الطريق' : 'InTheWay',
+        id: 3,
+        color: '#ccc053',
+        nameAr: 'في الطريق',
+        nameEn: 'InTheWay'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محاولة حل المشكلة' : 'TryingSolveProblem',
+        id: 4,
+        color: '#9b9d9c',
+        nameAr: 'محاولة حل المشكلة',
+        nameEn: 'TryingSolveProblem'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محلول' : 'Solved',
+        id: 5,
+        color: '#49e97c',
+        nameAr: 'محلول',
+        nameEn: 'Solved'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'تأكيد العميل' : 'ClientConfirmation',
+        id: 6,
+        color: '#49e97c',
+        nameAr: 'تأكيد العميل',
+        nameEn: 'ClientConfirmation'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مكتمل' : 'Completed',
+        id: 7,
+        color: '#49e97c',
+        nameAr: 'مكتمل',
+        nameEn: 'Completed'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'ملغي' : 'Canceled',
+        id: 8,
+        color: '#e94949',
+        nameAr: 'ملغي',
+        nameEn: 'Canceled'
+      }
+    ];
+
+    this.pageName.set('order.pageName');
     this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
+      this.statuses = [
+        {
+          name: this.selectedLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+          id: 0,
+          color: '#c1cd6a',
+          nameAr: 'قيد الانتظار',
+          nameEn: 'Pending'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'مدفوع' : 'Paid',
+          id: 1,
+          color: '#c1cd6a',
+          nameAr: 'مدفوع',
+          nameEn: 'Paid'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'مخصص للمزود' : 'AssignedToProvider',
+          id: 2,
+          color: '#b16acd',
+          nameAr: 'مخصص للمزود',
+          nameEn: 'AssignedToProvider'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'في الطريق' : 'InTheWay',
+          id: 3,
+          color: '#ccc053',
+          nameAr: 'في الطريق',
+          nameEn: 'InTheWay'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'محاولة حل المشكلة' : 'TryingSolveProblem',
+          id: 4,
+          color: '#9b9d9c',
+          nameAr: 'محاولة حل المشكلة',
+          nameEn: 'TryingSolveProblem'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'محلول' : 'Solved',
+          id: 5,
+          color: '#49e97c',
+          nameAr: 'محلول',
+          nameEn: 'Solved'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'تأكيد العميل' : 'ClientConfirmation',
+          id: 6,
+          color: '#49e97c',
+          nameAr: 'تأكيد العميل',
+          nameEn: 'ClientConfirmation'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'مكتمل' : 'Completed',
+          id: 7,
+          color: '#49e97c',
+          nameAr: 'مكتمل',
+          nameEn: 'Completed'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'ملغي' : 'Canceled',
+          id: 8,
+          color: '#e94949',
+          nameAr: 'ملغي',
+          nameEn: 'Canceled'
+        }
+      ];
+      if (this.orderStatusValue) {
+        this.orderStatusValue = this.statuses.find(status => status.id === this.orderStatusValue.id);
+      }
     });
     this.getOrderDetails();
     this.getTechnicalList();
@@ -211,12 +336,17 @@ export class OrdersDetailsComponent {
       {}
     ).subscribe(() => {
       this.getOrderDetails();
-      this.tosater.successToaster('Order Status Updated Successfully')
+      this.tosater.successToaster('Order Status Updated Successfully');
+      console.log(this.orderStatusValue);
+      this.checkOrderStatus = this.orderStatusValue.id;
+      console.log(this.checkOrderStatus);
     });
   }
 
   setOrderStatusById(id: number): void {
     this.orderStatusValue = this.statuses.find(status => status.id === id);
+    this.checkOrderStatus = this.orderStatusValue.id
+    console.log(this.checkOrderStatus);
   }
 
   getColorById(id: number): string | null {
@@ -397,12 +527,12 @@ export class OrdersDetailsComponent {
     }
   }
 
-  openDeleteModal(actionType: string , item?: any) {
+  openDeleteModal(actionType: string, item?: any) {
     this.deleteType = actionType;
     this.deleteModal.props.visible = true;
-      if(item){
-        this.deletedProviderId = item.orderTechnicalAssignmentId
-      }
+    if (item) {
+      this.deletedProviderId = item.orderTechnicalAssignmentId
+    }
   }
 
   deleteOrder() {

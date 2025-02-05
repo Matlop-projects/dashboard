@@ -131,6 +131,7 @@ export class TechnicalTableComponent {
       { keyName: 'fullName', header: this.languageService.translate('client.form.name'), type: EType.text, show: true },
       { keyName: 'username', header: this.languageService.translate('client.form.userName'), type: EType.text, show: true },
       { keyName: 'mobileNumber', header: this.languageService.translate('client.form.mobile'), type: EType.text, show: true },
+      { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
       { keyName: currentLang === 'ar' ? 'technicalEmployeeNameAr' : 'technicalEmployeeNameEn', header: this.languageService.translate('client.form.emName'), type: EType.text, show: true },
       { keyName: currentLang === 'ar'  ? 'technicalSpecializeNameAr' : 'technicalSpecializeNameEn', header: this.languageService.translate('client.form.emSpetialization'), type: EType.text, show: true },
       { keyName: 'email', header: this.languageService.translate('tech.form.email'), type: EType.text, show: true },

@@ -26,7 +26,7 @@ const global_PageName = 'special_order.pageName';
 @Component({
   selector: 'app-special-order-details',
   standalone: true,
-  imports: [BreadcrumpComponent,TranslatePipe,TitleCasePipe, TextareaModule , FloatLabel , GalleryComponent, InputNumber, InputIcon, IconField, FormsModule, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, TranslatePipe, TitleCasePipe, TextareaModule, FloatLabel, GalleryComponent, InputNumber, InputIcon, IconField, FormsModule, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './special-order-details.component.html',
   styleUrl: './special-order-details.component.scss'
 })
@@ -37,7 +37,7 @@ export class SpecialOrderDetailsComponent {
   private route = inject(ActivatedRoute);
   private tosater = inject(ToasterService);
   private imageUrl = environment.baseImageUrl
-selectedLang: any;
+  selectedLang: any;
   languageService = inject(LanguageService);
 
 
@@ -65,22 +65,20 @@ selectedLang: any;
   };
 
 
-    deleteModal: IDialog = {
-        props: { visible: false },
-        onHide: () => { },
-        onShow: () => { }
-      };
+  deleteModal: IDialog = {
+    props: { visible: false },
+    onHide: () => { },
+    onShow: () => { }
+  };
 
-      deletedProviderId: string = '';
-      deleteType: string = '';
+  deletedProviderId: string = '';
+  deleteType: string = '';
 
 
 
-  statuses = [
-    { name: 'Pending', id: 1, color: '#c1cd6a' },
-    { name: 'Completed', id: 2, color: '#3fac4e' },
-    { name: 'Canceled', id: 3, color: '#c32722' }
+  statuses: any [] = [
   ];
+
 
   orderStatusValue: any;
   orderDetails: any;
@@ -107,8 +105,14 @@ selectedLang: any;
   driversList: any;
   driverValue: any;
   driverTitle = 'Add New Driver';
+  checkOrderStatus: any;
 
   ngOnInit() {
+    this.statuses = [
+      { name: this.selectedLang == 'ar' ? 'قيد الانتظار' : 'Pending', id: 1, color: '#c1cd6a', nameAr: 'قيد الانتظار', nameEn: 'Pending' },
+      { name: this.selectedLang == 'ar' ? 'مكتمل' : 'Completed', id: 2, color: '#3fac4e', nameAr: 'مكتمل', nameEn: 'Completed' },
+      { name: this.selectedLang == 'ar' ? 'ملغي' : 'Canceled', id: 3, color: '#c32722', nameAr: 'ملغي', nameEn: 'Canceled' }
+    ];
     this.pageName.set(global_PageName)
     this.getBreadCrumb()
     this.getSpecialOrderDetails();
@@ -117,6 +121,15 @@ selectedLang: any;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
+      this.statuses = [
+        { name: this.selectedLang == 'ar' ? 'قيد الانتظار' : 'Pending', id: 1, color: '#c1cd6a', nameAr: 'قيد الانتظار', nameEn: 'Pending' },
+        { name: this.selectedLang == 'ar' ? 'مكتمل' : 'Completed', id: 2, color: '#3fac4e', nameAr: 'مكتمل', nameEn: 'Completed' },
+        { name: this.selectedLang == 'ar' ? 'ملغي' : 'Canceled', id: 3, color: '#c32722', nameAr: 'ملغي', nameEn: 'Canceled' }
+      ];
+
+      if (this.orderStatusValue) {
+        this.orderStatusValue = this.statuses.find(status => status.id === this.orderStatusValue.id);
+      }
     });
   }
 
@@ -141,11 +154,11 @@ selectedLang: any;
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
@@ -157,11 +170,11 @@ selectedLang: any;
         this.orderDetails = res.data;
         this.orderAmount = res.data.amount;
         this.imageList = res.data.media;
-        this.orderTechnicalAssignments= res.data.specialOrderAssigment;
+        this.orderTechnicalAssignments = res.data.specialOrderAssigment;
 
-       if(this.imageList.length != 0) {
-        this.addUrltoMedia(this.imageList);
-       }
+        if (this.imageList.length != 0) {
+          this.addUrltoMedia(this.imageList);
+        }
         this.setOrderStatusById(res.data.specialOrderStatus);
         this.getClientData(res.data.clientId);
       }
@@ -169,9 +182,9 @@ selectedLang: any;
   }
 
   addUrltoMedia(list: any) {
-    console.log( this.imageList);
+    console.log(this.imageList);
     list.forEach((data: any) => {
-       data.src = this.imageUrl + data.src;
+      data.src = this.imageUrl + data.src;
     });
   }
 
@@ -197,12 +210,14 @@ selectedLang: any;
       {}
     ).subscribe(() => {
       this.getSpecialOrderDetails();
+      this.checkOrderStatus = this.orderStatusValue.id;
       this.tosater.successToaster('Order Status Updated Successfully')
     });
   }
 
   setOrderStatusById(id: number): void {
     this.orderStatusValue = this.statuses.find(status => status.id === id);
+    this.checkOrderStatus = this.orderStatusValue.id;
   }
 
   getColorById(id: number): string | null {
@@ -261,27 +276,27 @@ selectedLang: any;
     });
   }
 
-  onProviderChange(type:string) {
-   if(type === 't') {
-    this.providerObject.technicalId = this.providerValue.userId;
-    if (this.providerCase == 'new') {
-      this.addNewTechnical();
+  onProviderChange(type: string) {
+    if (type === 't') {
+      this.providerObject.technicalId = this.providerValue.userId;
+      if (this.providerCase == 'new') {
+        this.addNewTechnical();
+      } else {
+        this.editTechnical();
+      }
     } else {
-      this.editTechnical();
+      this.providerObject.technicalId = this.driverValue.userId;
+      if (this.providerCase == 'new') {
+        this.addNewTechnical();
+      } else {
+        this.editTechnical();
+      }
     }
-   } else {
-    this.providerObject.technicalId = this.driverValue.userId;
-    if (this.providerCase == 'new') {
-      this.addNewTechnical();
-    } else {
-      this.editTechnical();
-    }
-   }
   }
 
   editProvider(technicalId: number, specialOrderTechnicalAssignmentId: any, technicalType: number) {
     this.providerObject.specialOrderTechnicalAssignmentId = specialOrderTechnicalAssignmentId;
-    if(technicalType === 1) {
+    if (technicalType === 1) {
       this.dialogProps.props.visible = true;
       this.providerTitle = 'Edit Provider';
       this.providerCase = 'edit';
@@ -291,11 +306,11 @@ selectedLang: any;
       this.providerCase = 'edit';
     }
 
-    this.setTechnicalById(technicalId , technicalType);
+    this.setTechnicalById(technicalId, technicalType);
   }
 
-  setTechnicalById(id: number , typeId: number): void {
-    if(typeId === 1) {
+  setTechnicalById(id: number, typeId: number): void {
+    if (typeId === 1) {
       this.providerValue = this.providerList.find((data: any) => data.userId === id);
     } else {
       this.driverValue = this.driversList.find((data: any) => data.userId === id);
@@ -314,7 +329,7 @@ selectedLang: any;
 
 
   changeAmount() {
-     if (this.orderAmount == null || this.orderAmount == undefined) {
+    if (this.orderAmount == null || this.orderAmount == undefined) {
       this.tosater.errorToaster('You have to add amount');
     } else {
       this.orderDetails.amount = this.orderAmount;
@@ -328,12 +343,12 @@ selectedLang: any;
     }
   }
 
-  openDeleteModal(actionType: string , item?: any) {
+  openDeleteModal(actionType: string, item?: any) {
     this.deleteType = actionType;
     this.deleteModal.props.visible = true;
-      if(item){
-        this.deletedProviderId = item.specialOrderTechnicalAssignmentId
-      }
+    if (item) {
+      this.deletedProviderId = item.specialOrderTechnicalAssignmentId
+    }
   }
 
   deleteOrder() {
