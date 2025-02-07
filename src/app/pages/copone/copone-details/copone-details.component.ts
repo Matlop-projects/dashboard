@@ -28,7 +28,7 @@ const global_routeUrl = 'copone'
 @Component({
   selector: 'app-copone-details',
   standalone: true,
-  imports: [ReactiveFormsModule, TitleCasePipe,TranslatePipe, ButtonModule,SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, TitleCasePipe, TranslatePipe, ButtonModule, SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './copone-details.component.html',
   styleUrl: './copone-details.component.scss'
 })
@@ -39,63 +39,46 @@ export class CoponeDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
-  offerTypeList:any[]=coponeOfferTypeList
-  coponeTypeList:any[]=coponeTypeList
-  minEndDate:Date =new Date()
+  offerTypeList: any[] = coponeOfferTypeList
+  coponeTypeList: any[] = coponeTypeList
+  minEndDate: Date = new Date()
   form = new FormGroup({
     code: new FormControl('', {
-      validators: [
-        Validators.required,
-      ],
+      validators: [Validators.required],
     }),
-    numberOfUsing: new FormControl <any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
+    numberOfUsing: new FormControl<any>('', {
+      validators: [Validators.required, Validations.onlyNumberValidator()]
+    }),
+    maxUsagePerUser: new FormControl<any>('', {
+      validators: [Validators.required, Validations.onlyNumberValidator()]
+    }),
+    maxAmount: new FormControl<any>(0, {
+      validators: [Validators.required, Validations.onlyNumberValidator()]
     }),
     offerType: new FormControl<any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
+      validators: [Validators.required, Validations.onlyNumberValidator()]
     }),
     amount: new FormControl<any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
+      validators: [Validators.required, Validations.onlyNumberValidator()]
     }),
     coponeType: new FormControl<any>('', {
-      validators: [
-        Validators.required,
-        Validations.onlyNumberValidator()
-      ]
+      validators: [Validators.required, Validations.onlyNumberValidator()]
     }),
     startDate: new FormControl(null, {
-      validators: [
-        Validators.required,
-      ]
+      validators: [Validators.required]
     }),
     endDate: new FormControl(null, {
-      validators: [
-        Validators.required,
-      ]
+      validators: [Validators.required]
     }),
     enDescription: new FormControl('', {
-      validators: [
-         Validators.required,
-      ]
+      validators: [Validators.required]
     }),
     arDescription: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
+      validators: [Validators.required]
     }),
-    status: new FormControl(false, {
-    }),
-    usedForXTimes:new FormControl(false, {
-    }),
+    status: new FormControl(false, {}),
+    hasMaxAmount: new FormControl(false, {}),
+    usedForXTimes: new FormControl(false, {}),
     coponeId: new FormControl(this.getID | 0),
   })
 
@@ -106,21 +89,46 @@ export class CoponeDetailsComponent {
   get getID() {
     return this.route.snapshot.params['id']
   }
- selectedLang: any;
+  selectedLang: any;
   languageService = inject(LanguageService);
-  ngOnInit() {
-    this.pageName.set(global_PageName)
-    this.getBreadCrumb()
-    this.languageService.translationService.onLangChange.subscribe(() => {
-      this.selectedLang = this.languageService.translationService.currentLang;
-      this.getBreadCrumb();
-    });
-    if (this.tyepMode() !== 'Add')
-      this.API_getItemDetails()
+
+ngOnInit() {
+  this.pageName.set(global_PageName);
+  this.getBreadCrumb();
+
+  this.languageService.translationService.onLangChange.subscribe(() => {
+    this.selectedLang = this.languageService.translationService.currentLang;
+    this.getBreadCrumb();
+  });
+
+  if (this.tyepMode() !== 'Add') {
+    this.API_getItemDetails();
   }
 
-  onStartDateChange(date:Date){
-    this.minEndDate=date
+  if (!this.form.get('hasMaxAmount')?.value) {
+    this.form.get('maxAmount')?.disable();
+    this.form.get('maxAmount')?.clearValidators();
+  } else {
+    this.form.get('maxAmount')?.enable();
+    this.form.get('maxAmount')?.setValidators([Validators.required, Validators.min(1)]);
+  }
+  this.form.get('maxAmount')?.updateValueAndValidity();
+
+  this.form.get('hasMaxAmount')?.valueChanges.subscribe((value: any) => {
+    if (value) {
+      this.form.get('maxAmount')?.enable();
+      this.form.get('maxAmount')?.setValidators([Validators.required, Validators.min(1)]);
+    } else {
+      this.form.get('maxAmount')?.disable();
+      this.form.get('maxAmount')?.clearValidators();
+    }
+    this.form.get('maxAmount')?.updateValueAndValidity();
+  });
+}
+
+
+  onStartDateChange(date: Date) {
+    this.minEndDate = date
   }
   tyepMode() {
     const url = this.router.url;
@@ -134,11 +142,11 @@ export class CoponeDetailsComponent {
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
