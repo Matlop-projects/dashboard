@@ -47,14 +47,28 @@
                  class="w-100" [list]="coponeTypeList">
                 </app-select>
               </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+                <app-input-text [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'copone.form.maxUsagePerUser'"
+                  [control]="form.get('maxUsagePerUser')"></app-input-text>
+              </div>
 
-              <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
+              <div class="col-lg-12 col-md-12 col-sm-12 mt-5">
                 <div class="d-flex justify-content-start">
                   <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.status'" [control]="form.get('status')"></app-check-box>
                   <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.used_x'" [control]="form.get('usedForXTimes')"></app-check-box>
-
+                  <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.hasMaxAmount'" [control]="form.get('hasMaxAmount')"></app-check-box>
                 </div>
               </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 mt-4" *ngIf="form.get('hasMaxAmount')?.value">
+                <app-input-text
+                  [readOnly]="tyepMode()=='View'"
+                  [disabled]="tyepMode()=='View'"
+                  [label]="'copone.form.maxAmount'"
+                  [control]="form.get('maxAmount')">
+                </app-input-text>
+              </div>
+
 
               <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
                 <app-editor [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'copone.form.desc_en'" [control]="form.get('enDescription')"></app-editor>

@@ -20,7 +20,8 @@
     "only_char_validation": "accept only char",
     "email_validation": "accept email only ex: aaa@aaa.com",
     "mobileNumber_5_validation": "Mobile number should be 9 numbers start with 5 ",
-    "confirm_password_validation": "Password doesn't match"
+    "confirm_password_validation": "Password doesn't match",
+    "min_validation": "The value must be at least 1"
   },
   "actions": {
     "submit": "Submit",
@@ -85,21 +86,21 @@
     "clients": "CLIENTS",
     "orders": "ORDERS",
     "special_orders": "SPECIAL ORDERS",
-    "technicals": "Technicals",
-    "services": "Services",
+    "technicals": "TECHNICALS",
+    "services": "SERVICES",
     "working_hours": "WORKING HOURS",
     "country": "COUNTRIES",
     "city": "CITIES",
     "reason": "CANCEL REASON",
     "complaint": "COMPLAINT",
     "contract": "CONTRACT TYPE",
-    "copone": "COPONE",
+    "copone": "COUPON",
     "payment": "PAYMENT WAY",
     "pkg": "PACKAGE",
     "technical_sp": "TECHNICAL SPECIALIST",
     "contact": "CONTACT US",
     "about": "ABOUT US",
-    "setting": "settings"
+    "setting": "Settings"
   },
   "client": {
     "pageName": "Clients",
@@ -574,7 +575,10 @@
       "desc_en": "Description (en)",
       "status": "Status",
       "used_x": "Used For X Times",
-      "used": "Used"
+      "used": "Used",
+      "hasMaxAmount":"has Max Amount",
+      "maxUsagePerUser": "Max Usage Per User",
+      "maxAmount": "Max Amount"
     }
   },
   "payment": {
