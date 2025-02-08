@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ApiService } from '../../services/api.service';
@@ -45,7 +45,8 @@ export enum EType {
   toggle = 'toggle',
   orderStatus = 'orderStatus',
   specialOrderStatus = 'specialOrderStatus',
-  changeOrderStatus = 'changeOrderStatus'
+  changeOrderStatus = 'changeOrderStatus',
+  customeDate = 'customeDate'
 }
 
 interface INested {
@@ -66,7 +67,7 @@ export interface IcolHeader {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgFor, NgIf, TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
+  imports: [TableModule, NgClass, NgFor, NgIf, TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -325,5 +326,13 @@ export class TableComponent implements OnInit, OnChanges {
 
     const status = statuses.find(status => status.id === id);
     return status ? status.color : null;
+  }
+
+  checkDate(date: Date): boolean {
+    const givenDate = new Date(date);
+    const today = new Date();
+    givenDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    return givenDate < today;
   }
 }

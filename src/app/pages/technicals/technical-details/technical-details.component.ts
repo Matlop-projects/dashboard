@@ -348,8 +348,9 @@ export class TechnicalDetailsComponent {
 
   onAmountAdded(success: boolean) {
     if (success) {
-      this.getClientWalletAmount(); // Call a function to refresh data or perform other actions
-    }
+      setTimeout(() => {
+        this.getClientWalletAmount(); // Call a function to refresh data or perform other actions
+      }, 800);    }
   }
 
 }

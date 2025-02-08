@@ -677,15 +677,19 @@
   "SAR": "SAR",
   "Status_Action": "Status Action",
   "WALLET_DIALOG": {
-    "TITLE": "Enter Amount",
+    "TITLE": " Wallet Deposit",
+    "TITLE_TWO": "Wallet Withdraw",
     "WALLET_AMOUNT": "Wallet Amount",
     "AMOUNT_LABEL": "Amount",
     "AMOUNT_PLACEHOLDER": "Enter amount",
     "SUBMIT_BUTTON": "Submit",
     "CANCEL_BUTTON": "Cancel",
+    "successDeposit": "Success Deposit",
+    "successWithdraw": "Success Withdraw",
     "VALIDATION": {
       "REQUIRED": "Amount is required.",
       "MIN": "Amount must be at least 1."
     }
-  }
+  },
+  "CHANGE_BUTTON" : "Change to paid"
 }

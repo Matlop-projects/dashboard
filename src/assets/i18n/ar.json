@@ -677,15 +677,19 @@
   "SAR": "ريال",
   "Status_Action": "حالة دفع الطلب",
   "WALLET_DIALOG": {
-    "TITLE": "اضف مبلغ",
+    "TITLE": "ايداع للمحفظة",
+    "TITLE_TWO": "سحب من المحفظة",
     "WALLET_AMOUNT": "مبلغ المحفظة",
     "AMOUNT_LABEL": "المبلغ",
     "AMOUNT_PLACEHOLDER": "أدخل المبلغ",
     "SUBMIT_BUTTON": "إرسال",
     "CANCEL_BUTTON": "إلغاء",
+    "successDeposit": "تم الإيداع بنجاح",
+    "successWithdraw": "تم السحب بنجاح",
     "VALIDATION": {
       "REQUIRED": "المبلغ مطلوب.",
       "MIN": "يجب أن يكون المبلغ على الأقل 1."
     }
-  }
+  },
+   "CHANGE_BUTTON" : "تغيير الحالة للدفع"
 }

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-wallet-dialog',
@@ -22,6 +23,7 @@ import { ToasterService } from '../../services/toaster.service';
   templateUrl: './wallet-dialog.component.html',
   styleUrls: ['./wallet-dialog.component.scss'],
 })
+
 export class WalletDialogComponent {
   @Input() clientId!: number; // Input property for clientId
   @Output() amountAdded = new EventEmitter<boolean>(); // Output property to emit success status
@@ -29,6 +31,9 @@ export class WalletDialogComponent {
   walletForm: FormGroup;
   private ApiService = inject(ApiService);
   private toaster = inject(ToasterService);
+  private languageService = inject(LanguageService)
+ transactionType: any; // Input property for clientId
+
 
 
   constructor(
@@ -43,9 +48,12 @@ export class WalletDialogComponent {
     });
   }
 
+  ngOnInit(): void {}
+
   // Open the dialog
-  showDialog() {
-    this.walletForm.patchValue({ userId: +this.clientId }); // Set clientId in the form
+  showDialog(walletTransactionType: number) {
+    this.walletForm.patchValue({ userId: +this.clientId ,transactionType: walletTransactionType,   walletTransactionId: 0 }); // Set clientId in the form
+    this.transactionType = walletTransactionType;
     this.displayDialog = true;
   }
 
@@ -58,19 +66,24 @@ export class WalletDialogComponent {
   // Handle form submission
   onSubmit() {
     if (this.walletForm.valid) {
-      console.log('Form Submitted:', this.walletForm.value);
-      this.addAmount();
+      this.onWalletAction();
       this.amountAdded.emit(true);
-      this.toaster.successToaster('Amount Added');
       this.hideDialog(); // Close the dialog after submission
     } else {
       console.log('Form is invalid');
     }
   }
 
-  addAmount() {
+  onWalletAction() {
     this.ApiService.post('Wallet/WalletTransaction' ,this.walletForm.value).subscribe((data: any) => {
       console.log(data);
+      if (this.transactionType === 1) {
+        this.toaster.successToaster(this.languageService.translate('WALLET_DIALOG.successDeposit'));
+      } else {
+        this.toaster.successToaster(this.languageService.translate('WALLET_DIALOG.successWithdraw'));
+      }
     })
   }
+
+
 }

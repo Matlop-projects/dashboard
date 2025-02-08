@@ -111,22 +111,25 @@ export class OrdersTableComponent {
   ];
 
 
-  objectSearch = {
-    "pageNumber": 0,
-    "pageSize": 8,
-    "sortingExpression": "",
-    "sortingDirection": 0,
-    // "technicalId": null,
-    "clientId": null,
-    // "paymentWayId": null,
-    "orderStatus": null,
-    "nextVistTime": null,
-    "packageId": null,
-    // "coponeId": null,
-    // "orderSubTotal": null,
-    // "orderTotal": null,
-    // "locationId": null
-  }
+  objectSearch: {
+    pageNumber: number;
+    pageSize: number;
+    sortingExpression: string;
+    sortingDirection: number;
+    clientId: number | null;
+    orderStatus: number | null;
+    nextVistTime: Date | null;
+    packageId: number | null;
+  } = {
+    pageNumber: 0,
+    pageSize: 8,
+    sortingExpression: "",
+    sortingDirection: 0,
+    clientId: null,
+    orderStatus: null,
+    nextVistTime: null,
+    packageId: null,
+  };
 
   totalCount: number = 0;
 
@@ -183,7 +186,7 @@ export class OrdersTableComponent {
       { keyName: 'packageName', header: this.languageService.translate('order.form.pkg'), type: EType.text, show: true },
       { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
       { keyName: currentLang === 'ar' ? 'serviceNameAr' : 'serviceNameEn', header: this.languageService.translate('SERVICE_NAME'), type: EType.text, show: true },
-      { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.date, show: true },
+      { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.customeDate, show: true },
       { keyName: 'visitNumber', header: this.languageService.translate('visitNumber'), type: EType.text, show: true },
       { keyName: currentLang === 'ar' ? 'orderStatusAr' : 'orderStatusEn', header: this.languageService.translate('order.form.order_status'), type: EType.orderStatus, show: true },
       { keyName: 'showOrderStatusButton', header: this.languageService.translate('Status_Action'), type: EType.changeOrderStatus, show: true },
@@ -234,7 +237,14 @@ export class OrdersTableComponent {
     else if (value == 'clinet') {
       this.objectSearch.clientId = selectedItem
     } else {
-      this.objectSearch.nextVistTime = selectedItem
+      console.log(selectedItem);
+      const localDate = new Date(selectedItem);
+      const year = localDate.getFullYear();
+      const month = localDate.getMonth();
+      const day = localDate.getDate();
+      // Set the time to noon (12:00) to avoid shifting the day when converting to UTC
+      this.objectSearch.nextVistTime = new Date(year, month, day, 12);
+
     }
   }
 
@@ -251,6 +261,8 @@ export class OrdersTableComponent {
 
 
   API_getAll() {
+    console.log(this.objectSearch);
+
     this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
@@ -269,11 +281,11 @@ export class OrdersTableComponent {
             data.orderStatusEn = statusObj.nameEn;
           }
 
-        if(data.paymentWayId == 1 && data.orderStatusEnum == 0) {
+          if (data.paymentWayId == 1 && data.orderStatusEnum == 0) {
             data.showOrderStatusButton = true
-        } else {
-          data.showOrderStatusButton = false
-        }
+          } else {
+            data.showOrderStatusButton = false
+          }
         });
 
         this.filteredData = [...this.dataList];

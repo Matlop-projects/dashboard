@@ -1,8 +1,16 @@
-<p-button
+<div class="d-flex wallet-btn">
+  <p-button
   label="{{ 'WALLET_DIALOG.TITLE' | translate }}"
-  (click)="showDialog()"
+  (click)="showDialog(1)"
   styleClass="p-button-primary"
 ></p-button>
+
+<p-button
+  label="{{ 'WALLET_DIALOG.TITLE_TWO' | translate }}"
+  (click)="showDialog(2)"
+  styleClass="p-button-danger"
+></p-button>
+</div>
 
 <p-dialog
   [(visible)]="displayDialog"
@@ -14,7 +22,8 @@
 >
   <form [formGroup]="walletForm" (ngSubmit)="onSubmit()">
     <div class="p-field">
-      <label for="amount">{{ 'WALLET_DIALOG.AMOUNT_LABEL' | translate }}</label>
+      <label *ngIf="transactionType == 1 " for="amount">{{ 'WALLET_DIALOG.TITLE' | translate }}</label>
+      <label *ngIf="transactionType == 2 " for="amount">{{ 'WALLET_DIALOG.TITLE_TWO' | translate }}</label>
       <p-inputNumber
         id="amount"
         formControlName="amount"
