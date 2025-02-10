@@ -388,6 +388,7 @@
     "item_schedule": "Order Time Schedule",
     "total_additional_price" : "Additinal Item Price",
     "total_tech_number" : "Total Tech Number",
+    "map":"Map",
     "tool_tip": {
       "add_tech": "Add New Technical",
       "add_driver": "Add New Driver",

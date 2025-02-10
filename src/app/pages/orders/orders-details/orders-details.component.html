@@ -181,6 +181,19 @@
             </div>
             <div class="details">
               <div class="title">
+                <p>{{'order.location'|translate}} </p>
+              </div>
+              <div class="details-desc">
+                <p class="pointer">
+                  <a class="g-map-location" [href]="'https://www.google.com/maps?q=' + orderDetails.latitude + ',' + orderDetails.longitude" target="_blank">
+                    <span class="pi pi-map-marker"></span>
+                    <span> {{ 'order.map' | translate }}</span>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
                 <p>{{'order.order_status'|translate}}</p>
               </div>
               <div class="details-desc status-details"

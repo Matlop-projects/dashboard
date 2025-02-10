@@ -388,6 +388,7 @@
     "item_schedule": "جدول مواعيد الطلب",
     "total_additional_price" : "سعر الصنف الاضافي",
     "total_tech_number" : "عدد المزودين",
+    "map":"الخريطة",
     "tool_tip": {
       "add_tech": "إضافة فني جديد",
       "add_driver": "إضافة سائق جديد",
