@@ -245,7 +245,7 @@ export class PackageDetailsComponent {
       return;
     }
 
-    this.ApiService.get(`ContractType/GetByServiceId/${serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(`ContractType/GetByServiceIdDashboard/${serviceId}`).subscribe((res: any) => {
       if (res.data) {
         this.contractTypeList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,

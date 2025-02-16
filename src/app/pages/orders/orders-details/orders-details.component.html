@@ -149,6 +149,30 @@
             </div>
             <div class="details">
               <div class="title">
+                <p>{{'order.SERVICE'|translate}}</p>
+              </div>
+              <div class="details-desc">
+                <p>{{selectedLang == 'ar' ? orderDetails.serviceNameAr: orderDetails.serviceNameEn}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>{{'order.CONTRACT'|translate}}</p>
+              </div>
+              <div class="details-desc">
+                <p>{{selectedLang == 'ar' ? orderDetails.contractTypeNameAr: orderDetails.contractTypeNameEn}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
+                <p>{{'order.PACKAGE'|translate}}</p>
+              </div>
+              <div class="details-desc">
+                <p>{{selectedLang == 'ar' ? orderDetails.package.nameAr : orderDetails.package.nameEn}}</p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
                 <p>{{'order.total_tech_number'|translate}}</p>
               </div>
               <div class="details-desc">
