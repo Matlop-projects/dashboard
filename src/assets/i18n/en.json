@@ -388,6 +388,9 @@
     "item_schedule": "Order Time Schedule",
     "total_additional_price" : "Additinal Item Price",
     "total_tech_number" : "Total Tech Number",
+    "SERVICE":"Service",
+    "CONTRACT":"Contract",
+    "PACKAGE":"Package",
     "map":"Map",
     "tool_tip": {
       "add_tech": "Add New Technical",
