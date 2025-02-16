@@ -387,7 +387,11 @@
     "no_image": "لا توجد صورة متاحة",
     "item_schedule": "جدول مواعيد الطلب",
     "total_additional_price" : "سعر الصنف الاضافي",
-    "total_tech_number" : "عدد المزودين",
+    "total_tech_number" : "عدد الفنيين",
+    "SERVICE":"الخدمة",
+    "CONTRACT":"العقد",
+    "PACKAGE":"الباقة",
+    "map":"الخريطة",
     "tool_tip": {
       "add_tech": "إضافة فني جديد",
       "add_driver": "إضافة سائق جديد",

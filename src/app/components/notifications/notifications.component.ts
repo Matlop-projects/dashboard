@@ -6,6 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { ModuleTypeEnum } from './type-module.enum';
 import { TranslatePipe } from '@ngx-translate/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-notifications',
@@ -24,12 +25,16 @@ export class NotificationsComponent {
   totlaCount = 0;
   totalUnSeen = 0;
   @ViewChild('op') popover: Popover | undefined; // Reference to the popover
+  private totalUnSeenCount$ = new BehaviorSubject<number | null>(null);
+  private audio = new Audio('assets/sounds/notifications.mp3');
+  private isUserInteracted = false;
 
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    window.addEventListener('click', () => this.isUserInteracted = true, { once: true });
     this.getNotifications();
-
-    setInterval(() => {
+      setInterval(() => {
       this.getNotifications();
     }, 180000);
   }
@@ -39,10 +44,22 @@ export class NotificationsComponent {
       this.notificationsList = noti.data.data;
       this.totlaCount = noti.data.totalCount;
       this.totalUnSeen = noti.data.totalUnSeenCount;
+
+      const newCount = noti.data.totalUnSeenCount;
+      const oldCount = this.totalUnSeenCount$.value;
+
+      if (oldCount !== null && newCount > oldCount && this.isUserInteracted) {
+        this.playSound();
+      }
+
+      this.totalUnSeenCount$.next(newCount);
     });
   }
 
-  constructor(private router: Router) { }
+  playSound() {
+    this.audio.currentTime = 0;
+    this.audio.play().catch(error => console.log('Audio play blocked:', error));
+  }
 
   getModuleIcon(module: number): string {
     switch (module) {
