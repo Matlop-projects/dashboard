@@ -293,7 +293,9 @@ export class PackageDetailsComponent {
       this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
         if (res) {
           let pkWorkingTime: number[] = [];
-          this.form.patchValue(res.data);
+          let data = res.data;
+          data.typeOfPackage = res.data.packageType
+          this.form.patchValue(data);
 
           // Ensure packageWorkTimes is properly formatted
           this.form.value.packageWorkTimes.map((item: any) => {
