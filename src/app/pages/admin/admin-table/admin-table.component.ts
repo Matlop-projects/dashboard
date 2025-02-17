@@ -19,6 +19,7 @@ const global_router_view_url ='settings/admin/view'
 const global_router_edit_url ='settings/admin/edit'
 const global_API_getAll ='admin/GetAllWithPagination'
 const global_API_deialis =  'admin/GetById';
+const global_API_delete='admin/delete?requestId'
 const global_toggleOptions:IToggleOptions={
 apiName:"Admin"+'/Update',
 autoCall:true,
@@ -36,11 +37,11 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
-    // {
-    //   name: EAction.delete,
-    //   apiName_or_route: global_API_delete,
-    //   autoCall: true
-    // },
+    {
+      name: EAction.delete,
+      apiName_or_route: global_API_delete,
+      autoCall: true
+    },
     {
       name: EAction.view,
       apiName_or_route:  global_router_view_url,

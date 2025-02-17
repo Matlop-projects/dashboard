@@ -34,11 +34,11 @@ export class ComplaintTableComponent {
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
-    // {
-    //   name: EAction.delete,
-    //   apiName_or_route: global_API_delete,
-    //   autoCall: true
-    // },
+    {
+      name: EAction.delete,
+      apiName_or_route: global_API_delete,
+      autoCall: true
+    },
     {
       name: EAction.view,
       apiName_or_route:  global_router_view_url,
