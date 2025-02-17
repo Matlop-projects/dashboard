@@ -7,6 +7,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ModuleTypeEnum } from './type-module.enum';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-notifications',
@@ -28,12 +29,17 @@ export class NotificationsComponent {
   private totalUnSeenCount$ = new BehaviorSubject<number | null>(null);
   private audio = new Audio('assets/sounds/notifications.mp3');
   private isUserInteracted = false;
-
+  selectedLang: any;
+  languageService = inject(LanguageService);
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     window.addEventListener('click', () => this.isUserInteracted = true, { once: true });
     this.getNotifications();
+    this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+      this.getNotifications();
+    })
       setInterval(() => {
       this.getNotifications();
     }, 180000);
