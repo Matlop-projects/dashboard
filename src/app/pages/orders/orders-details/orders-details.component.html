@@ -200,7 +200,7 @@
                 <p>{{'order.total_additional_price' | translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.totalWithAdditional ? orderDetails.totalWithAdditional: '-'}} <span>SAR</span></p>
+                <p>{{orderDetails.orderAddtionalItem.length != 0 ? orderDetails.totalWithAdditional: 0}} <span>SAR</span></p>
               </div>
             </div>
             <div class="details">
