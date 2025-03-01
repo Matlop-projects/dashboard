@@ -65,11 +65,7 @@ export class ClientDetailsComponent {
         Validators.required,
       ]
     }),
-    email: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
+    email: new FormControl(''),
     mobileNumber: new FormControl('', {
       validators: [
         Validators.required,

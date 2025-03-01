@@ -112,7 +112,6 @@ export class OrdersDetailsComponent {
 
   deletedProviderId: string = '';
   checkOrderStatus: any;
-
   ngOnInit() {
     this.statuses = [
       {

@@ -58,7 +58,7 @@ export const userType = [
   }
 ]
 
-export const coponeOfferTypeList = [
+export const coponeTypeList = [
   {
     name: 'Percentage',
     code: 1
@@ -69,7 +69,7 @@ export const coponeOfferTypeList = [
   }
 ]
 
-export const coponeTypeList = [
+export const coponeOfferTypeList  = [
   {
     name: 'Gift',
     code: 1

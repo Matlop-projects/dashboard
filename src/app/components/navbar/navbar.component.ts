@@ -1,6 +1,6 @@
 import { Component, Inject, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { AutoComplete } from 'primeng/autocomplete';
 import { Select } from 'primeng/select';
@@ -27,8 +27,29 @@ interface AutoCompleteCompleteEvent {
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  items: any;
-  value: any;
+  items = [
+    { "route": "/dashboard", "nameEn": "DASHBOARD", "nameAr": "لوحة التحكم", "name": "DASHBOARD - لوحة التحكم" },
+    { "route": "/clients", "nameEn": "CLIENTS", "nameAr": "العملاء", "name": "CLIENTS - العملاء" },
+    { "route": "/technicals", "nameEn": "TECHNICALS", "nameAr": "الفنيين", "name": "TECHNICALS - الفنيين" },
+    { "route": "/orders", "nameEn": "ORDERS", "nameAr": "الطلبات", "name": "ORDERS - الطلبات" },
+    { "route": "/special-order", "nameEn": "SPECIAL ORDERS", "nameAr": "الطلبات الخاصة", "name": "SPECIAL ORDERS - الطلبات الخاصة" },
+    { "route": "/services", "nameEn": "SERVICES", "nameAr": "الخدمات", "name": "SERVICES - الخدمات" },
+    { "route": "/contract-type", "nameEn": "CONTRACT TYPE", "nameAr": "نوع العقد", "name": "CONTRACT TYPE - نوع العقد" },
+    { "route": "/package", "nameEn": "PACKAGE", "nameAr": "الباقات", "name": "PACKAGE - الباقات" },
+    { "route": "/working_hours", "nameEn": "WORKING HOURS", "nameAr": "ساعات العمل", "name": "WORKING HOURS - ساعات العمل" },
+    { "route": "/country", "nameEn": "COUNTRIES", "nameAr": "الدول", "name": "COUNTRIES - الدول" },
+    { "route": "/city", "nameEn": "CITIES", "nameAr": "المدن", "name": "CITIES - المدن" },
+    { "route": "/cancel-reason", "nameEn": "CANCEL REASON", "nameAr": "سبب الإلغاء", "name": "CANCEL REASON - سبب الإلغاء" },
+    { "route": "/complaint", "nameEn": "COMPLAINT", "nameAr": "الشكاوى", "name": "COMPLAINT - الشكاوى" },
+    { "route": "/copone", "nameEn": "COUPON", "nameAr": "الكوبونات", "name": "COUPON - الكوبونات" },
+    { "route": "/paymentWay", "nameEn": "PAYMENT WAY", "nameAr": "طرق الدفع", "name": "PAYMENT WAY - طرق الدفع" },
+    { "route": "/technical-specialist", "nameEn": "TECHNICAL SPECIALIST", "nameAr": "تخصص الفني", "name": "TECHNICAL SPECIALIST - تخصص الفني" },
+    { "route": "/contact-us", "nameEn": "CONTACT US", "nameAr": "اتصل بنا", "name": "CONTACT US - اتصل بنا" },
+    { "route": "/about-us", "nameEn": "ABOUT US", "nameAr": "من نحن", "name": "ABOUT US - من نحن" }
+  ]
+
+  filteredItems: any;
+  value:any;
   langOptions = [
     { name: 'English', code: 'en', icon: 'assets/images/icons/en-lang.png' },
     { name: 'العربية', code: 'ar', icon: 'assets/images/icons/ar-lang.png' },
@@ -37,11 +58,30 @@ export class NavbarComponent {
   languageService = inject(LanguageService);
   toaster = inject(ToasterService);
 
-  constructor(@Inject(DOCUMENT) private document: Document,private primeng: PrimeNG) {}
+  constructor(@Inject(DOCUMENT) private document: Document,private primeng: PrimeNG , private router: Router) {}
+
 
   search(event: AutoCompleteCompleteEvent) {
-      this.items = [...Array(10).keys()].map(item => event.query + '-' + item);
+    if (!this.items || this.items.length === 0) {
+      console.warn("Items list is empty or undefined");
+      return;
+    }
+
+    const query = event.query.toLowerCase();
+    this.filteredItems = this.items.filter((item: any) =>
+      item.name.toLowerCase().includes(query) || item.name.toLowerCase().includes(query)
+    );
   }
+
+  navigateToRoute(selectedItem: any) {
+    console.log(selectedItem);
+
+    if (selectedItem && selectedItem.value.route) {
+      this.router.navigate([selectedItem.value.route]);
+    }
+  }
+
+
 
   ngOnInit(): void {
     this.primeng.ripple.set(true);
