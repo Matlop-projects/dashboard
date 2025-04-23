@@ -1,9 +1,13 @@
 <div class="navbar-container">
   <div class="content">
-      <div class="search-section  pr-pl-30-small-screen">
-        <p-autocomplete  placeholder="{{'nav.search'|translate}}" [(ngModel)]="value" [suggestions]="items"
-          (completeMethod)="search($event)" />
-      </div>
+    <p-autocomplete
+    placeholder="{{'nav.search' | translate}}"
+    [(ngModel)]="value"
+    [suggestions]="filteredItems"
+    (completeMethod)="search($event)"
+    field="name"
+    (onSelect)="navigateToRoute($event)">
+  </p-autocomplete>
 
     <div class="option-section">
       <div class="notifications-section">
