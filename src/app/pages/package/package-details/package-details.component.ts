@@ -50,6 +50,9 @@ export class PackageDetailsComponent {
   serviceTypeList: any[] = [];
   workingTimeList: any[] = []
   packageWorkTimesValues: any[] = []
+  countryList: any[] = []
+ cityList: any[] = []
+
   visitHoursList: any = packageHourVistList
 
   form = new FormGroup({
@@ -133,6 +136,16 @@ export class PackageDetailsComponent {
     }),
     image: new FormControl('', {
     }),
+    countryId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    }),     
+    cityId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    }),
     packageId: new FormControl(this.getID | 0),
 
   })
@@ -152,6 +165,7 @@ export class PackageDetailsComponent {
     this.getBreadCrumb()
     this.getAllServices()
     this.getAllWorkingTime()
+    this.getAllCountry()
     this.pageName.set(global_PageName)
     if (this.tyepMode() !== 'Add') {
       // this.getWorkTimeByPkgId()
@@ -166,6 +180,7 @@ export class PackageDetailsComponent {
       this.getAllServices();
       this.getAllWorkingTime()
       this.getBreadCrumb()
+      this.getAllCountry()
 
     })
   }
@@ -191,7 +206,30 @@ export class PackageDetailsComponent {
       ]
     }
   }
+  getAllCountry(){
+    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        this.countryList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.arName : item.enName,
+          code: item.countryId,
+        }));
+      }
+    });
+  }
+  onCountryChange(countryId: any) {
+    this.getCitiesByCountryId(countryId);
+  }
 
+  getCitiesByCountryId(countryId: any) {
+    this.ApiService.get('city/getByCountryId/' + countryId).subscribe((res: any) => {
+      if (res.data) {
+        this.cityList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.arName : item.enName,
+          code: item.cityId,
+        }));
+      }
+    });
+  }
   // getWorkTimeByPkgId(){
   //   this.ApiService.get(global_API_get_workTime+this.getID).subscribe(res=>{
   //        if(res)
@@ -245,7 +283,7 @@ export class PackageDetailsComponent {
       return;
     }
 
-    this.ApiService.get(`ContractType/GetByServiceIdDashboard/${serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(`ContractType/GetByServiceIdDashboard${serviceId}`).subscribe((res: any) => {
       if (res.data) {
         this.contractTypeList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,

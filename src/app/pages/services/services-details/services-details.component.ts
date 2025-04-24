@@ -72,7 +72,7 @@ export class ServicesDetailsComponent {
         // Validations.arabicCharsValidator('isArabic')
       ]
     }),
-    numOfTechnicals: new FormControl('', {
+    numOfTechnicals: new FormControl<any>('', {
       validators: [
         Validators.required,
         Validations.onlyNumberValidator()
@@ -174,7 +174,8 @@ export class ServicesDetailsComponent {
   onSubmit() {
     const payload = {
       ...this.form.value,
-      serviceId: this.serviceId,
+      numOfTechnicals: +this.form.value.numOfTechnicals,
+      serviceId: this.serviceId||0,
     }
     if (this.tyepMode() === 'Add')
       this.addService(payload)

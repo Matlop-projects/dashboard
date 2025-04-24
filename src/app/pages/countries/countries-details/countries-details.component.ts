@@ -156,7 +156,7 @@ export class CountriesDetailsComponent implements OnInit {
     console.log('ff', this.form.value)
     const payload = {
       ...this.form.value,
-      countryId: this.countryID,
+      countryId: this.countryID||0,
     }
     if (this.tyepMode() === 'Add')
       this.addCountry(payload)

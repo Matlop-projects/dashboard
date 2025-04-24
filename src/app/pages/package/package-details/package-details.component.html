@@ -74,6 +74,19 @@
                             [list]="workingTimeList">
                         </app-select>
                     </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4" >
+                        <app-select    [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'pkg.form.country'" [placeholder]="form.get('countryId')?.value" [control]="form.get('countryId')" class="w-100"
+                            [list]="countryList"
+                            (onSelectedValue)="onCountryChange($event)">
+                        </app-select>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mt-4" >
+                        <app-select    [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+                            [label]="'pkg.form.city'" [placeholder]="form.get('cityId')?.value" [control]="form.get('cityId')" class="w-100"
+                            [list]="cityList">
+                        </app-select>
+                    </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-5">
                         <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'pkg.form.isActive'"
                             [control]="form.get('isActive')"></app-check-box>
