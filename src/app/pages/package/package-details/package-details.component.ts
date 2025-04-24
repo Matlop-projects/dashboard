@@ -50,6 +50,7 @@ export class PackageDetailsComponent {
   serviceTypeList: any[] = [];
   workingTimeList: any[] = []
   packageWorkTimesValues: any[] = []
+  packageCitiesValues: any[] = []
   countryList: any[] = []
  cityList: any[] = []
 
@@ -141,7 +142,7 @@ export class PackageDetailsComponent {
         Validators.required,
       ]
     }),     
-    cityId: new FormControl('', {
+    packageCities: new FormControl<any>('', {
       validators: [
         Validators.required,
       ]
@@ -334,6 +335,7 @@ export class PackageDetailsComponent {
       this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
         if (res) {
           let pkWorkingTime: number[] = [];
+          let pkCities: number[] = [];
           let data = res.data;
           data.typeOfPackage = res.data.packageType
           this.form.patchValue(data);
@@ -347,8 +349,18 @@ export class PackageDetailsComponent {
             });
           });
 
+          this.form.value.packageCities.map((item: any) => {
+            pkCities.push(item.cityId);
+            this.packageCitiesValues.push({
+              cityId: item.cityId,
+              packageCitiesId: item.packageCitiesId
+            });
+          });
+
           this.form.patchValue({
             packageWorkTimes: pkWorkingTime,
+            packageCities: pkCities,
+
           });
 
           // Trigger contract list update based on the existing serviceId
@@ -372,6 +384,10 @@ export class PackageDetailsComponent {
     let workTimePayload: any = []
     workingTimeId = this.form.value.packageWorkTimes
 
+    let cityId: any = []
+    let cityPayload: any = []
+    cityId = this.form.value.packageCities
+
     if (this.tyepMode() == 'Add') {
       workingTimeId.map((item: any) => {
         workTimePayload.push({
@@ -380,8 +396,16 @@ export class PackageDetailsComponent {
           "workTimeId": item
         })
       })
+      cityId.map((item: any) => {
+        cityPayload.push({
+          "packageCitiesId": 0,
+          "packageId": 0,
+          "cityId": item
+        })
+      })
       this.form.patchValue({
-        packageWorkTimes: workTimePayload
+        packageWorkTimes: workTimePayload,
+        packageCities: cityPayload
       })
       this.form.value.providerNumber = Number( this.form.value.providerNumber);
       this.API_forAddItem(this.form.value)
@@ -394,8 +418,17 @@ export class PackageDetailsComponent {
           "workTimeId": id
         })
       })
+ 
+      cityId.map((item: any) => {
+        cityPayload.push({
+          "packageCitiesId": this.packageCitiesValues.filter(city => city.cityId === item)[0]?.packageCitiesId ? this.packageCitiesValues.filter(city => city.cityId === item)[0]?.packageCitiesId : 0,
+          "packageId": +this.getID,
+          "cityId": item
+        })
+      })
       this.form.patchValue({
-        packageWorkTimes: workTimePayload
+        packageWorkTimes: workTimePayload,
+        packageCities: cityPayload
       })
       this.form.value.providerNumber = Number( this.form.value.providerNumber);
       this.API_forEditItem(this.form.value)

@@ -154,6 +154,21 @@
       "userType": "نوع المستخدم"
     }
   },
+  "equipments": {
+  "pageName": "المعدات",
+  "pageName_View_crumb": "عرض المعدات",
+  "pageName_filter": "تصفية المعدات",
+  "pageName_Add_crumb": "إضافة معدات",
+  "pageName_Edit_crumb": "تعديل المعدات",
+  "list": "قائمة المعدات",
+  "form": {
+    "nameEn": "الاسم (إنجليزي)",
+    "nameAr": "الاسم (عربي)",
+    "pkg": "الباقة",
+    "image": "الصورة"
+  }
+}
+,
   "pkg": {
     "pageName": "الباقات",
     "pageName_View_crumb": "عرض الباقة",

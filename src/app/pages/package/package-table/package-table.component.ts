@@ -100,7 +100,7 @@ export class PackageTableComponent {
       { keyName: currentLang === 'ar' ? 'nameAr' : 'nameEn', header: this.languageService.translate('pkg.form.nameEn'), type: EType.text, show: true },
       { keyName: currentLang === 'ar' ? 'descriptionAr' : 'descriptionEn', header: this.languageService.translate('pkg.form.desc_en'), type: EType.editor, show: true },
       { keyName: 'providerNumber', header: this.languageService.translate('pkg.form.provider_no'), type: EType.text, show: true },
-      { keyName: 'typeOfPackage', header: this.languageService.translate('pkg.form.type_pkg'), type: EType.text, show: true },
+      // { keyName: 'typeOfPackage', header: this.languageService.translate('pkg.form.type_pkg'), type: EType.text, show: true },
       { keyName: 'visitNumber', header: this.languageService.translate('pkg.form.visit_no'), type: EType.text, show: true },
       { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
     ];
@@ -110,7 +110,7 @@ export class PackageTableComponent {
       { keyName: currentLang === 'ar' ? 'nameAr' : 'nameEn', header: this.languageService.translate('pkg.form.nameEn'), type: EType.text, showAs: ETableShow.header },
       { keyName: currentLang === 'ar' ? 'descriptionAr' : 'descriptionEn', header: this.languageService.translate('pkg.form.desc_en'), type: EType.editor, showAs: ETableShow.header },
       { keyName: 'providerNumber', header: this.languageService.translate('pkg.form.provider_no'), type: EType.text, showAs: ETableShow.content },
-      { keyName: 'typeOfPackage', header: this.languageService.translate('pkg.form.type_pkg'), type: EType.text, showAs: ETableShow.content },
+      // { keyName: 'typeOfPackage', header: this.languageService.translate('pkg.form.type_pkg'), type: EType.text, showAs: ETableShow.content },
       { keyName: 'visitNumber', header: this.languageService.translate('pkg.form.visit_no'), type: EType.text, showAs: ETableShow.content },
     ];
   }
@@ -150,8 +150,8 @@ export class PackageTableComponent {
     this.ApiService.get(global_API_getAll).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data;
-        this.totalCount = res.data.totalCount;
-        this.filteredData = [...this.dataList];
+        // this.totalCount = res.data.totalCount;p
+        // this.filteredData = [...this.dataList];
       }
 
     })
