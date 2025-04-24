@@ -91,17 +91,8 @@ export class ServicesDetailsComponent {
       ]
     })
   })
-
   bredCrumb: IBreadcrumb = {
-    crumbs: [
-      {
-        label: 'Home',
-        routerLink: '/dashboard',
-      },
-      {
-        label: 'Service',
-      },
-    ]
+    crumbs: []
   }
 
   editImageProps: IEditImage = {

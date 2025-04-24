@@ -85,6 +85,7 @@
     "dashboard": "DASHBOARD",
     "clients": "CLIENTS",
     "orders": "ORDERS",
+    "equipments": "EQUIPMENTS",
     "special_orders": "SPECIAL ORDERS",
     "technicals": "TECHNICALS",
     "services": "SERVICES",
@@ -151,6 +152,20 @@
       "desc_ar": "Description (ar)",
       "desc_en": "Description (en)",
       "userType": "User Type"
+    }
+  },
+  "equipments":{
+"pageName": "Equipments",
+    "pageName_View_crumb": "View Equipment",
+    "pageName_filter": "Filter Equipment",
+    "pageName_Add_crumb": "Add Equipment",
+    "pageName_Edit_crumb": "Edit Equipment",
+    "list": "Equipments List",
+    "form": {
+      "nameEn": "Name (en)",
+      "nameAr": "Name (ar)",
+      "pkg":"Package",
+      "image": "Image"
     }
   },
   "pkg": {

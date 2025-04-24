@@ -3,6 +3,7 @@ export const menuItems =
     { icon: 'pi pi-home', label: 'side_bar.dashboard', route: '/dashboard' },
     { icon: 'pi pi-users', label: 'side_bar.clients', route: '/clients' },
     { icon: 'pi pi-users', label: 'side_bar.technicals', route: '/technicals' },
+    { icon: 'pi pi-hammer', label: 'side_bar.equipments', route: '/equipments' },
     { icon: 'pi pi-truck', label: 'side_bar.orders', route: '/orders' },
     { icon: 'pi pi-car', label: 'side_bar.special_orders', route: '/special-order' },
     { icon: 'pi pi-server', label: 'side_bar.services', route: '/services' },

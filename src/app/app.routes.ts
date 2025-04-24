@@ -60,6 +60,8 @@ import { AdminTableComponent } from './pages/admin/admin-table/admin-table.compo
 import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
 import { EditProfileComponent } from './pages/profile/edit-profile/edit-profile.component';
 import { AddNotificationsComponent } from './pages/add-notifications/add-notifications.component';
+import { EquipmentsTableComponent } from './pages/equipments/equipments-table/equipments-table.component';
+import { EquipmentsDetailsComponent } from './pages/equipments/equipments-details/equipments-details.component';
 
 export const routes: Routes = [
   {
@@ -190,6 +192,11 @@ export const routes: Routes = [
       { path: 'technical-specialist/add', component: TechnicalSpecialistDetailsComponent },
       { path: 'technical-specialist/view/:id', component: TechnicalSpecialistDetailsComponent },
       { path: 'technical-specialist/edit/:id', component: TechnicalSpecialistDetailsComponent },
+
+      { path: 'equipments', component: EquipmentsTableComponent },
+      { path: 'equipment/add', component: EquipmentsDetailsComponent },
+      { path: 'equipment/view/:id', component: EquipmentsDetailsComponent },
+      { path: 'equipment/edit/:id', component: EquipmentsDetailsComponent },
 
       { path: 'orders', component: OrdersTableComponent },
       { path: 'order/add', component: OrdersDetailsComponent },

@@ -8,8 +8,8 @@
           <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
         </div>
       </div>
-      <div class="details-container"*ngIf="dataList.length > 0">
-        <div class="action-filter">
+      <div class="details-container">
+        <div class="action-filter"*ngIf="dataList.length > 0">
             <!-- <a [routerLink]="global_router_add_url_in_Table"> +{{'shared.add_new'|translate}} {{pageName()|translate|titlecase}}</a> -->
           <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
         </div>

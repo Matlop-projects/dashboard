@@ -183,6 +183,7 @@ export class PackageDetailsComponent {
       this.getAllCountry()
 
     })
+
   }
   tyepMode() {
     const url = this.router.url;
@@ -222,6 +223,7 @@ export class PackageDetailsComponent {
 
   getCitiesByCountryId(countryId: any) {
     this.ApiService.get('city/getByCountryId/' + countryId).subscribe((res: any) => {
+      this.cityList=[]
       if (res.data) {
         this.cityList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,
@@ -282,14 +284,15 @@ export class PackageDetailsComponent {
       this.contractTypeList = [];
       return;
     }
-
-    this.ApiService.get(`ContractType/GetByServiceIdDashboard${serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(`ContractType/GetByServiceIdDashboard/${serviceId}`).subscribe((res: any) => {
       if (res.data) {
-        this.contractTypeList = res.data.map((item: any) => ({
+        this.contractTypeList=[]
+       res.data.map((item: any) => {
+        this.contractTypeList.push({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,
           code: item.contractTypeId,
-        }));
-        console.log("Contracts Updated:", this.contractTypeList);
+         })
+        });
       }
     });
   }
@@ -345,7 +348,7 @@ export class PackageDetailsComponent {
           });
 
           this.form.patchValue({
-            packageWorkTimes: pkWorkingTime
+            packageWorkTimes: pkWorkingTime,
           });
 
           // Trigger contract list update based on the existing serviceId
@@ -353,6 +356,10 @@ export class PackageDetailsComponent {
           if (selectedServiceId) {
             console.log("Edit Mode - Fetching contracts for serviceId:", selectedServiceId);
             this.onServiceChange(selectedServiceId);  // Call onServiceChange
+          }
+          const selectedCountry = this.form.get('countryId')?.value;
+          if (selectedCountry) {
+            this.onCountryChange(selectedCountry);
           }
         }
       });
