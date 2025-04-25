@@ -37,7 +37,8 @@ export class OrdersDetailsComponent {
 
   showConfirmMessage: boolean = false;
   clientDetails: any;
-
+  equipments:any;
+  baseUrl= environment.baseImageUrl;
   bredCrumb: IBreadcrumb = {
     crumbs: [
       // { label: 'Home', routerLink: '/dashboard' },
@@ -295,6 +296,7 @@ export class OrdersDetailsComponent {
         this.orderDetails = res.data;
         this.orderTechnicalAssignments = res.data.orderTechnicalAssignments;
         this.additonalItemList = res.data.orderAddtionalItem;
+        this.equipments = res.data.orderEquipmentResponse;
         this.imageList = res.data.media;
         if (this.imageList.length != 0) {
           this.addUrltoMedia(this.imageList);

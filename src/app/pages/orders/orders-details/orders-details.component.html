@@ -326,7 +326,27 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="table-container">
+          <div class="title-section">
+            <p>{{'equipments.form.eq_image'|translate}}</p>
+          </div>
 
+          <div class="order-image-desc">
+             <div class="d-flex justify-content-start flex-wrap mt-2">
+              <ng-container *ngFor="let item of equipments">
+              <div class="equipment-card m-2 flex-grow-1">
+                <p class="mb-2">{{selectedLang == 'ar' ? item.arName : item.enName}}</p>
+                <img [src]="baseUrl+item.image" alt="empty">
+
+              </div>
+              </ng-container>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="order-time-schedule-section">
       <div class="title-section">
         <p>{{'order.item_schedule'|translate}}</p>

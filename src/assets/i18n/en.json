@@ -165,7 +165,8 @@
       "nameEn": "Name (en)",
       "nameAr": "Name (ar)",
       "pkg":"Package",
-      "image": "Image"
+      "image": "Image",
+      "eq_image":"Equipments Images"
     }
   },
   "pkg": {
