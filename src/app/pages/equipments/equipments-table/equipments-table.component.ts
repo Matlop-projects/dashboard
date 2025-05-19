@@ -98,7 +98,7 @@ export class EquipmentsTableComponent {
   displayTableCols(currentLang: string) {
     this.columns = [
       { keyName: 'equipmentId', header: this.languageService.translate('Id'), type: EType.id, show: true },
-      { keyName: 'img', header: this.languageService.translate('equipments.form.image'), type: EType.image, show: true },
+      { keyName: 'image', header: this.languageService.translate('equipments.form.image'), type: EType.image, show: true },
       { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('equipments.form.nameEn'), type: EType.text, show: true },
       { keyName: 'packageName', header: this.languageService.translate('equipments.form.pkg'), type: EType.text, show: true },
       { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },

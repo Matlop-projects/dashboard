@@ -315,9 +315,14 @@
           </div>
 
           <div class="order-image-desc">
-            <ng-container *ngIf="this.imageList.length != 0">
-              <app-gallery [mediaList]=imageList></app-gallery>
-            </ng-container>
+             <div class="d-flex justify-content-start flex-wrap mt-2" *ngIf="imageList.length != 0">
+              <ng-container *ngFor="let item of imageList">
+              <div class="equipment-card m-2">
+                <img  *ngIf="item.mediaTypeEnum==1" width="100" height="100" class="rounded mt-5" [src]="item.src" alt="empty">
+                <video *ngIf="item.mediaTypeEnum==2" [src]="item.src" controls></video>
+              </div>
+              </ng-container>
+             </div>
             <ng-container *ngIf="this.imageList.length == 0">
               <img src="assets/images/empty-state.png" alt="empty state">
               <p>{{'order.no_image'|translate}}</p>
@@ -334,14 +339,18 @@
           </div>
 
           <div class="order-image-desc">
-             <div class="d-flex justify-content-start flex-wrap mt-2">
+             <div class="d-flex justify-content-start flex-wrap mt-2" *ngIf="equipments.length != 0">
               <ng-container *ngFor="let item of equipments">
-              <div class="equipment-card m-2 flex-grow-1">
+              <div class="equipment-card m-2">
                 <p class="mb-2">{{selectedLang == 'ar' ? item.arName : item.enName}}</p>
-                <img [src]="baseUrl+item.image" alt="empty">
+                <img width="100" height="100" class=rounded [src]="baseUrl+item.image" alt="empty">
 
               </div>
               </ng-container>
+             </div>
+             <div *ngIf="equipments.length == 0">
+               <img src="assets/images/empty-state.png" alt="empty state">
+               <p>{{'order.no_image'|translate}}</p>
              </div>
           </div>
         </div>

@@ -466,6 +466,8 @@ export class PackageDetailsComponent {
     this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
       if (res)
         this.navigateToPageTable()
+    },()=>{
+      this.API_getItemDetails()
     })
   }
 

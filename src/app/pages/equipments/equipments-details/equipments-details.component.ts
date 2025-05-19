@@ -21,6 +21,7 @@ import { parseISO } from 'date-fns';
 import { TranslatePipe } from '@ngx-translate/core';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -48,7 +49,7 @@ export class EquipmentsDetailsComponent {
   packageList: any[] = []
  editMode:boolean = false;
   visitHoursList: any = packageHourVistList
-
+basurl=environment.baseImageUrl
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -160,7 +161,7 @@ export class EquipmentsDetailsComponent {
       this.ApiService.get(`${global_API_details}/${this.getID}`).subscribe((res: any) => {
         if (res) {
          this.form.patchValue(res.data);
-          this.editImageProps.props.imgSrc = res.data.image;
+          this.editImageProps.props.imgSrc = this.basurl  + res.data.image;
             this.editMode = true;
         }
       });
