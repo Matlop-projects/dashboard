@@ -34,7 +34,8 @@
     "confirm": "تأكيد",
     "close": "إغلاق",
     "choose_image": "اختيار",
-    "update": "تحديث"
+    "update": "تحديث",
+    "download": "تحميل"
   },
   "shared": {
     "errors": {
@@ -202,6 +203,10 @@
     }
   },
   "dashboard": {
+    "from":"من",
+    "to":"إلى",
+    "EXCEL_DOWNLOAD": "تحميل إكسل",
+    "EXCEL_DOWNLOAD_MESSAGE":"هل تريد تحميل البيانات في ملف إكسل؟",
     "pageName": "لوحة التحكم",
     "client": "عدد العملاء",
     "technical": "عدد الفنيين",

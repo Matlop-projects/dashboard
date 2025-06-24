@@ -34,7 +34,8 @@
     "confirm": "Confirm",
     "close": "Close",
     "choose_image": "Choose",
-    "update": "Update"
+    "update": "Update",
+    "download": "Download"
   },
   "shared": {
     "errors": {
@@ -200,6 +201,10 @@
     }
   },
   "dashboard": {
+    "from":"From",
+    "to":"To",
+    "EXCEL_DOWNLOAD": "Download Excel",
+    "EXCEL_DOWNLOAD_MESSAGE":" Are you sure you want to download the Excel file?",
     "pageName": "Dashboard",
     "client": "clients Count",
     "technical": "technical  Count",
