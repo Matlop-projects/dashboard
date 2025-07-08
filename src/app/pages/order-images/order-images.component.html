@@ -1,0 +1,5 @@
+<div class="image-upload-container">
+  <img [src]="uploadedImage || '../../../assets/images/empty-state.png'" alt="Preview" class="preview-image" />
+  <button class="upload-button" (click)="fileInput.click()">{{'images.upload' | translate}}</button>
+  <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*" hidden />
+</div>

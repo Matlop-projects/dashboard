@@ -120,6 +120,8 @@ export class PackageDetailsComponent {
     }),
     isActive: new FormControl(false, {
     }),
+    mostRequested: new FormControl(false, {
+    }),
     contractTypeId: new FormControl('', {
       validators: [
         Validators.required,
@@ -141,7 +143,7 @@ export class PackageDetailsComponent {
       validators: [
         Validators.required,
       ]
-    }),     
+    }),
     packageCities: new FormControl<any>('', {
       validators: [
         Validators.required,
@@ -418,7 +420,7 @@ export class PackageDetailsComponent {
           "workTimeId": id
         })
       })
- 
+
       cityId.map((item: any) => {
         cityPayload.push({
           "packageCitiesId": this.packageCitiesValues.filter(city => city.cityId === item)[0]?.packageCitiesId ? this.packageCitiesValues.filter(city => city.cityId === item)[0]?.packageCitiesId : 0,

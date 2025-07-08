@@ -191,6 +191,7 @@
       "price": "Price",
       "working_time": "Working Time",
       "isActive": "Is Active",
+      "mostRequested": "Most Requested",
       "desc_en": "Description (en)",
       "desc_ar": "Description (ar)",
       "instr_en": "Instraction (en)",
@@ -567,7 +568,9 @@
     "roles": "Roles",
     "district": "District",
     "admin": "Admin",
-    "addNotification": "Add Notification"
+    "addNotification": "Add Notification",
+    "emergncy_order_image": "Emergency Order Image",
+    "special_order_image": "Emergency Order Image"
   },
   "complaint": {
     "pageName": "Complaint",
@@ -720,5 +723,8 @@
       "MIN": "Amount must be at least 1."
     }
   },
-  "CHANGE_BUTTON" : "Change to paid"
+  "CHANGE_BUTTON" : "Change to paid",
+   "images": {
+    "upload": "Upload Image"
+  }
 }

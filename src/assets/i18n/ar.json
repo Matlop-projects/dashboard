@@ -193,6 +193,7 @@
       "price": "السعر",
       "working_time": "وقت العمل",
       "isActive": "نشط",
+      "mostRequested": "الاكثر طلبا",
       "desc_en": "الوصف (بالإنجليزية)",
       "desc_ar": "الوصف (بالعربية)",
       "instr_en": "التعليمات (بالإنجليزية)",
@@ -569,7 +570,9 @@
     "roles": "الأدوار",
     "district": "المنطقة",
     "admin": "الإدارة",
-    "addNotification": "إضافة إشعار"
+    "addNotification": "إضافة إشعار",
+    "emergncy_order_image": "صوره الطلبات العاجلة",
+    "special_order_image": "صوره الطلبات الخاصة"
   },
   "complaint": {
     "pageName": "الشكاوى",
@@ -722,5 +725,8 @@
       "MIN": "يجب أن يكون المبلغ على الأقل 1."
     }
   },
-   "CHANGE_BUTTON" : "تغيير الحالة للدفع"
+   "CHANGE_BUTTON" : "تغيير الحالة للدفع",
+  "images": {
+    "upload": "قم بتحميل صوره"
+  }
 }
