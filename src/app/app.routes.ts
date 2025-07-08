@@ -62,6 +62,7 @@ import { EditProfileComponent } from './pages/profile/edit-profile/edit-profile.
 import { AddNotificationsComponent } from './pages/add-notifications/add-notifications.component';
 import { EquipmentsTableComponent } from './pages/equipments/equipments-table/equipments-table.component';
 import { EquipmentsDetailsComponent } from './pages/equipments/equipments-details/equipments-details.component';
+import { OrderImagesComponent } from './pages/order-images/order-images.component';
 
 export const routes: Routes = [
   {
@@ -128,6 +129,7 @@ export const routes: Routes = [
           { path: 'admin/view/:id', component: AdminDetailsComponent },
 
           { path: 'add_notification', component: AddNotificationsComponent },
+          { path: 'order_images/:type', component: OrderImagesComponent },
         ]
       },
       { path: 'profile', component: ProfileComponent },

@@ -79,6 +79,16 @@ export class SettingsComponent {
         label: this.languageService.translate('settings.addNotification'),
         icon: 'pi pi-bell',
         routerLink: '/settings/add_notification'
+      },
+      {
+        label: this.languageService.translate('settings.emergncy_order_image'),
+        icon: 'pi pi-images',
+        routerLink: '/settings/order_images/e'
+      },
+      {
+        label: this.languageService.translate('settings.special_order_image'),
+        icon: 'pi pi-images',
+        routerLink: '/settings/order_images/s'
       }
     ];
   }
