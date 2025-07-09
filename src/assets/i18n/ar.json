@@ -1,6 +1,6 @@
 {
   "GENERAL": "عام",
-   "Success": "نجاح",
+  "Success": "نجاح",
   "Error": "خطأ",
   "Add": "إضافة",
   "Edit": "تعديل",
@@ -38,6 +38,7 @@
     "download": "تحميل"
   },
   "shared": {
+    "submit": "إرسال",
     "errors": {
       "login": "فشل تسجيل الدخول",
       "post_request": "فشل في تنفيذ عملية POST",
@@ -90,6 +91,8 @@
     "orders": "الطلبات",
     "equipments": "المعدات",
     "special_orders": "الطلبات الخاصة",
+    "emergency_orders": " الطلبات الطارئة",
+    "special_orders_2": "الطلبات الخاصة",
     "technicals": "الفنيين",
     "services": "الخدمات",
     "working_hours": "ساعات العمل",
@@ -158,22 +161,20 @@
     }
   },
   "equipments": {
-  "pageName": "المعدات",
-  "pageName_View_crumb": "عرض المعدات",
-  "pageName_filter": "تصفية المعدات",
-  "pageName_Add_crumb": "إضافة معدات",
-  "pageName_Edit_crumb": "تعديل المعدات",
-  "list": "قائمة المعدات",
-  "form": {
-    "nameEn": "الاسم (إنجليزي)",
-    "nameAr": "الاسم (عربي)",
-    "pkg": "الباقة",
-    "image": "الصورة",
-    "eq_image":"صور المعدات"
-
-  }
-}
-,
+    "pageName": "المعدات",
+    "pageName_View_crumb": "عرض المعدات",
+    "pageName_filter": "تصفية المعدات",
+    "pageName_Add_crumb": "إضافة معدات",
+    "pageName_Edit_crumb": "تعديل المعدات",
+    "list": "قائمة المعدات",
+    "form": {
+      "nameEn": "الاسم (إنجليزي)",
+      "nameAr": "الاسم (عربي)",
+      "pkg": "الباقة",
+      "image": "الصورة",
+      "eq_image": "صور المعدات"
+    }
+  },
   "pkg": {
     "pageName": "الباقات",
     "pageName_View_crumb": "عرض الباقة",
@@ -199,15 +200,15 @@
       "instr_en": "التعليمات (بالإنجليزية)",
       "instr_ar": "التعليمات (بالعربية)",
       "service_type": "الخدمات",
-      "city":"المدينة",
-      "country":"الدولة"
+      "city": "المدينة",
+      "country": "الدولة"
     }
   },
   "dashboard": {
-    "from":"من",
-    "to":"إلى",
+    "from": "من",
+    "to": "إلى",
     "EXCEL_DOWNLOAD": "تحميل إكسل",
-    "EXCEL_DOWNLOAD_MESSAGE":"هل تريد تحميل البيانات في ملف إكسل؟",
+    "EXCEL_DOWNLOAD_MESSAGE": "هل تريد تحميل البيانات في ملف إكسل؟",
     "pageName": "لوحة التحكم",
     "client": "عدد العملاء",
     "technical": "عدد الفنيين",
@@ -409,17 +410,18 @@
     "location": "الموقع",
     "next_visit": "موعد الزيارة القادمة",
     "total_price": "السعر الإجمالي",
+    "price": "السعر",
     "order_provider": "مزودي الخدمة للطلب",
     "technical": "الفني",
     "driver": "السائق",
     "no_image": "لا توجد صورة متاحة",
     "item_schedule": "جدول مواعيد الطلب",
-    "total_additional_price" : "سعر الصنف الاضافي",
-    "total_tech_number" : "عدد الفنيين",
-    "SERVICE":"الخدمة",
-    "CONTRACT":"العقد",
-    "PACKAGE":"الباقة",
-    "map":"الخريطة",
+    "total_additional_price": "سعر الصنف الاضافي",
+    "total_tech_number": "عدد الفنيين",
+    "SERVICE": "الخدمة",
+    "CONTRACT": "العقد",
+    "PACKAGE": "الباقة",
+    "map": "الخريطة",
     "tool_tip": {
       "add_tech": "إضافة فني جديد",
       "add_driver": "إضافة سائق جديد",
@@ -434,7 +436,7 @@
       "add_price": "سعر الإضافة",
       "desc": "الوصف",
       "edit": "تعديل",
-      "specialize" : "التخصص",
+      "specialize": "التخصص",
       "mobile": "الجوال"
     },
     "form": {
@@ -571,7 +573,7 @@
     "district": "المنطقة",
     "admin": "الإدارة",
     "addNotification": "إضافة إشعار",
-    "emergncy_order_image": "صوره الطلبات العاجلة",
+    "emergncy_order_image": "صوره الطلبات الطارئة",
     "special_order_image": "صوره الطلبات الخاصة"
   },
   "complaint": {
@@ -610,9 +612,9 @@
       "status": "الحالة",
       "used_x": "تم استخدامه X مرات",
       "used": "استخدام",
-       "hasMaxAmount":"استخدام محدود",
-       "maxUsagePerUser": "اقصي استخدام للعميل",
-       "maxAmount": "اقصي قيمة للخصم"
+      "hasMaxAmount": "استخدام محدود",
+      "maxUsagePerUser": "اقصي استخدام للعميل",
+      "maxAmount": "اقصي قيمة للخصم"
     }
   },
   "payment": {
@@ -725,7 +727,7 @@
       "MIN": "يجب أن يكون المبلغ على الأقل 1."
     }
   },
-   "CHANGE_BUTTON" : "تغيير الحالة للدفع",
+  "CHANGE_BUTTON": "تغيير الحالة للدفع",
   "images": {
     "upload": "قم بتحميل صوره"
   }

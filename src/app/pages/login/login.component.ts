@@ -35,7 +35,7 @@ export class LoginComponent {
 
 
 
-  constructor(private fb: FormBuilder,@Inject(DOCUMENT) private document: Document, private api: ApiService, private translate: TranslateService, private router: Router) {
+  constructor(private fb: FormBuilder, @Inject(DOCUMENT) private document: Document, private api: ApiService, private translate: TranslateService, private router: Router) {
     this.loginForm = this.fb.group({
       userName: ['superadminTest@admin.com', [Validators.required]],
       // password: ['Admin@VL', [Validators.required]],
@@ -77,6 +77,7 @@ export class LoginComponent {
   }
 
   onLogin(loginfrom: any) {
+    this.openOtpModal = false;
     this.api.login(loginfrom).subscribe((res: any) => {
       this.mobileNumber = res.mobilePhone;
       this.openOtpModal = res.status;
