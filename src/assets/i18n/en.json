@@ -38,6 +38,7 @@
     "download": "Download"
   },
   "shared": {
+    "submit": "Submit",
     "errors": {
       "login": "Login failed",
       "post_request": "Failed to perform POST operation",
@@ -90,6 +91,8 @@
     "orders": "ORDERS",
     "equipments": "EQUIPMENTS",
     "special_orders": "SPECIAL ORDERS",
+    "emergency_orders": "Emergency Orders",
+    "special_orders_2": "Special orders",
     "technicals": "TECHNICALS",
     "services": "SERVICES",
     "working_hours": "WORKING HOURS",
@@ -157,8 +160,8 @@
       "userType": "User Type"
     }
   },
-  "equipments":{
-"pageName": "Equipments",
+  "equipments": {
+    "pageName": "Equipments",
     "pageName_View_crumb": "View Equipment",
     "pageName_filter": "Filter Equipment",
     "pageName_Add_crumb": "Add Equipment",
@@ -167,9 +170,9 @@
     "form": {
       "nameEn": "Name (en)",
       "nameAr": "Name (ar)",
-      "pkg":"Package",
+      "pkg": "Package",
       "image": "Image",
-      "eq_image":"Equipments Images"
+      "eq_image": "Equipments Images"
     }
   },
   "pkg": {
@@ -202,10 +205,10 @@
     }
   },
   "dashboard": {
-    "from":"From",
-    "to":"To",
+    "from": "From",
+    "to": "To",
     "EXCEL_DOWNLOAD": "Download Excel",
-    "EXCEL_DOWNLOAD_MESSAGE":" Are you sure you want to download the Excel file?",
+    "EXCEL_DOWNLOAD_MESSAGE": " Are you sure you want to download the Excel file?",
     "pageName": "Dashboard",
     "client": "clients Count",
     "technical": "technical  Count",
@@ -407,17 +410,18 @@
     "location": "Location",
     "next_visit": "Next Visit Date",
     "total_price": "Total Price",
+    "price": "Price",
     "order_provider": "Order's Providers",
     "technical": "Technical",
     "driver": "Driver",
     "no_image": "No Image Available",
     "item_schedule": "Order Time Schedule",
-    "total_additional_price" : "Additinal Item Price",
-    "total_tech_number" : "Total Tech Number",
-    "SERVICE":"Service",
-    "CONTRACT":"Contract",
-    "PACKAGE":"Package",
-    "map":"Map",
+    "total_additional_price": "Additinal Item Price",
+    "total_tech_number": "Total Tech Number",
+    "SERVICE": "Service",
+    "CONTRACT": "Contract",
+    "PACKAGE": "Package",
+    "map": "Map",
     "tool_tip": {
       "add_tech": "Add New Technical",
       "add_driver": "Add New Driver",
@@ -432,7 +436,7 @@
       "add_price": "Additional Price",
       "desc": "Description",
       "edit": "Edit",
-      "specialize" : "Specialization",
+      "specialize": "Specialization",
       "mobile": "Mobile"
     },
     "form": {
@@ -570,7 +574,7 @@
     "admin": "Admin",
     "addNotification": "Add Notification",
     "emergncy_order_image": "Emergency Order Image",
-    "special_order_image": "Emergency Order Image"
+    "special_order_image": "Special Order Image"
   },
   "complaint": {
     "pageName": "Complaint",
@@ -608,7 +612,7 @@
       "status": "Status",
       "used_x": "Used For X Times",
       "used": "Used",
-      "hasMaxAmount":"has Max Amount",
+      "hasMaxAmount": "has Max Amount",
       "maxUsagePerUser": "Max Usage Per User",
       "maxAmount": "Max Amount"
     }
@@ -704,7 +708,7 @@
   "PACKAGE_NAME": "Package Name",
   "SERVICE_NAME": "Service Name",
   "NO_ORDERS_AVAILABLE": "No Orders Available",
-  "visitNumber" : "Visits Number",
+  "visitNumber": "Visits Number",
   "nextVisit": "Next Visit",
   "SAR": "SAR",
   "Status_Action": "Status Action",
@@ -723,8 +727,8 @@
       "MIN": "Amount must be at least 1."
     }
   },
-  "CHANGE_BUTTON" : "Change to paid",
-   "images": {
+  "CHANGE_BUTTON": "Change to paid",
+  "images": {
     "upload": "Upload Image"
   }
 }

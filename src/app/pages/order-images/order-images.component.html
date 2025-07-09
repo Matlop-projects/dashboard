@@ -1,5 +1,16 @@
-<div class="image-upload-container">
-  <img [src]="uploadedImage || '../../../assets/images/empty-state.png'" alt="Preview" class="preview-image" />
-  <button class="upload-button" (click)="fileInput.click()">{{'images.upload' | translate}}</button>
-  <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*" hidden />
+<div class="order-images-container">
+  <div class="title-bredcrumb-section">
+    <div class="title">
+      <h2 *ngIf="this.typeParam == 'e'">{{'side_bar.emergency_orders'|translate|titlecase}}</h2>
+      <h2 *ngIf="this.typeParam == 's'">{{'side_bar.special_orders_2'|translate|titlecase}}</h2>
+    </div>
+    <div class="breadcrumb">
+      <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+    </div>
+  </div>
+  <div class="image-upload-container">
+    <img [src]="uploadedImage || '../../../assets/images/empty-state.png'" alt="Preview" class="preview-image" />
+    <button class="upload-button" (click)="fileInput.click()">{{'images.upload' | translate}}</button>
+    <input type="file" #fileInput (change)="onImageSelected($event)" accept="image/*" hidden />
+  </div>
 </div>
