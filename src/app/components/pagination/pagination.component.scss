@@ -7,6 +7,9 @@
       p-paginator {
         .p-paginator {
           background-color: transparent !important;
+  &:lang(ar) {
+    direction: ltr !important;
+  }
 
           .p-paginator-pages .p-paginator-page.p-highlight {
             background: #253858 !important;
