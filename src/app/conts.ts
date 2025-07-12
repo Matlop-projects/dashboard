@@ -38,14 +38,6 @@ export const sliderViewType = [
 
 export const userType = [
   {
-    name: 'SuperAdmin',
-    code: 1
-  },
-  {
-    name: 'Admin',
-    code: 2
-  },
-  {
     name: 'Technical',
     code: 3
   },

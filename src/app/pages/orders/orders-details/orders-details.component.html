@@ -82,7 +82,7 @@
 
         <div class="table-container mt-3" style="height: 293px">
           <div class="title-section mb-4">
-            <p >{{'order.form.note'|translate}}</p>
+            <p>{{'order.form.note'|translate}}</p>
           </div>
           <p-floatlabel variant="on">
             <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
@@ -95,7 +95,8 @@
         <div class="content">
           <div class="title-section d-flex justify-content-between align-items-center pt-2 pb-2">
             <p class="m-0 p-0">{{'order.order_details'|translate}}</p>
-            <button class="delete-order-btn" (click)="openDeleteModal('deleteOrder')">{{'order.delete_order_button' | translate}}</button>
+            <button class="delete-order-btn" (click)="openDeleteModal('deleteOrder')">{{'order.delete_order_button' |
+              translate}}</button>
           </div>
           <div class="desc">
             <div class="details order-status-dropdown">
@@ -120,7 +121,7 @@
                 <p>{{'order.payment'|translate}}</p>
               </div>
               <div class="details-desc">
-                <p>{{orderDetails.paymentWayName ?  orderDetails.paymentWayName: '-'}}</p>
+                <p>{{orderDetails.paymentWayName ? orderDetails.paymentWayName: '-'}}</p>
               </div>
             </div>
             <div class="details">
@@ -176,7 +177,7 @@
                 <p>{{'order.total_tech_number'|translate}}</p>
               </div>
               <div class="details-desc">
-                <p>{{orderTechnicalAssignments.length != 0 ?orderTechnicalAssignments.length :  0}}</p>
+                <p>{{orderTechnicalAssignments.length != 0 ?orderTechnicalAssignments.length : 0}}</p>
               </div>
             </div>
             <div class="details">
@@ -189,7 +190,7 @@
             </div>
             <div class="details">
               <div class="title">
-                <p>{{'order.price'|translate}}</p>
+                <p>{{'order.package_price'|translate}}</p>
               </div>
               <div class="details-desc total-price">
                 <p>{{orderDetails.orderTotal ? orderDetails.orderTotal: '-'}} <span>SAR</span></p>
@@ -197,13 +198,22 @@
             </div>
             <div class="details">
               <div class="title">
+                <p>{{'order.equipment_price' | translate}}</p>
+              </div>
+              <div class="details-desc total-price">
+                <p>{{calculateTotalEquipmentPrice(orderDetails) != 0 ? calculateTotalEquipmentPrice(orderDetails): 0}} <span>SAR</span></p>
+              </div>
+            </div>
+            <div class="details">
+              <div class="title">
                 <p>{{'order.total_additional_price' | translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.orderAddtionalItem.length != 0 ? orderDetails.totalWithAdditional - orderDetails.orderTotal: 0}} <span>SAR</span></p>
+                <p>{{orderDetails.orderAddtionalItem.length != 0 ? orderDetails.totalWithAdditional -
+                  orderDetails.orderTotal: 0}} <span>SAR</span></p>
               </div>
             </div>
-             <div class="details" *ngIf="orderDetails.totalWithAdditional - orderDetails.orderTotal != 0">
+            <div class="details" *ngIf="orderDetails.totalWithAdditional - orderDetails.orderTotal != 0">
               <div class="title">
                 <p>{{'order.total_price'|translate}}</p>
               </div>
@@ -217,7 +227,9 @@
               </div>
               <div class="details-desc">
                 <p class="pointer">
-                  <a class="g-map-location" [href]="'https://www.google.com/maps?q=' + orderDetails.latitude + ',' + orderDetails.longitude" target="_blank">
+                  <a class="g-map-location"
+                    [href]="'https://www.google.com/maps?q=' + orderDetails.latitude + ',' + orderDetails.longitude"
+                    target="_blank">
                     <span class="pi pi-map-marker"></span>
                     <span> {{ 'order.map' | translate }}</span>
                   </a>
@@ -243,11 +255,13 @@
           <div class="title-section mb-4">
             <p>{{'order.order_provider'|translate}}</p>
             <span class="d-flex align-center" style="gap: 10px;">
-              <button [disabled]="checkOrderStatus == 7" class="add-provider" pTooltip="{{'order.tool_tip.add_tech'|translate}}" tooltipPosition="top" (click)="openTechnicalModal()">
+              <button [disabled]="checkOrderStatus == 7" class="add-provider"
+                pTooltip="{{'order.tool_tip.add_tech'|translate}}" tooltipPosition="top" (click)="openTechnicalModal()">
                 <p>{{'order.technical'|translate}}</p>
                 <i class="pi pi-plus"></i>
               </button>
-              <button [disabled]="checkOrderStatus == 7" class="add-provider driver" pTooltip="{{'order.tool_tip.add_driver'|translate}}" tooltipPosition="top" (click)="openDriverModal()">
+              <button [disabled]="checkOrderStatus == 7" class="add-provider driver"
+                pTooltip="{{'order.tool_tip.add_driver'|translate}}" tooltipPosition="top" (click)="openDriverModal()">
                 <p>{{'order.driver'|translate}}</p>
                 <i class="pi pi-plus"></i>
               </button>
@@ -270,11 +284,14 @@
                 <td>{{ assignment.technicalName || '-' }}</td>
                 <td>{{ assignment.technicalTypeName || '-' }}</td>
                 <td>{{ assignment.technicalPhoneNumber || '-' }}</td>
-                <td>{{ selectedLang == 'ar' ? assignment.technicalSpecializeNameAr : assignment.technicalSpecializeNameEn }}</td>
+                <td>{{ selectedLang == 'ar' ? assignment.technicalSpecializeNameAr :
+                  assignment.technicalSpecializeNameEn }}</td>
                 <td *ngIf="checkOrderStatus != 7">
                   <div class="actions-icon">
-                    <span class="pi pi-pen-to-square" title="Edit" (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId ,assignment.technicalType)"></span>
-                    <span class="pi pi-trash" title="Edit" (click)="openDeleteModal('deleteProvider' , assignment)"></span>
+                    <span class="pi pi-pen-to-square" title="Edit"
+                      (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId ,assignment.technicalType)"></span>
+                    <span class="pi pi-trash" title="Edit"
+                      (click)="openDeleteModal('deleteProvider' , assignment)"></span>
                   </div>
                 </td>
               </tr>
@@ -286,7 +303,8 @@
         <div class="table-container">
           <div class="title-section mb-4">
             <p class="c-white">{{'order.order_add_item'|translate}}</p>
-            <button [disabled]="checkOrderStatus == 7" class="add-provider" pTooltip="{{'order.tool_tip.add_item'|translate}}" tooltipPosition="top" (click)="openAdditinaolModal()">
+            <button [disabled]="checkOrderStatus == 7" class="add-provider"
+              pTooltip="{{'order.tool_tip.add_item'|translate}}" tooltipPosition="top" (click)="openAdditinaolModal()">
               <i class="pi pi-plus"></i>
             </button>
           </div>
@@ -315,163 +333,152 @@
         </div>
       </div>
 
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="table-container">
-          <div class="title-section">
-            <p>{{'order.order_img'|translate}}</p>
-          </div>
-
-          <div class="order-image-desc">
-             <div class="d-flex justify-content-start flex-wrap mt-2" *ngIf="imageList.length != 0">
-              <ng-container *ngFor="let item of imageList">
-              <div class="equipment-card m-2">
-                <img  *ngIf="item.mediaTypeEnum==1" width="100" height="100" class="rounded mt-5" [src]="item.src" alt="empty">
-                <video *ngIf="item.mediaTypeEnum==2" [src]="item.src" controls></video>
-              </div>
-              </ng-container>
-             </div>
-            <ng-container *ngIf="this.imageList.length == 0">
-              <img src="assets/images/empty-state.png" alt="empty state">
-              <p>{{'order.no_image'|translate}}</p>
-            </ng-container>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="table-container">
-          <div class="title-section">
-            <p>{{'equipments.form.eq_image'|translate}}</p>
-          </div>
-
-          <div class="order-image-desc">
-             <div class="d-flex justify-content-start flex-wrap mt-2" *ngIf="equipments.length != 0">
-              <ng-container *ngFor="let item of equipments">
-              <div class="equipment-card m-2">
-                <p class="mb-2">{{selectedLang == 'ar' ? item.arName : item.enName}}</p>
-                <img width="100" height="100" class=rounded [src]="baseUrl+item.image" alt="empty">
-
-              </div>
-              </ng-container>
-             </div>
-             <div *ngIf="equipments.length == 0">
-               <img src="assets/images/empty-state.png" alt="empty state">
-               <p>{{'order.no_image'|translate}}</p>
-             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="order-time-schedule-section">
-      <div class="title-section">
-        <p>{{'order.item_schedule'|translate}}</p>
-      </div>
-      <div class="card-container row">
-        <ng-container *ngFor="let item of orderTimeSchedule">
-         <div class="padding-container mt-3 col-lg-3 col-md-6 col-sm-12">
-          <div class="time-card" >
-            <div class="title">
-              <p>{{formatDateTime(item.visitDate)}}</p>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-container">
+            <div class="title-section">
+              <p>{{'order.order_img'|translate}}</p>
             </div>
-            <div class="actions-content">
 
+            <div class="order-image-desc">
+              <div class="d-flex justify-content-start flex-wrap mt-2" *ngIf="imageList.length != 0">
+                <ng-container *ngFor="let item of imageList">
+                  <div class="equipment-card m-2">
+                    <img *ngIf="item.mediaTypeEnum==1" width="100" height="100" class="rounded mt-5" [src]="item.src"
+                      alt="empty">
+                    <video *ngIf="item.mediaTypeEnum==2" [src]="item.src" controls></video>
+                  </div>
+                </ng-container>
+              </div>
+              <ng-container *ngIf="this.imageList.length == 0">
+                <img src="assets/images/empty-state.png" alt="empty state">
+                <p>{{'order.no_image'|translate}}</p>
+              </ng-container>
             </div>
           </div>
-         </div>
-        </ng-container>
-    </div>
-    </div>
-  </div>
-</div>
-
-
-
-<app-modal [dialogProps]="dialogProps">
-  <div class="title">
-    <h3>{{providerTitle}}</h3>
-  </div>
-
-  <div class="content" style="width: 300px;">
-    <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange('t')" [(ngModel)]="providerValue" optionLabel="firstName"
-      placeholder="Select a Provider" class="w-full md:w-56" />
-  </div>
-</app-modal>
-
-<app-modal [dialogProps]="driverDialogProps">
-  <div class="title">
-    <h3>{{driverTitle}}</h3>
-  </div>
-
-  <div class="content" style="width: 300px;">
-    <p-select appendTo="body" [options]="driversList" (onChange)="onProviderChange('d')" [(ngModel)]="driverValue"
-      optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
-  </div>
-</app-modal>
-
-<app-modal [dialogProps]="additinalModal">
-  <div class="title">
-    <h3>{{additonalTitle}}</h3>
-  </div>
-
-  <div class="content" style="width: 300px;">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
-      <div class="form-group mb-2">
-        <label for="price">{{'order.form.price'|translate}}</label>
-        <input
-        type="number"
-        id="additionalPrice"
-        name="additionalPrice"
-        [(ngModel)]="additionalObject.additionalPrice"
-        #additionalPrice="ngModel"
-        required
-        min="1"
-        class="form-control"
-        />
-        <div *ngIf="additionalPrice.invalid && (additionalPrice.dirty || additionalPrice.touched)" class="error">
-          <div *ngIf="additionalPrice.errors?.['required']">{{'order.form.price_required'|translate}}</div>
-          <div *ngIf="additionalPrice.errors?.['min']">{{'order.form.price_atleast'|translate}}</div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="table-container">
+            <div class="title-section">
+              <p>{{'equipments.form.eq_image'|translate}}</p>
+            </div>
 
-      <div class="form-group mb-4">
-        <label for="note">{{'order.form.note'|translate}}</label>
-        <textarea
-        id="note"
-        name="note"
-        [(ngModel)]="additionalObject.note"
-        #note="ngModel"
-        required
-        class="form-control"
-        ></textarea>
-        <div *ngIf="note.invalid && (note.dirty || note.touched)" class="error">
-          <div *ngIf="note.errors?.['required']">{{'order.form.note_required'|translate}}</div>
+            <div class="order-image-desc">
+              <div class="d-flex justify-content-start flex-wrap mt-2" *ngIf="equipments.length != 0">
+                <ng-container *ngFor="let item of equipments">
+                  <div class="equipment-card m-2">
+                    <p class="mb-2">{{selectedLang == 'ar' ? item.arName : item.enName}}</p>
+                    <img width="100" height="100" class=rounded [src]="baseUrl+item.image" alt="empty">
+
+                  </div>
+                </ng-container>
+              </div>
+              <div *ngIf="equipments.length == 0">
+                <img src="assets/images/empty-state.png" alt="empty state">
+                <p>{{'order.no_image'|translate}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-       {{'shared.submit'|translate}}
-      </button>
-    </form>
-  </div>
-</app-modal>
+      <div class="order-time-schedule-section">
+        <div class="title-section">
+          <p>{{'order.item_schedule'|translate}}</p>
+        </div>
+        <div class="card-container row">
+          <ng-container *ngFor="let item of orderTimeSchedule">
+            <div class="padding-container mt-3 col-lg-3 col-md-6 col-sm-12">
+              <div class="time-card">
+                <div class="title">
+                  <p>{{formatDateTime(item.visitDate)}}</p>
+                </div>
+                <div class="actions-content">
 
-<app-modal [dialogProps]="deleteModal">
-  <ng-container *ngIf="this.deleteType == 'deleteOrder'">
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <app-modal [dialogProps]="dialogProps">
     <div class="title">
-      <h3>{{'order.delete_order_confirmation' | translate}}</h3>
+      <h3>{{providerTitle}}</h3>
     </div>
-    <div class="content d-flex justify-content-end" >
-      <button (click)="deleteOrder()" class="delete-order-btn"> {{'order.delete_order_button' | translate}}</button>
+
+    <div class="content" style="width: 300px;">
+      <p-select appendTo="body" [options]="providerList" (onChange)="onProviderChange('t')" [(ngModel)]="providerValue"
+        optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
     </div>
-  </ng-container>
-  <ng-container *ngIf="this.deleteType == 'deleteProvider'">
+  </app-modal>
+
+  <app-modal [dialogProps]="driverDialogProps">
     <div class="title">
-      <h3>{{'order.delete_provider_confirmation' | translate}}</h3>
+      <h3>{{driverTitle}}</h3>
     </div>
-    <div class="content d-flex justify-content-end" >
-      <button (click)="deleteProvider()" class="delete-order-btn">{{'order.delete_provider_button' | translate}}</button>
+
+    <div class="content" style="width: 300px;">
+      <p-select appendTo="body" [options]="driversList" (onChange)="onProviderChange('d')" [(ngModel)]="driverValue"
+        optionLabel="firstName" placeholder="Select a Provider" class="w-full md:w-56" />
     </div>
-  </ng-container>
-</app-modal>
+  </app-modal>
+
+  <app-modal [dialogProps]="additinalModal">
+    <div class="title">
+      <h3>{{additonalTitle}}</h3>
+    </div>
+
+    <div class="content" style="width: 300px;">
+      <form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate>
+        <div class="form-group mb-2">
+          <label for="price">{{'order.form.price'|translate}}</label>
+          <input type="number" id="additionalPrice" name="additionalPrice"
+            [(ngModel)]="additionalObject.additionalPrice" #additionalPrice="ngModel" required min="1"
+            class="form-control" />
+          <div *ngIf="additionalPrice.invalid && (additionalPrice.dirty || additionalPrice.touched)" class="error">
+            <div *ngIf="additionalPrice.errors?.['required']">{{'order.form.price_required'|translate}}</div>
+            <div *ngIf="additionalPrice.errors?.['min']">{{'order.form.price_atleast'|translate}}</div>
+          </div>
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="note">{{'order.form.note'|translate}}</label>
+          <textarea id="note" name="note" [(ngModel)]="additionalObject.note" #note="ngModel" required
+            class="form-control"></textarea>
+          <div *ngIf="note.invalid && (note.dirty || note.touched)" class="error">
+            <div *ngIf="note.errors?.['required']">{{'order.form.note_required'|translate}}</div>
+          </div>
+        </div>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          {{'shared.submit'|translate}}
+        </button>
+      </form>
+    </div>
+  </app-modal>
+
+  <app-modal [dialogProps]="deleteModal">
+    <ng-container *ngIf="this.deleteType == 'deleteOrder'">
+      <div class="title">
+        <h3>{{'order.delete_order_confirmation' | translate}}</h3>
+      </div>
+      <div class="content d-flex justify-content-end">
+        <button (click)="deleteOrder()" class="delete-order-btn"> {{'order.delete_order_button' | translate}}</button>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="this.deleteType == 'deleteProvider'">
+      <div class="title">
+        <h3>{{'order.delete_provider_confirmation' | translate}}</h3>
+      </div>
+      <div class="content d-flex justify-content-end">
+        <button (click)="deleteProvider()" class="delete-order-btn">{{'order.delete_provider_button' |
+          translate}}</button>
+      </div>
+    </ng-container>
+  </app-modal>

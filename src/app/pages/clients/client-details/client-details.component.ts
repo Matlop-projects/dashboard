@@ -42,7 +42,6 @@ export class ClientDetailsComponent {
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
-  userTypeList = userType
   selectedLang: any;
   languageService = inject(LanguageService);
   private confirm = inject(ConfirmMsgService);
