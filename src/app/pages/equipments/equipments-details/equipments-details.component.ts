@@ -35,21 +35,21 @@ const global_routeUrl = 'equipments'
 @Component({
   selector: 'app-equipments-details',
   standalone: true,
-  imports: [ReactiveFormsModule,EditModeImageComponent, TranslatePipe, TitleCasePipe, ButtonModule, SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, EditModeImageComponent, TranslatePipe, TitleCasePipe, ButtonModule, SelectComponent, CheckBoxComponent, NgIf, DialogComponent, DatePickerComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './equipments-details.component.html',
   styleUrl: './equipments-details.component.scss'
 })
 export class EquipmentsDetailsComponent {
- pageName = signal<string>(global_PageName);
+  pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   packageList: any[] = []
- editMode:boolean = false;
+  editMode: boolean = false;
   visitHoursList: any = packageHourVistList
-basurl=environment.baseImageUrl
+  basurl = environment.baseImageUrl
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -63,18 +63,19 @@ basurl=environment.baseImageUrl
         Validations.arabicCharsValidator()
       ]
     }),
-
- 
+    price: new FormControl<any>('', {
+      validators: [
+        Validators.required,
+        Validations.arabicCharsValidator()
+      ]
+    }),
     equipmentId: new FormControl(this.getID | 0),
     image: new FormControl('', {
       validators: [Validators.required]
     }),
-  
-    packageId: new FormControl('',{
+    packageId: new FormControl('', {
       validators: [Validators.required]
-
     }),
-
   })
 
   bredCrumb: IBreadcrumb = {
@@ -87,16 +88,16 @@ basurl=environment.baseImageUrl
   get getID() {
     return this.route.snapshot.params['id']
   }
-    editImageProps: IEditImage = {
-      props: {
-        visible: true,
-        imgSrc: ''
-      },
-      onEditBtn: (e?: Event) => {
-        this.editImageProps.props.visible = false;
-        this.editMode = false;
-      }
-    };
+  editImageProps: IEditImage = {
+    props: {
+      visible: true,
+      imgSrc: ''
+    },
+    onEditBtn: (e?: Event) => {
+      this.editImageProps.props.visible = false;
+      this.editMode = false;
+    }
+  };
   get isRequiredError(): boolean {
     const control = this.form.get('image');
     return control?.touched && control?.hasError('required') || false;
@@ -114,9 +115,9 @@ basurl=environment.baseImageUrl
       this.selectedLang = this.languageService.translationService.currentLang;
       if (this.tyepMode() !== 'Add') {
         this.API_getItemDetails()
-      }     
-       this.getBreadCrumb()
-       this.getAllPackage()
+      }
+      this.getBreadCrumb()
+      this.getAllPackage()
 
     })
   }
@@ -137,12 +138,12 @@ basurl=environment.baseImageUrl
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
   }
-  getAllPackage(){
+  getAllPackage() {
     this.ApiService.get('package/GetAllPackage').subscribe((res: any) => {
       if (res.data) {
         this.packageList = res.data.map((item: any) => ({
@@ -153,16 +154,16 @@ basurl=environment.baseImageUrl
     });
   }
 
- 
+
 
 
   API_getItemDetails() {
     if (this.getID) {
       this.ApiService.get(`${global_API_details}/${this.getID}`).subscribe((res: any) => {
         if (res) {
-         this.form.patchValue(res.data);
-          this.editImageProps.props.imgSrc = this.basurl  + res.data.image;
-            this.editMode = true;
+          this.form.patchValue(res.data);
+          this.editImageProps.props.imgSrc = this.basurl + res.data.image;
+          this.editMode = true;
         }
       });
     }
@@ -178,7 +179,7 @@ basurl=environment.baseImageUrl
     else
       this.API_forEditItem(payload)
 
-   
+
   }
 
   navigateToPageTable() {

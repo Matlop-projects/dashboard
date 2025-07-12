@@ -548,4 +548,16 @@ export class OrdersDetailsComponent {
       this.tosater.successToaster('Provider Deleted Successfully');
     })
   }
+
+  calculateTotalEquipmentPrice(data: any): number {
+    console.log(data);
+
+  if (!data?.orderEquipmentResponse || !Array.isArray(data.orderEquipmentResponse)) {
+    return 0;
+  }
+
+  return data.orderEquipmentResponse.reduce((sum: number, item: any) => {
+    return sum + (item.price || 0);
+  }, 0);
+}
 }

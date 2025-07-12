@@ -101,6 +101,7 @@ export class EquipmentsTableComponent {
       { keyName: 'image', header: this.languageService.translate('equipments.form.image'), type: EType.image, show: true },
       { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('equipments.form.nameEn'), type: EType.text, show: true },
       { keyName: 'packageName', header: this.languageService.translate('equipments.form.pkg'), type: EType.text, show: true },
+      { keyName: 'price', header: this.languageService.translate('pkg.form.price'), type: EType.text, show: true },
       { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
@@ -108,6 +109,7 @@ export class EquipmentsTableComponent {
       { keyName: 'equipmentId', header: this.languageService.translate('Id'), type: EType.id, show: false },
       { keyName: currentLang === 'ar' ? 'arName' : 'enName', header: this.languageService.translate('equipments.form.nameEn'), type: EType.text, showAs: ETableShow.header },
       { keyName: 'packageName', header: this.languageService.translate('equipments.form.pkg'), type: EType.text, showAs: ETableShow.content },
+      { keyName: 'price', header: this.languageService.translate('pkg.form.price'), type: EType.text, showAs: ETableShow.content },
     ];
   }
 
