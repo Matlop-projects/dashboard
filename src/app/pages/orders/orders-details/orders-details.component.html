@@ -132,12 +132,30 @@
                 <p>{{orderDetails.packageName ? orderDetails.packageName : '-'}}</p>
               </div>
             </div>
-            <div class="details">
-              <div class="title">
-                <p>{{'order.copone'|translate}}</p>
+            <div class="copone-section" *ngIf="orderDetails.copones">
+              <div class="details">
+                <div class="title">
+                  <p>{{'order.copone_name'|translate}}</p>
+                </div>
+                <div class="details-desc">
+                  <p>{{orderDetails.copones.code}}</p>
+                </div>
               </div>
-              <div class="details-desc">
-                <p>{{orderDetails.coponeName ? orderDetails.coponeName: '-'}}</p>
+              <div class="details">
+                <div class="title">
+                  <p>{{'order.copone_type'|translate}}</p>
+                </div>
+                <div class="details-desc">
+                  <p>{{orderDetails.copones.type == 1 ? 'order.percentage' : 'order.amount' | translate}}</p>
+                </div>
+              </div>
+              <div class="details">
+                <div class="title">
+                  <p>{{'order.copone_amount'|translate}}</p>
+                </div>
+                <div class="details-desc">
+                  <p>{{orderDetails.copones.amount}}</p>
+                </div>
               </div>
             </div>
             <div class="details">
@@ -193,7 +211,7 @@
                 <p>{{'order.package_price'|translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.orderTotal ? orderDetails.orderTotal: '-'}} <span>SAR</span></p>
+                <p>{{orderDetails.orderSubTotal ? orderDetails.orderSubTotal: '-'}} <span>SAR</span></p>
               </div>
             </div>
             <div class="details">
@@ -201,7 +219,9 @@
                 <p>{{'order.equipment_price' | translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{calculateTotalEquipmentPrice(orderDetails) != 0 ? calculateTotalEquipmentPrice(orderDetails): 0}} <span>SAR</span></p>
+                <p>{{calculateTotalEquipmentPrice(orderDetails) != 0 ? calculateTotalEquipmentPrice(orderDetails): 0}}
+                  <span>SAR</span>
+                </p>
               </div>
             </div>
             <div class="details">
@@ -210,15 +230,15 @@
               </div>
               <div class="details-desc total-price">
                 <p>{{orderDetails.orderAddtionalItem.length != 0 ? orderDetails.totalWithAdditional -
-                  orderDetails.orderTotal: 0}} <span>SAR</span></p>
+                  orderDetails.orderSubTotal: 0}} <span>SAR</span></p>
               </div>
             </div>
-            <div class="details" *ngIf="orderDetails.totalWithAdditional - orderDetails.orderTotal != 0">
+            <div class="details" *ngIf="orderDetails.totalWithAdditional - orderDetails.orderSubTotal != 0">
               <div class="title">
                 <p>{{'order.total_price'|translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.orderTotal ? orderDetails.totalWithAdditional: '-'}} <span>SAR</span></p>
+                <p>{{orderDetails.orderSubTotal ? orderDetails.totalWithAdditional: '-'}} <span>SAR</span></p>
               </div>
             </div>
             <div class="details">
