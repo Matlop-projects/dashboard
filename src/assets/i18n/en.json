@@ -425,7 +425,7 @@
     "SERVICE": "Service",
     "CONTRACT": "Contract",
     "PACKAGE": "Package",
-    "percentage" :"percentage",
+    "percentage" :"Percentage",
     "amount":"Amount",
     "map": "Map",
     "tool_tip": {
