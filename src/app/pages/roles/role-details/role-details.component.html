@@ -23,8 +23,13 @@
           </div>
         </div>
           <div class="roles-section mt-4">
-            <div class="title mb-3">
+            <div class="title mb-3 d-flex justify-content-between">
               <h4>{{'roles.form.assign_roles'|translate|titlecase}}</h4>
+              <div class="d-flex justify-content-start">
+               <span>{{'selectall'|translate}}</span>
+               <app-check-box [initValue]="this.selcectAllRolesValue" [isToggle]="true" [readOnly]="tyepMode()==='View'"   (toggleValue)="onToggleAll($event)"></app-check-box>
+
+              </div>
             </div>
             <div class="card-container row">
               <ng-container *ngFor="let item of rolesList; let indexDOC = index">

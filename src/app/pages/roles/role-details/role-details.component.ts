@@ -41,6 +41,7 @@ export class RoleDetailsComponent {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   rolesList:any[]=[]
+  selcectAllRolesValue=false
   selectedRoles:any=[]
   convertSelectedRoles:any=[]
   form = new FormGroup({
@@ -80,7 +81,8 @@ export class RoleDetailsComponent {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
       this.getAllControllersActions()
-
+      if (this.tyepMode() !== 'Add')
+          this.API_getItemDetails()
     });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
@@ -107,28 +109,59 @@ export class RoleDetailsComponent {
       ]
     }
   }
-  onToggle(checked:boolean,controller:any,action:any,index:number){
-    if(checked){
-           this.selectedRoles.push({
-               id:index,
-               controller:controller,
-               actions:[action]
-           })
+ onToggleAll(checked: boolean) {
+  this.selcectAllRolesValue = checked;
 
-           this.convertSelectedRoles.push({
-            id:index,
-            controller:controller,
-            actions:[{name:action,checked:true}]
-        })
+  this.rolesList.forEach((controller, index) => {
+    controller.actions.forEach((action: any) => {
+      action.checked = checked;
+    });
+  });
 
-    }else{
-      this.selectedRoles =this.selectedRoles.filter((item:any) => item.actions[0] !== action);
-      this.convertSelectedRoles =this.convertSelectedRoles.filter((item:any) => item.actions[0].name !== action);
+  const filtered = this.filterCheckedActions(this.rolesList);
+  this.convertSelectedRoles = [...filtered];
+  this.selectedRoles = [...filtered];
+}
 
+  // onToggle(checked:boolean,controller:any,action:any,index:number){
+  //   if(checked){
+  //          this.selectedRoles.push({
+  //              id:index,
+  //              controller:controller,
+  //              actions:[action]
+  //          })
+
+  //          this.convertSelectedRoles.push({
+  //           id:index,
+  //           controller:controller,
+  //           actions:[{name:action,checked:true}]
+  //       })
+
+  //   }else{
+  //     this.selectedRoles =this.selectedRoles.filter((item:any) => item.actions[0] !== action);
+  //     this.convertSelectedRoles =this.convertSelectedRoles.filter((item:any) => item.actions[0].name !== action);
+  //   }
+  // this.selcectAllRolesValue = this.isAllTogglesChecked(this.rolesList);
+
+  // }
+  onToggle(checked: boolean, controllerName: string, actionName: string, index: number) {
+  // Update the rolesList directly
+  const controller = this.rolesList.find(c => c.controller === controllerName);
+  if (controller) {
+    const action = controller.actions.find((a: any) => a.name === actionName);
+    if (action) {
+      action.checked = checked;
     }
-
-
   }
+
+  // Update selected roles arrays
+  this.convertSelectedRoles = this.filterCheckedActions(this.rolesList);
+  this.selectedRoles = this.filterCheckedActions(this.rolesList);
+
+  // Recalculate "Select All" checkbox state
+  this.selcectAllRolesValue = this.isAllTogglesChecked(this.rolesList);
+}
+
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res)
@@ -140,6 +173,8 @@ export class RoleDetailsComponent {
 
         })
         this.updateCheckedStatus(res.data.controllerInfo,this.rolesList)
+    },()=>{},()=>{
+      this.selcectAllRolesValue= this.isAllTogglesChecked(this.rolesList)
     })
   }
   updateCheckedStatus(rolesFromDetails:any[], rolesList:any[]) {
@@ -196,11 +231,17 @@ filterCheckedActions(array:any) {
             controller:role.controller
            }
         })
-        
       }
     })
   }
-
+isAllTogglesChecked(array:any): boolean {
+  for (const controller of array) {
+    for (const action of controller.actions) {
+      if (!action.checked) return false;
+    }
+  }
+  return true;
+}
   onSubmit() {
     const payload = {
       ...this.form.value,
