@@ -28,7 +28,7 @@
             </div>
             <div class="notification-content">
               <div class="notification-title">{{selectedLang=='en'?notification.titleEn:notification.titleAr }}</div>
-              <div class="notification-body">{{ notification.body }}</div>
+              <div class="notification-body">{{ selectedLang=='en'?notification.bodyEn:notification.bodyAr }}</div>
               <div class="notification-time">
                 {{ notification.creationTime | date:'medium' }}
               </div>

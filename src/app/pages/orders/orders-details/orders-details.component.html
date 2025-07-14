@@ -20,7 +20,12 @@
             <div class="main-details">
               <div class="img mt-4">
                 <img
+                 *ngIf="!this.clientDetails?.imgSrc"
                   [src]="this.clientDetails?.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png'"
+                  alt="client image">
+                  <img
+                  *ngIf="this.clientDetails?.imgSrc"
+                  [src]="this.imageUrl + this.clientDetails?.imgSrc"
                   alt="client image">
               </div>
 
@@ -146,7 +151,7 @@
                   <p>{{'order.copone_type'|translate}}</p>
                 </div>
                 <div class="details-desc">
-                  <p>{{orderDetails.copones.type == 1 ? 'order.percentage' : 'order.amount' | translate}}</p>
+                  <p>{{ (orderDetails.copones.coponeType == 1 ? 'order.percentage' : 'order.amount') | translate }}</p>
                 </div>
               </div>
               <div class="details">
@@ -195,7 +200,7 @@
                 <p>{{'order.total_tech_number'|translate}}</p>
               </div>
               <div class="details-desc">
-                <p>{{orderTechnicalAssignments.length != 0 ?orderTechnicalAssignments.length : 0}}</p>
+                <p>{{orderTechnicalAssignments ? orderTechnicalAssignments : 0}}</p>
               </div>
             </div>
             <div class="details">
@@ -229,11 +234,11 @@
                 <p>{{'order.total_additional_price' | translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.orderAddtionalItem.length != 0 ? orderDetails.totalWithAdditional -
-                  orderDetails.orderSubTotal: 0}} <span>SAR</span></p>
+                <p>{{calculateTotalAdditionalItemsPrice(orderDetails) != 0 ? calculateTotalAdditionalItemsPrice(orderDetails): 0}} <span>SAR</span></p>
               </div>
             </div>
-            <div class="details" *ngIf="orderDetails.totalWithAdditional - orderDetails.orderSubTotal != 0">
+            <div class="details" *ngIf="orderDetails.orderSubTotal -
+                  orderDetails.totalWithAdditional != 0">
               <div class="title">
                 <p>{{'order.total_price'|translate}}</p>
               </div>

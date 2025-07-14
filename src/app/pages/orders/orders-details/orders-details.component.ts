@@ -31,14 +31,13 @@ export class OrdersDetailsComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private tosater = inject(ToasterService);
-  private imageUrl = environment.baseImageUrl
+  imageUrl = environment.baseImageUrl
   translateService = inject(TranslateService)
-
 
   showConfirmMessage: boolean = false;
   clientDetails: any;
-  equipments:any;
-  baseUrl= environment.baseImageUrl;
+  equipments: any;
+  baseUrl = environment.baseImageUrl;
   bredCrumb: IBreadcrumb = {
     crumbs: [
       // { label: 'Home', routerLink: '/dashboard' },
@@ -294,7 +293,7 @@ export class OrdersDetailsComponent {
     this.ApiService.get(`Order/Get/${this.orderId}`).subscribe((res: any) => {
       if (res && res.data) {
         this.orderDetails = res.data;
-        this.orderTechnicalAssignments = res.data.orderTechnicalAssignments;
+        this.orderTechnicalAssignments = res.data.package.providerNumber;
         this.additonalItemList = res.data.orderAddtionalItem;
         this.equipments = res.data.orderEquipmentResponse;
         this.imageList = res.data.media;
@@ -552,12 +551,24 @@ export class OrdersDetailsComponent {
   calculateTotalEquipmentPrice(data: any): number {
     console.log(data);
 
-  if (!data?.orderEquipmentResponse || !Array.isArray(data.orderEquipmentResponse)) {
-    return 0;
+    if (!data?.orderEquipmentResponse || !Array.isArray(data.orderEquipmentResponse)) {
+      return 0;
+    }
+
+    return data.orderEquipmentResponse.reduce((sum: number, item: any) => {
+      return sum + (item.price || 0);
+    }, 0);
   }
 
-  return data.orderEquipmentResponse.reduce((sum: number, item: any) => {
-    return sum + (item.price || 0);
-  }, 0);
-}
+   calculateTotalAdditionalItemsPrice(data: any): number {
+    console.log(data);
+
+    if (!data?.orderAddtionalItem || !Array.isArray(data.orderAddtionalItem)) {
+      return 0;
+    }
+
+    return data.orderAddtionalItem.reduce((sum: number, item: any) => {
+      return sum + (item.additionalPrice || 0);
+    }, 0);
+  }
 }
