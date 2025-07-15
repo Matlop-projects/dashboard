@@ -23,6 +23,7 @@
     "only_char_validation": "accept only char",
     "email_validation": "accept email only ex: aaa@aaa.com",
     "mobileNumber_5_validation": "Mobile number should be 9 numbers start with 5 ",
+    "mobileNumber_05_validation": "Mobile number should be 10 numbers start with 05",
     "confirm_password_validation": "Password doesn't match",
     "min_validation": "The value must be at least 1"
   },
