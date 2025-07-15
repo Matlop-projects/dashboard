@@ -192,7 +192,7 @@ export class DashboardComponent {
           this.showExelDialog = false;
           this.downloadBase64File(
             res.data,
-            'orders.xlsx',
+            'orders.csv',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
           );
         }
