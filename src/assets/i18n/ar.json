@@ -717,6 +717,7 @@
   "visitNumber": "عدد الزيارات ",
   "nextVisit": "الزيارة التالية",
   "SAR": "ريال",
+  "hasMaxAmountFor": "كحد اقصي",
   "Status_Action": "حالة دفع الطلب",
   "WALLET_DIALOG": {
     "TITLE": "ايداع للمحفظة",

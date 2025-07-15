@@ -717,6 +717,7 @@
   "visitNumber": "Visits Number",
   "nextVisit": "Next Visit",
   "SAR": "SAR",
+  "hasMaxAmountFor": "Max Amount For",
   "Status_Action": "Status Action",
   "WALLET_DIALOG": {
     "TITLE": " Wallet Deposit",

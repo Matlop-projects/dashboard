@@ -157,9 +157,15 @@
               <div class="details">
                 <div class="title">
                   <p>{{'order.copone_amount'|translate}}</p>
+                  <p *ngIf="orderDetails.copones.coponeType == 1 && orderDetails.copones.hasMaxAmount">
+                   {{'hasMaxAmountFor'|translate}} {{orderDetails.copones.maxAmount}} {{'SAR'|translate}}
+                  </p>
                 </div>
                 <div class="details-desc">
-                  <p>{{orderDetails.copones.amount}}</p>
+                  <p>{{orderDetails.copones.amount}}
+                    <span *ngIf="orderDetails.copones.coponeType == 1">%</span>
+                     <span *ngIf="orderDetails.copones.coponeType == 2">{{'SAR'|translate}}</span>
+                  </p>
                 </div>
               </div>
             </div>
