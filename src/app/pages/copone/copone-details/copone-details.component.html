@@ -56,7 +56,7 @@
                 <div class="d-flex justify-content-start">
                   <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.status'" [control]="form.get('status')"></app-check-box>
                   <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.used_x'" [control]="form.get('usedForXTimes')"></app-check-box>
-                  <app-check-box class="m-2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.hasMaxAmount'" [control]="form.get('hasMaxAmount')"></app-check-box>
+                  <app-check-box class="m-2" *ngIf="form.get('coponeType')?.value != 2" [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'copone.form.hasMaxAmount'" [control]="form.get('hasMaxAmount')"></app-check-box>
                 </div>
               </div>
 
