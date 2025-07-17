@@ -23,6 +23,7 @@
     "only_char_validation": "يقبل الحروف فقط",
     "email_validation": "يقبل البريد الإلكتروني فقط مثل: aaa@aaa.com",
     "mobileNumber_5_validation": "رقم الجوال يجب أن يكون 9 أرقام يبدأ بـ 5",
+    "mobileNumber_05_validation": "رقم الجوال يجب أن يكون 10 أرقام يبدأ بـ 05",
     "confirm_password_validation": "كلمة المرور غير متطابقة",
     "min_validation": "يجب أن تكون القيمة على الأقل ١"
   },

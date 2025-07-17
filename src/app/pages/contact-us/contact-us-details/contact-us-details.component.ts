@@ -52,9 +52,9 @@ export class ContactUsDetailsComponent {
     mobile: new FormControl<any>('', {
       validators: [
         Validators.required,
-        Validations.mobileStartWithNumber_5_Validator(),
-        Validators.maxLength(9),
-        Validators.minLength(9),
+        Validations.mobileStartWithNumber_05_Validator(),
+        Validators.maxLength(10),
+        Validators.minLength(10),
       ]
     }),
     message: new FormControl<any>('', {

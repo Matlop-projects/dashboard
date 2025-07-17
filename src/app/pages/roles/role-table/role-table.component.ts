@@ -77,6 +77,7 @@ export class RoleTableComponent {
     this.displayTableCols(this.selectedLang)
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
+      this.API_getAll();
       this.displayTableCols(this.selectedLang)
       this.getBreadCrumb()
     })
