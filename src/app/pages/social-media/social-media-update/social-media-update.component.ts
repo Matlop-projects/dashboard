@@ -14,6 +14,7 @@ interface ISocialMedia {
   tikTokLink:string,
   faceBookLink:string,
   youTubeLink:string,
+  xLink:string,
   arBasicInstructions:string,
   enBasicInstructions:string,
   settingId:number,
@@ -32,6 +33,7 @@ export class SocialMediaUpdateComponent {
     tikTokLink:'',
     faceBookLink:'',
     youTubeLink:'',
+    xLink:'',
     arBasicInstructions:'',
     enBasicInstructions:'',
     settingId:0,
@@ -60,6 +62,11 @@ export class SocialMediaUpdateComponent {
       ],
     }),
     youTubeLink:new FormControl('',{
+      validators: [
+        Validators.required,
+      ],
+    }),
+     xLink:new FormControl('',{
       validators: [
         Validators.required,
       ],

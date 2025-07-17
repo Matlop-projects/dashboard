@@ -293,7 +293,7 @@ export class OrdersDetailsComponent {
     this.ApiService.get(`Order/Get/${this.orderId}`).subscribe((res: any) => {
       if (res && res.data) {
         this.orderDetails = res.data;
-        this.orderTechnicalAssignments = res.data.package.providerNumber;
+        this.orderTechnicalAssignments = res.data.orderTechnicalAssignments;
         this.additonalItemList = res.data.orderAddtionalItem;
         this.equipments = res.data.orderEquipmentResponse;
         this.imageList = res.data.media;

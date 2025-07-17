@@ -93,7 +93,13 @@
             <textarea pTextarea id="over_label" rows="6" style="resize: none" class="h-full w-full" [readonly]="true"
               [(ngModel)]="orderDetails.notes" [style]="{ width: '100%' }"></textarea>
           </p-floatlabel>
+        </div>
 
+        <div class="table-container mt-3" *ngIf="orderDetails.cancelReasonId" style="min-height: 200px;">
+           <div class="title-section mb-4">
+            <p>{{'order.cancel_resaon'|translate}}</p>
+          </div>
+          <p>{{selectedLang == 'ar' ? orderDetails.cancelReasonAr : orderDetails.cancelReasonEn}}</p>
         </div>
       </div>
       <div class="col-lg-8 col-md-6 col-sm-12 order-details-container">
@@ -319,7 +325,7 @@
                   assignment.technicalSpecializeNameEn }}</td>
                 <td *ngIf="checkOrderStatus != 7">
                   <div class="actions-icon">
-                    <span class="pi pi-pen-to-square" title="Edit"
+                    <span class="pi pi-pen-to-square" title="Edit"orderTechnicalAssignments
                       (click)="editProvider(assignment.technicalId , assignment.orderTechnicalAssignmentId ,assignment.technicalType)"></span>
                     <span class="pi pi-trash" title="Edit"
                       (click)="openDeleteModal('deleteProvider' , assignment)"></span>

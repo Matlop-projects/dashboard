@@ -423,6 +423,7 @@
     "equipment_price":"Equipments Price",
     "total_tech_number": "Total Tech Number",
     "SERVICE": "Service",
+    "cancel_resaon":"Cancel Reason",
     "CONTRACT": "Contract",
     "PACKAGE": "Package",
     "percentage" :"Percentage",
@@ -691,6 +692,7 @@
     "tikTok": "TikTok",
     "youTube": "YouTube",
     "whats": "whatsApp Number",
+    "X":"Twitter",
     "instr_ar": "Basic Instraction (ar)",
     "instr_en": "Basic Instraction (en)"
   },
