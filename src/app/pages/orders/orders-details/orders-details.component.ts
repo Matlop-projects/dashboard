@@ -258,6 +258,7 @@ export class OrdersDetailsComponent {
     this.getOrderTimeSchedule();
     this.getDriversList();
   }
+
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
@@ -271,6 +272,7 @@ export class OrdersDetailsComponent {
       ]
     }
   }
+
   get orderId(): number {
     const id = this.route.snapshot.params['id'];
     this.providerObject.orderId = +id;
@@ -545,6 +547,8 @@ export class OrdersDetailsComponent {
   deleteProvider() {
     this.ApiService.deleteWithoutParam('Order/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
       this.tosater.successToaster('Provider Deleted Successfully');
+      this.getOrderDetails();
+       this.deleteModal.props.visible = false;
     })
   }
 
