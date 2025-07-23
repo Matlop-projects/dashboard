@@ -146,6 +146,7 @@ export class SliderDetailsComponent {
   onStartDateChange(date:Date){
     this.minEndDate=date
   }
+
   tyepMode() {
     const url = this.router.url;
     let result = 'Add'
@@ -154,6 +155,7 @@ export class SliderDetailsComponent {
     else result = 'Add'
     return result
   }
+
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
@@ -167,6 +169,7 @@ export class SliderDetailsComponent {
       ]
     }
   }
+
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res){
@@ -192,7 +195,7 @@ export class SliderDetailsComponent {
   }
 
   navigateToPageTable() {
-    this.router.navigateByUrl(global_routeUrl)
+    this.router.navigateByUrl('/settings/slider')
   }
 
   cancel() {
@@ -201,12 +204,10 @@ export class SliderDetailsComponent {
       this.showConfirmMessage = !this.showConfirmMessage
     else
       this.navigateToPageTable()
-
   }
 
   onConfirmMessage() {
     this.navigateToPageTable()
-
   }
 
 
