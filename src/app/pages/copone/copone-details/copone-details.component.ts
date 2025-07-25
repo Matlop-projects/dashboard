@@ -34,14 +34,14 @@ const global_routeUrl = 'copone'
 })
 export class CoponeDetailsComponent {
   pageName = signal<string>(global_PageName);
-  private ApiService = inject(ApiService)
-  private router = inject(Router)
-  private route = inject(ActivatedRoute)
-  showConfirmMessage: boolean = false
-  private confirm = inject(ConfirmMsgService)
-  offerTypeList: any[] = coponeOfferTypeList
-  coponeTypeList: any[] = coponeTypeList
-  minEndDate: Date = new Date()
+  private ApiService = inject(ApiService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  showConfirmMessage: boolean = false;
+  private confirm = inject(ConfirmMsgService);
+  offerTypeList: any[] = coponeOfferTypeList;
+  coponeTypeList: any[] = coponeTypeList;
+  minEndDate: Date = new Date();
   form = new FormGroup({
     code: new FormControl('', {
       validators: [Validators.required],
@@ -130,6 +130,7 @@ ngOnInit() {
   onStartDateChange(date: Date) {
     this.minEndDate = date
   }
+
   tyepMode() {
     const url = this.router.url;
     let result = 'Add'
@@ -138,6 +139,7 @@ ngOnInit() {
     else result = 'Add'
     return result
   }
+
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
@@ -188,7 +190,6 @@ ngOnInit() {
 
   onConfirmMessage() {
     this.navigateToPageTable()
-
   }
 
 
