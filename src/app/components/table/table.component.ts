@@ -291,6 +291,13 @@ export class TableComponent implements OnInit, OnChanges {
         color: '#e94949',
         nameAr: 'ملغي',
         nameEn: 'Canceled'
+      },
+       {
+        name: this.languageService.translationService.currentLang === 'ar' ? 'لم يحضر' : 'NoAttendance',
+        id: 9,
+        color: '#c1cd19ff',
+        nameAr: 'لم يحضر',
+        nameEn: 'NoAttendance'
       }
     ];
 
