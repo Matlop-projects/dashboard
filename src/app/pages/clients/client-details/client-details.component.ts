@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -12,7 +12,6 @@ import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.in
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
-import { userType } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { CheckBoxComponent } from "../../../components/check-box/check-box.component";
@@ -48,71 +47,22 @@ export class ClientDetailsComponent {
   clientOrdersList: any[] = [];
   clientWalletBalance: any;
 
-  form = new FormGroup({
-    firstName: new FormControl('', {
-      validators: [
-        Validators.required
-      ],
-    }),
-    lastName: new FormControl('', {
-      validators: [
-        Validators.required
-      ]
-    }),
-    username: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    email: new FormControl(''),
-    mobileNumber: new FormControl('', {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
-    pinCode: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    password: new FormControl('', {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
-    confirmPassword: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    // notes: new FormControl('', {
-    //   validators: [
-    //     Validators.required,
-
-    //   ]
-    // }),
-    imgSrc: new FormControl(''),
-    gender: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    isActive: new FormControl(false, {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
-    dateOfBirth: new FormControl(null, {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
-    userId: new FormControl(this.userId | 0)
-  })
+form = new FormGroup({
+  firstName: new FormControl('', Validators.required),
+  lastName: new FormControl('', Validators.required),
+  username: new FormControl('', Validators.required),
+  email: new FormControl('',[Validators.required,Validators.email] ),
+  mobileNumber: new FormControl('', [
+    Validators.required,
+    this.saudiMobileValidator.bind(this)
+  ]),
+  pinCode: new FormControl('', Validators.required),
+  imgSrc: new FormControl(''),
+  gender: new FormControl('', Validators.required),
+  isActive: new FormControl(false, Validators.required),
+  dateOfBirth: new FormControl(null, Validators.required),
+  userId: new FormControl(this.userId || 0)
+});
 
   gender = [
     { code: 1, name: 'Male' },
@@ -191,12 +141,6 @@ export class ClientDetailsComponent {
     this.form.get('confirmPassword')?.reset()
   }
 
-  onConfirmPasswordChanged(value: string) {
-    const ctrlConfirm = this.form.controls.confirmPassword
-    ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
-    ctrlConfirm.updateValueAndValidity()
-  }
-
   getClientsDetails() {
     this.ApiService.get(`Client/GetById/${this.userId}`).subscribe((res: any) => {
       if (res && res.data) {
@@ -205,10 +149,6 @@ export class ClientDetailsComponent {
         // Convert `dateOfBirth` to a Date object if it exists
         if (clientData.dateOfBirth) {
           clientData.dateOfBirth = new Date(clientData.dateOfBirth);
-        }
-        const password = res.data?.password;
-        if (password) {
-          this.form.get('confirmPassword')?.setValue(password);
         }
         this.form.patchValue(clientData);
         this.editMode = true;
@@ -221,14 +161,8 @@ export class ClientDetailsComponent {
 
   removeValidators() {
     const ctrlform = this.form.controls
-    ctrlform.confirmPassword.removeValidators(Validators.required)
-    ctrlform.confirmPassword.updateValueAndValidity()
-    ctrlform.password.removeValidators(Validators.required)
-    ctrlform.password.updateValueAndValidity()
     ctrlform.pinCode.removeValidators(Validators.required)
     ctrlform.pinCode.updateValueAndValidity()
-    delete this.form.value.confirmPassword
-    delete this.form.value.password
     delete this.form.value.pinCode
   }
 
@@ -237,18 +171,12 @@ export class ClientDetailsComponent {
       this.addFQS(this.form.value)
     else {
       this.removeValidators()
-      delete this.form.value.confirmPassword
-      delete this.form.value.password
       delete this.form.value.pinCode
       this.editFQS(this.form.value)
     }
 
   }
 
-  // get isRequiredError(): boolean {
-  //   const control = this.form.get('imgSrc');
-  //   return control?.touched && control?.hasError('required') || false;
-  // }
 
   cancel() {
     const hasValue = this.confirm.formHasValue(this.form)
@@ -283,9 +211,9 @@ export class ClientDetailsComponent {
     })
   }
 
-  goOrder(id: any){
+  goOrder(id: any) {
     console.log(id);
-    this.router.navigate(['/order/edit' , id])
+    this.router.navigate(['/order/edit', id])
   }
 
   getClientWalletAmount() {
@@ -303,5 +231,13 @@ export class ClientDetailsComponent {
     }
   }
 
+  saudiMobileValidator(control: FormControl): ValidationErrors | null {
+  const value = control.value;
+  const saudiMobilePattern = /^05\d{8}$/;
+  if (value && !saudiMobilePattern.test(value)) {
+    return { saudiMobile: true };
+  }
+  return null;
 }
 
+}
