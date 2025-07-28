@@ -14,12 +14,19 @@
       <form [formGroup]="form" class="w-70" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'termsAndConditions.form.title_en'"
-              [control]="form.get('enName')"></app-input-text>
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+              [label]="'termsAndConditions.form.title_en'" [control]="form.get('enName')"></app-input-text>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'" [label]="'termsAndConditions.form.title_ar'"
-              [control]="form.get('arName')"></app-input-text>
+            <app-input-text [readOnly]="tyepMode()==='view'" [disabled]="tyepMode()==='view'"
+              [label]="'termsAndConditions.form.title_ar'" [control]="form.get('arName')"></app-input-text>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userType"
+              [label]="'faqs.form.userType'" [control]="form.get('userType')">
+            </app-select>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
           </div>
           <div class=" mt-2 col-lg-6 col-md-6 col-sm-12 mt-4">
             <app-editor [label]="'termsAndConditions.form.desc_en'" [control]="form.get('enDescription')"></app-editor>
@@ -31,10 +38,10 @@
             <button type="submit" class="submit-btn" [disabled]="!form.valid" *ngIf="tyepMode()!=='View'">
               <span *ngIf="tyepMode()=='Add'">{{'actions.add'|translate}}</span>
               <span *ngIf="tyepMode()=='Edit'">{{'actions.edit'|translate}}</span>
-           </button>
-           <button type="button" class="cancel-btn" (click)="cancel()">
+            </button>
+            <button type="button" class="cancel-btn" (click)="cancel()">
               {{'actions.cancel'|translate}}
-           </button>
+            </button>
           </div>
         </div>
 
@@ -44,7 +51,7 @@
 </div>
 
 <app-dialog [visible]="showConfirmMessage">
-  <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false"> {{'actions.close'|translate}}</button>
-  <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()">  {{'actions.confirm'|translate}}</button>
+  <button class="dialog-close-btn btn btn-default" (click)="showConfirmMessage = false">
+    {{'actions.close'|translate}}</button>
+  <button class="dialog-close-btn btn btn-danger" (click)="onConfirmMessage()"> {{'actions.confirm'|translate}}</button>
 </app-dialog>
-

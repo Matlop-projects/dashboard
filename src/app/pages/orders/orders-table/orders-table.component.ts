@@ -182,7 +182,7 @@ export class OrdersTableComponent {
       { keyName: 'orderId', header: this.languageService.translate('Id'), type: EType.id, show: true },
       { keyName: 'clientName', header: this.languageService.translate('order.form.client_name'), type: EType.text, show: true },
       { keyName: 'paymentWayName', header: this.languageService.translate('order.form.paymentWay'), type: EType.text, show: true },
-      { keyName: 'orderTotal', header: this.languageService.translate('order.form.totalWithAdditional'), type: EType.text, show: true },
+      { keyName: 'totalWithAdditional', header: this.languageService.translate('order.form.price'), type: EType.text, show: true },
       { keyName: 'packageName', header: this.languageService.translate('order.form.pkg'), type: EType.text, show: true },
       { keyName: 'creationTime', header: this.languageService.translate('order.form.date'), type: EType.date, show: true },
       { keyName: currentLang === 'ar' ? 'serviceNameAr' : 'serviceNameEn', header: this.languageService.translate('SERVICE_NAME'), type: EType.text, show: true },
@@ -196,7 +196,7 @@ export class OrdersTableComponent {
     this.columnsSmallTable = [
       { keyName: 'orderId', header: this.languageService.translate('Id'), type: EType.id, show: false },
       { keyName: 'clientName', header: this.languageService.translate('order.form.client_name'), type: EType.text, showAs: ETableShow.content },
-      { keyName: 'orderTotal', header: this.languageService.translate('order.form.totalWithAdditional'), type: EType.text, showAs: ETableShow.content }
+      { keyName: 'totalWithAdditional', header: this.languageService.translate('order.form.price'), type: EType.text, showAs: ETableShow.content }
     ];
   }
 

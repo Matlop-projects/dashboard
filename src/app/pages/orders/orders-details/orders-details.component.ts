@@ -10,7 +10,6 @@ import { Tooltip } from 'primeng/tooltip';
 import { IDialog } from '../../../components/modal/modal.interface';
 import { ModalComponent } from '../../../components/modal/modal.component';
 import { ToasterService } from '../../../services/toaster.service';
-import { GalleryComponent } from '../../../components/gallery/gallery.component';
 import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
 import { environment } from '../../../../environments/environment';
@@ -21,7 +20,7 @@ import { LanguageService } from '../../../services/language.service';
 @Component({
   selector: 'app-orders-details',
   standalone: true,
-  imports: [BreadcrumpComponent, TranslatePipe, GalleryComponent, TextareaModule, FloatLabel, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
+  imports: [BreadcrumpComponent, TranslatePipe, TextareaModule, FloatLabel, RouterModule, CommonModule, Select, FormsModule, Tooltip, ModalComponent],
   templateUrl: './orders-details.component.html',
   styleUrl: './orders-details.component.scss'
 })

@@ -64,17 +64,11 @@ export class TechnicalDetailsComponent {
         Validators.required,
       ]
     }),
-    email: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
-    mobileNumber: new FormControl('', {
-      validators: [
-        Validators.required,
-
-      ]
-    }),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    mobileNumber: new FormControl('', [
+      Validators.required,
+      this.saudiMobileValidator.bind(this)
+    ]),
     pinCode: new FormControl('', {
       validators: [
         Validators.required,
@@ -134,8 +128,9 @@ export class TechnicalDetailsComponent {
   ]
 
   TechnicalType = [
-    { code: 1, name: 'Technical' },
-    { code: 2, name: 'Driver' }
+    { code: 3, name: 'Technical' },
+    { code: 4, name: 'Assistant' },
+    { code: 5, name: 'Client' }
   ]
 
   technicalSpecialist: any;
@@ -350,7 +345,18 @@ export class TechnicalDetailsComponent {
     if (success) {
       setTimeout(() => {
         this.getClientWalletAmount(); // Call a function to refresh data or perform other actions
-      }, 800);    }
+      }, 800);
+    }
+  }
+
+
+  saudiMobileValidator(control: FormControl): ValidationErrors | null {
+    const value = control.value;
+    const saudiMobilePattern = /^05\d{8}$/;
+    if (value && !saudiMobilePattern.test(value)) {
+      return { saudiMobile: true };
+    }
+    return null;
   }
 
 }
