@@ -21,49 +21,49 @@ import { environment } from '../../../../environments/environment.prod';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 
 const global_PageName = 'profile.pageName';
-const global_API_deialis =  'admin/GetById';
-const global_API_update =  'admin/Update';
+const global_API_deialis = 'admin/GetById';
+const global_API_update = 'admin/Update';
 const global_routeUrl = '/profile'
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
   imports: [
-            ReactiveFormsModule,
-            TranslatePipe,
-            SelectComponent, 
-            ButtonModule, 
-            NgIf, 
-            DialogComponent, 
-            TitleCasePipe, 
-            InputTextComponent, 
-            RouterModule, 
-            BreadcrumpComponent, 
-            CheckBoxComponent,
-            EditModeImageComponent,
-            UploadFileComponent,
+    ReactiveFormsModule,
+    TranslatePipe,
+    SelectComponent,
+    ButtonModule,
+    NgIf,
+    DialogComponent,
+    TitleCasePipe,
+    InputTextComponent,
+    RouterModule,
+    BreadcrumpComponent,
+    CheckBoxComponent,
+    EditModeImageComponent,
+    UploadFileComponent,
   ],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss'
 })
 export class EditProfileComponent {
 
-pageName = signal<string>(global_PageName);
+  pageName = signal<string>(global_PageName);
 
-  userDate=JSON.parse(localStorage.getItem('userData')as any);
-  defaultImage=this.userDate.gender==1?'assets/images/arabian-man.png':'assets/images/arabian-woman.png'
-  userId=this.userDate.id
-  imgUrl:any=null
+  userDate = JSON.parse(localStorage.getItem('userData') as any);
+  defaultImage = this.userDate.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png'
+  userId = this.userDate.id
+  imgUrl: any = null
   private ApiService = inject(ApiService)
   private router = inject(Router)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
-  roleList:any[]=[]
-  genderList=gender
-  minEndDate:Date =new Date()
+  roleList: any[] = []
+  genderList = gender
+  minEndDate: Date = new Date()
   selectedLang: any;
   languageService = inject(LanguageService);
   editMode: boolean = false;
-  showUserImage:boolean=true
+  showUserImage: boolean = true
 
   form = new FormGroup({
     firstName: new FormControl('', {
@@ -71,12 +71,12 @@ pageName = signal<string>(global_PageName);
         Validators.required,
       ],
     }),
-    lastName: new FormControl <any>('', {
+    lastName: new FormControl<any>('', {
       validators: [
         Validators.required,
       ]
     }),
-    email: new FormControl <any>('', {
+    email: new FormControl<any>('', {
       validators: [
         Validators.required,
         Validations.emailValidator()
@@ -113,9 +113,9 @@ pageName = signal<string>(global_PageName);
         Validators.required,
       ]
     }),
-    imgSrc:new FormControl(''),
+    imgSrc: new FormControl(''),
     isActive: new FormControl<boolean>(true),
-    userId: new FormControl( this.userId| 0),
+    userId: new FormControl(this.userId | 0),
   })
 
   bredCrumb: IBreadcrumb = {
@@ -139,8 +139,8 @@ pageName = signal<string>(global_PageName);
       this.getAllRoles()
       this.getBreadCrumb()
     })
-      this.API_getItemDetails()
-      this.removePasswordValidation()
+    this.API_getItemDetails()
+    this.removePasswordValidation()
   }
 
   tyepMode() {
@@ -152,53 +152,46 @@ pageName = signal<string>(global_PageName);
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
   }
-  // onPasswordChanged(value:any){
-  //       this.form.get('confirmPassword')?.reset()
-  // }
-  // onConfirmPasswordChanged(value:string){
-  //       const ctrlConfirm =this.form.controls.confirmPassword
-  //       ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
-  //       ctrlConfirm.updateValueAndValidity()
-  // }
-    editImageProps: IEditImage = {
-      props: {
-        visible: true,
-        imgSrc: ''
-      },
-      onEditBtn: (e?: Event) => {
-        this.editImageProps.props.visible = false;
-        this.editMode = false;
-      }
-    };
-  getAllRoles(){
-    this.ApiService.get('role/GetAll').subscribe((res:any)=>{
-       if(res.data){
-          res.data.map((item:any) => {
-             this.roleList.push({
-              name:this.selectedLang=='ar'?item.arName :item.enName,
-              code:item.roleId
-             })
+
+  editImageProps: IEditImage = {
+    props: {
+      visible: true,
+      imgSrc: ''
+    },
+    onEditBtn: (e?: Event) => {
+      this.editImageProps.props.visible = false;
+      this.editMode = false;
+    }
+  };
+
+  getAllRoles() {
+    this.ApiService.get('role/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        res.data.map((item: any) => {
+          this.roleList.push({
+            name: this.selectedLang == 'ar' ? item.arName : item.enName,
+            code: item.roleId
           })
-       }
+        })
+      }
     })
   }
-   
-  onStartDateChange(date:Date){
-    this.minEndDate=date
+
+  onStartDateChange(date: Date) {
+    this.minEndDate = date
   }
 
- 
-  removePasswordValidation(){
-    const ctrlform =this.form.controls
+  removePasswordValidation() {
+    const ctrlform = this.form.controls
 
     ctrlform.password.removeValidators(Validators.required)
     ctrlform.confirmPassword.removeValidators(Validators.required)
@@ -209,22 +202,22 @@ pageName = signal<string>(global_PageName);
 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.userId}`).subscribe((res: any) => {
-      if (res){
+      if (res) {
         this.form.patchValue(res.data)
-        this.imgUrl=res.data.imgSrc?environment.baseImageUrl+res.data.imgSrc:this.defaultImage
+        this.imgUrl = res.data.imgSrc ? environment.baseImageUrl + res.data.imgSrc : this.defaultImage
       }
     })
   }
 
-  onSubmit() {   
-      delete this.form.value.password
-      delete this.form.value.confirmPassword
-      this.API_forEditItem(this.form.value)
-    
+  onSubmit() {
+    delete this.form.value.password
+    delete this.form.value.confirmPassword
+    this.API_forEditItem(this.form.value)
+
   }
 
   navigateToPageTable() {
-  this.router.navigateByUrl(global_routeUrl)
+    this.router.navigateByUrl(global_routeUrl)
   }
 
   cancel() {
@@ -240,19 +233,12 @@ pageName = signal<string>(global_PageName);
     this.navigateToPageTable()
 
   }
-// onEditProfile(){
-//   this.mode='Edit'
-//   this.bredCrumb
-//   console.log("ProfileComponent  onEditProfile   this.bredCrumb:",  this.bredCrumb)
-// }
 
   API_forEditItem(payload: any) {
     this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
-      if (res){
+      if (res) {
         this.navigateToPageTable()
       }
-       
-
     })
   }
 

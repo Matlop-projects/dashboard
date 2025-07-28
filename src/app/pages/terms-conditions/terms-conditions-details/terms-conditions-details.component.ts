@@ -63,7 +63,7 @@ export class TermsConditionsDetailsComponent {
       ]
     }),
     termId: new FormControl(this.getID | 0, Validators.required),
-    userType: new FormControl(1),
+    userType: new FormControl(),
   })
 
   bredCrumb: IBreadcrumb = {
@@ -71,8 +71,6 @@ export class TermsConditionsDetailsComponent {
   }
 
   userType = [
-    { code: 1, name: 'SuperAdmin' },
-    { code: 2, name: 'Admin' },
     { code: 3, name: 'Technical' },
     { code: 4, name: 'Assistant' },
     { code: 5, name: 'Client' }

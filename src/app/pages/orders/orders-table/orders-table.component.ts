@@ -107,6 +107,12 @@ export class OrdersTableComponent {
       color: '#e94949',
       nameAr: 'ملغي',
       nameEn: 'Canceled'
+    },
+    {
+       id: 9,
+      color: '#c1cd19ff',
+      nameAr: 'لم يحضر',
+      nameEn: 'NoAttendance'
     }
   ];
 

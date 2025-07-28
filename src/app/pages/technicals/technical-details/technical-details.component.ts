@@ -74,17 +74,17 @@ export class TechnicalDetailsComponent {
         Validators.required,
       ]
     }),
-    password: new FormControl('', {
-      validators: [
-        Validators.required,
+    // password: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
 
-      ]
-    }),
-    confirmPassword: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
+    //   ]
+    // }),
+    // confirmPassword: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //   ]
+    // }),
     // notes: new FormControl('', {
     //   validators: [
     //     Validators.required,
@@ -128,9 +128,9 @@ export class TechnicalDetailsComponent {
   ]
 
   TechnicalType = [
-    { code: 3, name: 'Technical' },
-    { code: 4, name: 'Assistant' },
-    { code: 5, name: 'Client' }
+    { code: 1, name: 'Technical' },
+    { code: 2, name: 'Driver' },
+    { code: 3, name: 'Cooperate' }
   ]
 
   technicalSpecialist: any;
@@ -208,11 +208,7 @@ export class TechnicalDetailsComponent {
   onPasswordChanged(value: any) {
     this.form.get('confirmPassword')?.reset()
   }
-  onConfirmPasswordChanged(value: string) {
-    const ctrlConfirm = this.form.controls.confirmPassword
-    ctrlConfirm.setValidators(Validations.confirmValue(this.form.value.password))
-    ctrlConfirm.updateValueAndValidity()
-  }
+
 
   tyepMode() {
     const url = this.router.url;
@@ -236,11 +232,6 @@ export class TechnicalDetailsComponent {
           technicalData.dateOfBirth = new Date(technicalData.dateOfBirth);
         }
 
-        const password = res.data?.password;
-        if (password) {
-          this.form.get('confirmPassword')?.setValue(password);
-        }
-
         this.form.patchValue(technicalData);
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
@@ -254,10 +245,6 @@ export class TechnicalDetailsComponent {
 
   removeValidators() {
     const ctrlform = this.form.controls
-    ctrlform.confirmPassword.removeValidators(Validators.required)
-    ctrlform.confirmPassword.updateValueAndValidity()
-    ctrlform.password.removeValidators(Validators.required)
-    ctrlform.password.updateValueAndValidity()
     ctrlform.pinCode.removeValidators(Validators.required)
     ctrlform.pinCode.updateValueAndValidity()
   }
@@ -281,8 +268,6 @@ export class TechnicalDetailsComponent {
     if (this.tyepMode() === 'Add')
       this.addFQS(this.form.value)
     else {
-      delete this.form.value.confirmPassword
-      delete this.form.value.password
       delete this.form.value.pinCode
       this.editFQS(this.form.value)
     }

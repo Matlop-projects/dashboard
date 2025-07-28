@@ -175,6 +175,13 @@ export class OrdersDetailsComponent {
         color: '#e94949',
         nameAr: 'ملغي',
         nameEn: 'Canceled'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'لم يحضر' : 'NoAttendance',
+        id: 9,
+        color: '#c1cd19ff',
+        nameAr: 'لم يحضر',
+        nameEn: 'NoAttendance'
       }
     ];
 
@@ -246,6 +253,13 @@ export class OrdersDetailsComponent {
           color: '#e94949',
           nameAr: 'ملغي',
           nameEn: 'Canceled'
+        },
+        {
+          name: this.selectedLang === 'ar' ? 'لم يحضر' : 'NoAttendance',
+          id: 9,
+          color: '#c1cd19ff',
+          nameAr: 'لم يحضر',
+          nameEn: 'NoAttendance'
         }
       ];
       if (this.orderStatusValue) {
@@ -337,7 +351,7 @@ export class OrdersDetailsComponent {
       {}
     ).subscribe(() => {
       this.getOrderDetails();
-      this.tosater.successToaster('Order Status Updated Successfully');
+      // this.tosater.successToaster('Order Status Updated Successfully');
       console.log(this.orderStatusValue);
       this.checkOrderStatus = this.orderStatusValue.id;
       console.log(this.checkOrderStatus);
@@ -351,6 +365,8 @@ export class OrdersDetailsComponent {
   }
 
   getColorById(id: number): string | null {
+    console.log(id);
+
     const status = this.statuses.find(s => s.id === id);
     return status ? status.color : null;
   }
@@ -547,7 +563,7 @@ export class OrdersDetailsComponent {
     this.ApiService.deleteWithoutParam('Order/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
       this.tosater.successToaster('Provider Deleted Successfully');
       this.getOrderDetails();
-       this.deleteModal.props.visible = false;
+      this.deleteModal.props.visible = false;
     })
   }
 
@@ -563,7 +579,7 @@ export class OrdersDetailsComponent {
     }, 0);
   }
 
-   calculateTotalAdditionalItemsPrice(data: any): number {
+  calculateTotalAdditionalItemsPrice(data: any): number {
     console.log(data);
 
     if (!data?.orderAddtionalItem || !Array.isArray(data.orderAddtionalItem)) {
