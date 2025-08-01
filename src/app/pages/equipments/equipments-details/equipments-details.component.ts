@@ -47,6 +47,7 @@ export class EquipmentsDetailsComponent {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   packageList: any[] = []
+  updateEquementPackages:any[]=[]
   editMode: boolean = false;
   visitHoursList: any = packageHourVistList
   basurl = environment.baseImageUrl
@@ -69,7 +70,8 @@ export class EquipmentsDetailsComponent {
         Validations.arabicCharsValidator()
       ]
     }),
-    equipmentId: new FormControl(this.getID | 0),
+    equipmentId: new FormControl<any>(this.getID | 0),
+    equipmentPackages:new FormControl<any>(''),
     image: new FormControl('', {
       validators: [Validators.required]
     }),
@@ -143,6 +145,49 @@ export class EquipmentsDetailsComponent {
       ]
     }
   }
+  onSelectPackage(event:any){
+    
+    if(this.tyepMode()=='Add'){
+      let arr:any =[]
+         event.map((item:any)=>{
+   arr.push( {
+          equipmentPackageId:0,
+          equipmentId:0,
+          packageId:item
+        })
+   
+   })
+    this.form.patchValue({
+      equipmentPackages:arr
+     })
+    }else{
+      this.updateEquementPackages=[]
+      const equpmentList=this.form.value.equipmentPackages
+      event.map((item:any)=>{
+this.updateEquementPackages.push( {
+          equipmentPackageId:equpmentList.filter((eq:any)=>eq.packageId==item).length>0?equpmentList.filter((eq:any)=>eq.packageId==item)[0].equipmentPackageId:0,
+          equipmentId:equpmentList.filter((eq:any)=>eq.packageId==item).length>0?equpmentList.filter((eq:any)=>eq.packageId==item)[0].equipmentId:0,
+          packageId:item
+        })
+
+   }) 
+ 
+    }
+  //  event.map((item:any)=>{
+  //  arr.push( {
+  //         equipmentPackageId:this.tyepMode()=='Add'?0:this.form.value.equipmentPackages.filter((eq:any)=>eq.packageId==item)[0].equipmentPackageId,
+  //         equipmentId:this.tyepMode()=='Add'?0:this.form.value.equipmentPackages.filter((eq:any)=>eq.packageId==item)[0].equipmentId,
+  //         packageId:item
+  //       })
+   
+  //  })
+  //  if(this.tyepMode()=='Add')
+  //    this.form.patchValue({
+  //     equipmentPackages:arr
+  //    })
+  //        console.log(this.form.value.equipmentPackages)
+
+  }
   getAllPackage() {
     this.ApiService.get('package/GetAllPackage').subscribe((res: any) => {
       if (res.data) {
@@ -161,7 +206,15 @@ export class EquipmentsDetailsComponent {
     if (this.getID) {
       this.ApiService.get(`${global_API_details}/${this.getID}`).subscribe((res: any) => {
         if (res) {
-          this.form.patchValue(res.data);
+          const arr:any[]=[]
+          res.data.equipmentPackages.map((item:any)=>{
+                arr.push(item.packageId) 
+          })
+          this.form.patchValue({
+            packageId:arr,
+            ...res.data
+          });
+          
           this.editImageProps.props.imgSrc = this.basurl + res.data.image;
           this.editMode = true;
         }
@@ -171,6 +224,10 @@ export class EquipmentsDetailsComponent {
 
 
   onSubmit() {
+    if(this.updateEquementPackages.length>0)
+    this.form.patchValue({
+      equipmentPackages:this.updateEquementPackages
+    })
     const payload = {
       ...this.form.value,
     }
@@ -202,6 +259,7 @@ export class EquipmentsDetailsComponent {
 
 
   API_forAddItem(payload: any) {
+    console.log("🚀 ~ EquipmentsDetailsComponent ~ API_forAddItem ~ payload:", payload)
     this.ApiService.post(global_API_create, payload, { showAlert: true, message: `Add ${this.pageName()} Successfuly` }).subscribe(res => {
       if (res)
         this.navigateToPageTable()

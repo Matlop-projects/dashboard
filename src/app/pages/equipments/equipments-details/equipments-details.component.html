@@ -26,8 +26,8 @@
 
 
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-            <app-select [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'equipments.form.pkg'"
-              [placeholder]="form.get('packageId')?.value" [control]="form.get('packageId')" class="w-100"
+            <app-select type="multi" [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'" [label]="'equipments.form.pkg'"
+              [placeholder]="form.get('packageId')?.value" (onSelectedValue)="onSelectPackage($event)" [control]="form.get('packageId')" class="w-100"
               [list]="packageList">
             </app-select>
           </div>
