@@ -106,11 +106,21 @@
     "contract": "CONTRACT TYPE",
     "copone": "COUPON",
     "payment": "PAYMENT WAY",
+    "withdrawals_transaction":"WITHDRAWALS TRANSACTION",
     "pkg": "PACKAGE",
     "technical_sp": "TECHNICAL SPECIALIST",
     "contact": "CONTACT US",
     "about": "ABOUT US",
     "setting": "Settings"
+  },
+  "withdrawals_transaction":{
+"pageName": "withdrawals transactionnt",
+    "pageTitle": "withdrawals transactionnt",
+    "list": "withdrawals transactionnt List",
+     "pageName_filter": "Filter withdrawals transactionnts",
+      "form": {
+        "reason":"Rejection reason"
+      }
   },
   "client": {
     "pageName": "Clients",
@@ -566,9 +576,11 @@
     "message": "Message",
     "created": "Created",
     "form": {
-      "title": "title",
+      "titleEn": "Title (En)",
+      "titleAr": "Title (Ar)",
       "userType": "User Type",
-      "note": "Note"
+      "bodeyEn": "Message (En)",
+      "bodeyAr": "Message (Ar)"
     }
   },
   "settings": {

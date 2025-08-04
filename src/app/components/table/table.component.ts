@@ -21,7 +21,9 @@ export enum EAction {
   view = "view",
   edit = "edit",
   block = "block",
-  active = "active"
+  active = "active",
+  approve="approve",
+  reject="reject"
 }
 
 export interface ITableAction {

@@ -63,6 +63,7 @@ import { AddNotificationsComponent } from './pages/add-notifications/add-notific
 import { EquipmentsTableComponent } from './pages/equipments/equipments-table/equipments-table.component';
 import { EquipmentsDetailsComponent } from './pages/equipments/equipments-details/equipments-details.component';
 import { OrderImagesComponent } from './pages/order-images/order-images.component';
+import { WithdrawalsTransactionComponent } from './pages/withdrawals-transaction/withdrawals-transaction.component';
 
 export const routes: Routes = [
   {
@@ -184,6 +185,9 @@ export const routes: Routes = [
       { path: 'paymentWay/add', component: PaymentWayDetailsComponent },
       { path: 'paymentWay/view/:id', component: PaymentWayDetailsComponent },
       { path: 'paymentWay/edit/:id', component: PaymentWayDetailsComponent },
+
+      { path: 'withdrawals-transaction', component: WithdrawalsTransactionComponent },
+
 
       { path: 'package', component: PackageTableComponent },
       { path: 'package/add', component: PackageDetailsComponent },
