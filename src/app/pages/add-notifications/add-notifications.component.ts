@@ -49,7 +49,12 @@ export class AddNotificationsComponent {
   form = new FormGroup({
     notificationId: new FormControl<any>(0),
     userId: new FormControl<any>(0),
-    title: new FormControl('', {
+     titleEn: new FormControl('', {
+      validators: [
+        Validators.required
+      ],
+    }),
+     titleAr: new FormControl('', {
       validators: [
         Validators.required
       ],
@@ -59,7 +64,13 @@ export class AddNotificationsComponent {
         Validators.required,
       ]
     }),
-    body: new FormControl<any>('', {
+ 
+     bodyEn: new FormControl<any>('', {
+      validators: [
+        Validators.required,
+      ]
+    }),
+     bodyAr: new FormControl<any>('', {
       validators: [
         Validators.required,
       ]

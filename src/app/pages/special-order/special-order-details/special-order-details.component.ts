@@ -108,10 +108,77 @@ export class SpecialOrderDetailsComponent {
   checkOrderStatus: any;
 
   ngOnInit() {
-    this.statuses = [
-      { name: this.selectedLang == 'ar' ? 'قيد الانتظار' : 'Pending', id: 1, color: '#c1cd6a', nameAr: 'قيد الانتظار', nameEn: 'Pending' },
-      { name: this.selectedLang == 'ar' ? 'مكتمل' : 'Completed', id: 2, color: '#3fac4e', nameAr: 'مكتمل', nameEn: 'Completed' },
-      { name: this.selectedLang == 'ar' ? 'ملغي' : 'Canceled', id: 3, color: '#c32722', nameAr: 'ملغي', nameEn: 'Canceled' }
+   this.statuses = [
+      {
+        name: this.selectedLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+        id: 0,
+        color: '#c1cd6a',
+        nameAr: 'قيد الانتظار',
+        nameEn: 'Pending'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مدفوع' : 'Paid',
+        id: 1,
+        color: '#c1cd6a',
+        nameAr: 'مدفوع',
+        nameEn: 'Paid'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مخصص للمزود' : 'AssignedToProvider',
+        id: 2,
+        color: '#b16acd',
+        nameAr: 'مخصص للمزود',
+        nameEn: 'AssignedToProvider'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'في الطريق' : 'InTheWay',
+        id: 3,
+        color: '#ccc053',
+        nameAr: 'في الطريق',
+        nameEn: 'InTheWay'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محاولة حل المشكلة' : 'TryingSolveProblem',
+        id: 4,
+        color: '#9b9d9c',
+        nameAr: 'محاولة حل المشكلة',
+        nameEn: 'TryingSolveProblem'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محلول' : 'Solved',
+        id: 5,
+        color: '#49e97c',
+        nameAr: 'محلول',
+        nameEn: 'Solved'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'تأكيد العميل' : 'ClientConfirmation',
+        id: 6,
+        color: '#49e97c',
+        nameAr: 'تأكيد العميل',
+        nameEn: 'ClientConfirmation'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مكتمل' : 'Completed',
+        id: 7,
+        color: '#49e97c',
+        nameAr: 'مكتمل',
+        nameEn: 'Completed'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'ملغي' : 'Canceled',
+        id: 8,
+        color: '#e94949',
+        nameAr: 'ملغي',
+        nameEn: 'Canceled'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'لم يحضر' : 'NoAttendance',
+        id: 9,
+        color: '#c1cd19ff',
+        nameAr: 'لم يحضر',
+        nameEn: 'NoAttendance'
+      }
     ];
     this.pageName.set(global_PageName)
     this.getBreadCrumb()
@@ -121,11 +188,78 @@ export class SpecialOrderDetailsComponent {
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
-      this.statuses = [
-        { name: this.selectedLang == 'ar' ? 'قيد الانتظار' : 'Pending', id: 1, color: '#c1cd6a', nameAr: 'قيد الانتظار', nameEn: 'Pending' },
-        { name: this.selectedLang == 'ar' ? 'مكتمل' : 'Completed', id: 2, color: '#3fac4e', nameAr: 'مكتمل', nameEn: 'Completed' },
-        { name: this.selectedLang == 'ar' ? 'ملغي' : 'Canceled', id: 3, color: '#c32722', nameAr: 'ملغي', nameEn: 'Canceled' }
-      ];
+       this.statuses = [
+      {
+        name: this.selectedLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+        id: 0,
+        color: '#c1cd6a',
+        nameAr: 'قيد الانتظار',
+        nameEn: 'Pending'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مدفوع' : 'Paid',
+        id: 1,
+        color: '#c1cd6a',
+        nameAr: 'مدفوع',
+        nameEn: 'Paid'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مخصص للمزود' : 'AssignedToProvider',
+        id: 2,
+        color: '#b16acd',
+        nameAr: 'مخصص للمزود',
+        nameEn: 'AssignedToProvider'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'في الطريق' : 'InTheWay',
+        id: 3,
+        color: '#ccc053',
+        nameAr: 'في الطريق',
+        nameEn: 'InTheWay'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محاولة حل المشكلة' : 'TryingSolveProblem',
+        id: 4,
+        color: '#9b9d9c',
+        nameAr: 'محاولة حل المشكلة',
+        nameEn: 'TryingSolveProblem'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محلول' : 'Solved',
+        id: 5,
+        color: '#49e97c',
+        nameAr: 'محلول',
+        nameEn: 'Solved'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'تأكيد العميل' : 'ClientConfirmation',
+        id: 6,
+        color: '#49e97c',
+        nameAr: 'تأكيد العميل',
+        nameEn: 'ClientConfirmation'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مكتمل' : 'Completed',
+        id: 7,
+        color: '#49e97c',
+        nameAr: 'مكتمل',
+        nameEn: 'Completed'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'ملغي' : 'Canceled',
+        id: 8,
+        color: '#e94949',
+        nameAr: 'ملغي',
+        nameEn: 'Canceled'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'لم يحضر' : 'NoAttendance',
+        id: 9,
+        color: '#c1cd19ff',
+        nameAr: 'لم يحضر',
+        nameEn: 'NoAttendance'
+      }
+    ];
 
       if (this.orderStatusValue) {
         this.orderStatusValue = this.statuses.find(status => status.id === this.orderStatusValue.id);
