@@ -1,6 +1,6 @@
 <ng-container>
   <div class="count-noti">
-    <div class="count-number" (click)="op.toggle($event)">{{totalUnSeen}}</div>
+    <div class="count-number" (click)="op.toggle($event)">{{totalUnSeen>99?99:totalUnSeen}}</div>
     <span class="pi pi-bell" (click)="op.toggle($event)"></span>
   </div>
   <p-popover #op>

@@ -334,8 +334,11 @@ export class WithdrawalsTransactionComponent {
        }
     ).subscribe((res) => {
       console.log("🚀 ~ WithdrawalsTransactionComponent ~ onRejectAPI ~ res:", res)
-      if(res)
-            this.showRejectDialog=false
+      if(res){
+this.showRejectDialog=false;
+this.API_getAll()
+      }
+            
 
     });
   }
