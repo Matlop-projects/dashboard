@@ -119,7 +119,11 @@
     "list": "withdrawals transactionnt List",
      "pageName_filter": "Filter withdrawals transactionnts",
       "form": {
-        "reason":"Rejection reason"
+        "reason":"Rejection reason",
+        "userId":"User Id",
+        "userName":"User Name",
+        "amount":"Amount",
+        "status":"Status"
       }
   },
   "client": {
@@ -580,7 +584,8 @@
       "titleAr": "Title (Ar)",
       "userType": "User Type",
       "bodeyEn": "Message (En)",
-      "bodeyAr": "Message (Ar)"
+      "bodeyAr": "Message (Ar)",
+      "clients":"Clients"
     }
   },
   "settings": {

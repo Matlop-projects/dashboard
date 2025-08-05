@@ -53,6 +53,9 @@
               <span *ngIf="action.name==='view'" class="pi pi-eye "></span>
               <span *ngIf="action.name==='edit'" class="pi pi-pen-to-square"></span>
               <span *ngIf="action.name==='delete'" class="pi pi-trash"></span>
+              <span *ngIf="action.name==='approve'" class="pi pi-check approve" pTooltip="approve" tooltipPosition="top"></span>
+              <span *ngIf="action.name==='reject'" class="pi pi-times reject" pTooltip="reject" tooltipPosition="top"></span>
+                
             </div>
           </div>
         </div>

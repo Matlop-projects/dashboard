@@ -23,12 +23,15 @@
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
                       <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userTypeList"
-                          [label]="'notifications.form.userType'" [control]="form.get('userType')">
+                          [label]="'notifications.form.userType'" (onSelectedValue)="onUserTypeChange($event)" [control]="form.get('userType')">
                       </app-select>
                   </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
-                      <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userTypeList"
-                          [label]="'notifications.form.userType'" [control]="form.get('userType')">
+                      <app-select 
+                      [class.disabled-view]="form.get('userType')?.value==''"
+                      [readOnly]="form.get('userType')?.value==''" type="multi" 
+                      class="w-100" [list]="ClientsList"
+                          [label]="'notifications.form.clients'" [control]="form.get('userId')">
                       </app-select>
                   </div>
 
@@ -47,7 +50,7 @@
                           formControlName='bodyAr' [style]="{ width: '100%' }"></textarea>
                         </div>
                   <div class="actions mt-5 text-center">
-                      <button type="submit" class="submit-btn" [disabled]="!form.valid">
+                      <button type="submit" class="submit-btn" [disabled]="!form.valid||this.form.value.userId.length==0">
                           <span>{{'actions.add'|translate}}</span>
                       </button>
                   </div>

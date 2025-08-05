@@ -113,6 +113,20 @@
     "about": "من نحن",
     "setting": "الإعدادات"
   },
+  "withdrawals_transaction": {
+  "pageName": "معاملة السحب",
+  "pageTitle": "معاملة السحب",
+  "list": "قائمة معاملات السحب",
+  "pageName_filter": "تصفية معاملات السحب",
+  "form": {
+    "reason": "سبب الرفض",
+    "userId": "معرّف المستخدم",
+    "userName": "اسم المستخدم",
+    "amount": "المبلغ",
+    "status":"الحالة"
+  }
+}
+,
   "client": {
     "pageName": "العملاء",
     "pageTitle": "العميل",
@@ -571,7 +585,8 @@
       "titleAr": "العنوان ( بالعربية)",
       "userType": "نوع المستخدم",
       "bodeyEn": "الرسالة ( بالانجليزية)",
-      "bodeyAr": "الرسالة ( بالعربية)"
+      "bodeyAr": "الرسالة ( بالعربية)",
+      "clients":"العملاء"
     }
   },
   "settings": {
