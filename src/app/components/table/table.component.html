@@ -65,11 +65,10 @@
                      <span
               *ngIf="col.type == 'specialOrderStatus'"
               
-              [style.backgroundColor]="
-                getSpecialOrderStatusColorById(rowData?.specialOrderStatus)
-              "
+             
             >
-              {{ rowData[col.keyName] ? selectedLang=='en'?EN_Status[rowData?.specialOrderStatus].nameEn:EN_Status[rowData?.specialOrderStatus].nameAr : "-" }}</span
+              {{ rowData[col.keyName] ? selectedLang=='en'?EN_Status[rowData?.specialOrderStatus]?.nameEn:EN_Status[rowData?.specialOrderStatus]?.nameAr : "-" }}
+              </span
             >
 
             <span

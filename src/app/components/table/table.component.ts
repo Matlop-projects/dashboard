@@ -104,6 +104,8 @@ export class TableComponent implements OnInit, OnChanges {
   imageBaseUrl = environment.baseImageUrl;
    EN_Status:any[] =[];
   ngOnInit() {
+         this.getSTAtus()
+
     this.filterdRecords = this.records;
     this.selectedLang = this.languageService.translationService.currentLang;
  this.languageService.translationService.onLangChange.subscribe(() => {
