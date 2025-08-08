@@ -1,4 +1,4 @@
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Accordion, AccordionContent, AccordionHeader, AccordionPanel } from 'primeng/accordion';
 import { Card } from 'primeng/card';
@@ -17,7 +17,7 @@ export interface IcolHeaderSmallTable extends IcolHeader {
 @Component({
   selector: 'app-table-small-screen',
   standalone: true,
-  imports: [Card, Accordion, TranslatePipe,AccordionHeader,DialogComponent, AccordionPanel, AccordionContent, NgIf, NgFor, JsonPipe],
+  imports: [Card, Accordion,SlicePipe, TranslatePipe,AccordionHeader,DialogComponent, AccordionPanel, AccordionContent, NgIf, NgFor, JsonPipe],
   templateUrl: './table-small-screen.component.html',
   styleUrl: './table-small-screen.component.scss'
 })
@@ -28,6 +28,7 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
   @Input({ required: true }) records: any = []
   @Input() actions: ITableAction[] = []
   @Output() onActionCliked = new EventEmitter()
+  @Output() commentValue=new EventEmitter()
   showConfirmMessage:boolean=false
   ApiService = inject(ApiService)
   router = inject(Router)
@@ -58,7 +59,9 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
     return idName[0].keyName
   }
 
-
+onclickComment(comment:string){
+  this.commentValue.emit(comment)
+}
   autoCallActions(action: ITableAction, record: any) {
     let recordId = record[this.getNameOfIDHeader()]
     if (action.name == EAction.delete && action.autoCall) {
@@ -80,7 +83,14 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
         this.filterdRecords = this.records.filter((item: any) => item[this.getNameOfIDHeader()] != id)
     })
   }
-
+ convertDate(originalDate: string) {
+    const date = new Date(originalDate);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const formattedDate = `${day}-${month}-${year}`;
+    return formattedDate;
+  }
    sortedItems() {
      this.sortedItemsIncolsHeaderSmallTable = this.colsHeaderSmallTable.sort((firstRecord, secondRecord) => (firstRecord.type === EType.editor ? 1 : secondRecord.type === EType.editor ? -1 : 0));
   }

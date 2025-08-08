@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ApiService } from '../../services/api.service';
@@ -48,7 +48,9 @@ export enum EType {
   orderStatus = 'orderStatus',
   specialOrderStatus = 'specialOrderStatus',
   changeOrderStatus = 'changeOrderStatus',
-  customeDate = 'customeDate'
+  customeDate = 'customeDate',
+  review='review',
+  comment='comment'
 }
 
 interface INested {
@@ -69,7 +71,7 @@ export interface IcolHeader {
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [TableModule, NgClass, NgFor, NgIf, TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
+  imports: [TableModule, NgClass, NgFor, SlicePipe, NgIf, TranslatePipe, TooltipModule, DialogComponent, CheckBoxComponent],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss'
 })
@@ -84,7 +86,7 @@ export class TableComponent implements OnInit, OnChanges {
   @Output() onActionCliked = new EventEmitter();
   @Output() onstatusChanged = new EventEmitter();
   @Output() reloadGetAllApi = new EventEmitter();
-
+  @Output()commentValue=new EventEmitter();
   showConfirmMessage: boolean = false;
   showBlockConfirmationMessage: boolean = false;
   showActiveConfirmationMessage: boolean = false;
@@ -100,13 +102,91 @@ export class TableComponent implements OnInit, OnChanges {
 
   eventEmitValue: any = { action: {}, record: {} }
   imageBaseUrl = environment.baseImageUrl;
-
+   EN_Status:any[] =[];
   ngOnInit() {
     this.filterdRecords = this.records;
     this.selectedLang = this.languageService.translationService.currentLang;
+ this.languageService.translationService.onLangChange.subscribe(() => {
+      this.selectedLang = this.languageService.translationService.currentLang;
+     this.getSTAtus()
 
+    })
   }
 
+  getSTAtus(){
+    this.EN_Status.push(
+      {
+        name: this.selectedLang === 'ar' ? 'قيد الانتظار' : 'Pending',
+        id: 0,
+        color: '#c1cd6a',
+        nameAr: 'قيد الانتظار',
+        nameEn: 'Pending'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مدفوع' : 'Paid',
+        id: 1,
+        color: '#c1cd6a',
+        nameAr: 'مدفوع',
+        nameEn: 'Paid'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مخصص للمزود' : 'AssignedToProvider',
+        id: 2,
+        color: '#b16acd',
+        nameAr: 'مخصص للمزود',
+        nameEn: 'AssignedToProvider'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'في الطريق' : 'InTheWay',
+        id: 3,
+        color: '#ccc053',
+        nameAr: 'في الطريق',
+        nameEn: 'InTheWay'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محاولة حل المشكلة' : 'TryingSolveProblem',
+        id: 4,
+        color: '#9b9d9c',
+        nameAr: 'محاولة حل المشكلة',
+        nameEn: 'TryingSolveProblem'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'محلول' : 'Solved',
+        id: 5,
+        color: '#49e97c',
+        nameAr: 'محلول',
+        nameEn: 'Solved'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'تأكيد العميل' : 'ClientConfirmation',
+        id: 6,
+        color: '#49e97c',
+        nameAr: 'تأكيد العميل',
+        nameEn: 'ClientConfirmation'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'مكتمل' : 'Completed',
+        id: 7,
+        color: '#49e97c',
+        nameAr: 'مكتمل',
+        nameEn: 'Completed'
+      },
+      {
+        name: this.selectedLang === 'ar' ? 'ملغي' : 'Canceled',
+        id: 8,
+        color: '#e94949',
+        nameAr: 'ملغي',
+        nameEn: 'Canceled'
+      },
+       {
+        name: this.selectedLang === 'ar' ? 'لم يحضر' : 'NoAttendance',
+        id: 9,
+        color: '#c1cd19ff',
+        nameAr: 'لم يحضر',
+        nameEn: 'NoAttendance'
+      }
+    )
+  }
   ngOnChanges() {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.filterdRecords = this.records;
@@ -309,6 +389,7 @@ export class TableComponent implements OnInit, OnChanges {
 
   // Updated: Special Order Status array with dynamic language fields.
   getSpecialOrderStatusColorById(id: number): string | null {
+    console.log("🚀 ~ TableComponent ~ getSpecialOrderStatusColorById ~ id:", id)
     const statuses = [
       {
         name: this.languageService.translationService.currentLang === 'ar' ? 'قيد الانتظار' : 'Pending',
@@ -336,7 +417,9 @@ export class TableComponent implements OnInit, OnChanges {
     const status = statuses.find(status => status.id === id);
     return status ? status.color : null;
   }
-
+onclickComment(comment:string){
+  this.commentValue.emit(comment)
+}
   checkDate(date: Date): boolean {
     const givenDate = new Date(date);
     const today = new Date();

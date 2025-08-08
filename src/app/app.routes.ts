@@ -64,6 +64,10 @@ import { EquipmentsTableComponent } from './pages/equipments/equipments-table/eq
 import { EquipmentsDetailsComponent } from './pages/equipments/equipments-details/equipments-details.component';
 import { OrderImagesComponent } from './pages/order-images/order-images.component';
 import { WithdrawalsTransactionComponent } from './pages/withdrawals-transaction/withdrawals-transaction.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { ReviewDetailsComponent } from './pages/reviews/review-details/review-details.component';
+import { ReviewtechnicalTableComponent } from './pages/reviewtechnical-table/reviewtechnical-table.component';
+import { ReviewtechnicalDetailsComponent } from './pages/reviewtechnical-details/reviewtechnical-details.component';
 
 export const routes: Routes = [
   {
@@ -187,6 +191,13 @@ export const routes: Routes = [
       { path: 'paymentWay/edit/:id', component: PaymentWayDetailsComponent },
 
       { path: 'withdrawals-transaction', component: WithdrawalsTransactionComponent },
+
+      { path: 'reviews', component: ReviewsComponent },
+      { path: 'reviewDetails', component: ReviewDetailsComponent },
+
+      { path: 'tech-reviews', component: ReviewtechnicalTableComponent },
+      // { path: 'tech-reviewDetails/:id', component: ReviewtechnicalDetailsComponent },
+
 
 
       { path: 'package', component: PackageTableComponent },

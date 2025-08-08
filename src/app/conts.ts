@@ -17,6 +17,8 @@ export const menuItems =
     { icon: 'pi pi-qrcode', label: 'side_bar.copone', route: '/copone' },
     { icon: 'pi pi-credit-card', label: 'side_bar.payment', route: '/paymentWay' },
     { icon: 'pi pi-paypal', label: 'side_bar.withdrawals_transaction', route: '/withdrawals-transaction' },
+    { icon: 'pi pi-star-fill', label: 'side_bar.reviews', route: '/reviews' },
+    { icon: 'pi pi-star-fill', label: 'side_bar.tech_reviews', route: '/tech-reviews' },
     { icon: 'pi pi-trophy', label: 'side_bar.technical_sp', route: '/technical-specialist' },
     { icon: 'pi pi-phone', label: 'side_bar.contact', route: '/contact-us' },
     { icon: 'pi pi-database', label: 'side_bar.about', route: '/about-us' }

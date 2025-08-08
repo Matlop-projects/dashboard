@@ -67,7 +67,24 @@
            <ng-container *ngIf="item.type!==EType.editor;else isEditor">
             <div class="info d-flex justify-content-between">
               <span class="black bold">{{item.header}}</span>
-              <span *ngIf="item.type !==EType.status">{{ record[item.keyName]}}</span>
+              <span *ngIf="item.type == EType.id || item.type == EType.text">{{ record[item.keyName]}}</span>
+              <span *ngIf="item.type == EType.review">
+              <ng-container
+                *ngIf="record[item.keyName]as starsCount; else noStars"
+              >
+                <ng-container *ngFor="let star of [].constructor(starsCount)">
+                  <i class="pi pi-star-fill padding-1" style="color: gold"></i>
+                </ng-container>
+              </ng-container>
+              <ng-template #noStars>-</ng-template>
+            </span>
+                 <span class="pointer" *ngIf="item.type == 'comment'"(click)="onclickComment(record[item.keyName])">
+              {{ record[item.keyName] ? record[item.keyName].length > 15 ? (record[item.keyName] | slice:0:15) + '...' : record[item.keyName]  : "-" }}
+
+                 </span>
+            <span *ngIf="item.type == EType.date">{{
+              convertDate(record[item.keyName]? record[item.keyName]: "-")
+            }}</span>
               <span *ngIf="item.type ==EType.status">
                 <span class="active" *ngIf="record[item.keyName]==true">
                   <span class="pi pi-circle-on" style="color:green;font-size: .5rem"></span>

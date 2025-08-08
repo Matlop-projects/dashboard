@@ -1,6 +1,6 @@
 {
   "GENERAL": "General",
-  "selectall":"Select All",
+  "selectall": "Select All",
   "Success": "Success",
   "Error": "Error",
   "Add": "Add",
@@ -8,6 +8,9 @@
   "View": "View",
   "Home": "Home",
   "Id": "Id",
+  "comment_details":"Comment details",
+  "comment":"comment",
+  "confirmation_delete":"Are you sure to delete this item ?",
   "Action": "Action",
   "Actions": "Actions",
   "validation_message": {
@@ -38,7 +41,8 @@
     "close": "Close",
     "choose_image": "Choose",
     "update": "Update",
-    "download": "Download"
+    "download": "Download",
+    "delete":"Delete"
   },
   "shared": {
     "submit": "Submit",
@@ -89,6 +93,8 @@
     "search": "Search Pages"
   },
   "side_bar": {
+    "reviews": "Reviews",
+    "tech_reviews": "Technical Reviews",
     "dashboard": "DASHBOARD",
     "clients": "CLIENTS",
     "orders": "ORDERS",
@@ -106,25 +112,51 @@
     "contract": "CONTRACT TYPE",
     "copone": "COUPON",
     "payment": "PAYMENT WAY",
-    "withdrawals_transaction":"WITHDRAWALS TRANSACTION",
+    "withdrawals_transaction": "WITHDRAWALS TRANSACTION",
     "pkg": "PACKAGE",
     "technical_sp": "TECHNICAL SPECIALIST",
     "contact": "CONTACT US",
     "about": "ABOUT US",
     "setting": "Settings"
   },
-  "withdrawals_transaction":{
-"pageName": "withdrawals transactionnt",
+  "withdrawals_transaction": {
+    "pageName": "withdrawals transactionnt",
     "pageTitle": "withdrawals transactionnt",
     "list": "withdrawals transactionnt List",
-     "pageName_filter": "Filter withdrawals transactionnts",
-      "form": {
-        "reason":"Rejection reason",
-        "userId":"User Id",
-        "userName":"User Name",
-        "amount":"Amount",
-        "status":"Status"
-      }
+    "pageName_filter": "Filter withdrawals transactionnts",
+    "form": {
+      "reason": "Rejection reason",
+      "userId": "User Id",
+      "userName": "User Name",
+      "amount": "Amount",
+      "status": "Status"
+    }
+  },
+  "reviews": {
+    "pageName": "reviews",
+    "pageTitle": "reviews",
+    "list": "reviews List",
+    "pageName_filter": "Filter reviews",
+    "form": {
+      "userName": "User Name",
+      "orderId": "Order Id",
+      "creationTime": "Creation Time",
+      "review": "Review"
+    }
+  },
+  "tech_reviews": {
+    "pageName": "technical reviews",
+    "pageTitle": "technical reviews",
+    "list": "technical reviews List",
+    "pageName_filter": "Filter technical reviews",
+    "form": {
+      "clientName": "client Name",
+      "technicalName": "technical Name",
+      "orderId": "Order Id",
+      "creationTime": "Creation Time",
+      "comment": "comment",
+      "review": "Review"
+    }
   },
   "client": {
     "pageName": "Clients",
@@ -436,14 +468,14 @@
     "no_image": "No Image Available",
     "item_schedule": "Order Time Schedule",
     "total_additional_price": "Additinal Item Price",
-    "equipment_price":"Equipments Price",
+    "equipment_price": "Equipments Price",
     "total_tech_number": "Total Tech Number",
     "SERVICE": "Service",
-    "cancel_resaon":"Cancel Reason",
+    "cancel_resaon": "Cancel Reason",
     "CONTRACT": "Contract",
     "PACKAGE": "Package",
-    "percentage" :"Percentage",
-    "amount":"Amount",
+    "percentage": "Percentage",
+    "amount": "Amount",
     "map": "Map",
     "tool_tip": {
       "add_tech": "Add New Technical",
@@ -585,7 +617,7 @@
       "userType": "User Type",
       "bodeyEn": "Message (En)",
       "bodeyAr": "Message (Ar)",
-      "clients":"Clients"
+      "clients": "Clients"
     }
   },
   "settings": {
@@ -711,7 +743,7 @@
     "tikTok": "TikTok",
     "youTube": "YouTube",
     "whats": "whatsApp Number",
-    "X":"Twitter",
+    "X": "Twitter",
     "instr_ar": "Basic Instraction (ar)",
     "instr_en": "Basic Instraction (en)"
   },

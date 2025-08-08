@@ -1,5 +1,5 @@
 {
-  "selectall":"اختر الكل",
+  "selectall": "اختر الكل",
   "GENERAL": "عام",
   "Success": "نجاح",
   "Error": "خطأ",
@@ -8,6 +8,9 @@
   "View": "عرض",
   "Home": "الرئيسية",
   "Id": "الرقم",
+   "comment_details":"تفاصيل التعليق",
+  "comment":"التعليق",
+  "confirmation_delete":"هل انت متأكد بمسح هذا العنصر ؟",
   "Action": "خيارات",
   "Actions": "خيارات",
   "validation_message": {
@@ -38,7 +41,8 @@
     "close": "إغلاق",
     "choose_image": "اختيار",
     "update": "تحديث",
-    "download": "تحميل"
+    "download": "تحميل",
+    "delete":"مسح"
   },
   "shared": {
     "submit": "إرسال",
@@ -89,6 +93,8 @@
     "search": "البحث في الصفحات"
   },
   "side_bar": {
+    "reviews": "التقيمات",
+    "tech_reviews": "تقيمات الفنيين",
     "dashboard": "لوحة التحكم",
     "clients": "العملاء",
     "orders": "الطلبات",
@@ -106,7 +112,7 @@
     "contract": "نوع العقد",
     "copone": "الكوبونات",
     "payment": "طرق الدفع",
-    "withdrawals_transaction":"عمليات السحب",
+    "withdrawals_transaction": "عمليات السحب",
     "pkg": "الباقات",
     "technical_sp": "تخصص الفني",
     "contact": "اتصل بنا",
@@ -114,19 +120,44 @@
     "setting": "الإعدادات"
   },
   "withdrawals_transaction": {
-  "pageName": "معاملة السحب",
-  "pageTitle": "معاملة السحب",
-  "list": "قائمة معاملات السحب",
-  "pageName_filter": "تصفية معاملات السحب",
-  "form": {
-    "reason": "سبب الرفض",
-    "userId": "معرّف المستخدم",
-    "userName": "اسم المستخدم",
-    "amount": "المبلغ",
-    "status":"الحالة"
-  }
-}
-,
+    "pageName": "معاملة السحب",
+    "pageTitle": "معاملة السحب",
+    "list": "قائمة معاملات السحب",
+    "pageName_filter": "تصفية معاملات السحب",
+    "form": {
+      "reason": "سبب الرفض",
+      "userId": "معرّف المستخدم",
+      "userName": "اسم المستخدم",
+      "amount": "المبلغ",
+      "status": "الحالة"
+    }
+  },
+  "reviews": {
+    "pageName": "التقييمات",
+    "pageTitle": "التقييمات",
+    "list": "قائمة التقييمات",
+    "pageName_filter": "تصفية التقييمات",
+    "form": {
+      "userName": "اسم المستخدم",
+      "orderId": "رقم الطلب",
+      "creationTime": "وقت الإنشاء",
+      "review": "التقييم"
+    }
+  },
+  "tech_reviews": {
+    "pageName": "التقييمات الفنية",
+    "pageTitle": "التقييمات الفنية",
+    "list": "قائمة التقييمات الفنية",
+    "pageName_filter": "تصفية التقييمات الفنية",
+    "form": {
+      "clientName": "اسم العميل",
+      "technicalName": "اسم الفني",
+      "orderId": "رقم الطلب",
+      "creationTime": "وقت الإنشاء",
+      "comment": "التعليق",
+      "review": "التقييم"
+    }
+  },
   "client": {
     "pageName": "العملاء",
     "pageTitle": "العميل",
@@ -444,7 +475,7 @@
     "PACKAGE": "الباقة",
     "percentage": "نسبة",
     "amount": "قيمة",
-    "cancel_resaon":"سبب الغاء الطلب",
+    "cancel_resaon": "سبب الغاء الطلب",
     "map": "الخريطة",
     "tool_tip": {
       "add_tech": "إضافة فني جديد",
@@ -581,12 +612,12 @@
     "message": "الرسالة",
     "created": "تاريخ الإنشاء",
     "form": {
-       "titleEn": "العنوان ( بالانجليزية)",
+      "titleEn": "العنوان ( بالانجليزية)",
       "titleAr": "العنوان ( بالعربية)",
       "userType": "نوع المستخدم",
       "bodeyEn": "الرسالة ( بالانجليزية)",
       "bodeyAr": "الرسالة ( بالعربية)",
-      "clients":"العملاء"
+      "clients": "العملاء"
     }
   },
   "settings": {
@@ -712,7 +743,7 @@
     "tikTok": "تيك توك",
     "youTube": "يوتيوب",
     "whats": "رقم واتساب",
-     "X":"تويتر",
+    "X": "تويتر",
     "instr_ar": "التعليمات الأساسية (عربي)",
     "instr_en": "التعليمات الأساسية (إنجليزي)"
   },

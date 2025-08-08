@@ -134,7 +134,7 @@ export class SpecialOrderTableComponent {
       // { keyName: 'nextVistDate', header: this.languageService.translate('nextVisit'), type: EType.date, show: true },
       // { keyName: 'visitNumber', header: this.languageService.translate('visitNumber'), type: EType.text, show: true },
       { keyName: 'specialOrderName', header: this.languageService.translate('special_order.form.specialOrderEnum'), type: EType.text, show: true },
-      { keyName: currentLang === 'ar' ? 'orderStatusAr' : 'orderStatusEn', header: this.languageService.translate('order.form.order_status'), type: EType.specialOrderStatus, show: true },
+      { keyName: 'specialOrderStatus', header: this.languageService.translate('order.form.order_status'), type: EType.specialOrderStatus, show: true },
       { keyName: '', header: this.languageService.translate('Action'), type: EType.actions, actions: this.tableActions, show: true },
     ];
 
@@ -142,7 +142,7 @@ export class SpecialOrderTableComponent {
       { keyName: 'specialOrderId', header: this.languageService.translate('Id'), type: EType.id, show: false },
       { keyName: 'amount', header: this.languageService.translate('special_order.form.amount'), type: EType.text, showAs: ETableShow.content },
       { keyName: 'clientId', header: this.languageService.translate('special_order.form.clientId'), type: EType.text, showAs: ETableShow.content },
-      { keyName: 'specialOrderStatusName', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, showAs: ETableShow.content },
+      { keyName: 'specialOrderStatus', header: this.languageService.translate('special_order.form.specialOrderStatusEnum'), type: EType.specialOrderStatus, showAs: ETableShow.content },
     ];
   }
 
