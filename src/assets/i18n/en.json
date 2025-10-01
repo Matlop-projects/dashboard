@@ -627,6 +627,7 @@
     "privacyPolicy": "Privacy Policy",
     "socialMedia": "Social Media",
     "slider": "Slider",
+    "ourclients": "Our Clients",
     "roles": "Roles",
     "district": "District",
     "admin": "Admin",
@@ -736,12 +737,29 @@
       "view_type": "View Type"
     }
   },
+  "ourclients": {
+    "pageName": "Our Clients",
+    "list": "Our Clients List",
+    "pageName_filter": "Filter Our Clients",
+    "pageName_Add_crumb": "Add Our Client",
+    "pageName_Edit_crumb": "Edit Our Client",
+    "pageName_View_crumb": "View Our Client",
+    "form": {
+      "img_ar": "Image (Arabic)",
+      "img_en": "Image (English)",
+      "upload_img_en": "Upload Image (English)",
+      "upload_img_ar": "Upload Image (Arabic)",
+      "ar_name": "Name (Arabic)",
+      "en_name": "Name (English)"
+    }
+  },
   "social_media": {
     "title": "Social Media List",
     "facebook": "Facebook",
     "instgram": "Instgram",
     "tikTok": "TikTok",
     "youTube": "YouTube",
+    "snapChat": "SnapChat",
     "whats": "whatsApp Number",
     "X": "Twitter",
     "instr_ar": "Basic Instraction (ar)",

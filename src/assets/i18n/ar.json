@@ -627,6 +627,7 @@
     "privacyPolicy": "سياسة الخصوصية",
     "socialMedia": "وسائل التواصل الاجتماعي",
     "slider": "المنزلق",
+    "ourclients": "عملاؤنا",
     "roles": "الأدوار",
     "district": "المنطقة",
     "admin": "الإدارة",
@@ -736,12 +737,29 @@
       "view_type": "نوع العرض"
     }
   },
+  "ourclients": {
+    "pageName": "عملاؤنا",
+    "list": "قائمة عملاؤنا",
+    "pageName_filter": "تصفية عملاؤنا",
+    "pageName_Add_crumb": "إضافة عميل",
+    "pageName_Edit_crumb": "تعديل عميل",
+    "pageName_View_crumb": "عرض عميل",
+    "form": {
+      "img_ar": "الصورة (عربي)",
+      "img_en": "الصورة (إنجليزي)",
+      "upload_img_en": "تحميل الصورة (إنجليزي)",
+      "upload_img_ar": "تحميل الصورة (عربي)",
+      "ar_name": "الاسم (عربي)",
+      "en_name": "الاسم (إنجليزي)"
+    }
+  },
   "social_media": {
     "title": "قائمة وسائل التواصل الاجتماعي",
     "facebook": "فيسبوك",
     "instgram": "إنستغرام",
     "tikTok": "تيك توك",
     "youTube": "يوتيوب",
+    "snapChat": "سناب شات",
     "whats": "رقم واتساب",
     "X": "تويتر",
     "instr_ar": "التعليمات الأساسية (عربي)",

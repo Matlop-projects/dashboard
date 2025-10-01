@@ -11,6 +11,7 @@ import { TitleCasePipe } from '@angular/common';
 interface ISocialMedia {
   whatsAppNumber:string,
   instagramLink:string,
+  snapChatLink : string;
   tikTokLink:string,
   faceBookLink:string,
   youTubeLink:string,
@@ -33,6 +34,7 @@ export class SocialMediaUpdateComponent {
     tikTokLink:'',
     faceBookLink:'',
     youTubeLink:'',
+    snapChatLink:'',
     xLink:'',
     arBasicInstructions:'',
     enBasicInstructions:'',
@@ -67,6 +69,11 @@ export class SocialMediaUpdateComponent {
       ],
     }),
      xLink:new FormControl('',{
+      validators: [
+        Validators.required,
+      ],
+    }),
+    snapChatLink:new FormControl('',{
       validators: [
         Validators.required,
       ],

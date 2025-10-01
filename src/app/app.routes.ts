@@ -68,6 +68,8 @@ import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewDetailsComponent } from './pages/reviews/review-details/review-details.component';
 import { ReviewtechnicalTableComponent } from './pages/reviewtechnical-table/reviewtechnical-table.component';
 import { ReviewtechnicalDetailsComponent } from './pages/reviewtechnical-details/reviewtechnical-details.component';
+import { OurClientTableComponent } from './pages/OurClients/ourclient-table/ourclient-table.component';
+import { OurClientDetailsComponent } from './pages/OurClients/ourclient-details/ourclient-details.component';
 
 export const routes: Routes = [
   {
@@ -118,6 +120,12 @@ export const routes: Routes = [
           { path: 'slider/edit/:id', component: SliderDetailsComponent },
           { path: 'slider/view/:id', component: SliderDetailsComponent },
 
+
+           { path: 'ourclient', component: OurClientTableComponent },
+          { path: 'ourclient/add', component: OurClientDetailsComponent },
+          { path: 'ourclient/edit/:id', component: OurClientDetailsComponent },
+          { path: 'ourclient/view/:id', component: OurClientDetailsComponent },
+          
           { path: 'roles', component: RoleTableComponent },
           { path: 'role/add', component: RoleDetailsComponent },
           { path: 'role/edit/:id', component: RoleDetailsComponent },

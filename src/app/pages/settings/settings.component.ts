@@ -56,6 +56,11 @@ export class SettingsComponent {
         routerLink: '/settings/social_media'
       },
       {
+        label: this.languageService.translate('settings.ourclients'),
+        icon: 'pi pi-users',
+        routerLink: '/settings/ourclient'
+      },
+      {
         label: this.languageService.translate('settings.slider'),
         icon: 'pi pi-images',
         routerLink: '/settings/slider'
