@@ -14,6 +14,8 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { CountryService } from '../../../services/country.service';
+import { SelectComponent } from '../../../components/select/select.component';
 
 const global_PageName='privacy.pageName';
 const global_API_deialis='PrivacyPolicy'+'/GetById';
@@ -24,7 +26,7 @@ const global_routeUrl ='/settings/privacy_policy'
 @Component({
   selector: 'app-privacy-policy-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TitleCasePipe,TranslatePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule,TitleCasePipe,TranslatePipe, ButtonModule, NgIf, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent,SelectComponent],
   templateUrl: './privacy-policy-details.component.html',
   styleUrl: './privacy-policy-details.component.scss'
 })
@@ -36,6 +38,8 @@ export class PrivacyPolicyDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+  countries: any[] = [];
+  countryService = inject(CountryService);
   form = new FormGroup({
     enTitle: new FormControl('', {
       validators: [
@@ -63,6 +67,11 @@ export class PrivacyPolicyDetailsComponent {
     }),
     termId:new FormControl(this.getID|0,Validators.required),
     userType: new FormControl(1),
+    countryId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -78,12 +87,26 @@ export class PrivacyPolicyDetailsComponent {
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getBreadCrumb();
+    this.getCountries();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
     });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
+  }
+
+  getCountries() {
+    this.countryService.getCountries().subscribe((res: any) => {
+        if (res) {
+     res.data.map((country:any)=>{
+         this.countries.push({
+          name:this.selectedLang=='en'?country.enName :country.arName,
+          code:country.countryId
+         })
+     })
+    }
+    })
   }
 
   tyepMode() {

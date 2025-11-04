@@ -66,7 +66,7 @@ form = new FormGroup({
 
   gender = [
     { code: 1, name: 'Male' },
-    { code: 2, name: 'Fale' }
+    { code: 2, name: 'Female' }
   ]
 
   bredCrumb: IBreadcrumb = {

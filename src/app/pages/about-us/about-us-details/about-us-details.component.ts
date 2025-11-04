@@ -19,6 +19,7 @@ import { IEditImage } from '../../../components/edit-mode-image/editImage.interf
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
 import { LanguageService } from '../../../services/language.service';
+import { CountryService } from '../../../services/country.service';
 
 const global_PageName = 'about_us.pageName';
 const global_API_deialis =  'aboutUs/GetById';
@@ -37,6 +38,8 @@ export class AboutUsDetailsComponent {
   pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
+  countries: any[] = [];
+  countryService = inject(CountryService);
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   userTypeList = userType
@@ -72,6 +75,7 @@ export class AboutUsDetailsComponent {
         Validators.required,
       ]
     }),
+    countryId: new FormControl('', { validators: [Validators.required] }),
     enDescription: new FormControl<any>('', {
       validators: [
         Validators.required,
@@ -115,6 +119,7 @@ export class AboutUsDetailsComponent {
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getBreadCrumb()
+    this.getAllCountries();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
@@ -122,6 +127,19 @@ export class AboutUsDetailsComponent {
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
   }
+
+  getAllCountries(){
+  this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+    if (res) {
+     res.data.map((country:any)=>{
+         this.countries.push({
+          name:this.selectedLang=='en'?country.enName :country.arName,
+          code:country.countryId
+         })
+     })
+    }
+  })
+}
 
   onStartDateChange(date:Date){
     this.minEndDate=date
@@ -152,6 +170,7 @@ export class AboutUsDetailsComponent {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
+          this.form.get('countryId')?.setValue(res.data.countryId)
         this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.image;
         console.log("AboutUsDetailsComponent  this.ApiService.get    this.editImageProps.props.imgSrc:",   this.editImageProps.props.imgSrc)
         this.editMode = true;

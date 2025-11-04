@@ -267,9 +267,7 @@ export class OrdersDetailsComponent {
       }
     });
     this.getOrderDetails();
-    this.getTechnicalList();
     this.getOrderTimeSchedule();
-    this.getDriversList();
   }
 
   getBreadCrumb() {
@@ -333,6 +331,8 @@ export class OrdersDetailsComponent {
     this.ApiService.get(`Client/GetById/${clientId}`).subscribe((res: any) => {
       if (res && res.data) {
         this.clientDetails = res.data;
+        this.getTechnicalList();
+        this.getDriversList();
       }
     });
   }
@@ -371,6 +371,15 @@ export class OrdersDetailsComponent {
     return status ? status.color : null;
   }
 
+  getCountryIdFromMobileNumber(mobileNumber: string): number {
+    if (mobileNumber.startsWith('05')) {
+      return 1; // Saudi Arabia
+    } else if (mobileNumber.startsWith('09') || mobileNumber.startsWith('07')) {
+      return 2; // Oman
+    }
+    return 1; // Default to Saudi Arabia if no match
+  }
+
   convertDate(originalDate: string): string {
     const date = new Date(originalDate);
     const day = date.getDate().toString().padStart(2, '0');
@@ -392,13 +401,17 @@ export class OrdersDetailsComponent {
   }
 
   getTechnicalList() {
-    this.ApiService.get('Technical/GetAllActiveTechnicals').subscribe((res: any) => {
+    debugger;
+    const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
+    this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}`).subscribe((res: any) => {
       this.providerList = res.data;
     });
   }
 
   getDriversList() {
-    this.ApiService.get('Technical/GetAllActiveDrivers').subscribe((res: any) => {
+    debugger;
+    const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
+    this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}`).subscribe((res: any) => {
       this.driversList = res.data;
     });
   }

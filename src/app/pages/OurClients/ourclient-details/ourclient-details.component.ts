@@ -21,6 +21,7 @@ import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { OurClientService } from '../ourclient.service';
+import { CountryService } from '../../../services/country.service';
 
 const global_PageName = 'ourclients.pageName';
 const global_API_deialis = 'OurClients' + '/GetOurClient';
@@ -48,6 +49,8 @@ export class OurClientDetailsComponent {
   editAttachmentMode: boolean = false;
   editAttachmentMode_ar: boolean = false;
   private confirm = inject(ConfirmMsgService)
+  countries: any[] = [];
+  countryService = inject(CountryService);
   
   editImageProps: IEditImage = {
     props: {
@@ -55,7 +58,7 @@ export class OurClientDetailsComponent {
       imgSrc: ''
     },
     onEditBtn: (e?: Event) => {
-      this.editAttachmentMode = true;
+      this.editAttachmentMode = false;
     }
   };
   editImageProps_ar: IEditImage = {
@@ -64,7 +67,7 @@ export class OurClientDetailsComponent {
       imgSrc: ''
     },
     onEditBtn: (e?: Event) => {
-      this.editAttachmentMode_ar = true;
+      this.editAttachmentMode_ar = false;
     }
   };
   form = new FormGroup({
@@ -91,6 +94,11 @@ export class OurClientDetailsComponent {
       ]
     }),
     clientId: new FormControl(this.getID | 0),
+    countryId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -118,6 +126,7 @@ export class OurClientDetailsComponent {
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getBreadCrumb();
+    this.getCountries();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
@@ -133,6 +142,19 @@ export class OurClientDetailsComponent {
     else if (url.includes('view')) result = 'View'
     else result = 'Add'
     return result
+  }
+
+  getCountries() {
+    this.countryService.getCountries().subscribe((res: any) => {
+       if (res) {
+     res.data.map((country:any)=>{
+         this.countries.push({
+          name:this.selectedLang=='en'?country.enName :country.arName,
+          code:country.countryId
+         })
+     })
+    }
+    })
   }
 
   getBreadCrumb() {

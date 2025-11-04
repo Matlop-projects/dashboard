@@ -21,17 +21,18 @@ import { IEditImage } from '../../../components/edit-mode-image/editImage.interf
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { CountryService } from '../../../services/country.service';
 
 const global_PageName = 'slider.pageName';
 const global_API_deialis = 'Slider' + '/GetById';
 const global_API_create = 'Slider' + '/Create';
 const global_API_update = 'Slider' + '/Update';
-const global_routeUrl = 'settings/'+global_PageName
+const global_routeUrl = 'settings/' + global_PageName
 
 @Component({
   selector: 'app-slider-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TranslatePipe, TitleCasePipe,EditModeImageComponent, ButtonModule, NgIf, DialogComponent,SelectComponent ,InputTextComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, TranslatePipe, TitleCasePipe, EditModeImageComponent, ButtonModule, NgIf, DialogComponent, SelectComponent, InputTextComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
   templateUrl: './slider-details.component.html',
   styleUrl: './slider-details.component.scss'
 })
@@ -41,16 +42,18 @@ export class SliderDetailsComponent {
 
   pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
+  countries: any[] = [];
+  countryService = inject(CountryService);
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   editAttachmentMode: boolean = false;
   editAttachmentMode_ar: boolean = false;
   private confirm = inject(ConfirmMsgService)
-  offerTypeList:any[]=coponeOfferTypeList
-  coponeTypeList:any[]=coponeTypeList
-  minEndDate:Date =new Date()
-  viewTypeList=sliderViewType
+  offerTypeList: any[] = coponeOfferTypeList
+  coponeTypeList: any[] = coponeTypeList
+  minEndDate: Date = new Date()
+  viewTypeList = sliderViewType
   editImageProps: IEditImage = {
     props: {
       visible: true,
@@ -78,7 +81,7 @@ export class SliderDetailsComponent {
         Validations.editorEnglishCharsValidator()
       ],
     }),
-    titleAr: new FormControl <any>('', {
+    titleAr: new FormControl<any>('', {
       validators: [
         Validators.required,
         Validations.editorArabicCharsValidator()
@@ -105,7 +108,7 @@ export class SliderDetailsComponent {
         Validators.required,
       ]
     }),
-
+    countryId: new FormControl('', { validators: [Validators.required] }),
     sliderId: new FormControl(this.getID | 0),
   })
 
@@ -128,23 +131,26 @@ export class SliderDetailsComponent {
     const control = this.form.get('imageAr');
     return control?.touched && control?.hasError('required') || false;
   }
-    selectedLang: any;
-    languageService = inject(LanguageService);
+  selectedLang: any;
+  languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_PageName)
+    this.pageName.set(global_PageName);
     this.getBreadCrumb();
+    this.selectedLang = this.languageService.translationService.currentLang;
+    this.getCountries();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
     });
-    if (this.tyepMode() !== 'Add')
-      this.API_getItemDetails()
+    if (this.tyepMode() !== 'Add') {
+      this.API_getItemDetails();
+    }
   }
 
 
-  onStartDateChange(date:Date){
-    this.minEndDate=date
+  onStartDateChange(date: Date) {
+    this.minEndDate = date
   }
 
   tyepMode() {
@@ -156,15 +162,29 @@ export class SliderDetailsComponent {
     return result
   }
 
+  getCountries() {
+    debugger;
+    this.countryService.getCountries().subscribe((res: any) => {
+      if (res) {
+        res.data.map((country: any) => {
+          this.countries.push({
+            name: this.selectedLang == 'en' ? country.enName : country.arName,
+            code: country.countryId
+          })
+        })
+      }
+    })
+  }
+
   getBreadCrumb() {
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }
@@ -172,8 +192,9 @@ export class SliderDetailsComponent {
 
   API_getItemDetails() {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
-      if (res){
+      if (res) {
         this.form.patchValue(res.data)
+        this.form.get('countryId')?.setValue(res.data.countryId)
         this.editImageProps.props.imgSrc = this.imageUrl + res.data.imageEn;
         this.editAttachmentMode = true;
 

@@ -16,26 +16,29 @@ import { userType } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { CountryService } from '../../../services/country.service';
 
 const global_PageName = 'faqs.pageName';
 
 @Component({
   selector: 'app-fags-details',
   standalone: true,
-  imports: [ReactiveFormsModule,TitleCasePipe, TranslatePipe,ButtonModule, NgIf,SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent],
+  imports: [ReactiveFormsModule, TitleCasePipe, TranslatePipe, ButtonModule, NgIf, SelectComponent, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, SelectComponent],
   templateUrl: './fags-details.component.html',
   styleUrl: './fags-details.component.scss'
 })
 
 export class FagsDetailsComponent implements OnInit {
-pageName = signal<string>(global_PageName);
+  pageName = signal<string>(global_PageName);
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
-  userTypeList=userType
- selectedLang: any;
-  languageService = inject(LanguageService); 
+  userTypeList = userType
+  countries: any[] = [];
+  selectedLang: any;
+  languageService = inject(LanguageService);
+  countryService = inject(CountryService);
   private confirm = inject(ConfirmMsgService)
   form = new FormGroup({
     enTitle: new FormControl('', {
@@ -65,11 +68,16 @@ pageName = signal<string>(global_PageName);
         Validators.required,
 
       ]
+    }),
+    countryId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
     })
   })
 
   bredCrumb: IBreadcrumb = {
-    crumbs: [ ]
+    crumbs: []
   }
 
   get faqsID() {
@@ -79,12 +87,26 @@ pageName = signal<string>(global_PageName);
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getBreadCrumb()
+    this.getCountries();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
-    }); 
+    });
     if (this.tyepMode() !== 'Add')
-      this.getFaqsDetails()   
+      this.getFaqsDetails()
+  }
+
+  getCountries() {
+    this.countryService.getCountries().subscribe((res: any) => {
+      if (res) {
+        res.data.map((country: any) => {
+          this.countries.push({
+            name: this.selectedLang == 'en' ? country.enName : country.arName,
+            code: country.countryId
+          })
+        })
+      }
+    })
   }
 
   tyepMode() {
@@ -99,11 +121,11 @@ pageName = signal<string>(global_PageName);
     this.bredCrumb = {
       crumbs: [
         {
-          label:  this.languageService.translate('Home'),
+          label: this.languageService.translate('Home'),
           routerLink: '/dashboard',
         },
         {
-          label: this.languageService.translate(this.pageName()+ '_'+this.tyepMode()+'_crumb'),
+          label: this.languageService.translate(this.pageName() + '_' + this.tyepMode() + '_crumb'),
         },
       ]
     }

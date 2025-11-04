@@ -23,6 +23,7 @@ import { environment } from '../../../../environments/environment';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Panel } from 'primeng/panel';
 import { WalletDialogComponent } from '../../../components/wallet-dialog/wallet-dialog.component';
+import { CountryService } from '../../../services/country.service';
 @Component({
   selector: 'app-technical-details',
   standalone: true,
@@ -42,6 +43,8 @@ export class TechnicalDetailsComponent {
   selectedLang: any;
   technicalOrdersList: any[] = [];
   clientWalletBalance: any;
+  countries: any[] = [];
+  countryService = inject(CountryService);
 
 
 
@@ -119,12 +122,17 @@ export class TechnicalDetailsComponent {
         Validators.required,
       ]
     }),
-    userId: new FormControl(this.userId | 0)
+    userId: new FormControl(this.userId | 0),
+    countryId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    })
   })
 
   gender = [
     { code: 1, name: 'Male' },
-    { code: 2, name: 'Fale' }
+    { code: 2, name: 'Female' }
   ]
 
   TechnicalType = [
@@ -174,6 +182,7 @@ export class TechnicalDetailsComponent {
     this.pageName.set('tech.pageName')
     this.getTechnicalSpecialist();
     this.getBreadCrumb()
+    this.getCountries();
     this.selectedLang = this.languageService.translationService.currentLang;
     if (this.tyepMode() !== 'Add') {
       this.technicalId = this.route.snapshot.params['id'];
@@ -190,6 +199,18 @@ export class TechnicalDetailsComponent {
         name: this.selectedLang === 'ar' ? item.arName : item.enName
       })
       );
+    })
+  }
+  getCountries() {
+    this.countryService.getCountries().subscribe((res: any) => {
+        if (res) {
+     res.data.map((country:any)=>{
+         this.countries.push({
+          name:this.selectedLang=='en'?country.enName :country.arName,
+          code:country.countryId
+         })
+     })
+    }
     })
   }
   getBreadCrumb() {

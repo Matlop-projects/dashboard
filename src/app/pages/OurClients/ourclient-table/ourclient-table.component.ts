@@ -95,12 +95,16 @@ export class OurClientTableComponent {
       { keyName: 'clientId', header: this.languageService.translate('Id'), type: EType.id, show: false },
       { keyName: 'enName', header: this.languageService.translate('ourclients.form.en_name'), type: EType.text, show: true },
       { keyName: 'arName', header: this.languageService.translate('ourclients.form.ar_name'), type: EType.text, show: true },
+      { keyName: 'imageEn', header: 'Image (en)', type: EType.image, show: true },
+      { keyName: 'imageAr', header: 'Image (ar)', type: EType.image, show: true },
       { keyName: '', header: this.languageService.translate('Actions'), type: EType.actions, actions: this.tableActions, show: true },
     ]
     this.columnsSmallTable = [
       { keyName: 'clientId', header: this.languageService.translate('Id'), type: EType.id, show: false },
       { keyName: 'enName', header: this.languageService.translate('ourclients.form.en_name'), type: EType.text, showAs: ETableShow.header },
       { keyName: 'arName', header: this.languageService.translate('ourclients.form.ar_name'), type: EType.text, show: true },
+      { keyName: 'imageEn', header: 'Image (en)', type: EType.image, show: true },
+      { keyName: 'imageAr', header: 'Image (ar)', type: EType.image, show: true },
       { keyName: 'imageAr', header: this.languageService.translate('ourclients.form.image_ar'), type: EType.image, showAs: ETableShow.content },
     ];
   }

@@ -15,6 +15,7 @@ import { UploadFileComponent } from "../../../components/upload-file/upload-file
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { SelectComponent } from '../../../components/select/select.component';
+import { CountryService } from '../../../services/country.service';
 
 const global_PageName = 'termsAndConditions.pageName';
 const global_API_deialis = 'TermsAndConditions' + '/GetTermsAndConditions';
@@ -37,6 +38,8 @@ export class TermsConditionsDetailsComponent {
   private route = inject(ActivatedRoute)
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
+  countries: any[] = [];
+  countryService = inject(CountryService);
   form = new FormGroup({
     enName: new FormControl('', {
       validators: [
@@ -64,6 +67,11 @@ export class TermsConditionsDetailsComponent {
     }),
     termId: new FormControl(this.getID | 0, Validators.required),
     userType: new FormControl(),
+    countryId: new FormControl('', {
+      validators: [
+        Validators.required,
+      ]
+    })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -86,12 +94,26 @@ export class TermsConditionsDetailsComponent {
   ngOnInit() {
     this.pageName.set(global_PageName)
     this.getBreadCrumb();
+    this.getCountries();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
     });
     if (this.tyepMode() !== 'Add')
       this.API_getItemDetails()
+  }
+
+  getCountries() {
+    this.countryService.getCountries().subscribe((res: any) => {
+        if (res) {
+     res.data.map((country:any)=>{
+         this.countries.push({
+          name:this.selectedLang=='en'?country.enName :country.arName,
+          code:country.countryId
+         })
+     })
+    }
+    })
   }
 
   tyepMode() {
