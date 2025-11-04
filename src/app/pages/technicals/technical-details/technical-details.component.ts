@@ -51,6 +51,27 @@ export class TechnicalDetailsComponent {
   showConfirmMessage: boolean = false
   userTypeList = userType
   private confirm = inject(ConfirmMsgService)
+  mobileNumberValidator = (control: AbstractControl): ValidationErrors | null => {
+    debugger;
+    const mobileNumber = control.value;
+    const countryId = Number(this.form?.get('countryId')?.value);
+
+    if (!mobileNumber || !countryId) {
+      return null;
+    }
+
+    if (countryId === 1) { // Saudi Arabia
+      if (!mobileNumber.startsWith('05')) {
+        return { invalidSaudiMobile: true };
+      }
+    } else if (countryId === 2) { // Oman
+      if (mobileNumber.startsWith('05') || (!mobileNumber.startsWith('09') && !mobileNumber.startsWith('07') && !mobileNumber.startsWith('02'))) {
+        return { invalidOmanMobile: true };
+      }
+    }
+    return null;
+  };
+
   form = new FormGroup({
     firstName: new FormControl('', {
       validators: [
@@ -70,7 +91,7 @@ export class TechnicalDetailsComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     mobileNumber: new FormControl('', [
       Validators.required,
-      this.saudiMobileValidator.bind(this)
+      this.mobileNumberValidator.bind(this)
     ]),
     pinCode: new FormControl('', {
       validators: [
@@ -133,7 +154,7 @@ export class TechnicalDetailsComponent {
   gender = [
     { code: 1, name: 'Male' },
     { code: 2, name: 'Female' }
-  ]
+    ]
 
   TechnicalType = [
     { code: 1, name: 'Technical' },
@@ -353,16 +374,6 @@ export class TechnicalDetailsComponent {
         this.getClientWalletAmount(); // Call a function to refresh data or perform other actions
       }, 800);
     }
-  }
-
-
-  saudiMobileValidator(control: FormControl): ValidationErrors | null {
-    const value = control.value;
-    const saudiMobilePattern = /^05\d{8}$/;
-    if (value && !saudiMobilePattern.test(value)) {
-      return { saudiMobile: true };
-    }
-    return null;
   }
 
 }

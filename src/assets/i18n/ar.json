@@ -23,6 +23,8 @@
     "english_only_validation": "يقبل الإنجليزية فقط",
     "decimal_number_validation": "يقبل الأرقام العشرية فقط مثل 123.456",
     "only_number_validation": "يقبل الأرقام فقط",
+    "invalidOmanMobile_validation": "رقم الهاتف العماني غير صالح",
+    "invalidSaudiMobile_validation": "رقم الهاتف السعودي غير صالح",
     "only_char_validation": "يقبل الحروف فقط",
     "email_validation": "يقبل البريد الإلكتروني فقط مثل: aaa@aaa.com",
     "mobileNumber_5_validation": "رقم الجوال يجب أن يكون 9 أرقام يبدأ بـ 5",
