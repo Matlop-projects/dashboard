@@ -102,7 +102,7 @@ export class OrderImagesComponent implements OnInit {
     debugger;
     const link = this.typeParam === 'e'
       ? `OrderDefaultImage/GetEmercencyOrderDefaultImage?CountryId=${countryId}`
-      : `OrderDefaultImage/GetSpecialOrderDefaultImage?CountryId=${countryId}`;
+      : `OrderDefaultImage/GetSepcialOrderDefaultImage?CountryId=${countryId}`;
 
     this.api.get(link).subscribe((res: any) => {
       if (res.data) {

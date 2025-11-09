@@ -403,7 +403,7 @@ export class OrdersDetailsComponent {
   getTechnicalList(serviceId: number) {
     debugger;
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
-    this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}/${serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}?serviceId=${serviceId}`).subscribe((res: any) => {
       this.providerList = res.data;
     });
   }
@@ -412,7 +412,7 @@ export class OrdersDetailsComponent {
   getDriversList(serviceId: number) {
     debugger;
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
-    this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}/${serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}?serviceId=${serviceId}`).subscribe((res: any) => {
       this.driversList = res.data;
     });
   }
