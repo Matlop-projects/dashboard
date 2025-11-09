@@ -79,6 +79,11 @@
             <app-select [placeholder]="form.get('countryId')?.value" class="w-100" [list]="countries" [label]="'city.form.country'" 
               [control]="form.get('countryId')"></app-select> 
           </div> 
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+            <app-select [type]="'multi'" [readOnly]="tyepMode()=='View'" [disabled]="tyepMode()=='View'"
+              [label]="'pkg.form.service_type'" [control]="form.get('technicalServiceIds')" class="w-100" [list]="serviceTypeList">
+            </app-select>
+          </div>
           <div class="col-lg-6 col-md-6 col-sm-12 mt-4 d-flex align-items-center">
             <app-check-box [isToggle]="true" [disabled]="tyepMode()=='View'" [label]="'tech.form.isActive'"
               [control]="form.get('isActive')"></app-check-box>

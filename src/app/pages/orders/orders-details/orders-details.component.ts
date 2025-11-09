@@ -314,7 +314,7 @@ export class OrdersDetailsComponent {
           this.addUrltoMedia(this.imageList);
         }
         this.setOrderStatusById(res.data.orderStatusEnum);
-        this.getClientData(res.data.clientId);
+        this.getClientData(res.data.clientId, res.data.package.serviceId);
       }
     });
   }
@@ -327,12 +327,12 @@ export class OrdersDetailsComponent {
     });
   }
 
-  getClientData(clientId: string) {
+  getClientData(clientId: string, serviceId: number) {
     this.ApiService.get(`Client/GetById/${clientId}`).subscribe((res: any) => {
       if (res && res.data) {
         this.clientDetails = res.data;
-        this.getTechnicalList();
-        this.getDriversList();
+        this.getTechnicalList(serviceId);
+        this.getDriversList(serviceId);
       }
     });
   }
@@ -400,18 +400,19 @@ export class OrdersDetailsComponent {
     this.driverDialogProps.props.visible = true;
   }
 
-  getTechnicalList() {
+  getTechnicalList(serviceId: number) {
     debugger;
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
-    this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}`).subscribe((res: any) => {
+    this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}/${serviceId}`).subscribe((res: any) => {
       this.providerList = res.data;
     });
   }
 
-  getDriversList() {
+
+  getDriversList(serviceId: number) {
     debugger;
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
-    this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}`).subscribe((res: any) => {
+    this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}/${serviceId}`).subscribe((res: any) => {
       this.driversList = res.data;
     });
   }

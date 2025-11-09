@@ -8,6 +8,12 @@
       <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
     </div>
   </div>
+    <app-select
+        [list]="countries"
+        [control]="countryIdControl"
+        (onSelectedValue)="onCountryChange($event)"
+        [placeholder]="selectedCountryName"
+      ></app-select>
   <div class="image-upload-container">
     <img [src]="uploadedImage || '../../../assets/images/empty-state.png'" alt="Preview" class="preview-image" />
     <button class="upload-button" (click)="fileInput.click()">{{'images.upload' | translate}}</button>

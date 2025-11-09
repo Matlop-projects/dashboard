@@ -76,6 +76,7 @@ export class PrivacyPolicyTableComponent {
   dataList: any = []
   columns: IcolHeader[] = [];
 
+
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;

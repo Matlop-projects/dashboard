@@ -29,7 +29,7 @@ import { CountryService } from '../../../services/country.service';
   standalone: true,
   imports: [ReactiveFormsModule,
     EditModeImageComponent,
-    ButtonModule, NgIf, TranslatePipe, Panel, NgFor, WalletDialogComponent, DatePipe, SelectComponent, NgClass, TitleCasePipe, DialogComponent, InputTextComponent, EditorComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
+    ButtonModule, NgIf, TranslatePipe, Panel, NgFor, WalletDialogComponent, DatePipe, SelectComponent, NgClass, TitleCasePipe, DialogComponent, InputTextComponent, RouterModule, BreadcrumpComponent, UploadFileComponent, CheckBoxComponent, DatePickerComponent],
   templateUrl: './technical-details.component.html',
   styleUrl: './technical-details.component.scss'
 })
@@ -43,6 +43,7 @@ export class TechnicalDetailsComponent {
   selectedLang: any;
   technicalOrdersList: any[] = [];
   clientWalletBalance: any;
+    serviceTypeList: any[] = [];
   countries: any[] = [];
   countryService = inject(CountryService);
 
@@ -148,6 +149,11 @@ export class TechnicalDetailsComponent {
       validators: [
         Validators.required,
       ]
+    }),
+    technicalServiceIds: new FormControl<number[]>([], { 
+      validators: [
+        Validators.required,
+      ]
     })
   })
 
@@ -198,11 +204,22 @@ export class TechnicalDetailsComponent {
   get userId() {
     return this.route.snapshot.params['id']
   }
+     getAllServices() {
+    this.ApiService.get('Service/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        this.serviceTypeList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.nameAr : item.nameEn,
+          code: item.serviceId,
+        }));
+      }
+    });
+  }
 
   ngOnInit() {
     this.pageName.set('tech.pageName')
     this.getTechnicalSpecialist();
     this.getBreadCrumb()
+    this.getAllServices();
     this.getCountries();
     this.selectedLang = this.languageService.translationService.currentLang;
     if (this.tyepMode() !== 'Add') {
@@ -275,6 +292,7 @@ export class TechnicalDetailsComponent {
         }
 
         this.form.patchValue(technicalData);
+        this.form.get('technicalServiceIds')?.patchValue(technicalData.technicalServiceIds || []); // Populate technicalServiceIds
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
         console.log("TechnicalDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc:", this.editImageProps.props.imgSrc)

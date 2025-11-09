@@ -39,6 +39,11 @@ export class PrivacyPolicyDetailsComponent {
   showConfirmMessage: boolean = false
   private confirm = inject(ConfirmMsgService)
   countries: any[] = [];
+      userType = [
+      { code: 3, name: 'Technical' },
+      { code: 4, name: 'Assistant' },
+      { code: 5, name: 'Client' }
+    ]
   countryService = inject(CountryService);
   form = new FormGroup({
     enTitle: new FormControl('', {
@@ -66,7 +71,7 @@ export class PrivacyPolicyDetailsComponent {
       ]
     }),
     termId:new FormControl(this.getID|0,Validators.required),
-    userType: new FormControl(1),
+    userType: new FormControl(),
     countryId: new FormControl('', {
       validators: [
         Validators.required,
@@ -141,6 +146,7 @@ export class PrivacyPolicyDetailsComponent {
   onSubmit() {
     const payload = {
       ...this.form.value,
+      ...(this.tyepMode() == 'Edit' && { policyId: this.getID })
     }
     if (this.tyepMode() == 'Add')
       this.API_forAddItem(payload)

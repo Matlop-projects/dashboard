@@ -53,7 +53,7 @@ export class ApiService {
         queryParams.push(`${key}=${params[key]}`);
       }
     }
-    return this.http.get(`${baseUrl}${APIName}?${queryParams.join('&')}`).pipe(
+    return this.http.get(`${baseUrl}${APIName}${queryParams.length > 0 ? '?' : ''}${queryParams.join('&')}`).pipe(
       take(1),
       map((res: any) => {
         if(res.message && options.showAlert)

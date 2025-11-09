@@ -183,8 +183,6 @@ export class SpecialOrderDetailsComponent {
     this.pageName.set(global_PageName)
     this.getBreadCrumb()
     this.getSpecialOrderDetails();
-    this.getTechnicalList();
-    this.getDriversList();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
@@ -326,6 +324,8 @@ export class SpecialOrderDetailsComponent {
     this.ApiService.get(`Client/GetById/${clientId}`).subscribe((res: any) => {
       if (res && res.data) {
         this.clientDetails = res.data;
+        this.getTechnicalList();
+        this.getDriversList();
       }
     });
   }
@@ -380,13 +380,26 @@ export class SpecialOrderDetailsComponent {
   }
 
   getTechnicalList() {
-    this.ApiService.get('Technical/GetAllActiveTechnicals').subscribe((res: any) => {
+    debugger;
+     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
+    this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}`).subscribe((res: any) => {
       this.providerList = res.data;
     });
   }
 
+    getCountryIdFromMobileNumber(mobileNumber: string): number {
+    if (mobileNumber.startsWith('05')) {
+      return 1; // Saudi Arabia
+    } else if (mobileNumber.startsWith('09') || mobileNumber.startsWith('07')) {
+      return 2; // Oman
+    }
+    return 1; // Default to Saudi Arabia if no match
+  }
+
   getDriversList() {
-    this.ApiService.get('Technical/GetAllActiveDrivers').subscribe((res: any) => {
+    debugger;
+     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
+    this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}`).subscribe((res: any) => {
       this.driversList = res.data;
     });
   }
