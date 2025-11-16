@@ -26,15 +26,24 @@
                           [label]="'notifications.form.userType'" (onSelectedValue)="onUserTypeChange($event)" [control]="form.get('userType')">
                       </app-select>
                   </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
+                    <app-select  class="w-100" [list]="countryList"
+                      label="{{'pkg.form.country'|translate}}"
+                      [control]="form.get('countryId')"
+                      (onSelectedValue)="onCountryChange($event)"
+                      ></app-select>
+                  </div>
+
                     <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
                       <app-select 
-                      [class.disabled-view]="form.get('userType')?.value==''"
-                      [readOnly]="form.get('userType')?.value==''" type="multi" 
+                      [class.disabled-view]="!form.get('userType')?.value || !form.get('countryId')?.value"
+                      [readOnly]="!form.get('userType')?.value || !form.get('countryId')?.value" type="multi" 
                       class="w-100" [list]="ClientsList"
                           [label]="'notifications.form.clients'" [control]="form.get('userId')">
                       </app-select>
                   </div>
-
+                  <div class="col-lg-6 col-md-6 col-sm-12 mt-3">
+                </div>
                       <div class=" mt-2 col-lg-6 col-md-6 col-sm-6 mt-3">
                         <div class="title-section mb-2">
                           <p>{{'notifications.form.bodeyEn'|translate}}</p>

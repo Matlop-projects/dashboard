@@ -8,9 +8,7 @@ import {
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
 import { InputTextComponent } from '../../components/input-text/input-text.component';
-import { EditorComponent } from '../../components/editor/editor.component';
 import { BreadcrumpComponent } from '../../components/breadcrump/breadcrump.component';
 import { IBreadcrumb } from '../../components/breadcrump/cerqel-breadcrumb.interface';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -32,9 +30,7 @@ const global_API_create = 'Notification/send';
     TranslatePipe,
     SelectComponent,
     ButtonModule,
-    NgIf,
     InputTextComponent,
-    EditorComponent,
     RouterModule,
     BreadcrumpComponent,
   ],
@@ -48,6 +44,7 @@ export class AddNotificationsComponent {
   private route = inject(ActivatedRoute);
   showConfirmMessage: boolean = false;
   userTypeList = userType;
+  countryList: any[] = []
   ClientsList: any[] = [];
   editImageProps: IEditImage = {
     props: {
@@ -74,7 +71,7 @@ export class AddNotificationsComponent {
     userType: new FormControl<any>('', {
       validators: [Validators.required],
     }),
-
+    countryId: new FormControl<any>(null),
     bodyEn: new FormControl<any>('', {
       validators: [Validators.required],
     }),
@@ -99,6 +96,7 @@ export class AddNotificationsComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
+    this.getAllCountry();
     this.pageName.set(global_PageName);
     this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
@@ -114,6 +112,17 @@ export class AddNotificationsComponent {
     else if (url.includes('view')) result = 'View';
     else result = 'Add';
     return result;
+  }
+
+  getAllCountry(){
+    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        this.countryList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.arName : item.enName,
+          code: item.countryId,
+        }));
+      }
+    });
   }
 
   getBreadCrumb() {
@@ -138,11 +147,35 @@ export class AddNotificationsComponent {
     );
     this.ClientsList = [];
     this.form.get('userId')?.setValue([]);
-    this.getAllClientsByUserType(event);
+    
+    // Only call API if both userType and countryId are selected
+    const countryId = this.form.get('countryId')?.value;
+    if (countryId) {
+      this.getAllClientsByUserType(event, countryId);
+    }
   }
-  getAllClientsByUserType(userTypeId: number) {
-    this.ApiService.get('Client/GetAllClientsByUserTypeId', {
+
+  onCountryChange(event: number) {
+    console.log('Country changed:', event);
+    this.ClientsList = [];
+    this.form.get('userId')?.setValue([]);
+    
+    // Only call API if both userType and countryId are selected
+    const userTypeValue = this.form.get('userType')?.value;
+    if (userTypeValue && event) {
+      this.getAllClientsByUserType(userTypeValue, event);
+    }
+  }
+  
+  getAllClientsByUserType(userTypeId: number, countryId: number) {
+    // Only call API if both parameters are provided
+    if (!userTypeId || !countryId) {
+      return;
+    }
+    
+    this.ApiService.get('Client/GetAllClientsByUserTypeIdAndCountryId', {
       UserTypeId: userTypeId,
+      CountryId: countryId,
     }).subscribe((res: any) => {
       this.ClientsList = [];
       if (res.data.length > 0) {
