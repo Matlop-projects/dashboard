@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
@@ -23,7 +23,7 @@ const global_API_getAll = 'order/GetAllWitPaginationDashboard'
 @Component({
   selector: 'app-orders-table',
   standalone: true,
-  imports: [TableComponent, NgIf, SelectComponent, TitleCasePipe, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, DatePicker],
+  imports: [TableComponent, NgIf, SelectComponent, TitleCasePipe, TranslatePipe, PaginationComponent, FormsModule, ReactiveFormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, DatePicker],
   templateUrl: './orders-table.component.html',
   styleUrl: './orders-table.component.scss'
 })
@@ -33,7 +33,15 @@ export class OrdersTableComponent {
   orderStatus = order_status
   clientList: any[] = []
   packageList: any[] = []
+  countryList: any[] = []
   showFilter: boolean = false
+  
+  // FormControls for select components
+  countryControl = new FormControl();
+  clientControl = new FormControl();
+  orderStatusControl = new FormControl();
+  packageControl = new FormControl();
+  nextVistTimeControl = new FormControl();
   tableActions: ITableAction[] = [
     {
       name: EAction.edit,
@@ -119,6 +127,7 @@ export class OrdersTableComponent {
 
   objectSearch: {
     pageNumber: number;
+    countryId: number | null;
     pageSize: number;
     sortingExpression: string;
     sortingDirection: number;
@@ -128,6 +137,7 @@ export class OrdersTableComponent {
     packageId: number | null;
   } = {
     pageNumber: 0,
+    countryId: null,
     pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
@@ -136,6 +146,9 @@ export class OrdersTableComponent {
     nextVistTime: null,
     packageId: null,
   };
+
+  // Store filter key
+  private readonly FILTER_STORAGE_KEY = 'ordersFilter';
 
   totalCount: number = 0;
 
@@ -152,6 +165,8 @@ export class OrdersTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
+    this.loadFilterFromStorage(); // Load saved filter first
+    this.getAllCountry()
     this.pageName.set(global_pageName)
     this.API_getAll();
     this.getAllClients()
@@ -166,6 +181,55 @@ export class OrdersTableComponent {
       this.getAllPackages();
       this.getBreadCrumb();
     })
+  }
+
+  // Load filter from localStorage
+  loadFilterFromStorage() {
+    const savedFilter = localStorage.getItem(this.FILTER_STORAGE_KEY);
+    if (savedFilter) {
+      try {
+        const parsedFilter = JSON.parse(savedFilter);
+        // Merge saved filter with default, keeping pageNumber from default
+        this.objectSearch = {
+          ...this.objectSearch,
+          ...parsedFilter,
+          pageNumber: 0 // Always start from first page
+        };
+        
+        // Convert date string back to Date object if needed
+        if (parsedFilter.nextVistTime) {
+          this.objectSearch.nextVistTime = new Date(parsedFilter.nextVistTime);
+        }
+        
+        // Set the values to FormControls
+        if (parsedFilter.countryId) {
+          this.countryControl.setValue(parsedFilter.countryId);
+        }
+        if (parsedFilter.clientId) {
+          this.clientControl.setValue(parsedFilter.clientId);
+        }
+        if (parsedFilter.orderStatus !== null && parsedFilter.orderStatus !== undefined) {
+          this.orderStatusControl.setValue(parsedFilter.orderStatus);
+        }
+        if (parsedFilter.packageId) {
+          this.packageControl.setValue(parsedFilter.packageId);
+        }
+        if (parsedFilter.nextVistTime) {
+          this.nextVistTimeControl.setValue(new Date(parsedFilter.nextVistTime));
+        }
+      } catch (error) {
+        console.error('Error loading filter from storage:', error);
+      }
+    }
+  }
+
+  // Save filter to localStorage
+  saveFilterToStorage() {
+    try {
+      localStorage.setItem(this.FILTER_STORAGE_KEY, JSON.stringify(this.objectSearch));
+    } catch (error) {
+      console.error('Error saving filter to storage:', error);
+    }
   }
 
   getBreadCrumb() {
@@ -206,6 +270,21 @@ export class OrdersTableComponent {
     ];
   }
 
+  getAllCountry(){
+    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        this.countryList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.arName : item.enName,
+          code: item.countryId,
+        }));
+        
+        // Re-apply saved filter value after list is loaded
+        if (this.objectSearch.countryId) {
+          this.countryControl.setValue(this.objectSearch.countryId);
+        }
+      }
+    });
+  }
 
   getAllClients() {
     this.ApiService.get('Client/GetAllActive').subscribe((res: any) => {
@@ -217,6 +296,11 @@ export class OrdersTableComponent {
             code: item.userId
           })
         })
+      
+      // Re-apply saved filter value after list is loaded
+      if (this.objectSearch.clientId) {
+        this.clientControl.setValue(this.objectSearch.clientId);
+      }
     })
   }
 
@@ -230,6 +314,11 @@ export class OrdersTableComponent {
             code: item.packageId
           })
         })
+      
+      // Re-apply saved filter value after list is loaded
+      if (this.objectSearch.packageId) {
+        this.packageControl.setValue(this.objectSearch.packageId);
+      }
     })
   }
 
@@ -239,6 +328,9 @@ export class OrdersTableComponent {
     }
     else if (value == 'status') {
       this.objectSearch.orderStatus = selectedItem;
+    }
+    else if (value == 'country') {
+      this.objectSearch.countryId = selectedItem
     }
     else if (value == 'clinet') {
       this.objectSearch.clientId = selectedItem
@@ -256,9 +348,6 @@ export class OrdersTableComponent {
 
   openFilter() {
     this.showFilter = true
-    this.objectSearch.clientId = null
-    this.objectSearch.orderStatus = null
-    this.objectSearch.packageId = null
   }
 
   onCloseFilter(event: any) {
@@ -304,6 +393,7 @@ export class OrdersTableComponent {
   onPageChange(event: any) {
     console.log(event);
     this.objectSearch.pageNumber = event;
+    this.saveFilterToStorage(); // Save filter when changing pages
     this.API_getAll();
   }
 
@@ -325,6 +415,7 @@ export class OrdersTableComponent {
   }
 
   onSubmit() {
+    this.saveFilterToStorage(); // Save filter when applying
     this.API_getAll();
   }
 
@@ -334,6 +425,7 @@ export class OrdersTableComponent {
       "pageSize": 8,
       "sortingExpression": "",
       "sortingDirection": 0,
+      "countryId": null,
       // "technicalId": null,
       "clientId": null,
       nextVistTime: null,
@@ -345,6 +437,15 @@ export class OrdersTableComponent {
       // "orderTotal": null,
       // "locationId": null
     }
+    
+    // Reset FormControls
+    this.countryControl.setValue(null);
+    this.clientControl.setValue(null);
+    this.orderStatusControl.setValue(null);
+    this.packageControl.setValue(null);
+    this.nextVistTimeControl.setValue(null);
+    
+    localStorage.removeItem(this.FILTER_STORAGE_KEY); // Clear saved filter
     this.API_getAll();
     this.showFilter = false
   }

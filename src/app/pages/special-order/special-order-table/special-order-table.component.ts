@@ -5,7 +5,7 @@ import {  RouterModule } from '@angular/router';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
@@ -34,9 +34,16 @@ export class SpecialOrderTableComponent {
   global_router_add_url_in_Table = global_router_add_url_in_Table
   pageName = signal<string>(global_pageName);
   clientList:any[]=[]
+  countryList: any[] = []
   specialOrderEnumList=special_order_enum
   specialOrderStatusList=special_order_status
   showFilter: boolean = false
+  
+  // FormControls for select components
+  countryControl = new FormControl();
+  clientControl = new FormControl();
+  specialOrderEnumControl = new FormControl();
+  specialOrderStatusControl = new FormControl();
   tableActions: ITableAction[] = [
     // {
     //   name: EAction.delete,
@@ -86,6 +93,7 @@ export class SpecialOrderTableComponent {
 
   objectSearch = {
     pageNumber: 0,
+    countryId: null,
     pageSize: 8,
     sortingExpression: "",
     sortingDirection: 0,
@@ -97,6 +105,9 @@ export class SpecialOrderTableComponent {
     specialOrderStatusEnum:null
 
   }
+
+  // Store filter key
+  private readonly FILTER_STORAGE_KEY = 'specialOrderFilter';
 
   totalCount: number = 0;
 
@@ -110,6 +121,8 @@ export class SpecialOrderTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
+    this.loadFilterFromStorage(); // Load saved filter first
+    this.getAllCountry()
     this.pageName.set(global_pageName)
     this.API_getAll();
     this.getAllClients();
@@ -122,6 +135,62 @@ export class SpecialOrderTableComponent {
       this.getAllClients();
       this.getBreadCrumb();
     })
+  }
+
+  // Load filter from localStorage
+  loadFilterFromStorage() {
+    const savedFilter = localStorage.getItem(this.FILTER_STORAGE_KEY);
+    if (savedFilter) {
+      try {
+        const parsedFilter = JSON.parse(savedFilter);
+        // Merge saved filter with default, keeping pageNumber from default
+        this.objectSearch = {
+          ...this.objectSearch,
+          ...parsedFilter,
+          pageNumber: 0 // Always start from first page
+        };
+        
+        // Set the values to FormControls
+        if (parsedFilter.countryId) {
+          this.countryControl.setValue(parsedFilter.countryId);
+        }
+        if (parsedFilter.clientId) {
+          this.clientControl.setValue(parsedFilter.clientId);
+        }
+        if (parsedFilter.specialOrderEnum) {
+          this.specialOrderEnumControl.setValue(parsedFilter.specialOrderEnum);
+        }
+        if (parsedFilter.specialOrderStatusEnum) {
+          this.specialOrderStatusControl.setValue(parsedFilter.specialOrderStatusEnum);
+        }
+      } catch (error) {
+        console.error('Error loading filter from storage:', error);
+      }
+    }
+  }
+
+  // Save filter to localStorage
+  saveFilterToStorage() {
+    try {
+      localStorage.setItem(this.FILTER_STORAGE_KEY, JSON.stringify(this.objectSearch));
+    } catch (error) {
+      console.error('Error saving filter to storage:', error);
+    }
+  }
+  getAllCountry(){
+    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        this.countryList = res.data.map((item: any) => ({
+          name: this.selectedLang == 'ar' ? item.arName : item.enName,
+          code: item.countryId,
+        }));
+        
+        // Re-apply saved filter value after list is loaded
+        if (this.objectSearch.countryId) {
+          this.countryControl.setValue(this.objectSearch.countryId);
+        }
+      }
+    });
   }
 
   displayTableCols(currentLang: string) {
@@ -172,6 +241,7 @@ export class SpecialOrderTableComponent {
   API_getAll() {
     this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
+        debugger;
         this.dataList = res.data.dataList;
 
         this.totalCount = res.data.totalCount;
@@ -195,6 +265,7 @@ export class SpecialOrderTableComponent {
   onPageChange(event: any) {
     console.log(event);
     this.objectSearch.pageNumber = event;
+    this.saveFilterToStorage(); // Save filter when changing pages
     this.API_getAll();
   }
 
@@ -216,12 +287,16 @@ export class SpecialOrderTableComponent {
   }
 
   onSelectedValue(selectedItem:any,value:string){
+    if(value=='country')
+      this.objectSearch.countryId=selectedItem
     if(value=='specialOrderStatusEnum')
       this.objectSearch.specialOrderStatusEnum=selectedItem
-    else   if(value=='specialOrderEnum')
+    else  if(value=='specialOrderEnum')
       this.objectSearch.specialOrderEnum=selectedItem
-    else
+    else if(value=='clinet')
     this.objectSearch.clientId=selectedItem
+  else if(value=='specialOrderId')
+    this.objectSearch.specialOrderId=selectedItem
 
 }
 
@@ -235,12 +310,21 @@ getAllClients(){
      code:item.userId
    })
    })
+   
+   // Re-apply saved filter value after list is loaded
+   if (this.objectSearch.clientId) {
+     this.clientControl.setValue(this.objectSearch.clientId);
+   }
   })
  }
   onSubmitFilter() {
+    debugger;
+    let countryId:any =Number(this.objectSearch.countryId)
+    this.objectSearch.countryId=countryId
     let specialOrderId:any =Number(this.objectSearch.specialOrderId)
     this.objectSearch.specialOrderId=specialOrderId
 
+    this.saveFilterToStorage(); // Save filter when applying
     this.API_getAll();
   }
 
@@ -249,6 +333,7 @@ getAllClients(){
       pageNumber: 0,
       pageSize: 8,
       sortingExpression: "",
+      countryId: null,
       sortingDirection: 0,
       specialOrderId: null,
       // amount: '',
@@ -257,6 +342,14 @@ getAllClients(){
       specialOrderEnum: null,
       specialOrderStatusEnum:null
     }
+    
+    // Reset FormControls
+    this.countryControl.setValue(null);
+    this.clientControl.setValue(null);
+    this.specialOrderEnumControl.setValue(null);
+    this.specialOrderStatusControl.setValue(null);
+    
+    localStorage.removeItem(this.FILTER_STORAGE_KEY); // Clear saved filter
     this.API_getAll();
     this.showFilter = false
   }
