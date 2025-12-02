@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { ApiService } from '../../../services/api.service';
 import { RouterModule } from '@angular/router';
@@ -10,8 +10,10 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
-import { TitleCasePipe } from '@angular/common';
+import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
+import { HasPermissionDirective } from '../../../directives/has-permission.directive';
 
 const global_pageName='about_us.pageName'
 const global_router_add_url_in_Table ='/about-us/add'
@@ -23,7 +25,7 @@ const global_API_delete='aboutUS/Delete?id'
 @Component({
   selector: 'app-about-us-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent,TitleCasePipe,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, NgIf, NgFor, HasPermissionDirective],
   templateUrl: './about-us-table.component.html',
   styleUrl: './about-us-table.component.scss'
 })
@@ -31,6 +33,7 @@ export class AboutUsTableComponent {
 
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  moduleName = 'AboutUs'; // Module name for permissions
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -77,6 +80,21 @@ export class AboutUsTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  permissionsService = inject(PermissionsService);
+  private cdr = inject(ChangeDetectorRef);
+  
+  hasCreatePermission: boolean = false;
+
+  // Check if user can create new items
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
+  
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+    console.log(`🔄 AboutUs - hasCreatePermission updated to:`, this.hasCreatePermission);
+    this.cdr.detectChanges();
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -84,6 +102,13 @@ export class AboutUsTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
     this.getBreadCrumb();
+    
+    // Subscribe to permissions changes
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

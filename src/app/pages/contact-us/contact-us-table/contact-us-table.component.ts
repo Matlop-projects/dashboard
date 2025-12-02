@@ -12,6 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='contact_us.pageName'
 const global_router_add_url_in_Table ='/contact-us/add'
@@ -30,6 +31,8 @@ const global_API_delete='contactUS/Delete?id'
 export class ContactUsTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+  moduleName = 'ContactUs';
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -51,6 +54,9 @@ export class ContactUsTableComponent {
   ]
   private ApiService = inject(ApiService)
 
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
 
   bredCrumb: IBreadcrumb = {
     crumbs: [
@@ -75,6 +81,11 @@ export class ContactUsTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -82,6 +93,12 @@ export class ContactUsTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
     this.getBreadCrumb();
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

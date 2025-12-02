@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { NgFor, TitleCasePipe } from '@angular/common';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
@@ -12,6 +12,7 @@ import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName = 'client.pageName';
 const global_API_Name = 'Client';
@@ -36,7 +37,8 @@ const global_API_block = global_API_Name + '/Delete?userId';
     RouterModule,
     InputTextModule,
     TableSmallScreenComponent,
-    NgFor
+    NgFor,
+    NgIf
   ],
   templateUrl: './client-table.component.html',
   styleUrl: './client-table.component.scss'
@@ -45,6 +47,12 @@ export class ClientTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table
   pageName = signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Client';
+  private cdr = inject(ChangeDetectorRef);
+  
+  // Use property instead of method for better change detection
+  hasCreatePermission: boolean = false;
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -98,6 +106,14 @@ export class ClientTableComponent {
     { id: false, name: 'shared.not_active' },
   ];
 
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
+  
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+    console.log('📊 Updated hasCreatePermission:', this.hasCreatePermission);
+  }
   totalCount: number = 0;
 
   searchValue: any = '';
@@ -116,6 +132,14 @@ export class ClientTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
     this.getBreadCrumb();
+
+    // Subscribe to permissions changes
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    
+    // Initial update
+    this.updatePermissions();
 
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;

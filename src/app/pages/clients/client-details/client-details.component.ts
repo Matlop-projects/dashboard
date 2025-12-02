@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -46,23 +46,35 @@ export class ClientDetailsComponent {
   private confirm = inject(ConfirmMsgService);
   clientOrdersList: any[] = [];
   clientWalletBalance: any;
-
-form = new FormGroup({
-  firstName: new FormControl('', Validators.required),
-  lastName: new FormControl('', Validators.required),
-  username: new FormControl('', Validators.required),
-  email: new FormControl('',[Validators.required,Validators.email] ),
-  mobileNumber: new FormControl('', [
-    Validators.required,
-    this.saudiMobileValidator.bind(this)
-  ]),
-  pinCode: new FormControl('', Validators.required),
-  imgSrc: new FormControl(''),
-  gender: new FormControl('', Validators.required),
-  isActive: new FormControl(false, Validators.required),
-  dateOfBirth: new FormControl(null, Validators.required),
-  userId: new FormControl(this.userId || 0)
-});
+  // mobileNumberValidator = (control: AbstractControl): ValidationErrors | null => {
+  //   
+  //   const mobileNumber = control.value;
+  //   if (!mobileNumber) {
+  //     return null;
+  //   }
+  //   if (!mobileNumber.startsWith('05')) {
+  //     return { invalidSaudiMobile: true };
+  //   }
+  //   if (mobileNumber.startsWith('05') || (!mobileNumber.startsWith('09') && !mobileNumber.startsWith('07') && !mobileNumber.startsWith('02'))) {
+  //     return { invalidOmanMobile: true };
+  //   }
+  //   return null;
+  // };
+  form = new FormGroup({
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    username: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    mobileNumber: new FormControl('', [
+      Validators.required
+    ]),
+    pinCode: new FormControl('', Validators.required),
+    imgSrc: new FormControl(''),
+    gender: new FormControl('', Validators.required),
+    isActive: new FormControl(false, Validators.required),
+    dateOfBirth: new FormControl(null, Validators.required),
+    userId: new FormControl(this.userId || 0)
+  });
 
   gender = [
     { code: 1, name: 'Male' },
@@ -122,6 +134,8 @@ form = new FormGroup({
     // this.bredCrumb.crumbs[1].label = result + ' ' +this.languageService.translate(this.pageName());
     return result
   }
+
+
 
   getBreadCrumb() {
     this.bredCrumb = {
@@ -232,12 +246,30 @@ form = new FormGroup({
   }
 
   saudiMobileValidator(control: FormControl): ValidationErrors | null {
-  const value = control.value;
-  const saudiMobilePattern = /^05\d{8}$/;
-  if (value && !saudiMobilePattern.test(value)) {
-    return { saudiMobile: true };
+    const value = control.value;
+    const saudiMobilePattern = /^05\d{8}$/;
+    if (value && !saudiMobilePattern.test(value)) {
+      return { saudiMobile: true };
+    }
+    return null;
   }
-  return null;
-}
+
+  getCountryIdFromMobileNumber(mobileNumber: string): number {
+    if (mobileNumber.startsWith('05')) {
+      return 1; // Saudi Arabia
+    } else if (mobileNumber.startsWith('09') || mobileNumber.startsWith('07')) {
+      return 2; // Oman
+    }
+    return 1; // Default to Saudi Arabia if no match
+  }
+
+  getCurrencyCode(): string {
+    const mobileNumber = this.form.get('mobileNumber')?.value;
+    if (!mobileNumber) {
+      return 'SAR'; // Default to SAR
+    }
+    const countryId = this.getCountryIdFromMobileNumber(mobileNumber);
+    return countryId === 2 ? 'OMR' : 'SAR';
+  }
 
 }

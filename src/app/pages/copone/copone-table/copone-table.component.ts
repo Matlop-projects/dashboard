@@ -14,6 +14,7 @@ import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='copone.pageName'
 const global_router_add_url_in_Table ='/'+'copone'+'/add'
@@ -35,6 +36,8 @@ const global_toggleOptions:IToggleOptions={
 export class CoponeTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Copone';
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -83,6 +86,11 @@ export class CoponeTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -90,11 +98,20 @@ export class CoponeTableComponent {
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
       this.getBreadCrumb()
     })
+  }
+  canCreateCopone(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
   }
 
   displayTableCols(currentLang: string) {

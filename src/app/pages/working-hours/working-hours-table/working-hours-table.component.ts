@@ -10,6 +10,7 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 
 @Component({
@@ -22,6 +23,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class WorkingHoursTableComponent {
 
   showFilter: boolean = false
+  permissionsService = inject(PermissionsService);
+  moduleName = 'WorkingTime';
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -62,6 +65,9 @@ export class WorkingHoursTableComponent {
       "sortingDirection": 0,
       "startDate": null,
       "endDate": null
+  }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
   }
 
   searchValue: any = '';

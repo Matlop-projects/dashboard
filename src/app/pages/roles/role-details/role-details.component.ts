@@ -12,14 +12,11 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Validations } from '../../../validations';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
-import { EditorComponent } from '../../../components/editor/editor.component';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
-import { UploadFileComponent } from '../../../components/upload-file/upload-file.component';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { Checkbox } from 'primeng/checkbox';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { LanguageService } from '../../../services/language.service';
@@ -29,6 +26,31 @@ const global_API_deialis = 'Role' + '/GetById';
 const global_API_create = 'Role' + '/Create';
 const global_API_update = 'Role' + '/Update';
 const global_routeUrl = '/settings/roles';
+
+// Mapping between controller names and their routes
+const CONTROLLER_ROUTE_MAP: { [key: string]: string } = {
+  'AboutUs': '/about-us',
+  'CancelReason': '/cancel-reason',
+  'City': '/city',
+  'Client': '/clients',
+  'Complaint': '/complaint',
+  'ContactUs': '/contact-us',
+  'ContractType': '/contract-type',
+  'Copone': '/copone',
+  'Country': '/country',
+  'Equipment': '/equipments',
+  'Order': '/orders',
+  'Package': '/package',
+  'PaymentWay': '/paymentWay',
+  'Service': '/services',
+  'SpecialOrder': '/special-order',
+  'Technical': '/technicals',
+  'TechnicalSpecialist': '/technical-specialist',
+  'WorkingHours': '/working_hours',
+  'WithdrawalsTransaction': '/withdrawals-transaction',
+  'Reviews': '/reviews',
+  'TechnicalReviews': '/tech-reviews'
+};
 @Component({
   selector: 'app-role-details',
   standalone: true,
@@ -37,17 +59,14 @@ const global_routeUrl = '/settings/roles';
     TranslatePipe,
     ToggleSwitchModule,
     NgFor,
-    Checkbox,
     FormsModule,
     TitleCasePipe,
     ButtonModule,
     NgIf,
     DialogComponent,
     InputTextComponent,
-    EditorComponent,
     RouterModule,
     BreadcrumpComponent,
-    UploadFileComponent,
     CheckBoxComponent,
   ],
   templateUrl: './role-details.component.html',
@@ -274,14 +293,14 @@ export class RoleDetailsComponent {
     return true;
   }
   onSubmit() {
+    // Always simplify actions for both Add and Edit to convert to array of strings
+    const controllerInfo = this.tyepMode() == 'Add'
+      ? this.simplifyActions(this.setRolesToSubmit(this.selectedRoles))
+      : this.simplifyActions(this.setRolesToSubmit(this.convertSelectedRoles));
+
     const payload = {
       ...this.form.value,
-      controllerInfo:
-        this.tyepMode() == 'Add'
-          ? this.setRolesToSubmit(this.selectedRoles)
-          : this.simplifyActions(
-              this.setRolesToSubmit(this.convertSelectedRoles)
-            ),
+      controllerInfo: controllerInfo,
     };
 
     if (this.tyepMode() == 'Add') this.API_forAddItem(payload);
@@ -305,11 +324,32 @@ export class RoleDetailsComponent {
   }
 
   simplifyActions(data: any[]) {
-    return data.map((item) => ({
-      id: item.id,
-      controller: item.controller,
-      actions: item.actions.map((action: any) => action.name),
-    }));
+    return data.map((item) => {
+      const actions = item.actions.map((action: any) => 
+        typeof action === 'string' ? action : action.name
+      );
+      
+      // Determine permissions based on selected actions
+      const canView = actions.some((a: string) => ['GetById', 'GetAll', 'GetAllWithPagination', 'GetByUserType', 'GetByCountryId'].includes(a));
+      const canCreate = actions.includes('Create');
+      const canUpdate = actions.includes('Update');
+      const canDelete = actions.includes('Delete');
+
+      // Get route from mapping or generate default
+      const route = CONTROLLER_ROUTE_MAP[item.controller] || `/${item.controller.toLowerCase()}`;
+
+      return {
+        controller: item.controller,
+        actions: actions,
+        route: route,
+        permissions: {
+          canView: canView,
+          canCreate: canCreate,
+          canUpdate: canUpdate,
+          canDelete: canDelete,
+        }
+      };
+    });
   }
   navigateToPageTable() {
     this.router.navigateByUrl(global_routeUrl);

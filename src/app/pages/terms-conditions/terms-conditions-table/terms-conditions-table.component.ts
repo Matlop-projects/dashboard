@@ -12,6 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='termsAndConditions.pageName';
 const global_router_add_url_in_Table ='/settings/terms_conditions/add';
@@ -22,14 +23,17 @@ const global_API_delete="TermsAndConditions"+'/DeleteTermsAndConditions?id';
 @Component({
   selector: 'app-terms-conditions-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe,TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe,TranslatePipe, PaginationComponent, FormsModule,  BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './terms-conditions-table.component.html',
   styleUrl: './terms-conditions-table.component.scss'
 })
 export class TermsConditionsTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table;
+  permissionsService = inject(PermissionsService);
+  moduleName = 'TermsAndConditions';
   pageName =signal<string>(global_pageName);
+
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -63,7 +67,9 @@ export class TermsConditionsTableComponent {
       },
     ]
   }
-
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
   objectSearch = {
     pageNumber: 0,
     pageSize: 8,
@@ -86,6 +92,11 @@ export class TermsConditionsTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -93,6 +104,12 @@ export class TermsConditionsTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getBreadCrumb()
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)

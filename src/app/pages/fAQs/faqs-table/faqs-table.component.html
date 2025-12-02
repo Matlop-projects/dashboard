@@ -10,12 +10,14 @@
     </div>
     <div class="details-container">
       <div class="action-filter">
-        <a routerLink="/settings/faqs/add">  +{{'shared.add_new'|translate}}</a>
+        <ng-container *appHasPermission="moduleName; action: 'create'">
+          <a routerLink="/settings/faqs/add">  +{{'shared.add_new'|translate}}</a>
+        </ng-container>
         <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
       </div>
 
      <div class="table-view">
-      <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
+      <app-table [colsHeader]="columns" [records]="faqsList" [showrecordIndex]="true" [actions]="tableActions" [moduleName]="moduleName"></app-table>
      </div>
      <div class="responsive-accordions">
         <app-table-small-screen [colsHeaderSmallTable]="columnsSmallTable" [records]="faqsList"  [actions]="tableActions">

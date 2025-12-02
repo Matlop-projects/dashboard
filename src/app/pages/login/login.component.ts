@@ -1,5 +1,5 @@
 
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 import { OtpModalComponent } from '../../components/otp-modal/otp-modal.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
+import { PermissionsService } from '../../services/permissions.service';
 
 @Component({
   selector: 'app-login',
@@ -25,17 +26,24 @@ export class LoginComponent {
 
 
   loginForm: FormGroup;
-  toaster = inject(ToasterService);
   otpValue: string = '';
   mobileNumber: string = '';
   openOtpModal: boolean = false;
-  languageService = inject(LanguageService);
   currentLang = 'en';
   selectedLang: string = localStorage.getItem('lang') || 'en';
 
 
 
-  constructor(private fb: FormBuilder, @Inject(DOCUMENT) private document: Document, private api: ApiService, private translate: TranslateService, private router: Router) {
+  constructor(
+    private fb: FormBuilder, 
+    @Inject(DOCUMENT) private document: Document, 
+    private api: ApiService, 
+    private translate: TranslateService, 
+    private router: Router,
+    private toaster: ToasterService,
+    private permissionsService: PermissionsService,
+    private languageService: LanguageService
+  ) {
     this.loginForm = this.fb.group({
       userName: ['superadminTest@admin.com', [Validators.required]],
       // password: ['Admin@VL', [Validators.required]],
@@ -105,7 +113,31 @@ export class LoginComponent {
         }
         localStorage.setItem('userData', JSON.stringify(dataUser))
         localStorage.setItem('token', data.data.accessToken);
-        this.router.navigate(['/dashboard']);
+        
+        // Store permissions if they come with the response
+        if (data.data.userId && data.data.roleId && data.data.modules) {
+          const permissions = {
+            userId: data.data.userId,
+            roleId: data.data.roleId,
+            roleName: data.data.roleName || '',
+            modules: data.data.modules
+          };
+          this.permissionsService.setPermissions(permissions);
+          console.log('✅ Permissions loaded from login response');
+          this.router.navigate(['/dashboard']);
+        } else {
+          // Fallback: Load permissions from API if not in response
+          this.permissionsService.loadPermissions(data.data.userId).subscribe({
+            next: () => {
+              this.router.navigate(['/dashboard']);
+            },
+            error: (error) => {
+              console.error('Failed to load permissions:', error);
+              // Still navigate to dashboard even if permissions fail
+              this.router.navigate(['/dashboard']);
+            }
+          });
+        }
       }
     })
   }

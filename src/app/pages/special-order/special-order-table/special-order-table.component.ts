@@ -25,7 +25,7 @@ const global_API_delete = 'specialOrder/Delete?id'
 @Component({
   selector: 'app-special-order-table',
   standalone: true,
-  imports: [TableComponent,SelectComponent,NgIf, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,SelectComponent, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './special-order-table.component.html',
   styleUrl: './special-order-table.component.scss'
 })
@@ -241,7 +241,7 @@ export class SpecialOrderTableComponent {
   API_getAll() {
     this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
       if (res) {
-        debugger;
+        
         this.dataList = res.data.dataList;
 
         this.totalCount = res.data.totalCount;
@@ -318,7 +318,7 @@ getAllClients(){
   })
  }
   onSubmitFilter() {
-    debugger;
+    
     let countryId:any =Number(this.objectSearch.countryId)
     this.objectSearch.countryId=countryId
     let specialOrderId:any =Number(this.objectSearch.specialOrderId)

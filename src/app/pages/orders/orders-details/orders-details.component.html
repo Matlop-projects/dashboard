@@ -164,13 +164,13 @@
                 <div class="title">
                   <p>{{'order.copone_amount'|translate}}</p>
                   <p *ngIf="orderDetails.copones.coponeType == 1 && orderDetails.copones.hasMaxAmount">
-                   {{'hasMaxAmountFor'|translate}} {{orderDetails.copones.maxAmount}} {{'SAR'|translate}}
+                    {{translateService.instant('hasMaxAmountFor')}} {{orderDetails.copones.maxAmount}} {{translateService.instant(getCurrencyCode())}}
                   </p>
                 </div>
                 <div class="details-desc">
                   <p>{{orderDetails.copones.amount}}
                     <span *ngIf="orderDetails.copones.coponeType == 1">%</span>
-                     <span *ngIf="orderDetails.copones.coponeType == 2">{{'SAR'|translate}}</span>
+                     <span *ngIf="orderDetails.copones.coponeType == 2">{{getCurrencyCode()|translate}}</span>
                   </p>
                 </div>
               </div>
@@ -228,7 +228,7 @@
                 <p>{{'order.package_price'|translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.orderSubTotal ? orderDetails.orderSubTotal: '-'}} <span>SAR</span></p>
+                <p>{{orderDetails.orderSubTotal ? orderDetails.orderSubTotal: '-'}} <span>{{getCurrencyCode()}}</span></p>
               </div>
             </div>
             <div class="details">
@@ -237,7 +237,7 @@
               </div>
               <div class="details-desc total-price">
                 <p>{{calculateTotalEquipmentPrice(orderDetails) != 0 ? calculateTotalEquipmentPrice(orderDetails): 0}}
-                  <span>SAR</span>
+                  <span>{{getCurrencyCode()}}</span>
                 </p>
               </div>
             </div>
@@ -246,7 +246,7 @@
                 <p>{{'order.total_additional_price' | translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{calculateTotalAdditionalItemsPrice(orderDetails) != 0 ? calculateTotalAdditionalItemsPrice(orderDetails): 0}} <span>SAR</span></p>
+                <p>{{calculateTotalAdditionalItemsPrice(orderDetails) != 0 ? calculateTotalAdditionalItemsPrice(orderDetails): 0}} <span>{{getCurrencyCode()}}</span></p>
               </div>
             </div>
             <div class="details" >
@@ -254,7 +254,7 @@
                 <p>{{'order.total_price'|translate}}</p>
               </div>
               <div class="details-desc total-price">
-                <p>{{orderDetails.orderSubTotal ? orderDetails.totalWithAdditional: '-'}} <span>SAR</span></p>
+                <p>{{orderDetails.orderSubTotal ? orderDetails.totalWithAdditional: '-'}} <span>{{getCurrencyCode()}}</span></p>
               </div>
             </div>
             <div class="details">
@@ -361,6 +361,7 @@
                 <td>
                   <div class="actions-icon">
                     <span class="pi pi-pen-to-square" title="Edit" (click)="editAdditinal(item)"></span>
+                    <span class="pi pi-trash" title="Delete" (click)="deleteAdditinalItem(item)"></span>
                   </div>
                 </td>
               </tr>

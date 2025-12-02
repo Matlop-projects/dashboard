@@ -1,4 +1,4 @@
-import { Component, Inject, inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
@@ -6,6 +6,7 @@ import { AutoComplete } from 'primeng/autocomplete';
 import { Select } from 'primeng/select';
 import { LanguageService } from '../../services/language.service';
 import { ToasterService } from '../../services/toaster.service';
+import { PermissionsService } from '../../services/permissions.service';
 import { DOCUMENT, NgFor } from '@angular/common';
 import { PrimeNG } from 'primeng/config';
 import { InputGroup } from 'primeng/inputgroup';
@@ -55,10 +56,15 @@ export class NavbarComponent {
     { name: 'العربية', code: 'ar', icon: 'assets/images/icons/ar-lang.png' },
   ];
   selectedLang: string = localStorage.getItem('lang') || 'en';
-  languageService = inject(LanguageService);
-  toaster = inject(ToasterService);
 
-  constructor(@Inject(DOCUMENT) private document: Document,private primeng: PrimeNG , private router: Router) {}
+  constructor(
+    @Inject(DOCUMENT) private document: Document,
+    private primeng: PrimeNG,
+    private router: Router,
+    private languageService: LanguageService,
+    private toaster: ToasterService,
+    private permissionsService: PermissionsService
+  ) {}
 
 
   search(event: AutoCompleteCompleteEvent) {
@@ -115,6 +121,7 @@ export class NavbarComponent {
 
   logout() {
     localStorage.removeItem('token');
-
+    localStorage.removeItem('userData');
+    this.permissionsService.clearPermissions();
   }
 }

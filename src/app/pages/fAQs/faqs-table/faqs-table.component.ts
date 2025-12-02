@@ -12,18 +12,22 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TitleCasePipe } from '@angular/common';
+import { PermissionsService } from '../../../services/permissions.service';
+import { HasPermissionDirective } from '../../../directives/has-permission.directive';
 
 const global_pageName = 'faqs.pageName';
 
 @Component({
   selector: 'app-faqs',
   standalone: true,
-  imports: [TableComponent,TranslatePipe,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TranslatePipe,TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, HasPermissionDirective],
   templateUrl: './faqs-table.component.html',
   styleUrl: './faqs-table.component.scss'
 })
 export class FaqsTableComponent {
   pageName = signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+  moduleName = 'FAQs';
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -59,6 +63,9 @@ export class FaqsTableComponent {
     enTitle: "",
     arTitle: ""
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
 
   totalCount: number = 0;
 
@@ -71,12 +78,23 @@ export class FaqsTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.getAllFAQS();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getBreadCrumb()
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)

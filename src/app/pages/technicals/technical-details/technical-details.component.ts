@@ -53,7 +53,7 @@ export class TechnicalDetailsComponent {
   userTypeList = userType
   private confirm = inject(ConfirmMsgService)
   mobileNumberValidator = (control: AbstractControl): ValidationErrors | null => {
-    debugger;
+    
     const mobileNumber = control.value;
     const countryId = Number(this.form?.get('countryId')?.value);
 

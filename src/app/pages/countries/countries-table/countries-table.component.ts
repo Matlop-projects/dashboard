@@ -12,6 +12,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='country'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
@@ -33,6 +34,8 @@ autoCall:true,
 export class CountriesTableComponent {
   pageName =signal<string>('country.pageName');
   global_router_add_url_in_Table =global_router_add_url_in_Table
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Country';
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -65,6 +68,9 @@ export class CountriesTableComponent {
       },
     ]
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
 
   objectSearch = {
     pageNumber: 0,
@@ -86,6 +92,11 @@ export class CountriesTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set('country.pageName')
@@ -93,6 +104,12 @@ export class CountriesTableComponent {
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

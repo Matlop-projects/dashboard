@@ -7,7 +7,7 @@
       <div class="pages-routing-section section-color">
         <!-- [pTooltip]="route.label | translate"
             [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'" -->
-        <ng-container *ngFor="let route of routingList">
+        <ng-container *ngFor="let route of filteredRoutingList">
           <div [routerLink]="route.route" class="routing-action" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }" >
             <span [class]="route.icon"></span>
@@ -17,12 +17,22 @@
 
       </div>
       <div class="setting-section section-color">
-        <div routerLink="/settings/faqs" class="routing-action" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }" pTooltip="{{'side_bar.setting' | translate|uppercase}}"
+        <div 
+            *ngIf="canViewSettings()"
+            routerLink="/settings/faqs" 
+            class="routing-action" 
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" 
+            pTooltip="{{'side_bar.setting' | translate|uppercase}}"
             [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
             <span class="pi pi-cog"></span>
           </div>
-          <div class="user-image-section" routerLink="/profile" [pTooltip]="'Profile' | translate" [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
+          <div 
+            *ngIf="canViewProfile()"
+            class="user-image-section" 
+            routerLink="/profile" 
+            [pTooltip]="'Profile' | translate" 
+            [tooltipPosition]="selectedLang == 'ar' ? 'left' : 'right'">
             <img [src]="userDate.img?baseImageUrl+userDate.img:this.defaultImage" alt="user-image">
           </div>
       </div>

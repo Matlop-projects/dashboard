@@ -10,6 +10,7 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 
 const global_pageName='roles.pageName';
@@ -29,6 +30,8 @@ const global_API_delete="Role"+'/Delete?roleId';
 export class RoleTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table;
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Role';
   pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
@@ -56,7 +59,11 @@ export class RoleTableComponent {
     crumbs: []
   }
 
+ 
 
+  canCreate (): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
   totalCount: number = 0;
 
   searchValue: any = '';
@@ -68,6 +75,11 @@ export class RoleTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -75,6 +87,12 @@ export class RoleTableComponent {
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.API_getAll();

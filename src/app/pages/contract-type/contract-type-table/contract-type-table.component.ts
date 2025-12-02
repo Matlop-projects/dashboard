@@ -12,6 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='contract.pageName'
 const global_router_add_url_in_Table ='/'+'contract-type'+'/add'
@@ -29,6 +30,8 @@ const global_API_delete='contractType'+'/Delete?requestId'
 export class ContractTypeTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+  moduleName = 'ContractType';
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -78,6 +81,11 @@ export class ContractTypeTableComponent {
   columnsSmallTable: IcolHeaderSmallTable[] = []
 
   selectedLang: any;
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -85,12 +93,22 @@ export class ContractTypeTableComponent {
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)
       this.getBreadCrumb()
     })
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
+
 
   displayTableCols(currentLang: string) {
     this.columns = [

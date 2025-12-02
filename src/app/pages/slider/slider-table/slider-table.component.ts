@@ -12,6 +12,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='slider.pageName'
 const global_router_add_url_in_Table ='/settings/'+"slider"+'/add'
@@ -30,7 +31,8 @@ const global_API_delete="slider"+'/Delete?requestId'
 export class SliderTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
-
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Slider';
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -65,7 +67,9 @@ export class SliderTableComponent {
     offerType: 0,
     couponType: 0
   }
-
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
   totalCount: number = 0;
 
   searchValue: any = '';
@@ -78,6 +82,11 @@ export class SliderTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -85,6 +94,12 @@ export class SliderTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getBreadCrumb()
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)

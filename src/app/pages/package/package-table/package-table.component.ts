@@ -14,6 +14,7 @@ import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='package'
 const global_router_add_url_in_Table ='/'+global_pageName+'/add'
@@ -25,12 +26,14 @@ const global_API_delete=global_pageName+'/DeletePackage?id'
 @Component({
   selector: 'app-package-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe,SelectComponent, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './package-table.component.html',
   styleUrl: './package-table.component.scss'
 })
 export class PackageTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Package';
   pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
@@ -57,6 +60,9 @@ export class PackageTableComponent {
   bredCrumb: IBreadcrumb = {
     crumbs: [
     ]
+  }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
   }
 
   objectSearch = {

@@ -1,5 +1,5 @@
 import { NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ToasterService } from '../../services/toaster.service';
 import { LanguageService } from '../../services/language.service';
+import { PermissionsService } from '../../services/permissions.service';
 
 export interface IToggleOptions {
   autoCall: boolean,
@@ -83,6 +84,7 @@ export class TableComponent implements OnInit, OnChanges {
   filterdRecords: any = [];
   @Input({ required: true }) colsHeader: IcolHeader[] = [];
   @Input() actions: any[] = [];
+  @Input() moduleName: string = ''; // Module name for permissions check
   @Output() onActionCliked = new EventEmitter();
   @Output() onstatusChanged = new EventEmitter();
   @Output() reloadGetAllApi = new EventEmitter();
@@ -91,18 +93,40 @@ export class TableComponent implements OnInit, OnChanges {
   showBlockConfirmationMessage: boolean = false;
   showActiveConfirmationMessage: boolean = false;
 
-  ApiService = inject(ApiService);
-  router = inject(Router);
-  toaster = inject(ToasterService);
-
   selectedLang: any;
-
-  // Inject LanguageService to access the current language.
-  private languageService = inject(LanguageService);
-
   eventEmitValue: any = { action: {}, record: {} }
   imageBaseUrl = environment.baseImageUrl;
-   EN_Status:any[] =[];
+  EN_Status:any[] =[];
+
+  constructor(
+    private ApiService: ApiService,
+    private router: Router,
+    private toaster: ToasterService,
+    private languageService: LanguageService,
+    private permissionsService: PermissionsService
+  ) {}
+
+  // Check if user has permission for an action
+  hasPermission(action: string): boolean {
+    if (!this.moduleName) {
+      return true; // If no module name specified, show all actions
+    }
+debugger;
+    switch (action) {
+      case 'view':
+        return this.permissionsService.canView(this.moduleName);
+      case 'edit':
+      case 'update':
+        return this.permissionsService.canUpdate(this.moduleName);
+      case 'delete':
+        return this.permissionsService.canDelete(this.moduleName);
+      case 'create':
+        return this.permissionsService.canCreate(this.moduleName);
+      default:
+        return true;
+    }
+  }
+
   ngOnInit() {
          this.getSTAtus()
 

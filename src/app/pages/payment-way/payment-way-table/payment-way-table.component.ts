@@ -12,6 +12,7 @@ import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='payment.pageName'
 const global_API_Name='paymentWay'
@@ -42,6 +43,8 @@ const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
 export class PaymentWayTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+  moduleName = 'PaymentWay';
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -68,6 +71,9 @@ export class PaymentWayTableComponent {
     crumbs: []
   }
 
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
   objectSearch = {
     pageNumber: 0,
     pageSize: 8,
@@ -88,8 +94,18 @@ export class PaymentWayTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.pageName.set(global_pageName)
     this.API_getAll();
     this.getBreadCrumb();

@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectorRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { NgFor, TitleCasePipe } from '@angular/common';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { EAction, EType, IcolHeader, ITableAction, TableComponent } from '../../../components/table/table.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
@@ -12,6 +12,7 @@ import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='tech.pageName';
 const global_API_Name='Technical';
@@ -36,7 +37,8 @@ const global_API_block=global_API_Name+'/Delete?userId';
      RouterModule,
      InputTextModule,
      TableSmallScreenComponent,
-     NgFor
+     NgFor,
+     NgIf
   ],
   templateUrl: './technical-table.component.html',
   styleUrl: './technical-table.component.scss'
@@ -44,7 +46,13 @@ const global_API_block=global_API_Name+'/Delete?userId';
 export class TechnicalTableComponent {
 
   global_router_add_url_in_Table =global_router_add_url_in_Table
+  permissionsService = inject(PermissionsService);
+  moduleName = 'Technical';
   pageName =signal<string>(global_pageName);
+  private cdr = inject(ChangeDetectorRef);
+  
+  // Use property instead of method for better change detection
+  hasCreatePermission: boolean = false;
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -82,6 +90,13 @@ export class TechnicalTableComponent {
 
     ]
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
+  
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   objectSearch = {
     "pageNumber": 0,
@@ -118,6 +133,15 @@ export class TechnicalTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
     this.getBreadCrumb();
+    
+    // Subscribe to permissions changes
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    
+    // Initial update
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

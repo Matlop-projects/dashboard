@@ -789,7 +789,8 @@
   "NO_ORDERS_AVAILABLE": "لا توجد طلبات متاحة",
   "visitNumber": "عدد الزيارات ",
   "nextVisit": "الزيارة التالية",
-  "SAR": "ريال",
+  "SAR": " ريال سعودي",
+  "OMR": " ريال عماني",
   "hasMaxAmountFor": "كحد اقصي",
   "Status_Action": "حالة دفع الطلب",
   "WALLET_DIALOG": {

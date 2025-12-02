@@ -14,7 +14,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      console.log(error.status);
+      console.log('HTTP Error Status:', error.status);
 
       ngZone.run(() => {
         if (error.status === 401) {
@@ -24,6 +24,18 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           toaster.errorToaster(error.error.message);
         } else if (error.status === 403) {
           toaster.errorToaster(error.error.message);
+        } else if (error.status === 431) {
+          // Handle "Request Header Fields Too Large" error
+          console.error('❌ 431 Error: Request Header Fields Too Large');
+          console.error('Token length:', localStorage.getItem('token')?.length);
+          
+          // Clear token and redirect to login
+          localStorage.removeItem('token');
+          localStorage.removeItem('userData');
+          sessionStorage.clear();
+          
+          toaster.errorToaster('Session expired. Please login again.');
+          router.navigate(['/auth/login']);
         }
       });
 

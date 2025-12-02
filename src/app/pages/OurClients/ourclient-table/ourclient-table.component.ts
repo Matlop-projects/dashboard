@@ -12,6 +12,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { OurClientService } from '../ourclient.service';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='ourclients.pageName'
 const global_router_add_url_in_Table ='/settings/'+"ourclient"+'/add'
@@ -30,6 +31,8 @@ const global_API_delete="OurClients"+'/DeleteOurClient?id'
 export class OurClientTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  permissionsService = inject(PermissionsService);
+
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
@@ -75,6 +78,11 @@ export class OurClientTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate('OurClient');
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -82,6 +90,12 @@ export class OurClientTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getBreadCrumb()
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)

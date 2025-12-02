@@ -10,8 +10,10 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
-import { TitleCasePipe } from '@angular/common';
+import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
+import { HasPermissionDirective } from '../../../directives/has-permission.directive';
 
 const global_pageName='admin.pageName'
 const global_router_add_url_in_Table ='/settings/admin/add'
@@ -27,15 +29,21 @@ autoCall:true,
 @Component({
   selector: 'app-admin-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent,TitleCasePipe,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent, TitleCasePipe, TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, NgIf, NgFor, HasPermissionDirective],
   templateUrl: './admin-table.component.html',
   styleUrl: './admin-table.component.scss'
 })
 export class AdminTableComponent {
 global_router_add_url_in_Table =global_router_add_url_in_Table
   pageName =signal<string>(global_pageName);
+  moduleName = 'Admin';
 
   showFilter: boolean = false
+  permissionsService = inject(PermissionsService);
+
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -80,6 +88,12 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  
+  hasCreatePermission: boolean = false;
+  
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -87,6 +101,13 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    
+    // Subscribe to permissions changes
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang)

@@ -9,9 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
-import { TitleCasePipe } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName = 'services.pageName'
 const global_router_add_url_in_Table = '/service/add'
@@ -23,7 +24,7 @@ const global_API_delete = 'Service' + '/DeleteService?id'
 @Component({
   selector: 'app-services-table',
   standalone: true,
-  imports: [TableComponent,TranslatePipe, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, TranslatePipe, TitleCasePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, NgIf],
   templateUrl: './services-table.component.html',
   styleUrl: './services-table.component.scss'
 })
@@ -31,7 +32,12 @@ export class ServicesTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table
   pageName = signal<string>(global_pageName);
-
+  moduleName = 'Service';
+  permissionsService = inject(PermissionsService);
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
+  
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -79,6 +85,11 @@ export class ServicesTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -87,6 +98,12 @@ export class ServicesTableComponent {
       this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

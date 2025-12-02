@@ -12,6 +12,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TitleCasePipe } from '@angular/common';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_toggleOptions:IToggleOptions={
   apiName:'city/Update',
@@ -26,6 +27,8 @@ const global_toggleOptions:IToggleOptions={
 })
 export class CitiesTableComponent {
   pageName =signal<string>('');
+  permissionsService = inject(PermissionsService);
+  moduleName = 'City';
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
@@ -51,6 +54,9 @@ export class CitiesTableComponent {
     crumbs: [
     ]
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
 
   showFilter: boolean = false
 
@@ -72,12 +78,24 @@ export class CitiesTableComponent {
   }
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
+
   ngOnInit() {
     this.pageName.set('city.pageName')
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang)
     this.getAllCities();
     this.getBreadCrumb();
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

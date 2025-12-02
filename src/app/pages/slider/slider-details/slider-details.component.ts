@@ -163,7 +163,7 @@ export class SliderDetailsComponent {
   }
 
   getCountries() {
-    debugger;
+    
     this.countryService.getCountries().subscribe((res: any) => {
       if (res) {
         res.data.map((country: any) => {

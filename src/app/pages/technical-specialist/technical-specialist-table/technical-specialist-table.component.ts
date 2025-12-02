@@ -13,6 +13,7 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 
 const global_pageName='Technical Specialist'
@@ -34,6 +35,8 @@ const global_API_delete='technicalSpecialist/Delete?requestId'
 
 export class TechnicalSpecialistTableComponent {
   global_router_add_url_in_Table =global_router_add_url_in_Table
+  permissionsService = inject(PermissionsService);
+  moduleName = 'TechnicalSpecialist';
   pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
@@ -60,6 +63,9 @@ export class TechnicalSpecialistTableComponent {
   bredCrumb: IBreadcrumb = {
     crumbs: [
     ]
+  }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
   }
 
   objectSearch = {

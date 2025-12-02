@@ -10,9 +10,9 @@
       </div>
       <div class="details-container">
         <div class="action-filter">
-          <a routerLink="/city/add">  +{{'shared.add_new'|translate}}</a>
+          <a *ngIf="hasCreatePermission" routerLink="/city/add">  +{{'shared.add_new'|translate}}</a>
           <span class="pi pi-filter pointer" (click)="openFilter()"> </span>
-                </div>
+        </div>
        <div class="table-view">
         <app-table [colsHeader]="columns" [records]="citiesList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
        </div>

@@ -14,6 +14,7 @@ import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='equipments.pageName'
 const global_router_add_url_in_Table ='/'+'equipment'+'/add'
@@ -25,12 +26,14 @@ const global_API_delete='equipment'+'/Delete?id'
 @Component({
   selector: 'app-equipments-table',
   standalone: true,
-  imports: [TableComponent,TitleCasePipe,SelectComponent, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent,TitleCasePipe, TranslatePipe, PaginationComponent, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
   templateUrl: './equipments-table.component.html',
   styleUrl: './equipments-table.component.scss'
 })
 export class EquipmentsTableComponent {
  global_router_add_url_in_Table =global_router_add_url_in_Table
+ permissionsService = inject(PermissionsService);
+ moduleName = 'Equipment';
   pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
@@ -58,6 +61,9 @@ export class EquipmentsTableComponent {
     crumbs: [
     ]
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
 
   objectSearch = {
     pageNumber: 0,
@@ -81,6 +87,11 @@ export class EquipmentsTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set(global_pageName)
@@ -88,6 +99,12 @@ export class EquipmentsTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
     this.getBreadCrumb();
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

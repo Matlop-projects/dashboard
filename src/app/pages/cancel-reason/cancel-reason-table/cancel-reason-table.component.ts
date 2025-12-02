@@ -10,20 +10,23 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
-import { TitleCasePipe } from '@angular/common';
+import { NgFor, TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
+import { HasPermissionDirective } from '../../../directives/has-permission.directive';
 
 
 @Component({
   selector: 'app-cancel-reason-table',
   standalone: true,
-  imports: [TableComponent, PaginationComponent,TitleCasePipe,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent],
+  imports: [TableComponent, PaginationComponent,TitleCasePipe,TranslatePipe, FormsModule, DrawerComponent, BreadcrumpComponent, RouterModule, InputTextModule, TableSmallScreenComponent, NgFor, HasPermissionDirective],
   templateUrl: './cancel-reason-table.component.html',
   styleUrl: './cancel-reason-table.component.scss'
 })
 export class CancelReasonTableComponent {
   pageName =signal<string>('');
-
+  permissionsService = inject(PermissionsService);
+  moduleName = 'CancelReason';
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
@@ -57,6 +60,10 @@ export class CancelReasonTableComponent {
     ]
   }
 
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
+
   objectSearch = {
     pageNumber: 0,
     pageSize: 8,
@@ -77,6 +84,11 @@ export class CancelReasonTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
     this.pageName.set('cancel_reason.pageName')
@@ -84,6 +96,12 @@ export class CancelReasonTableComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
     this.getBreadCrumb();
+    
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.displayTableCols(this.selectedLang);

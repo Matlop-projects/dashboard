@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, take, catchError, throwError } from 'rxjs';
@@ -16,10 +16,11 @@ const baseUrl = environment.baseUrl;
   providedIn: 'root',
 })
 export class ApiService {
-  private toaster = inject(ToasterService);
-  private ngxToaster = inject(NgxToasterService);
-
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private toaster: ToasterService,
+    private ngxToaster: NgxToasterService
+  ) {}
 
   login(object: any): Observable<any> {
     return this.http.post(baseUrl + `Authentication/login`, object).pipe(

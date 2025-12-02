@@ -154,45 +154,91 @@
               </span>
               <div class="d-flex" *ngIf="col.type == 'actions'">
                 <div *ngFor="let action of col.actions">
-                  <div class="actions-icon" (click)="onAction(action, rowData)">
+                  <!-- View action - requires canView permission -->
+                  <div 
+                    *ngIf="action.name === 'view' && hasPermission('view')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'view'"
                       class="pi pi-eye"
                       pTooltip="View"
                       tooltipPosition="top"
                     ></span>
+                  </div>
+                  
+                  <!-- Edit action - requires canUpdate permission -->
+                  <div 
+                    *ngIf="action.name === 'edit' && hasPermission('update')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'edit'"
                       class="pi pi-pen-to-square"
                       pTooltip="Edit"
                       tooltipPosition="top"
                     ></span>
+                  </div>
+                  
+                  <!-- Delete action - requires canDelete permission -->
+                  <div 
+                    *ngIf="action.name === 'delete' && hasPermission('delete')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'delete'"
                       class="pi pi-trash"
                       pTooltip="Delete"
                       tooltipPosition="top"
                     ></span>
+                  </div>
+                  
+                  <!-- Active action - requires canUpdate permission -->
+                  <div 
+                    *ngIf="action.name === 'active' && hasPermission('update')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'active'"
                       class="pi pi-bullseye"
                       pTooltip="Active"
                       tooltipPosition="top"
                     ></span>
+                  </div>
+                  
+                  <!-- Block action - requires canUpdate permission -->
+                  <div 
+                    *ngIf="action.name === 'block' && hasPermission('update')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'block'"
                       class="pi pi-ban"
                       pTooltip="Block"
                       tooltipPosition="top"
                     ></span>
+                  </div>
+                  
+                  <!-- Approve action - requires canUpdate permission -->
+                  <div 
+                    *ngIf="action.name === 'approve' && hasPermission('update')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'approve'"
                       class="pi pi-check approve"
                       pTooltip="approve"
                       tooltipPosition="top"
                     ></span>
+                  </div>
+                  
+                  <!-- Reject action - requires canUpdate permission -->
+                  <div 
+                    *ngIf="action.name === 'reject' && hasPermission('update')"
+                    class="actions-icon" 
+                    (click)="onAction(action, rowData)"
+                  >
                     <span
-                      *ngIf="action.name === 'reject'"
                       class="pi pi-times reject"
                       pTooltip="reject"
                       tooltipPosition="top"

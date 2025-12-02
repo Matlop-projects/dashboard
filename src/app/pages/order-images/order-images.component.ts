@@ -36,7 +36,7 @@ export class OrderImagesComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    debugger;
+    
     this.route.paramMap.subscribe(params => {
       this.typeParam = params.get('type') || 'e';
       this.getCountries();
@@ -82,7 +82,7 @@ export class OrderImagesComponent implements OnInit {
 
 
   apiCallForUpload(base64WithPrefix: string, countryId: number): void {
-    debugger;
+    
     const link = this.typeParam === 'e'
       ? 'OrderDefaultImage/CreateEmercencyOrderDefaultImage'
       : 'OrderDefaultImage/CreateSpecialOrderDefaultImage';
@@ -99,7 +99,7 @@ export class OrderImagesComponent implements OnInit {
 
 
   getImage(countryId: number): void {
-    debugger;
+    
     const link = this.typeParam === 'e'
       ? `OrderDefaultImage/GetEmercencyOrderDefaultImage?CountryId=${countryId}`
       : `OrderDefaultImage/GetSepcialOrderDefaultImage?CountryId=${countryId}`;

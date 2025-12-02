@@ -380,6 +380,14 @@ export class OrdersDetailsComponent {
     return 1; // Default to Saudi Arabia if no match
   }
 
+  getCurrencyCode(): string {
+    if (!this.clientDetails?.mobileNumber) {
+      return 'SAR'; // Default to SAR
+    }
+    const countryId = this.getCountryIdFromMobileNumber(this.clientDetails.mobileNumber);
+    return countryId === 2 ? 'OMR' : 'SAR';
+  }
+
   convertDate(originalDate: string): string {
     const date = new Date(originalDate);
     const day = date.getDate().toString().padStart(2, '0');
@@ -401,7 +409,7 @@ export class OrdersDetailsComponent {
   }
 
   getTechnicalList(serviceId: number) {
-    debugger;
+    
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
     this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}?serviceId=${serviceId}`).subscribe((res: any) => {
       this.providerList = res.data;
@@ -410,7 +418,7 @@ export class OrdersDetailsComponent {
 
 
   getDriversList(serviceId: number) {
-    debugger;
+    
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
     this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}?serviceId=${serviceId}`).subscribe((res: any) => {
       this.driversList = res.data;
@@ -511,6 +519,16 @@ export class OrdersDetailsComponent {
       this.additinalModal.props.visible = false;
       this.tosater.successToaster('Additinal Item Updated Successfully')
     })
+  }
+
+  deleteAdditinalItem(item: any) {
+    this.ApiService.deleteWithParams(
+      'OrderAdditionalItems/DeleteOrder',
+      { addtionalItemId: item.orderAddtionalItemId }
+    ).subscribe((res: any) => {
+      this.getOrderDetails();
+      this.tosater.successToaster('Additional Item Deleted Successfully');
+    });
   }
 
   editAdditinal(item: any) {

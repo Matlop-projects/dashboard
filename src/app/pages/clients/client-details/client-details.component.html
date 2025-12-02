@@ -19,7 +19,7 @@
           <p>{{ 'WALLET_DIALOG.WALLET_AMOUNT' | translate}}</p>
         </div>
         <div class="amount">
-          <p>{{clientWalletBalance}} <span>{{'SAR' | translate}}</span></p>
+          <p>{{clientWalletBalance}} <span>{{getCurrencyCode() | translate}}</span></p>
         </div>
       </div>
     </div>

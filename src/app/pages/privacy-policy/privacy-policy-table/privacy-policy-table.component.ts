@@ -12,6 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { PermissionsService } from '../../../services/permissions.service';
 
 const global_pageName='privacy.pageName';
 const global_router_add_url_in_Table ='/settings/privacy_policy/add';
@@ -31,6 +32,8 @@ const global_API_delete="PrivacyPolicy"+'/Delete?requestId';
 export class PrivacyPolicyTableComponent {
 
   global_router_add_url_in_Table = global_router_add_url_in_Table;
+  permissionsService = inject(PermissionsService);
+  moduleName = 'PrivacyPolicy';
   pageName =signal<string>(global_pageName);
 
   showFilter: boolean = false
@@ -57,6 +60,9 @@ export class PrivacyPolicyTableComponent {
   bredCrumb: IBreadcrumb = {
     crumbs: []
   }
+  canCreate(): boolean {
+    return this.permissionsService.canCreate(this.moduleName);
+  }
 
   objectSearch = {
     pageNumber: 0,
@@ -81,8 +87,18 @@ export class PrivacyPolicyTableComponent {
 
   selectedLang: any;
   languageService = inject(LanguageService);
+  hasCreatePermission: boolean = false;
+
+  private updatePermissions(): void {
+    this.hasCreatePermission = this.permissionsService.canCreate(this.moduleName);
+  }
 
   ngOnInit() {
+    this.permissionsService.permissions$.subscribe(() => {
+      this.updatePermissions();
+    });
+    this.updatePermissions();
+    
     this.pageName.set(global_pageName)
     this.API_getAll();
     this.getBreadCrumb();

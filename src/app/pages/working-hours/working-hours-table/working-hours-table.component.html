@@ -10,7 +10,7 @@
     </div>
     <div class="details-container">
       <div class="action-filter">
-        <a routerLink="/working_hours/add"> + {{'working_hours.add_new'|translate}}</a>
+        <a  routerLink="/working_hours/add"> + {{'working_hours.add_new'|translate}}</a>
       </div>
      <div class="table-view">
       <app-table [colsHeader]="columns" [records]="workingHoursList" [showrecordIndex]="true" [actions]="tableActions"></app-table>
