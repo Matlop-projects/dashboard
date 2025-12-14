@@ -94,6 +94,11 @@ export class SettingsComponent {
         label: this.languageService.translate('settings.special_order_image'),
         icon: 'pi pi-images',
         routerLink: '/settings/order_images/s'
+      },
+      {
+        label: this.languageService.translate('settings.blog'),
+        icon: 'pi pi-book',
+        routerLink: '/settings/blog'
       }
     ];
   }

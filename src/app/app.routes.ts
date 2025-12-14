@@ -70,6 +70,8 @@ import { ReviewtechnicalTableComponent } from './pages/reviewtechnical-table/rev
 import { ReviewtechnicalDetailsComponent } from './pages/reviewtechnical-details/reviewtechnical-details.component';
 import { OurClientTableComponent } from './pages/OurClients/ourclient-table/ourclient-table.component';
 import { OurClientDetailsComponent } from './pages/OurClients/ourclient-details/ourclient-details.component';
+import { BlogTableComponent } from './pages/blog/blog-table/blog-table.component';
+import { BlogDetailsComponent } from './pages/blog/blog-details/blog-details.component';
 
 export const routes: Routes = [
   {
@@ -102,6 +104,11 @@ export const routes: Routes = [
           { path: 'faqs/add', component: FagsDetailsComponent },
           { path: 'faqs/edit/:id', component: FagsDetailsComponent },
           { path: 'faqs/view/:id', component: FagsDetailsComponent },
+
+          { path: 'blog', component: BlogTableComponent },
+          { path: 'blog/add', component: BlogDetailsComponent },
+          { path: 'blog/edit/:id', component: BlogDetailsComponent },
+          { path: 'blog/view/:id', component: BlogDetailsComponent },
 
           { path: 'terms_conditions', component: TermsConditionsTableComponent },
           { path: 'terms_conditions/add', component: TermsConditionsDetailsComponent },
