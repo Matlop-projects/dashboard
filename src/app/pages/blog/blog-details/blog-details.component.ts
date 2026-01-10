@@ -134,7 +134,7 @@ export class BlogDetailsComponent {
     serviceId: new FormControl('', {
       validators: [Validators.required],
     }),
-    countryId: new FormControl('', { validators: [Validators.required] }),
+    // countryId: new FormControl('', { validators: [Validators.required] }),
     blogId: new FormControl(this.getID | 0),
   });
 
@@ -229,7 +229,7 @@ export class BlogDetailsComponent {
       (res: any) => {
         if (res) {
           this.form.patchValue(res.data);
-          this.form.get('countryId')?.setValue(res.data.countryId);
+          // this.form.get('countryId')?.setValue(res.data.countryId);
           this.editImageProps.props.imgSrc = this.imageUrl + res.data.coverEn;
           this.editAttachmentMode = true;
 

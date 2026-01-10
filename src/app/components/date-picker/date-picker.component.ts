@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ValidationHandlerPipePipe } from '../../pipes/validation-handler-pipe.pipe';
 import { DatePickerModule } from 'primeng/datepicker';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -13,8 +13,9 @@ import { TranslatePipe } from '@ngx-translate/core';
     ValidationHandlerPipePipe,
     DatePickerModule,
     NgIf,
-    TranslatePipe
-  ],
+    TranslatePipe,
+    NgClass
+],
   templateUrl: './date-picker.component.html',
   styleUrl: './date-picker.component.scss'
 })

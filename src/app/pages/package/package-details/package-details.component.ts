@@ -139,11 +139,11 @@ export class PackageDetailsComponent {
     }),
     image: new FormControl('', {
     }),
-    countryId: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
+    // countryId: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //   ]
+    // }),
     packageCities: new FormControl<any>('', {
       validators: [
         Validators.required,

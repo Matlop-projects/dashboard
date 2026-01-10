@@ -108,7 +108,7 @@ export class SliderDetailsComponent {
         Validators.required,
       ]
     }),
-    countryId: new FormControl('', { validators: [Validators.required] }),
+    // countryId: new FormControl('', { validators: [Validators.required] }),
     sliderId: new FormControl(this.getID | 0),
   })
 
@@ -194,7 +194,7 @@ export class SliderDetailsComponent {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data)
-        this.form.get('countryId')?.setValue(res.data.countryId)
+        // this.form.get('countryId')?.setValue(res.data.countryId)
         this.editImageProps.props.imgSrc = this.imageUrl + res.data.imageEn;
         this.editAttachmentMode = true;
 

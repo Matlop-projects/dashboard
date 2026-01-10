@@ -21,10 +21,10 @@
             <app-input-text [readOnly]="tyepMode()==='View'" [disabled]="tyepMode()==='View'" [label]="'privacy.form.title_ar'"
               [control]="form.get('arTitle')"></app-input-text>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 mt-2"> 
+          <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-2"> 
             <app-select [placeholder]="form.get('countryId')?.value" class="w-100" [list]="countries" [label]="'city.form.country'" 
               [control]="form.get('countryId')"></app-select> 
-          </div> 
+          </div>  -->
              <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
             <app-select [placeholder]="form.get('userType')?.value" class="w-100" [list]="userType"
               [label]="'faqs.form.userType'" [control]="form.get('userType')">

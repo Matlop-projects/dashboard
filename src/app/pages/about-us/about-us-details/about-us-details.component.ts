@@ -75,7 +75,7 @@ export class AboutUsDetailsComponent {
         Validators.required,
       ]
     }),
-    countryId: new FormControl('', { validators: [Validators.required] }),
+    // countryId: new FormControl('', { validators: [Validators.required] }),
     enDescription: new FormControl<any>('', {
       validators: [
         Validators.required,
@@ -170,7 +170,7 @@ export class AboutUsDetailsComponent {
     this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
-          this.form.get('countryId')?.setValue(res.data.countryId)
+          // this.form.get('countryId')?.setValue(res.data.countryId)
         this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.image;
         console.log("AboutUsDetailsComponent  this.ApiService.get    this.editImageProps.props.imgSrc:",   this.editImageProps.props.imgSrc)
         this.editMode = true;

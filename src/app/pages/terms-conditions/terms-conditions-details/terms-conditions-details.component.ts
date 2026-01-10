@@ -67,11 +67,11 @@ export class TermsConditionsDetailsComponent {
     }),
     termId: new FormControl(this.getID | 0, Validators.required),
     userType: new FormControl(),
-    countryId: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    })
+    // countryId: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //   ]
+    // })
   })
 
   bredCrumb: IBreadcrumb = {

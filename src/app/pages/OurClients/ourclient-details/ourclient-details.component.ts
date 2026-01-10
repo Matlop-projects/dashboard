@@ -94,11 +94,11 @@ export class OurClientDetailsComponent {
       ]
     }),
     clientId: new FormControl(this.getID | 0),
-    countryId: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    })
+    // countryId: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //   ]
+    // })
   })
 
   bredCrumb: IBreadcrumb = {

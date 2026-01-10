@@ -71,7 +71,7 @@ export class AddNotificationsComponent {
     userType: new FormControl<any>('', {
       validators: [Validators.required],
     }),
-    countryId: new FormControl<any>(null),
+    // countryId: new FormControl<any>(null),
     bodyEn: new FormControl<any>('', {
       validators: [Validators.required],
     }),
@@ -148,34 +148,18 @@ export class AddNotificationsComponent {
     this.ClientsList = [];
     this.form.get('userId')?.setValue([]);
     
-    // Only call API if both userType and countryId are selected
-    const countryId = this.form.get('countryId')?.value;
-    if (countryId) {
-      this.getAllClientsByUserType(event, countryId);
-    }
+    this.getAllClientsByUserType(event);
   }
 
-  onCountryChange(event: number) {
-    console.log('Country changed:', event);
-    this.ClientsList = [];
-    this.form.get('userId')?.setValue([]);
-    
-    // Only call API if both userType and countryId are selected
-    const userTypeValue = this.form.get('userType')?.value;
-    if (userTypeValue && event) {
-      this.getAllClientsByUserType(userTypeValue, event);
-    }
-  }
   
-  getAllClientsByUserType(userTypeId: number, countryId: number) {
-    // Only call API if both parameters are provided
-    if (!userTypeId || !countryId) {
+  
+  getAllClientsByUserType(userTypeId: number) {
+    if (!userTypeId) {
       return;
     }
     
     this.ApiService.get('Client/GetAllClientsByUserTypeIdAndCountryId', {
       UserTypeId: userTypeId,
-      CountryId: countryId,
     }).subscribe((res: any) => {
       this.ClientsList = [];
       if (res.data.length > 0) {

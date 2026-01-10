@@ -145,11 +145,11 @@ export class TechnicalDetailsComponent {
       ]
     }),
     userId: new FormControl(this.userId | 0),
-    countryId: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    }),
+    // countryId: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //   ]
+    // }),
     technicalServiceIds: new FormControl<number[]>([], { 
       validators: [
         Validators.required,

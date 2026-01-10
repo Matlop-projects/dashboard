@@ -69,11 +69,11 @@ export class FagsDetailsComponent implements OnInit {
 
       ]
     }),
-    countryId: new FormControl('', {
-      validators: [
-        Validators.required,
-      ]
-    })
+    // countryId: new FormControl('', {
+    //   validators: [
+    //     Validators.required,
+    //   ]
+    // })
   })
 
   bredCrumb: IBreadcrumb = {
@@ -135,6 +135,7 @@ export class FagsDetailsComponent implements OnInit {
     this.ApiService.get(`FAQs/GetById/${this.faqsID}`).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
+        // this.form.get('countryId')?.setValue(res.data.countryId)
     })
   }
 

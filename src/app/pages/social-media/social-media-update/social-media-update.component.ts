@@ -93,7 +93,7 @@ export class SocialMediaUpdateComponent {
 
     }),
     settingId:new FormControl(''),
-    countryId: new FormControl(null, Validators.required),
+    // countryId: new FormControl(null, Validators.required),
   })
   private apiService =inject(ApiService)
   private toaster =inject(ToasterService)

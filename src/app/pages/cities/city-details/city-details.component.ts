@@ -71,11 +71,11 @@ export class CityDetailsComponent {
         Validations.decimalNumberValidators()
       ]
     }),
-    countryId: new FormControl('', {
-      validators:[
-        Validators.required,
-      ]
-    }),
+    // countryId: new FormControl('', {
+    //   validators:[
+    //     Validators.required,
+    //   ]
+    // }),
     status: new FormControl <boolean>(false)
   })
 
