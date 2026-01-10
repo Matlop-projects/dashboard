@@ -219,12 +219,8 @@ export class ReviewsComponent {
   }
 
   callDeleteApi(record: any) {
-    this.ApiService.deleteWithParams(global_API_delete, {
-      PackageReviewId: record.serviceReviewId,
-    }).subscribe((res) => {
-      if (res) {
-        this.API_getAll();
-      }
+    this.ApiService.delete(global_API_delete, record.serviceReviewId.toString()).subscribe((res) => {
+      this.API_getAll();
     });
   }
   API_getAll() {

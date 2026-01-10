@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'bootstrap/dist/css/bootstrap.min.css';
-@import "primeicons/primeicons.css";
-@import "./assets/scss/fonts";
-@import 'ngx-toastr/toastr';
+@use 'bootstrap/dist/css/bootstrap.min.css';
+@use "primeicons/primeicons.css";
+@use "./assets/scss/fonts";
 
 :root {
   --main-text-color: redF2F3E;
@@ -489,6 +488,26 @@ small {
 
 .arabic body {
   font-family: 'Bahij', sans-serif !important;
+}
+
+// Global fix for PrimeNG Select dropdown options
+.p-select-overlay,
+.p-select-panel {
+  .p-select-option,
+  .p-select-list .p-select-option {
+    background-color: #ffffff !important;
+    
+    &:hover {
+      background-color: #f3f4f6 !important;
+    }
+    
+    &.p-select-option-selected,
+    &.p-highlight,
+    &[aria-selected="true"] {
+      background-color: #e8f5e9 !important;
+      color: #32a464 !important;
+    }
+  }
 }
 
 

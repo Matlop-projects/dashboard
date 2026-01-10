@@ -116,8 +116,18 @@ export class BlogDetailsComponent {
     coverAr: new FormControl<any>('', {
       validators: [],
     }),
-    arDescription: new FormControl('', {}),
-    enDescription: new FormControl('', {}),
+    arDescription: new FormControl('', {
+      validators: [
+        Validators.required,
+        // Validations.editorArabicCharsValidator(),
+      ],
+    }),
+    enDescription: new FormControl('', {
+      validators: [
+        Validators.required,
+        // Validations.editorEnglishCharsValidator(),
+      ],
+    }),
     orderNo: new FormControl<any>('', {
       validators: [Validators.required, Validations.onlyNumberValidator()],
     }),
@@ -154,6 +164,7 @@ export class BlogDetailsComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.getCountries();
     this.getAllServices();
+    // this.getlatestOrderNo();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
@@ -163,6 +174,13 @@ export class BlogDetailsComponent {
     }
   }
 
+  getlatestOrderNo(CountryId : any = null) {
+    this.ApiService.get(`Blog/GetLatestDisplayOrder/${CountryId}`).subscribe((res: any) => {
+      if (res) {
+        this.form.get('orderNo')?.setValue(res.data);
+      }
+    });
+  }
   onStartDateChange(date: Date) {
     this.minEndDate = date;
   }
@@ -247,10 +265,7 @@ export class BlogDetailsComponent {
   }
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload, {
-      showAlert: true,
-      message: `Add ${this.pageName()} Successfuly`,
-    }).subscribe((res) => {
+    this.ApiService.post(global_API_create, payload).subscribe((res) => {
       if (res) this.navigateToPageTable();
     });
   }
@@ -266,10 +281,7 @@ export class BlogDetailsComponent {
     });
   }
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload, {
-      showAlert: true,
-      message: `update ${this.pageName()} Successfuly`,
-    }).subscribe((res) => {
+    this.ApiService.put(global_API_update, payload).subscribe((res) => {
       if (res) this.navigateToPageTable();
     });
   }

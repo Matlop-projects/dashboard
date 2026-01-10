@@ -1,4 +1,21 @@
 ::ng-deep {
+  // Fix p-select dropdown options background
+  .p-select-overlay {
+    .p-select-option {
+      background: #fff !important;
+      
+      &:hover {
+        background: #f3f4f6 !important;
+      }
+      
+      &.p-select-option-selected,
+      &.p-highlight {
+        background: #e8f5e9 !important;
+        color: #32a464 !important;
+      }
+    }
+  }
+
   .login-container {
     height: 100vh;
     display: flex;

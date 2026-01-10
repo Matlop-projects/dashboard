@@ -273,7 +273,7 @@ showCommentMessage=false
 
 }
 callDeleteApi(record:any){
-  this.ApiService.deleteWithParams(global_API_delete,{ClientId:record.clientUserId,OrderId:record.orderId}).subscribe(res=>{
+  this.ApiService.delete(global_API_delete,record.clientTechnicalReviewId.toString()).subscribe(res=>{
     if(res){
       this.API_getAll()
     }

@@ -11,11 +11,12 @@ import { Router, RouterModule } from '@angular/router';
 import { OtpModalComponent } from '../../components/otp-modal/otp-modal.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
+import { SelectComponent } from '../../components/select/select.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [OtpModalComponent, TranslatePipe, NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule],
+  imports: [OtpModalComponent, TranslatePipe, NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule,SelectComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   providers: [ApiService]
@@ -26,19 +27,23 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   toaster = inject(ToasterService);
+  countries: any = [];
   otpValue: string = '';
+  selectedCountryId: number | null = null;
   mobileNumber: string = '';
   openOtpModal: boolean = false;
   languageService = inject(LanguageService);
   currentLang = 'en';
   selectedLang: string = localStorage.getItem('lang') || 'en';
 
-
+  onCountryChange(countryId: number) {
+    this.selectedCountryId = countryId;
+  }
 
   constructor(private fb: FormBuilder, @Inject(DOCUMENT) private document: Document, private api: ApiService, private translate: TranslateService, private router: Router) {
     this.loginForm = this.fb.group({
-      userName: ['superadminTest@admin.com', [Validators.required]],
-      // password: ['Admin@VL', [Validators.required]],
+      userName: ['', [Validators.required]],
+      country: [null, [Validators.required]],
       loginMethod: [2]
     });
 
@@ -48,6 +53,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.initAppTranslation();
+    this.getAllCountries();
   }
 
   onSubmit() {
@@ -88,6 +94,20 @@ export class LoginComponent {
     })
   }
 
+
+  getAllCountries() {
+    this.api.get('Country/GetAll').subscribe((res: any) => {
+      if (res.data) {
+        this.countries = [];
+        res.data.map((country: any) => {
+          this.countries.push({
+            name: this.selectedLang == 'en' ? country.enName : country.arName,
+            code: country.countryId,
+          });
+        });
+      }
+    });
+  }
   getOtpValue(e: any) {
     let otpObject = {
       "mobile": this.mobileNumber,
@@ -102,6 +122,11 @@ export class LoginComponent {
           img: data.data.imgSrc,
           id: data.data.userId,
           gender: data.data.gender
+        }
+        if (this.selectedCountryId) {
+          localStorage.setItem('countryId', this.selectedCountryId.toString());
+        } else {
+          localStorage.removeItem('countryId');
         }
         localStorage.setItem('userData', JSON.stringify(dataUser))
         localStorage.setItem('token', data.data.accessToken);

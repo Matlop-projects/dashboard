@@ -327,11 +327,7 @@ export class WithdrawalsTransactionComponent {
     };
     this.ApiService.post(
       'RefundedWallet/ApprovedOrRejectedWalletTransaction',
-      payload,
-       {
-      showAlert: true,
-      message:''
-       }
+      payload
     ).subscribe((res) => {
       console.log("🚀 ~ WithdrawalsTransactionComponent ~ onRejectAPI ~ res:", res)
       if(res){

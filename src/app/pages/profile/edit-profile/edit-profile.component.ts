@@ -235,7 +235,7 @@ export class EditProfileComponent {
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
+    this.ApiService.put(global_API_update, payload).subscribe(res => {
       if (res) {
         this.navigateToPageTable()
       }

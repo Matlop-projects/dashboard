@@ -247,7 +247,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   callActiveApi(action: ITableAction, id: any) {
-    this.ApiService.putWithId(action.apiName_or_route, id).subscribe(res => {
+    this.ApiService.put(action.apiName_or_route, id).subscribe((res: any) => {
       if (res) {
         this.reloadGetAllApi.emit(true);
       }

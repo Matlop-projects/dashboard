@@ -27,5 +27,23 @@
           </div>
       </div>
     </div>
+    <div class="country-selector-section">
+      <div class="country-dropdown">
+        <label class="country-label">
+          <span class="pi pi-globe"></span>
+          {{ 'country.pageName' | translate }}
+        </label>
+        <app-select
+          label=""
+          [control]="countryControl"
+          [list]="countries"
+          optionLabel="name"
+          optionValue="code"
+          (onSelectedValue)="onCountryChange($event)"
+          type="single"
+          panelStyleClass="dropdown-open-up"
+        ></app-select>
+      </div>
+    </div>
   </div>
 </div>

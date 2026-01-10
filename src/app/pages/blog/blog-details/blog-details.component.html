@@ -97,6 +97,7 @@
               class="w-100"
               [list]="countries"
               [label]="'city.form.country'"
+              (onSelectedValue)="getlatestOrderNo($event)"
               [control]="form.get('countryId')"
             ></app-select>
           </div>

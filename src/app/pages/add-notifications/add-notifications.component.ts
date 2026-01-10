@@ -206,10 +206,7 @@ export class AddNotificationsComponent {
   }
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload, {
-      showAlert: true,
-      message: `Add ${this.pageName()} Successfuly`,
-    }).subscribe((res) => {
+    this.ApiService.post(global_API_create, payload).subscribe((res) => {
       if (res) {
         this.form.reset();
       }

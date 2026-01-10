@@ -25,6 +25,21 @@
             {{'login.userName_required'|translate}}
           </small>
         </div>
+        <div class="d-flex flex-col gap-2">
+          <label for="country"> {{ "country.pageName" | translate }} </label>
+          <app-select
+            label=""
+            [control]="loginForm.get('country')"
+            [list]="countries"
+            optionLabel="name"
+            optionValue="code"
+            (onSelectedValue)="onCountryChange($event)"
+            type="single"
+          ></app-select>
+          <small *ngIf="loginForm.get('country')?.hasError('required') && loginForm.get('country')?.touched">
+            {{ "required_validation" | translate }}
+          </small>
+        </div>
         <!-- <div class="d-flex flex-col gap-2 ">
           <label for="password"> {{'login.password'|translate}}  </label>
           <p-password formControlName="password" [toggleMask]="true" [feedback]="false"></p-password>

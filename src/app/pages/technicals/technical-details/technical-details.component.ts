@@ -220,6 +220,9 @@ export class TechnicalDetailsComponent {
     this.getTechnicalSpecialist();
     this.getBreadCrumb()
     this.getAllServices();
+     this.form.get('countryId')?.valueChanges.subscribe(() => {
+    this.form.get('mobileNumber')?.updateValueAndValidity();
+  });
     this.getCountries();
     this.selectedLang = this.languageService.translationService.currentLang;
     if (this.tyepMode() !== 'Add') {
@@ -353,14 +356,14 @@ export class TechnicalDetailsComponent {
   }
 
   addFQS(payload: any) {
-    this.ApiService.post('Technical/Create', payload, { showAlert: true, message: 'Add Client Successfuly' }).subscribe(res => {
+    this.ApiService.post('Technical/Create', payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('technicals')
     })
   }
 
   editFQS(payload: any) {
-    this.ApiService.put('Technical/Update', payload, { showAlert: true, message: 'update Client Successfuly' }).subscribe(res => {
+    this.ApiService.put('Technical/Update', payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('technicals')
     })

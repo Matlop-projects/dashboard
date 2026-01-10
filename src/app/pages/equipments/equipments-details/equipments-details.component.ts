@@ -260,14 +260,14 @@ this.updateEquementPackages.push( {
 
   API_forAddItem(payload: any) {
     console.log("🚀 ~ EquipmentsDetailsComponent ~ API_forAddItem ~ payload:", payload)
-    this.ApiService.post(global_API_create, payload, { showAlert: true, message: `Add ${this.pageName()} Successfuly` }).subscribe(res => {
+    this.ApiService.post(global_API_create, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload, { showAlert: true, message: `update ${this.pageName()} Successfuly` }).subscribe(res => {
+    this.ApiService.put(global_API_update, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

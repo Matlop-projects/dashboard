@@ -54,7 +54,7 @@ form = new FormGroup({
   email: new FormControl('',[Validators.required,Validators.email] ),
   mobileNumber: new FormControl('', [
     Validators.required,
-    this.saudiMobileValidator.bind(this)
+    // this.saudiMobileValidator.bind(this)
   ]),
   pinCode: new FormControl('', Validators.required),
   imgSrc: new FormControl(''),
@@ -191,14 +191,14 @@ form = new FormGroup({
   }
 
   addFQS(payload: any) {
-    this.ApiService.post('Client/Create', payload, { showAlert: true, message: 'Add Client Successfuly' }).subscribe(res => {
+    this.ApiService.post('Client/Create', payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('clients')
     })
   }
 
   editFQS(payload: any) {
-    this.ApiService.put('Client/Update', payload, { showAlert: true, message: 'update Client Successfuly' }).subscribe(res => {
+    this.ApiService.put('Client/Update', payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('clients')
     })

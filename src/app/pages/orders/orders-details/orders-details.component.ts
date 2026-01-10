@@ -567,14 +567,14 @@ export class OrdersDetailsComponent {
   }
 
   deleteOrder() {
-    this.ApiService.deleteWithoutParam('Order/Deleteorder', this.orderId.toString()).subscribe((res: any) => {
+    this.ApiService.delete('Order/Deleteorder', this.orderId.toString()).subscribe((res: any) => {
       this.tosater.successToaster('Order Item Deleted Successfully');
       this.router.navigate(['/orders']);
     })
   }
 
   deleteProvider() {
-    this.ApiService.deleteWithoutParam('Order/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
+    this.ApiService.delete('Order/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
       this.tosater.successToaster('Provider Deleted Successfully');
       this.getOrderDetails();
       this.deleteModal.props.visible = false;
