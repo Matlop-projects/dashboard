@@ -1,77 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { HomeLayoutComponent } from './layouts/home-layout/home-layout.component';
-import { LoginComponent } from './pages/login/login.component';
-import { ForgetPasswordComponent } from './pages/forget-password/forget-password.component';
-import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { SettingsComponent } from './pages/settings/settings.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { authGuard } from './core/auth.guard';
-import { FaqsTableComponent } from './pages/fAQs/faqs-table/faqs-table.component';
-import { FagsDetailsComponent } from './pages/fAQs/fags-details/fags-details.component';
-import { CountriesDetailsComponent } from './pages/countries/countries-details/countries-details.component';
-import { WorkingHoursTableComponent } from './pages/working-hours/working-hours-table/working-hours-table.component';
-import { WorkingHoursDetailsComponent } from './pages/working-hours/working-hours-details/working-hours-details.component';
-import { CountriesTableComponent } from './pages/countries/countries-table/countries-table.component';
-import { CityDetailsComponent } from './pages/cities/city-details/city-details.component';
-import { CitiesTableComponent } from './pages/cities/cities-table/cities-table.component';
-import { CancelReasonTableComponent } from './pages/cancel-reason/cancel-reason-table/cancel-reason-table.component';
-import { CancelReasonDetailsComponent } from './pages/cancel-reason/cancel-reason-details/cancel-reason-details.component';
-import { ComplaintTableComponent } from './pages/complaint/complaint-table/complaint-table.component';
-import { ComplaintDetailsComponent } from './pages/complaint/complaint-details/complaint-details.component';
-import { ContractTypeTableComponent } from './pages/contract-type/contract-type-table/contract-type-table.component';
-import { ContractTypeDetailsComponent } from './pages/contract-type/contract-type-details/contract-type-details.component';
-import { CoponeTableComponent } from './pages/copone/copone-table/copone-table.component';
-import { CoponeDetailsComponent } from './pages/copone/copone-details/copone-details.component';
-import { TermsConditionsTableComponent } from './pages/terms-conditions/terms-conditions-table/terms-conditions-table.component';
-import { TermsConditionsDetailsComponent } from './pages/terms-conditions/terms-conditions-details/terms-conditions-details.component';
-import { PrivacyPolicyTableComponent } from './pages/privacy-policy/privacy-policy-table/privacy-policy-table.component';
-import { PrivacyPolicyDetailsComponent } from './pages/privacy-policy/privacy-policy-details/privacy-policy-details.component';
-import { PaymentWayTableComponent } from './pages/payment-way/payment-way-table/payment-way-table.component';
-import { PaymentWayDetailsComponent } from './pages/payment-way/payment-way-details/payment-way-details.component';
-import { ServicesTableComponent } from './pages/services/services-table/services-table.component';
-import { ServicesDetailsComponent } from './pages/services/services-details/services-details.component';
-import { ClientTableComponent } from './pages/clients/client-table/client-table.component';
-import { ClientDetailsComponent } from './pages/clients/client-details/client-details.component';
-import { TechnicalTableComponent } from './pages/technicals/technical-table/technical-table.component';
-import { TechnicalDetailsComponent } from './pages/technicals/technical-details/technical-details.component';
-import { PackageTableComponent } from './pages/package/package-table/package-table.component';
-import { PackageDetailsComponent } from './pages/package/package-details/package-details.component';
-import { TechnicalSpecialistTableComponent } from './pages/technical-specialist/technical-specialist-table/technical-specialist-table.component';
-import { TechnicalSpecialistDetailsComponent } from './pages/technical-specialist/technical-specialist-details/technical-specialist-details.component';
-import { SocialMediaUpdateComponent } from './pages/social-media/social-media-update/social-media-update.component';
-import { OrdersTableComponent } from './pages/orders/orders-table/orders-table.component';
-import { OrdersDetailsComponent } from './pages/orders/orders-details/orders-details.component';
-import { SliderTableComponent } from './pages/slider/slider-table/slider-table.component';
-import { SliderDetailsComponent } from './pages/slider/slider-details/slider-details.component';
-import { ContactUsTableComponent } from './pages/contact-us/contact-us-table/contact-us-table.component';
-import { ContactUsDetailsComponent } from './pages/contact-us/contact-us-details/contact-us-details.component';
-import { AboutUsTableComponent } from './pages/about-us/about-us-table/about-us-table.component';
-import { AboutUsDetailsComponent } from './pages/about-us/about-us-details/about-us-details.component';
-import { SpecialOrderTableComponent } from './pages/special-order/special-order-table/special-order-table.component';
-import { SpecialOrderDetailsComponent } from './pages/special-order/special-order-details/special-order-details.component';
-import { RoleTableComponent } from './pages/roles/role-table/role-table.component';
-import { RoleDetailsComponent } from './pages/roles/role-details/role-details.component';
-import { DistrictTableComponent } from './pages/district/district-table/district-table.component';
-import { DistrictDetailsComponent } from './pages/district/district-details/district-details.component';
-import { AdminTableComponent } from './pages/admin/admin-table/admin-table.component';
-import { AdminDetailsComponent } from './pages/admin/admin-details/admin-details.component';
-import { EditProfileComponent } from './pages/profile/edit-profile/edit-profile.component';
-import { AddNotificationsComponent } from './pages/add-notifications/add-notifications.component';
-import { EquipmentsTableComponent } from './pages/equipments/equipments-table/equipments-table.component';
-import { EquipmentsDetailsComponent } from './pages/equipments/equipments-details/equipments-details.component';
-import { OrderImagesComponent } from './pages/order-images/order-images.component';
-import { WithdrawalsTransactionComponent } from './pages/withdrawals-transaction/withdrawals-transaction.component';
-import { ReviewsComponent } from './pages/reviews/reviews.component';
-import { ReviewDetailsComponent } from './pages/reviews/review-details/review-details.component';
-import { ReviewtechnicalTableComponent } from './pages/reviewtechnical-table/reviewtechnical-table.component';
-import { ReviewtechnicalDetailsComponent } from './pages/reviewtechnical-details/reviewtechnical-details.component';
-import { OurClientTableComponent } from './pages/OurClients/ourclient-table/ourclient-table.component';
-import { OurClientDetailsComponent } from './pages/OurClients/ourclient-details/ourclient-details.component';
-import { BlogTableComponent } from './pages/blog/blog-table/blog-table.component';
-import { BlogDetailsComponent } from './pages/blog/blog-details/blog-details.component';
 
 export const routes: Routes = [
   {
@@ -81,174 +9,536 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthLayoutComponent,
+    loadComponent: () => import('./layouts/auth-layout/auth-layout.component').then(m => m.AuthLayoutComponent),
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'forget_password', component: ForgetPasswordComponent },
-      { path: 'reset_password', component: ResetPasswordComponent },
+      { 
+        path: 'login', 
+        loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent)
+      },
+      { 
+        path: 'forget_password', 
+        loadComponent: () => import('./pages/forget-password/forget-password.component').then(m => m.ForgetPasswordComponent)
+      },
+      { 
+        path: 'reset_password', 
+        loadComponent: () => import('./pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent)
+      },
     ]
   },
   {
     path: '',
-    component: HomeLayoutComponent,
-    canActivate: [authGuard], // Applying authGuard to the home layout
+    loadComponent: () => import('./layouts/home-layout/home-layout.component').then(m => m.HomeLayoutComponent),
+    canActivate: [authGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'working_hours', component: WorkingHoursTableComponent },
-      { path: 'working_hours/add', component: WorkingHoursDetailsComponent },
-      { path: 'working_hours/edit/:id', component: WorkingHoursDetailsComponent },
-      { path: 'working_hours/view/:id', component: WorkingHoursDetailsComponent },
-      { path: 'settings', component: SettingsComponent, canActivate: [authGuard],  // Apply authGuard to settings
+      { 
+        path: 'dashboard', 
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      },
+      { 
+        path: 'working_hours', 
+        loadComponent: () => import('./pages/working-hours/working-hours-table/working-hours-table.component').then(m => m.WorkingHoursTableComponent)
+      },
+      { 
+        path: 'working_hours/add', 
+        loadComponent: () => import('./pages/working-hours/working-hours-details/working-hours-details.component').then(m => m.WorkingHoursDetailsComponent)
+      },
+      { 
+        path: 'working_hours/edit/:id', 
+        loadComponent: () => import('./pages/working-hours/working-hours-details/working-hours-details.component').then(m => m.WorkingHoursDetailsComponent)
+      },
+      { 
+        path: 'working_hours/view/:id', 
+        loadComponent: () => import('./pages/working-hours/working-hours-details/working-hours-details.component').then(m => m.WorkingHoursDetailsComponent)
+      },
+      { 
+        path: 'settings', 
+        loadComponent: () => import('./pages/settings/settings.component').then(m => m.SettingsComponent),
+        canActivate: [authGuard],
         children: [
-          { path: 'faqs', component: FaqsTableComponent },
-          { path: 'faqs/add', component: FagsDetailsComponent },
-          { path: 'faqs/edit/:id', component: FagsDetailsComponent },
-          { path: 'faqs/view/:id', component: FagsDetailsComponent },
+          { 
+            path: 'faqs', 
+            loadComponent: () => import('./pages/fAQs/faqs-table/faqs-table.component').then(m => m.FaqsTableComponent)
+          },
+          { 
+            path: 'faqs/add', 
+            loadComponent: () => import('./pages/fAQs/fags-details/fags-details.component').then(m => m.FagsDetailsComponent)
+          },
+          { 
+            path: 'faqs/edit/:id', 
+            loadComponent: () => import('./pages/fAQs/fags-details/fags-details.component').then(m => m.FagsDetailsComponent)
+          },
+          { 
+            path: 'faqs/view/:id', 
+            loadComponent: () => import('./pages/fAQs/fags-details/fags-details.component').then(m => m.FagsDetailsComponent)
+          },
 
-          { path: 'blog', component: BlogTableComponent },
-          { path: 'blog/add', component: BlogDetailsComponent },
-          { path: 'blog/edit/:id', component: BlogDetailsComponent },
-          { path: 'blog/view/:id', component: BlogDetailsComponent },
+          { 
+            path: 'blog', 
+            loadComponent: () => import('./pages/blog/blog-table/blog-table.component').then(m => m.BlogTableComponent)
+          },
+          { 
+            path: 'blog/add', 
+            loadComponent: () => import('./pages/blog/blog-details/blog-details.component').then(m => m.BlogDetailsComponent)
+          },
+          { 
+            path: 'blog/edit/:id', 
+            loadComponent: () => import('./pages/blog/blog-details/blog-details.component').then(m => m.BlogDetailsComponent)
+          },
+          { 
+            path: 'blog/view/:id', 
+            loadComponent: () => import('./pages/blog/blog-details/blog-details.component').then(m => m.BlogDetailsComponent)
+          },
 
-          { path: 'terms_conditions', component: TermsConditionsTableComponent },
-          { path: 'terms_conditions/add', component: TermsConditionsDetailsComponent },
-          { path: 'terms_conditions/edit/:id', component: TermsConditionsDetailsComponent },
-          { path: 'terms_conditions/view/:id', component: TermsConditionsDetailsComponent },
+          { 
+            path: 'terms_conditions', 
+            loadComponent: () => import('./pages/terms-conditions/terms-conditions-table/terms-conditions-table.component').then(m => m.TermsConditionsTableComponent)
+          },
+          { 
+            path: 'terms_conditions/add', 
+            loadComponent: () => import('./pages/terms-conditions/terms-conditions-details/terms-conditions-details.component').then(m => m.TermsConditionsDetailsComponent)
+          },
+          { 
+            path: 'terms_conditions/edit/:id', 
+            loadComponent: () => import('./pages/terms-conditions/terms-conditions-details/terms-conditions-details.component').then(m => m.TermsConditionsDetailsComponent)
+          },
+          { 
+            path: 'terms_conditions/view/:id', 
+            loadComponent: () => import('./pages/terms-conditions/terms-conditions-details/terms-conditions-details.component').then(m => m.TermsConditionsDetailsComponent)
+          },
 
-          { path: 'privacy_policy', component: PrivacyPolicyTableComponent },
-          { path: 'privacy_policy/add', component: PrivacyPolicyDetailsComponent },
-          { path: 'privacy_policy/edit/:id', component: PrivacyPolicyDetailsComponent },
-          { path: 'privacy_policy/view/:id', component: PrivacyPolicyDetailsComponent },
+          { 
+            path: 'privacy_policy', 
+            loadComponent: () => import('./pages/privacy-policy/privacy-policy-table/privacy-policy-table.component').then(m => m.PrivacyPolicyTableComponent)
+          },
+          { 
+            path: 'privacy_policy/add', 
+            loadComponent: () => import('./pages/privacy-policy/privacy-policy-details/privacy-policy-details.component').then(m => m.PrivacyPolicyDetailsComponent)
+          },
+          { 
+            path: 'privacy_policy/edit/:id', 
+            loadComponent: () => import('./pages/privacy-policy/privacy-policy-details/privacy-policy-details.component').then(m => m.PrivacyPolicyDetailsComponent)
+          },
+          { 
+            path: 'privacy_policy/view/:id', 
+            loadComponent: () => import('./pages/privacy-policy/privacy-policy-details/privacy-policy-details.component').then(m => m.PrivacyPolicyDetailsComponent)
+          },
 
-          {path:'social_media',component:SocialMediaUpdateComponent},
+          {
+            path:'social_media',
+            loadComponent: () => import('./pages/social-media/social-media-update/social-media-update.component').then(m => m.SocialMediaUpdateComponent)
+          },
 
-          { path: 'slider', component: SliderTableComponent },
-          { path: 'slider/add', component: SliderDetailsComponent },
-          { path: 'slider/edit/:id', component: SliderDetailsComponent },
-          { path: 'slider/view/:id', component: SliderDetailsComponent },
+          { 
+            path: 'slider', 
+            loadComponent: () => import('./pages/slider/slider-table/slider-table.component').then(m => m.SliderTableComponent)
+          },
+          { 
+            path: 'slider/add', 
+            loadComponent: () => import('./pages/slider/slider-details/slider-details.component').then(m => m.SliderDetailsComponent)
+          },
+          { 
+            path: 'slider/edit/:id', 
+            loadComponent: () => import('./pages/slider/slider-details/slider-details.component').then(m => m.SliderDetailsComponent)
+          },
+          { 
+            path: 'slider/view/:id', 
+            loadComponent: () => import('./pages/slider/slider-details/slider-details.component').then(m => m.SliderDetailsComponent)
+          },
 
-
-           { path: 'ourclient', component: OurClientTableComponent },
-          { path: 'ourclient/add', component: OurClientDetailsComponent },
-          { path: 'ourclient/edit/:id', component: OurClientDetailsComponent },
-          { path: 'ourclient/view/:id', component: OurClientDetailsComponent },
+          { 
+            path: 'ourclient', 
+            loadComponent: () => import('./pages/OurClients/ourclient-table/ourclient-table.component').then(m => m.OurClientTableComponent)
+          },
+          { 
+            path: 'ourclient/add', 
+            loadComponent: () => import('./pages/OurClients/ourclient-details/ourclient-details.component').then(m => m.OurClientDetailsComponent)
+          },
+          { 
+            path: 'ourclient/edit/:id', 
+            loadComponent: () => import('./pages/OurClients/ourclient-details/ourclient-details.component').then(m => m.OurClientDetailsComponent)
+          },
+          { 
+            path: 'ourclient/view/:id', 
+            loadComponent: () => import('./pages/OurClients/ourclient-details/ourclient-details.component').then(m => m.OurClientDetailsComponent)
+          },
           
-          { path: 'roles', component: RoleTableComponent },
-          { path: 'role/add', component: RoleDetailsComponent },
-          { path: 'role/edit/:id', component: RoleDetailsComponent },
-          { path: 'role/view/:id', component: RoleDetailsComponent },
+          { 
+            path: 'roles', 
+            loadComponent: () => import('./pages/roles/role-table/role-table.component').then(m => m.RoleTableComponent)
+          },
+          { 
+            path: 'role/add', 
+            loadComponent: () => import('./pages/roles/role-details/role-details.component').then(m => m.RoleDetailsComponent)
+          },
+          { 
+            path: 'role/edit/:id', 
+            loadComponent: () => import('./pages/roles/role-details/role-details.component').then(m => m.RoleDetailsComponent)
+          },
+          { 
+            path: 'role/view/:id', 
+            loadComponent: () => import('./pages/roles/role-details/role-details.component').then(m => m.RoleDetailsComponent)
+          },
 
-          { path: 'district', component: DistrictTableComponent },
-          { path: 'district/add', component: DistrictDetailsComponent },
-          { path: 'district/edit/:id', component: DistrictDetailsComponent },
-          { path: 'district/view/:id', component: DistrictDetailsComponent },
+          { 
+            path: 'district', 
+            loadComponent: () => import('./pages/district/district-table/district-table.component').then(m => m.DistrictTableComponent)
+          },
+          { 
+            path: 'district/add', 
+            loadComponent: () => import('./pages/district/district-details/district-details.component').then(m => m.DistrictDetailsComponent)
+          },
+          { 
+            path: 'district/edit/:id', 
+            loadComponent: () => import('./pages/district/district-details/district-details.component').then(m => m.DistrictDetailsComponent)
+          },
+          { 
+            path: 'district/view/:id', 
+            loadComponent: () => import('./pages/district/district-details/district-details.component').then(m => m.DistrictDetailsComponent)
+          },
 
-          { path: 'admin', component: AdminTableComponent },
-          { path: 'admin/add', component: AdminDetailsComponent },
-          { path: 'admin/edit/:id', component: AdminDetailsComponent },
-          { path: 'admin/view/:id', component: AdminDetailsComponent },
+          { 
+            path: 'admin', 
+            loadComponent: () => import('./pages/admin/admin-table/admin-table.component').then(m => m.AdminTableComponent)
+          },
+          { 
+            path: 'admin/add', 
+            loadComponent: () => import('./pages/admin/admin-details/admin-details.component').then(m => m.AdminDetailsComponent)
+          },
+          { 
+            path: 'admin/edit/:id', 
+            loadComponent: () => import('./pages/admin/admin-details/admin-details.component').then(m => m.AdminDetailsComponent)
+          },
+          { 
+            path: 'admin/view/:id', 
+            loadComponent: () => import('./pages/admin/admin-details/admin-details.component').then(m => m.AdminDetailsComponent)
+          },
 
-          { path: 'add_notification', component: AddNotificationsComponent },
-          { path: 'order_images/:type', component: OrderImagesComponent },
+          { 
+            path: 'add_notification', 
+            loadComponent: () => import('./pages/add-notifications/add-notifications.component').then(m => m.AddNotificationsComponent)
+          },
+          { 
+            path: 'order_images/:type', 
+            loadComponent: () => import('./pages/order-images/order-images.component').then(m => m.OrderImagesComponent)
+          },
         ]
       },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'profile/edit/:id', component: EditProfileComponent },
+      { 
+        path: 'profile', 
+        loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
+      },
+      { 
+        path: 'profile/edit/:id', 
+        loadComponent: () => import('./pages/profile/edit-profile/edit-profile.component').then(m => m.EditProfileComponent)
+      },
 
-      { path: 'services', component: ServicesTableComponent },
-      { path: 'service/add', component: ServicesDetailsComponent },
-      { path: 'service/view/:id', component: ServicesDetailsComponent },
-      { path: 'service/edit/:id', component: ServicesDetailsComponent },
+      { 
+        path: 'services', 
+        loadComponent: () => import('./pages/services/services-table/services-table.component').then(m => m.ServicesTableComponent)
+      },
+      { 
+        path: 'service/add', 
+        loadComponent: () => import('./pages/services/services-details/services-details.component').then(m => m.ServicesDetailsComponent)
+      },
+      { 
+        path: 'service/view/:id', 
+        loadComponent: () => import('./pages/services/services-details/services-details.component').then(m => m.ServicesDetailsComponent)
+      },
+      { 
+        path: 'service/edit/:id', 
+        loadComponent: () => import('./pages/services/services-details/services-details.component').then(m => m.ServicesDetailsComponent)
+      },
 
-      { path: 'country', component: CountriesTableComponent },
-      { path: 'country/add', component: CountriesDetailsComponent },
-      { path: 'country/view/:id', component: CountriesDetailsComponent },
-      { path: 'country/edit/:id', component: CountriesDetailsComponent },
+      { 
+        path: 'country', 
+        loadComponent: () => import('./pages/countries/countries-table/countries-table.component').then(m => m.CountriesTableComponent)
+      },
+      { 
+        path: 'country/add', 
+        loadComponent: () => import('./pages/countries/countries-details/countries-details.component').then(m => m.CountriesDetailsComponent)
+      },
+      { 
+        path: 'country/view/:id', 
+        loadComponent: () => import('./pages/countries/countries-details/countries-details.component').then(m => m.CountriesDetailsComponent)
+      },
+      { 
+        path: 'country/edit/:id', 
+        loadComponent: () => import('./pages/countries/countries-details/countries-details.component').then(m => m.CountriesDetailsComponent)
+      },
 
-      { path: 'clients', component: ClientTableComponent },
-      { path: 'client/add', component: ClientDetailsComponent },
-      { path: 'client/view/:id', component: ClientDetailsComponent },
-      { path: 'client/edit/:id', component: ClientDetailsComponent },
+      { 
+        path: 'clients', 
+        loadComponent: () => import('./pages/clients/client-table/client-table.component').then(m => m.ClientTableComponent)
+      },
+      { 
+        path: 'client/add', 
+        loadComponent: () => import('./pages/clients/client-details/client-details.component').then(m => m.ClientDetailsComponent)
+      },
+      { 
+        path: 'client/view/:id', 
+        loadComponent: () => import('./pages/clients/client-details/client-details.component').then(m => m.ClientDetailsComponent)
+      },
+      { 
+        path: 'client/edit/:id', 
+        loadComponent: () => import('./pages/clients/client-details/client-details.component').then(m => m.ClientDetailsComponent)
+      },
 
-      { path: 'technicals', component: TechnicalTableComponent },
-      { path: 'technical/add', component: TechnicalDetailsComponent },
-      { path: 'technical/view/:id', component: TechnicalDetailsComponent },
-      { path: 'technical/edit/:id', component: TechnicalDetailsComponent },
+      { 
+        path: 'technicals', 
+        loadComponent: () => import('./pages/technicals/technical-table/technical-table.component').then(m => m.TechnicalTableComponent)
+      },
+      { 
+        path: 'technical/add', 
+        loadComponent: () => import('./pages/technicals/technical-details/technical-details.component').then(m => m.TechnicalDetailsComponent)
+      },
+      { 
+        path: 'technical/view/:id', 
+        loadComponent: () => import('./pages/technicals/technical-details/technical-details.component').then(m => m.TechnicalDetailsComponent)
+      },
+      { 
+        path: 'technical/edit/:id', 
+        loadComponent: () => import('./pages/technicals/technical-details/technical-details.component').then(m => m.TechnicalDetailsComponent)
+      },
 
-      { path: 'city', component: CitiesTableComponent },
-      { path: 'city/add', component: CityDetailsComponent },
-      { path: 'city/view/:id', component: CityDetailsComponent },
-      { path: 'city/edit/:id', component: CityDetailsComponent },
+      { 
+        path: 'city', 
+        loadComponent: () => import('./pages/cities/cities-table/cities-table.component').then(m => m.CitiesTableComponent)
+      },
+      { 
+        path: 'city/add', 
+        loadComponent: () => import('./pages/cities/city-details/city-details.component').then(m => m.CityDetailsComponent)
+      },
+      { 
+        path: 'city/view/:id', 
+        loadComponent: () => import('./pages/cities/city-details/city-details.component').then(m => m.CityDetailsComponent)
+      },
+      { 
+        path: 'city/edit/:id', 
+        loadComponent: () => import('./pages/cities/city-details/city-details.component').then(m => m.CityDetailsComponent)
+      },
 
-      { path: 'cancel-reason', component: CancelReasonTableComponent },
-      { path: 'cancel-reason/add', component: CancelReasonDetailsComponent },
-      { path: 'cancel-reason/view/:id', component: CancelReasonDetailsComponent },
-      { path: 'cancel-reason/edit/:id', component: CancelReasonDetailsComponent },
+      { 
+        path: 'cancel-reason', 
+        loadComponent: () => import('./pages/cancel-reason/cancel-reason-table/cancel-reason-table.component').then(m => m.CancelReasonTableComponent)
+      },
+      { 
+        path: 'cancel-reason/add', 
+        loadComponent: () => import('./pages/cancel-reason/cancel-reason-details/cancel-reason-details.component').then(m => m.CancelReasonDetailsComponent)
+      },
+      { 
+        path: 'cancel-reason/view/:id', 
+        loadComponent: () => import('./pages/cancel-reason/cancel-reason-details/cancel-reason-details.component').then(m => m.CancelReasonDetailsComponent)
+      },
+      { 
+        path: 'cancel-reason/edit/:id', 
+        loadComponent: () => import('./pages/cancel-reason/cancel-reason-details/cancel-reason-details.component').then(m => m.CancelReasonDetailsComponent)
+      },
 
-      { path: 'complaint', component: ComplaintTableComponent },
-      { path: 'complaint/add', component: ComplaintDetailsComponent },
-      { path: 'complaint/view/:id', component: ComplaintDetailsComponent },
-      { path: 'complaint/edit/:id', component: ComplaintDetailsComponent },
+      { 
+        path: 'complaint', 
+        loadComponent: () => import('./pages/complaint/complaint-table/complaint-table.component').then(m => m.ComplaintTableComponent)
+      },
+      { 
+        path: 'complaint/add', 
+        loadComponent: () => import('./pages/complaint/complaint-details/complaint-details.component').then(m => m.ComplaintDetailsComponent)
+      },
+      { 
+        path: 'complaint/view/:id', 
+        loadComponent: () => import('./pages/complaint/complaint-details/complaint-details.component').then(m => m.ComplaintDetailsComponent)
+      },
+      { 
+        path: 'complaint/edit/:id', 
+        loadComponent: () => import('./pages/complaint/complaint-details/complaint-details.component').then(m => m.ComplaintDetailsComponent)
+      },
 
-      { path: 'contract-type', component: ContractTypeTableComponent },
-      { path: 'contract-type/add', component: ContractTypeDetailsComponent },
-      { path: 'contract-type/view/:id', component: ContractTypeDetailsComponent },
-      { path: 'contract-type/edit/:id', component: ContractTypeDetailsComponent },
+      { 
+        path: 'contract-type', 
+        loadComponent: () => import('./pages/contract-type/contract-type-table/contract-type-table.component').then(m => m.ContractTypeTableComponent)
+      },
+      { 
+        path: 'contract-type/add', 
+        loadComponent: () => import('./pages/contract-type/contract-type-details/contract-type-details.component').then(m => m.ContractTypeDetailsComponent)
+      },
+      { 
+        path: 'contract-type/view/:id', 
+        loadComponent: () => import('./pages/contract-type/contract-type-details/contract-type-details.component').then(m => m.ContractTypeDetailsComponent)
+      },
+      { 
+        path: 'contract-type/edit/:id', 
+        loadComponent: () => import('./pages/contract-type/contract-type-details/contract-type-details.component').then(m => m.ContractTypeDetailsComponent)
+      },
 
-      { path: 'copone', component: CoponeTableComponent },
-      { path: 'copone/add', component: CoponeDetailsComponent },
-      { path: 'copone/view/:id', component: CoponeDetailsComponent },
-      { path: 'copone/edit/:id', component: CoponeDetailsComponent },
+      { 
+        path: 'copone', 
+        loadComponent: () => import('./pages/copone/copone-table/copone-table.component').then(m => m.CoponeTableComponent)
+      },
+      { 
+        path: 'copone/add', 
+        loadComponent: () => import('./pages/copone/copone-details/copone-details.component').then(m => m.CoponeDetailsComponent)
+      },
+      { 
+        path: 'copone/view/:id', 
+        loadComponent: () => import('./pages/copone/copone-details/copone-details.component').then(m => m.CoponeDetailsComponent)
+      },
+      { 
+        path: 'copone/edit/:id', 
+        loadComponent: () => import('./pages/copone/copone-details/copone-details.component').then(m => m.CoponeDetailsComponent)
+      },
 
-      { path: 'paymentWay', component: PaymentWayTableComponent },
-      { path: 'paymentWay/add', component: PaymentWayDetailsComponent },
-      { path: 'paymentWay/view/:id', component: PaymentWayDetailsComponent },
-      { path: 'paymentWay/edit/:id', component: PaymentWayDetailsComponent },
+      { 
+        path: 'paymentWay', 
+        loadComponent: () => import('./pages/payment-way/payment-way-table/payment-way-table.component').then(m => m.PaymentWayTableComponent)
+      },
+      { 
+        path: 'paymentWay/add', 
+        loadComponent: () => import('./pages/payment-way/payment-way-details/payment-way-details.component').then(m => m.PaymentWayDetailsComponent)
+      },
+      { 
+        path: 'paymentWay/view/:id', 
+        loadComponent: () => import('./pages/payment-way/payment-way-details/payment-way-details.component').then(m => m.PaymentWayDetailsComponent)
+      },
+      { 
+        path: 'paymentWay/edit/:id', 
+        loadComponent: () => import('./pages/payment-way/payment-way-details/payment-way-details.component').then(m => m.PaymentWayDetailsComponent)
+      },
 
-      { path: 'withdrawals-transaction', component: WithdrawalsTransactionComponent },
+      { 
+        path: 'withdrawals-transaction', 
+        loadComponent: () => import('./pages/withdrawals-transaction/withdrawals-transaction.component').then(m => m.WithdrawalsTransactionComponent)
+      },
 
-      { path: 'reviews', component: ReviewsComponent },
-      { path: 'reviewDetails', component: ReviewDetailsComponent },
+      { 
+        path: 'reviews', 
+        loadComponent: () => import('./pages/reviews/reviews.component').then(m => m.ReviewsComponent)
+      },
+      { 
+        path: 'reviewDetails', 
+        loadComponent: () => import('./pages/reviews/review-details/review-details.component').then(m => m.ReviewDetailsComponent)
+      },
 
-      { path: 'tech-reviews', component: ReviewtechnicalTableComponent },
-      // { path: 'tech-reviewDetails/:id', component: ReviewtechnicalDetailsComponent },
+      { 
+        path: 'tech-reviews', 
+        loadComponent: () => import('./pages/reviewtechnical-table/reviewtechnical-table.component').then(m => m.ReviewtechnicalTableComponent)
+      },
 
+      { 
+        path: 'package', 
+        loadComponent: () => import('./pages/package/package-table/package-table.component').then(m => m.PackageTableComponent)
+      },
+      { 
+        path: 'package/add', 
+        loadComponent: () => import('./pages/package/package-details/package-details.component').then(m => m.PackageDetailsComponent)
+      },
+      { 
+        path: 'package/view/:id', 
+        loadComponent: () => import('./pages/package/package-details/package-details.component').then(m => m.PackageDetailsComponent)
+      },
+      { 
+        path: 'package/edit/:id', 
+        loadComponent: () => import('./pages/package/package-details/package-details.component').then(m => m.PackageDetailsComponent)
+      },
 
+      { 
+        path: 'technical-specialist', 
+        loadComponent: () => import('./pages/technical-specialist/technical-specialist-table/technical-specialist-table.component').then(m => m.TechnicalSpecialistTableComponent)
+      },
+      { 
+        path: 'technical-specialist/add', 
+        loadComponent: () => import('./pages/technical-specialist/technical-specialist-details/technical-specialist-details.component').then(m => m.TechnicalSpecialistDetailsComponent)
+      },
+      { 
+        path: 'technical-specialist/view/:id', 
+        loadComponent: () => import('./pages/technical-specialist/technical-specialist-details/technical-specialist-details.component').then(m => m.TechnicalSpecialistDetailsComponent)
+      },
+      { 
+        path: 'technical-specialist/edit/:id', 
+        loadComponent: () => import('./pages/technical-specialist/technical-specialist-details/technical-specialist-details.component').then(m => m.TechnicalSpecialistDetailsComponent)
+      },
 
-      { path: 'package', component: PackageTableComponent },
-      { path: 'package/add', component: PackageDetailsComponent },
-      { path: 'package/view/:id', component: PackageDetailsComponent },
-      { path: 'package/edit/:id', component: PackageDetailsComponent },
+      { 
+        path: 'equipments', 
+        loadComponent: () => import('./pages/equipments/equipments-table/equipments-table.component').then(m => m.EquipmentsTableComponent)
+      },
+      { 
+        path: 'equipment/add', 
+        loadComponent: () => import('./pages/equipments/equipments-details/equipments-details.component').then(m => m.EquipmentsDetailsComponent)
+      },
+      { 
+        path: 'equipment/view/:id', 
+        loadComponent: () => import('./pages/equipments/equipments-details/equipments-details.component').then(m => m.EquipmentsDetailsComponent)
+      },
+      { 
+        path: 'equipment/edit/:id', 
+        loadComponent: () => import('./pages/equipments/equipments-details/equipments-details.component').then(m => m.EquipmentsDetailsComponent)
+      },
 
-      { path: 'technical-specialist', component: TechnicalSpecialistTableComponent },
-      { path: 'technical-specialist/add', component: TechnicalSpecialistDetailsComponent },
-      { path: 'technical-specialist/view/:id', component: TechnicalSpecialistDetailsComponent },
-      { path: 'technical-specialist/edit/:id', component: TechnicalSpecialistDetailsComponent },
+      { 
+        path: 'orders', 
+        loadComponent: () => import('./pages/orders/orders-table/orders-table.component').then(m => m.OrdersTableComponent)
+      },
+      { 
+        path: 'order/add', 
+        loadComponent: () => import('./pages/orders/orders-details/orders-details.component').then(m => m.OrdersDetailsComponent)
+      },
+      { 
+        path: 'order/view/:id', 
+        loadComponent: () => import('./pages/orders/orders-details/orders-details.component').then(m => m.OrdersDetailsComponent)
+      },
+      { 
+        path: 'order/edit/:id', 
+        loadComponent: () => import('./pages/orders/orders-details/orders-details.component').then(m => m.OrdersDetailsComponent)
+      },
 
-      { path: 'equipments', component: EquipmentsTableComponent },
-      { path: 'equipment/add', component: EquipmentsDetailsComponent },
-      { path: 'equipment/view/:id', component: EquipmentsDetailsComponent },
-      { path: 'equipment/edit/:id', component: EquipmentsDetailsComponent },
+      { 
+        path: 'contact-us', 
+        loadComponent: () => import('./pages/contact-us/contact-us-table/contact-us-table.component').then(m => m.ContactUsTableComponent)
+      },
+      { 
+        path: 'contact-us/add', 
+        loadComponent: () => import('./pages/contact-us/contact-us-details/contact-us-details.component').then(m => m.ContactUsDetailsComponent)
+      },
+      { 
+        path: 'contact-us/view/:id', 
+        loadComponent: () => import('./pages/contact-us/contact-us-details/contact-us-details.component').then(m => m.ContactUsDetailsComponent)
+      },
+      { 
+        path: 'contact-us/edit/:id', 
+        loadComponent: () => import('./pages/contact-us/contact-us-details/contact-us-details.component').then(m => m.ContactUsDetailsComponent)
+      },
 
-      { path: 'orders', component: OrdersTableComponent },
-      { path: 'order/add', component: OrdersDetailsComponent },
-      { path: 'order/view/:id', component: OrdersDetailsComponent },
-      { path: 'order/edit/:id', component: OrdersDetailsComponent },
+      { 
+        path: 'about-us', 
+        loadComponent: () => import('./pages/about-us/about-us-table/about-us-table.component').then(m => m.AboutUsTableComponent)
+      },
+      { 
+        path: 'about-us/add', 
+        loadComponent: () => import('./pages/about-us/about-us-details/about-us-details.component').then(m => m.AboutUsDetailsComponent)
+      },
+      { 
+        path: 'about-us/view/:id', 
+        loadComponent: () => import('./pages/about-us/about-us-details/about-us-details.component').then(m => m.AboutUsDetailsComponent)
+      },
+      { 
+        path: 'about-us/edit/:id', 
+        loadComponent: () => import('./pages/about-us/about-us-details/about-us-details.component').then(m => m.AboutUsDetailsComponent)
+      },
 
-      { path: 'contact-us', component: ContactUsTableComponent },
-      { path: 'contact-us/add', component: ContactUsDetailsComponent },
-      { path: 'contact-us/view/:id', component: ContactUsDetailsComponent },
-      { path: 'contact-us/edit/:id', component: ContactUsDetailsComponent },
-
-      { path: 'about-us', component: AboutUsTableComponent },
-      { path: 'about-us/add', component: AboutUsDetailsComponent },
-      { path: 'about-us/view/:id', component: AboutUsDetailsComponent },
-      { path: 'about-us/edit/:id', component: AboutUsDetailsComponent },
-
-      { path: 'special-order', component: SpecialOrderTableComponent },
-      { path: 'special-order/view/:id', component: SpecialOrderDetailsComponent },
-      { path: 'special-order/edit/:id', component: SpecialOrderDetailsComponent },
+      { 
+        path: 'special-order', 
+        loadComponent: () => import('./pages/special-order/special-order-table/special-order-table.component').then(m => m.SpecialOrderTableComponent)
+      },
+      { 
+        path: 'special-order/view/:id', 
+        loadComponent: () => import('./pages/special-order/special-order-details/special-order-details.component').then(m => m.SpecialOrderDetailsComponent)
+      },
+      { 
+        path: 'special-order/edit/:id', 
+        loadComponent: () => import('./pages/special-order/special-order-details/special-order-details.component').then(m => m.SpecialOrderDetailsComponent)
+      },
     ]
   },
-  { path: '**', component: NotFoundComponent }
+  { 
+    path: '**', 
+    loadComponent: () => import('./pages/not-found/not-found.component').then(m => m.NotFoundComponent)
+  }
 ];
