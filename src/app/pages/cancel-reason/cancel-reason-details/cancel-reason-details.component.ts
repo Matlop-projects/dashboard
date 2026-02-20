@@ -16,6 +16,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { userType } from '../../../conts';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-cancel-reason-details',
@@ -115,7 +116,7 @@ export class CancelReasonDetailsComponent {
     }
   }
   getCancelReasonsDetails() {
-    this.ApiService.get(`CancelReason/GetCancelReason/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.CANCEL_REASONS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -151,14 +152,14 @@ export class CancelReasonDetailsComponent {
   }
 
   addCancelReason(payload: any) {
-    this.ApiService.post('CancelReason/CreateCancelReason', payload).subscribe(res => {
+    this.ApiService.post(API.CANCEL_REASONS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   editCancelReason(payload: any) {
-    this.ApiService.put('CancelReason/UpdateCancelReason', payload).subscribe(res => {
+    this.ApiService.put(API.CANCEL_REASONS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

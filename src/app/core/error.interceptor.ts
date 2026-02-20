@@ -13,28 +13,39 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       const message =
         error?.error?.message ||
         error?.error?.title ||
-        'shared.errors.general';
+        error?.error?.errors?.[0] ||
+        '';
 
       switch (error.status) {
         case 401:
-          toaster.errorToaster(message || 'Unauthorized');
+          toaster.errorToaster(message || 'Session expired. Please login again.');
+          localStorage.removeItem('token');
+          localStorage.removeItem('userData');
           router.navigate(['/auth/login']);
           break;
 
         case 403:
-          toaster.errorToaster(message || 'Forbidden');
+          toaster.errorToaster(message || 'You do not have permission to perform this action.');
           break;
 
         case 400:
-          toaster.errorToaster(message || 'Bad request');
+          toaster.errorToaster(message || 'Invalid request. Please check your input.');
+          break;
+
+        case 404:
+          toaster.errorToaster(message || 'The requested resource was not found.');
+          break;
+
+        case 500:
+          toaster.errorToaster(message || 'Server error. Please try again later.');
           break;
 
         case 0:
-          toaster.errorToaster('shared.errors.network');
+          toaster.errorToaster('Network error. Please check your connection.');
           break;
 
         default:
-          toaster.errorToaster('shared.errors.server');
+          toaster.errorToaster(message || 'An unexpected error occurred.');
           break;
       }
 

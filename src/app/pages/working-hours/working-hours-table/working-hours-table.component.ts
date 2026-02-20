@@ -10,6 +10,7 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class WorkingHoursTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'WorkingTime/DeleteWorkingTime?id',
+      apiName_or_route: API.WORKING_TIMES.BASE,
       autoCall: true
     },
     {
@@ -123,7 +124,7 @@ export class WorkingHoursTableComponent {
   }
 
   getWorkingHours() {
-    this.ApiService.post('WorkingTime/GetAllWithPagination' , this.searchObject).subscribe((res: any) => {
+    this.ApiService.get(API.WORKING_TIMES.SEARCH, this.searchObject).subscribe((res: any) => {
       if (res) {
         this.workingHoursList = res.data.dataList;
         this.totalCount = res.data.totalCount;

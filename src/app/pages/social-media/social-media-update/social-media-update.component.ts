@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import { API } from '../../../core/api-endpoints';
 import { InputTextComponent } from '../../../components/input-text/input-text.component';
 import { EditorComponent } from '../../../components/editor/editor.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -108,12 +109,10 @@ export class SocialMediaUpdateComponent {
   }
 
   getAll(countryId: number){
-    this.apiService.get(`Settings/GetAll/${countryId}`).subscribe((res:any)=>{
-        console.log('API Response for getAll:', res);
-        console.log('Patching countryId:', countryId);
+    this.apiService.get(API.SETTINGS.BY_COUNTRY(countryId)).subscribe((res:any)=>{
         this.form.patchValue({
           ...res.data,
-          countryId: countryId // Ensure countryId is maintained in the form
+          countryId: countryId
         })
     })
   }
@@ -127,8 +126,7 @@ export class SocialMediaUpdateComponent {
   }
 
   updateSocialMedia(payload:any){
-    this.apiService.put('settings/update',payload).subscribe((res:any)=>{
-      console.log("SocialMediaUpdateComponent  this.apiService.put  res:", res)
+    this.apiService.put(API.SETTINGS.UPDATE, payload).subscribe((res:any)=>{
       if(res.message)
         this.toaster.successToaster('Social Media Updated Successfully')
     })

@@ -8,6 +8,7 @@ import { ModuleTypeEnum } from './type-module.enum';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
 import { LanguageService } from '../../services/language.service';
+import { API } from '../../core/api-endpoints';
 
 @Component({
   selector: 'app-notifications',
@@ -46,7 +47,7 @@ export class NotificationsComponent {
   }
 
   getNotifications() {
-    this.ApiService.get('Notification/GetNotifications').subscribe((noti: any) => {
+    this.ApiService.get(API.NOTIFICATIONS.BASE).subscribe((noti: any) => {
       this.notificationsList = noti.data.data;
       this.totlaCount = noti.data.totalCount;
       this.totalUnSeen = noti.data.totalUnSeenCount;
@@ -64,7 +65,7 @@ export class NotificationsComponent {
 
   playSound() {
     this.audio.currentTime = 0;
-    this.audio.play().catch(error => console.log('Audio play blocked:', error));
+    this.audio.play().catch(() => {});
   }
 
   getModuleIcon(module: number): string {
@@ -98,10 +99,9 @@ export class NotificationsComponent {
 
   seenNotification(orderId: any) {
     this.ApiService.put(
-      `Notification/seenNotification?id=${orderId}`,
+      API.NOTIFICATIONS.SEEN(orderId),
       {}
     ).subscribe((res: any) => {
-      console.log(res);
       this.getNotifications();
     });
   }

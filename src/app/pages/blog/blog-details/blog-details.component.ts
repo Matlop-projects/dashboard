@@ -31,11 +31,9 @@ import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { CountryService } from '../../../services/country.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'blog.pageName';
-const global_API_deialis = 'Blog' + '/GetBlog';
-const global_API_create = 'Blog' + '/CreateBlog';
-const global_API_update = 'Blog' + '/UpdateBlog';
 const global_routeUrl = 'settings/' + global_PageName;
 
 @Component({
@@ -195,7 +193,6 @@ export class BlogDetailsComponent {
   }
 
   getCountries() {
-    debugger;
     this.countryService.getCountries().subscribe((res: any) => {
       if (res) {
         res.data.map((country: any) => {
@@ -225,7 +222,7 @@ export class BlogDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe(
+    this.ApiService.get(API.BLOGS.BY_ID(this.getID)).subscribe(
       (res: any) => {
         if (res) {
           this.form.patchValue(res.data);
@@ -265,13 +262,13 @@ export class BlogDetailsComponent {
   }
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe((res) => {
+    this.ApiService.post(API.BLOGS.BASE, payload).subscribe((res) => {
       if (res) this.navigateToPageTable();
     });
   }
 
      getAllServices() {
-    this.ApiService.get('Service/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.SERVICES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.serviceTypeList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.nameAr : item.nameEn,
@@ -281,7 +278,7 @@ export class BlogDetailsComponent {
     });
   }
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe((res) => {
+    this.ApiService.put(API.BLOGS.BASE, payload).subscribe((res) => {
       if (res) this.navigateToPageTable();
     });
   }

@@ -1,10 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
 
 // APIs that should NOT receive X-Country-Id header (to get unfiltered data)
-const SKIP_COUNTRY_HEADER_URLS = [
-  'Country/GetAll',
-  'Country/getAll',
+const SKIP_COUNTRY_HEADER_PATTERNS = [
+  '/countries',
 ];
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -15,9 +13,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const language = localStorage.getItem('lang') === 'ar' ? 'ar' : 'en';
 
   // Check if this request should skip the country header
-  const shouldSkipCountryHeader = SKIP_COUNTRY_HEADER_URLS.some(url => req.url.includes(url));
+  const shouldSkipCountryHeader = SKIP_COUNTRY_HEADER_PATTERNS.some(
+    pattern => req.url.endsWith(pattern) || req.url.includes(pattern + '?')
+  );
 
-  const commonHeaders: { [key: string]: string } = {
+  const commonHeaders: Record<string, string> = {
     'Accept-Language': language,
   };
 

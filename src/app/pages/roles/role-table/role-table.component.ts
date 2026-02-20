@@ -10,14 +10,12 @@ import { LanguageService } from '../../../services/language.service';
 import { ETableShow, IcolHeaderSmallTable, TableSmallScreenComponent } from '../../../components/table-small-screen/table-small-screen.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='roles.pageName';
 const global_router_add_url_in_Table ='/settings/role/add';
 const global_router_view_url ='/settings/role/view';
 const global_router_edit_url ='/settings/role/edit';
-const global_API_getAll ="Role"+'/GetAll';
-const global_API_delete="Role"+'/Delete?roleId';
 
 @Component({
   selector: 'app-role-table',
@@ -35,7 +33,7 @@ export class RoleTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.ROLES.BASE,
       autoCall: true
     },
     {
@@ -119,7 +117,7 @@ export class RoleTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.get(global_API_getAll).subscribe((res: any) => {
+    this.ApiService.get(API.ROLES.BASE).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data;
         this.filteredData = [...this.dataList];

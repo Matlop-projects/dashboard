@@ -20,11 +20,9 @@ import { EditModeImageComponent } from '../../../components/edit-mode-image/edit
 import { environment } from '../../../../environments/environment';
 import { LanguageService } from '../../../services/language.service';
 import { CountryService } from '../../../services/country.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'about_us.pageName';
-const global_API_deialis =  'aboutUs/GetById';
-const global_API_create =  'aboutUs/Create';
-const global_API_update =  'aboutUs/Update';
 const global_routeUrl = 'about-us'
 
 @Component({
@@ -129,7 +127,7 @@ export class AboutUsDetailsComponent {
   }
 
   getAllCountries(){
-  this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+  this.ApiService.get(API.COUNTRIES.BASE).subscribe((res: any) => {
     if (res) {
      res.data.map((country:any)=>{
          this.countries.push({
@@ -167,12 +165,11 @@ export class AboutUsDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.ABOUT_US.BY_ID(this.getID)).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
           // this.form.get('countryId')?.setValue(res.data.countryId)
         this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.image;
-        console.log("AboutUsDetailsComponent  this.ApiService.get    this.editImageProps.props.imgSrc:",   this.editImageProps.props.imgSrc)
         this.editMode = true;
       }
         
@@ -209,14 +206,14 @@ export class AboutUsDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.ABOUT_US.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.ABOUT_US.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

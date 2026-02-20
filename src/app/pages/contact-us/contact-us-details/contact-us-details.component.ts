@@ -14,11 +14,9 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'contact_us.pageName';
-const global_API_deialis =  'contactUs/GetById';
-const global_API_create =  'contactUs/Create';
-const global_API_update =  'contactUs/Update';
 const global_routeUrl = 'contact-us'
 
 @Component({
@@ -110,7 +108,7 @@ export class ContactUsDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.CONTACT_US.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -146,14 +144,14 @@ export class ContactUsDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.CONTACT_US.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.CONTACT_US.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

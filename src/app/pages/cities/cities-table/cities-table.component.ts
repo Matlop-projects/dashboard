@@ -12,11 +12,12 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TitleCasePipe } from '@angular/common';
+import { API } from '../../../core/api-endpoints';
 
-const global_toggleOptions:IToggleOptions={
-  apiName:'city/Update',
-  autoCall:true,
-  }
+const global_toggleOptions: IToggleOptions = {
+  apiName: API.CITIES.BASE,
+  autoCall: true,
+};
 @Component({
   selector: 'app-cities-table',
   standalone: true,
@@ -29,7 +30,7 @@ export class CitiesTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'City/Delete?requestId',
+      apiName_or_route: API.CITIES.BASE,
       autoCall: true
     },
     {
@@ -123,8 +124,7 @@ export class CitiesTableComponent {
   }
 
   getAllCities() {
-  console.log('ggg',this.citySearch)
-    this.ApiService.post('City/GetAllWithPagination',this.citySearch).subscribe((res: any) => {
+    this.ApiService.get(API.CITIES.SEARCH, this.citySearch).subscribe((res: any) => {
       if (res.data) {
         this.citiesList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -134,7 +134,6 @@ export class CitiesTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.citySearch.pageNumber = event;
     this.getAllCities();
   }

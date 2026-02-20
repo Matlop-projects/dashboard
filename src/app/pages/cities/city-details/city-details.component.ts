@@ -16,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-city-details',
@@ -112,7 +113,7 @@ export class CityDetailsComponent {
   
   }
 getAllCountries(){
-  this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+  this.ApiService.get(API.COUNTRIES.BASE).subscribe((res: any) => {
     if (res) {
      res.data.map((country:any)=>{
          this.countries.push({
@@ -145,14 +146,13 @@ getBreadCrumb() {
   }
 }
   getCityDetails() {
-    this.ApiService.get(`City/GetById/${this.cityID}`).subscribe((res: any) => {
+    this.ApiService.get(API.CITIES.BY_ID(this.cityID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
   }
 
   onSubmit() {
-    console.log('ff',this.form.value)
     const payload = {
       ...this.form.value,
       cityId: this.cityID|0,
@@ -165,13 +165,13 @@ getBreadCrumb() {
   }
 
   addCity(payload: any) {
-    this.ApiService.post('City/Create', payload).subscribe(res => {
+    this.ApiService.post(API.CITIES.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('city')
     })
   }
   editCity(payload: any) {
-    this.ApiService.put('City/Update', payload).subscribe(res => {
+    this.ApiService.put(API.CITIES.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('city')
     })

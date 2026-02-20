@@ -12,17 +12,15 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
-const global_pageName='country'
-const global_router_add_url_in_Table ='/'+global_pageName+'/add'
-const global_router_view_url =global_pageName+'/view'
-const global_router_edit_url =global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAllCountry'
-const global_API_delete=global_pageName+'/DeleteCountry?id'
-const global_toggleOptions:IToggleOptions={
-apiName:global_pageName+'/UpdateCountry',
-autoCall:true,
-}
+const global_router_add_url_in_Table = '/country/add';
+const global_router_view_url = 'country/view';
+const global_router_edit_url = 'country/edit';
+const global_toggleOptions: IToggleOptions = {
+  apiName: API.COUNTRIES.BASE,
+  autoCall: true,
+};
 @Component({
   selector: 'app-countries-table',
   standalone: true,
@@ -37,7 +35,7 @@ export class CountriesTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.COUNTRIES.BASE,
       autoCall: true
     },
     {
@@ -146,7 +144,7 @@ export class CountriesTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.COUNTRIES.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -157,7 +155,6 @@ export class CountriesTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

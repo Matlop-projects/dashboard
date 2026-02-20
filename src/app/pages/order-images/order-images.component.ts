@@ -11,6 +11,7 @@ import { CountryService } from '../../services/country.service';
 import { SelectComponent } from '../../components/select/select.component';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { FormControl } from '@angular/forms';
+import { API } from '../../core/api-endpoints';
 
 @Component({
   selector: 'app-order-images',
@@ -36,7 +37,6 @@ export class OrderImagesComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    debugger;
     this.route.paramMap.subscribe(params => {
       this.typeParam = params.get('type') || 'e';
       this.getCountries();
@@ -82,10 +82,9 @@ export class OrderImagesComponent implements OnInit {
 
 
   apiCallForUpload(base64WithPrefix: string, countryId: number): void {
-    debugger;
     const link = this.typeParam === 'e'
-      ? 'OrderDefaultImage/CreateEmercencyOrderDefaultImage'
-      : 'OrderDefaultImage/CreateSpecialOrderDefaultImage';
+      ? API.ORDER_DEFAULT_IMAGES.EMERGENCY
+      : API.ORDER_DEFAULT_IMAGES.SPECIAL_ORDER;
 
     const imageObject = this.typeParam === 'e'
       ? { emergencyImage: base64WithPrefix, countryId: countryId }
@@ -99,12 +98,11 @@ export class OrderImagesComponent implements OnInit {
 
 
   getImage(countryId: number): void {
-    debugger;
     const link = this.typeParam === 'e'
-      ? `OrderDefaultImage/GetEmercencyOrderDefaultImage?CountryId=${countryId}`
-      : `OrderDefaultImage/GetSepcialOrderDefaultImage?CountryId=${countryId}`;
+      ? API.ORDER_DEFAULT_IMAGES.EMERGENCY
+      : API.ORDER_DEFAULT_IMAGES.SPECIAL_ORDER;
 
-    this.api.get(link).subscribe((res: any) => {
+    this.api.get(link, { CountryId: countryId }).subscribe((res: any) => {
       if (res.data) {
         this.uploadedImage =
           this.typeParam === 'e'
@@ -113,7 +111,6 @@ export class OrderImagesComponent implements OnInit {
       } else {
         this.uploadedImage = null; // Set to null if no image data is returned
       }
-      console.log('Uploaded Image after API call:', this.uploadedImage);
     });
   }
 
@@ -137,7 +134,6 @@ export class OrderImagesComponent implements OnInit {
   }
 
   onCountryChange(countryId: number) {
-    console.log('Country ID received in onCountryChange:', countryId);
     this.countryIdControl.setValue(countryId);
     const selectedCountry = this.countries.find(country => country.code === countryId);
     if (selectedCountry) {

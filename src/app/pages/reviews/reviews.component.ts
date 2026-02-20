@@ -30,14 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { InputTextComponent } from '../../components/input-text/input-text.component';
 import { DialogModule } from 'primeng/dialog';
-
-const global_pageName = 'reviews.pageName';
-// const global_router_add_url_in_Table = '/' + global_API_Name + '/add';
-const global_router_view_url = '/reviewDetails';
-const global_API_delete = 'ServiceReview/DeleteServiceReview';
-// const global_router_edit_url = global_API_Name + '/edit';
-const global_API_getAll = 'ServiceReview/GetAllServiceReviewByPagination';
-// const global_API_delete = global_API_Name + '/DeletepaymentWay?id';
+import { API } from '../../core/api-endpoints';
 @Component({
   selector: 'app-reviews',
   standalone: true,
@@ -61,7 +54,7 @@ const global_API_getAll = 'ServiceReview/GetAllServiceReviewByPagination';
 })
 export class ReviewsComponent {
   //  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName = signal<string>(global_pageName);
+  pageName = signal<string>('reviews.pageName');
   showRejectDialog = false;
   recordItem: any = {};
   router = inject(Router);
@@ -112,7 +105,7 @@ export class ReviewsComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName);
+    this.pageName.set('reviews.pageName');
     this.API_getAll();
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -219,12 +212,12 @@ export class ReviewsComponent {
   }
 
   callDeleteApi(record: any) {
-    this.ApiService.delete(global_API_delete, record.serviceReviewId.toString()).subscribe((res) => {
+    this.ApiService.delete(API.SERVICE_REVIEWS.BASE, record.serviceReviewId.toString()).subscribe((res) => {
       this.API_getAll();
     });
   }
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe(
+    this.ApiService.get(API.SERVICE_REVIEWS.SEARCH, this.objectSearch).subscribe(
       (res: any) => {
         if (res) {
           this.dataList = res.data.dataList;
@@ -236,7 +229,6 @@ export class ReviewsComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }
@@ -278,7 +270,6 @@ export class ReviewsComponent {
   }
 
   onActionCliked(event: any) {
-    console.log('ggg', event);
     this.recordItem = event.record;
 
     if (event.action.name == 'delete') {

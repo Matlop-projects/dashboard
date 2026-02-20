@@ -12,13 +12,12 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName = 'services.pageName'
 const global_router_add_url_in_Table = '/service/add'
 const global_router_view_url = '/service/view'
 const global_router_edit_url = '/service/edit'
-const global_API_getAll = 'Service' + '/GetAllServiceWithPagination'
-const global_API_delete = 'Service' + '/DeleteService?id'
 
 @Component({
   selector: 'app-services-table',
@@ -36,7 +35,7 @@ export class ServicesTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.SERVICES.BASE,
       autoCall: true
     },
     {
@@ -137,7 +136,7 @@ export class ServicesTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.SERVICES.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -148,7 +147,6 @@ export class ServicesTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

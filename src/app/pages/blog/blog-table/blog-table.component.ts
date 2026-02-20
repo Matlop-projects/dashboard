@@ -12,13 +12,12 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='blog.pageName'
 const global_router_add_url_in_Table ='/settings/'+"blog"+'/add'
 const global_router_view_url ='/settings/'+"blog"+'/view'
 const global_router_edit_url ='/settings/'+"blog"+'/edit'
-const global_API_getAll ="blog"+'/GetAllBlog'
-const global_API_delete="blog"+'/DeleteBlog?id'
 @Component({
   selector: 'app-blog-table',
   standalone: true,
@@ -35,7 +34,7 @@ export class BlogTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.BLOGS.BASE,
       autoCall: true
     },
     {
@@ -136,7 +135,7 @@ export class BlogTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post('blog/GetAllBlog',this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.BLOGS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res && res.data) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -146,7 +145,6 @@ export class BlogTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

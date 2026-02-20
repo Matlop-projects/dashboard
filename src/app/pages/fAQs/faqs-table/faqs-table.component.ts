@@ -12,6 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TitleCasePipe } from '@angular/common';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName = 'faqs.pageName';
 
@@ -29,7 +30,7 @@ export class FaqsTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'FAQs/Delete?requestId',
+      apiName_or_route: API.FAQS.BASE,
       autoCall: true
     },
     {
@@ -126,25 +127,22 @@ export class FaqsTableComponent {
   }
 
   getAllFAQS() {
-    this.ApiService.post('FAQs/GetAllWithPagination', this.faqSearchCreteria).subscribe((res: any) => {
+    this.ApiService.get(API.FAQS.SEARCH, this.faqSearchCreteria).subscribe((res: any) => {
       if (res) {
         this.faqsList = res.data.dataList;
         this.totalCount = res.data.totalCount;
         this.filteredData = [...this.faqsList];
-        console.log('FAQs loaded:', this.faqsList);
       }
 
     })
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.faqSearchCreteria.pageNumber = event;
     this.getAllFAQS();
   }
 
   onSubmit() {
-    console.log("Form Submitted:", this.faqSearchCreteria);
     this.getAllFAQS();
   }
 

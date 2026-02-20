@@ -11,7 +11,7 @@ import { spinnerInterceptor } from './core/spinner.interceptor';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { firstValueFrom } from 'rxjs';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -51,6 +51,7 @@ export const appConfig: ApplicationConfig = {
     }),
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     MessageService,
+    ConfirmationService,
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

@@ -17,9 +17,7 @@ import { SelectComponent } from '../../components/select/select.component';
 import { IEditImage } from '../../components/edit-mode-image/editImage.interface';
 import { TextareaModule } from 'primeng/textarea';
 import { LanguageService } from '../../services/language.service';
-
-const global_PageName = 'notifications.pageName';
-const global_API_create = 'Notification/send';
+import { API } from '../../core/api-endpoints';
 
 @Component({
   selector: 'app-add-notifications',
@@ -38,7 +36,7 @@ const global_API_create = 'Notification/send';
   styleUrl: './add-notifications.component.scss',
 })
 export class AddNotificationsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('notifications.pageName');
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
@@ -97,7 +95,7 @@ export class AddNotificationsComponent {
 
   ngOnInit() {
     this.getAllCountry();
-    this.pageName.set(global_PageName);
+    this.pageName.set('notifications.pageName');
     this.getBreadCrumb();
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
@@ -115,7 +113,7 @@ export class AddNotificationsComponent {
   }
 
   getAllCountry(){
-    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.COUNTRIES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.countryList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,
@@ -141,10 +139,6 @@ export class AddNotificationsComponent {
     };
   }
   onUserTypeChange(event: number) {
-    console.log(
-      '🚀 ~ AddNotificationsComponent ~ getAllClientsByUserType ~ res:',
-      event
-    );
     this.ClientsList = [];
     this.form.get('userId')?.setValue([]);
     
@@ -158,7 +152,7 @@ export class AddNotificationsComponent {
       return;
     }
     
-    this.ApiService.get('Client/GetAllClientsByUserTypeIdAndCountryId', {
+    this.ApiService.get(API.CLIENTS.BY_TYPE_AND_COUNTRY, {
       UserTypeId: userTypeId,
     }).subscribe((res: any) => {
       this.ClientsList = [];
@@ -190,7 +184,7 @@ export class AddNotificationsComponent {
   }
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe((res) => {
+    this.ApiService.post(API.NOTIFICATIONS.BASE, payload).subscribe((res) => {
       if (res) {
         this.form.reset();
       }

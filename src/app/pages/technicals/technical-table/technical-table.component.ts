@@ -12,15 +12,12 @@ import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='tech.pageName';
-const global_API_Name='Technical';
 const global_router_add_url_in_Table ='/technical/add';
 const global_router_view_url ='/technical/view';
 const global_router_edit_url ='/technical/edit';
-const global_API_getAll =global_API_Name+'/GetAllWithPagination';
-const global_API_Active=global_API_Name+'/Activate?userId';
-const global_API_block=global_API_Name+'/Delete?userId';
 
 @Component({
   selector: 'app-technical-table',
@@ -50,7 +47,7 @@ export class TechnicalTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'Technical/Delete?userId',
+      apiName_or_route: API.TECHNICALS.BASE,
       autoCall: true
     },
     {
@@ -65,12 +62,12 @@ export class TechnicalTableComponent {
     },
     {
       name: EAction.active,
-      apiName_or_route: global_API_Active,
+      apiName_or_route: API.TECHNICALS.ACTIVE,
       autoCall: true
     },
     {
       name: EAction.block,
-      apiName_or_route: global_API_block,
+      apiName_or_route: API.TECHNICALS.BASE,
       autoCall: true
     }
   ]
@@ -170,7 +167,7 @@ export class TechnicalTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.TECHNICALS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -181,7 +178,6 @@ export class TechnicalTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

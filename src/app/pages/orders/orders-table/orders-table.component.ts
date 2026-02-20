@@ -15,10 +15,10 @@ import { order_status } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { DatePicker } from 'primeng/datepicker';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName = 'order.pageName'
 const global_router_edit_url = '/order/edit'
-const global_API_getAll = 'order/GetAllWitPaginationDashboard'
 
 @Component({
   selector: 'app-orders-table',
@@ -271,7 +271,7 @@ export class OrdersTableComponent {
   }
 
   getAllCountry(){
-    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.COUNTRIES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.countryList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,
@@ -287,7 +287,7 @@ export class OrdersTableComponent {
   }
 
   getAllClients() {
-    this.ApiService.get('Client/GetAllActive').subscribe((res: any) => {
+    this.ApiService.get(API.CLIENTS.BASE).subscribe((res: any) => {
       this.clientList = []
       if (res.data)
         res.data.map((item: any) => {
@@ -305,7 +305,7 @@ export class OrdersTableComponent {
   }
 
   getAllPackages() {
-    this.ApiService.get('Package/GetAllPackage').subscribe((res: any) => {
+    this.ApiService.get(API.PACKAGES.BASE).subscribe((res: any) => {
       this.packageList = []
       if (res.data)
         res.data.map((item: any) => {
@@ -335,7 +335,6 @@ export class OrdersTableComponent {
     else if (value == 'clinet') {
       this.objectSearch.clientId = selectedItem
     } else {
-      console.log(selectedItem);
       const localDate = new Date(selectedItem);
       const year = localDate.getFullYear();
       const month = localDate.getMonth();
@@ -356,9 +355,7 @@ export class OrdersTableComponent {
 
 
   API_getAll() {
-    console.log(this.objectSearch);
-
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.ORDERS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -384,14 +381,12 @@ export class OrdersTableComponent {
         });
 
         this.filteredData = [...this.dataList];
-        console.log(this.dataList);
       }
     });
   }
 
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.saveFilterToStorage(); // Save filter when changing pages
     this.API_getAll();

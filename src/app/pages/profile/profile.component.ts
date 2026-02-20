@@ -12,9 +12,8 @@ import { LanguageService } from '../../services/language.service';
 import { gender } from '../../conts';
 import { IEditImage } from '../../components/edit-mode-image/editImage.interface';
 import { environment } from '../../../environments/environment.prod';
+import { API } from '../../core/api-endpoints';
 
-const global_PageName = 'profile.pageName';
-const global_API_deialis =  'admin/GetById';
 const global_routeUrl = '/profile/edit/'
 
 @Component({
@@ -31,11 +30,11 @@ const global_routeUrl = '/profile/edit/'
 })
 export class ProfileComponent {
 
-pageName = signal<string>(global_PageName);
+pageName = signal<string>('profile.pageName');
 userDataInfo:any[]=[]
-  userDate=JSON.parse(localStorage.getItem('userData')as any);
-  defaultImage=this.userDate.gender==1?'assets/images/arabian-man.png':'assets/images/arabian-woman.png'
-  userId=this.userDate.id
+  userDate = JSON.parse(localStorage.getItem('userData') || '{}');
+  defaultImage = this.userDate?.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png';
+  userId = this.userDate?.id;
   imgUrl:any=null
   private ApiService = inject(ApiService)
   private router = inject(Router)
@@ -112,7 +111,7 @@ userDataInfo:any[]=[]
 
 
   ngOnInit() {
-    this.pageName.set(global_PageName)
+    this.pageName.set('profile.pageName')
     this.getAllRoles()
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -150,7 +149,7 @@ userDataInfo:any[]=[]
       }
     };
   getAllRoles(){
-    this.ApiService.get('role/GetAll').subscribe((res:any)=>{
+    this.ApiService.get(API.ROLES.BASE).subscribe((res:any)=>{
        if(res.data){
           res.data.map((item:any) => {
              this.roleList.push({
@@ -193,7 +192,7 @@ userDataInfo:any[]=[]
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.userId}`).subscribe((res: any) => {
+    this.ApiService.get(API.ADMINS.BY_ID(this.userId)).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
         this.imgUrl=res.data.imgSrc?environment.baseImageUrl+res.data.imgSrc:this.defaultImage

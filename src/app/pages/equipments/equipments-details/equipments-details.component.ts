@@ -22,13 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { EditModeImageComponent } from '../../../components/edit-mode-image/edit-mode-image.component';
 import { environment } from '../../../../environments/environment';
-
-
-
-const global_PageName = 'equipments.pageName';
-const global_API_details = 'equipment' + '/GetById';
-const global_API_create = 'equipment' + '/create';
-const global_API_update = 'equipment' + '/update';
+import { API } from '../../../core/api-endpoints';
 
 const global_routeUrl = 'equipments'
 
@@ -40,7 +34,7 @@ const global_routeUrl = 'equipments'
   styleUrl: './equipments-details.component.scss'
 })
 export class EquipmentsDetailsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('equipments.pageName');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -107,7 +101,7 @@ export class EquipmentsDetailsComponent {
   ngOnInit() {
     this.getBreadCrumb();
     this.getAllPackage()
-    this.pageName.set(global_PageName)
+    this.pageName.set('equipments.pageName')
     if (this.tyepMode() !== 'Add') {
       this.API_getItemDetails()
     }
@@ -189,7 +183,7 @@ this.updateEquementPackages.push( {
 
   }
   getAllPackage() {
-    this.ApiService.get('package/GetAllPackage').subscribe((res: any) => {
+    this.ApiService.get(API.PACKAGES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.packageList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.nameAr : item.nameEn,
@@ -204,7 +198,7 @@ this.updateEquementPackages.push( {
 
   API_getItemDetails() {
     if (this.getID) {
-      this.ApiService.get(`${global_API_details}/${this.getID}`).subscribe((res: any) => {
+      this.ApiService.get(API.EQUIPMENT.BY_ID(this.getID)).subscribe((res: any) => {
         if (res) {
           const arr:any[]=[]
           res.data.equipmentPackages.map((item:any)=>{
@@ -259,15 +253,14 @@ this.updateEquementPackages.push( {
 
 
   API_forAddItem(payload: any) {
-    console.log("🚀 ~ EquipmentsDetailsComponent ~ API_forAddItem ~ payload:", payload)
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.EQUIPMENT.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.EQUIPMENT.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

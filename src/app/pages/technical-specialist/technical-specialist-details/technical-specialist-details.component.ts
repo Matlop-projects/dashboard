@@ -12,11 +12,9 @@ import { ConfirmMsgService } from '../../../services/confirm-msg.service';
 import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'tech_sp.pageName';
-const global_API_deitalis = 'technicalSpecialist/GetById';
-const global_API_create = 'technicalSpecialist/Create';
-const global_API_update = 'technicalSpecialist/update';
 const global_routeUrl = 'technical-specialist'
 
 @Component({
@@ -85,7 +83,6 @@ export class TechnicalSpecialistDetailsComponent {
   }
 
   getBreadCrumb() {
-    console.log("Techni ", this.languageService.translate(this.pageName()))
     this.bredCrumb = {
       crumbs: [
         {
@@ -101,7 +98,7 @@ export class TechnicalSpecialistDetailsComponent {
   
   API_getItemDetails() {
     if(this.getID)
-    this.ApiService.get(`${global_API_deitalis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.TECHNICAL_SPECIALISTS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -137,14 +134,14 @@ export class TechnicalSpecialistDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.TECHNICAL_SPECIALISTS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.TECHNICAL_SPECIALISTS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

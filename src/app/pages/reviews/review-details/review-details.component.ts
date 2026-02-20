@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-review-details',
@@ -18,6 +19,6 @@ this.getDetails()
   }
 
   getDetails(){
-      this.apiservice.get('ServiceReview/GetServiceReviewByUserIdDashboard',{orderId:this.params.orderId,userId:this.params.userId}).subscribe()
+      this.apiservice.get(API.SERVICE_REVIEWS.BY_USER_DASHBOARD,{orderId:this.params.orderId,userId:this.params.userId}).subscribe()
   }
 }

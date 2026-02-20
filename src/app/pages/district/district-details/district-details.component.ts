@@ -15,11 +15,9 @@ import { UploadFileComponent } from "../../../components/upload-file/upload-file
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'district.pageName';
-const global_API_deialis =  'district/GetById';
-const global_API_create =  'district/Create';
-const global_API_update =  'district/Update';
 const global_routeUrl = 'settings/district'
 
 @Component({
@@ -95,7 +93,7 @@ pageName = signal<string>(global_PageName);
   }
  
   getAllCities(){
-    this.ApiService.get('city/GetAll').subscribe((res:any)=>{
+    this.ApiService.get(API.CITIES.BASE).subscribe((res:any)=>{
        if(res.data){
           res.data.map((item:any) => {
              this.citiesList.push({
@@ -132,7 +130,7 @@ pageName = signal<string>(global_PageName);
     }
   }
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.DISTRICTS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -168,14 +166,14 @@ pageName = signal<string>(global_PageName);
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.DISTRICTS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.DISTRICTS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

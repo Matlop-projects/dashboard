@@ -16,11 +16,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { SelectComponent } from '../../../components/select/select.component';
 import { CountryService } from '../../../services/country.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'termsAndConditions.pageName';
-const global_API_deialis = 'TermsAndConditions' + '/GetTermsAndConditions';
-const global_API_create = 'TermsAndConditions' + '/CreateTermsAndConditions';
-const global_API_update = 'TermsAndConditions' + '/UpdateTermsAndConditions';
 const global_routeUrl = '/settings/terms_conditions'
 
 @Component({
@@ -138,7 +136,7 @@ export class TermsConditionsDetailsComponent {
     }
   }
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.TERMS_AND_CONDITIONS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -174,14 +172,14 @@ export class TermsConditionsDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.TERMS_AND_CONDITIONS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.TERMS_AND_CONDITIONS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

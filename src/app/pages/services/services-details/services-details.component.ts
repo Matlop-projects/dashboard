@@ -18,6 +18,7 @@ import { IEditImage } from '../../../components/edit-mode-image/editImage.interf
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-services-details',
@@ -153,7 +154,7 @@ export class ServicesDetailsComponent {
     }
   }
   getServiceDetails() {
-    this.ApiService.get(`Service/GetService/${this.serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(API.SERVICES.BY_ID(this.serviceId)).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data);
         this.editImageProps.props.imgSrc =environment.baseImageUrl+ res.data.image;
@@ -176,14 +177,14 @@ export class ServicesDetailsComponent {
   }
 
   addService(payload: any) {
-    this.ApiService.post('Service/CreateService', payload).subscribe(res => {
+    this.ApiService.post(API.SERVICES.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('services')
     })
   }
 
   editService(payload: any) {
-    this.ApiService.put('Service/UpdateService', payload).subscribe(res => {
+    this.ApiService.put(API.SERVICES.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('services')
     })

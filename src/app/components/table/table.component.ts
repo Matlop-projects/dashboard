@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ToasterService } from '../../services/toaster.service';
 import { LanguageService } from '../../services/language.service';
+import { API } from '../../core/api-endpoints';
 
 export interface IToggleOptions {
   autoCall: boolean,
@@ -303,8 +304,8 @@ export class TableComponent implements OnInit, OnChanges {
 
   onStatusChange(orderId: any) {
     this.ApiService.put(
-      `Order/ChangeStatus?OrderId=${orderId}&orderStatusEnum=1`,
-      {}
+      API.ORDERS.STATUS(orderId),
+      { orderStatusEnum: 1 }
     ).subscribe(() => {
       this.reloadGetAllApi.emit(true);
     });
@@ -391,7 +392,6 @@ export class TableComponent implements OnInit, OnChanges {
 
   // Updated: Special Order Status array with dynamic language fields.
   getSpecialOrderStatusColorById(id: number): string | null {
-    console.log("🚀 ~ TableComponent ~ getSpecialOrderStatusColorById ~ id:", id)
     const statuses = [
       {
         name: this.languageService.translationService.currentLang === 'ar' ? 'قيد الانتظار' : 'Pending',

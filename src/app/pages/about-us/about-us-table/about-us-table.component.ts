@@ -12,13 +12,12 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='about_us.pageName'
 const global_router_add_url_in_Table ='/about-us/add'
 const global_router_view_url ='about-us/view'
 const global_router_edit_url ='about-us/edit'
-const global_API_getAll ='aboutUS/GetAllWithPagination'
-const global_API_delete='aboutUS/Delete?id'
 
 @Component({
   selector: 'app-about-us-table',
@@ -36,7 +35,7 @@ export class AboutUsTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.ABOUT_US.BASE,
       autoCall: true
     },
     {
@@ -136,7 +135,7 @@ export class AboutUsTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.ABOUT_US.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -147,7 +146,6 @@ export class AboutUsTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

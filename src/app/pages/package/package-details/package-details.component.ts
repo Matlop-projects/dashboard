@@ -19,15 +19,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { LanguageService } from '../../../services/language.service';
 import { parseISO } from 'date-fns';
 import { TranslatePipe } from '@ngx-translate/core';
-
-
-
-const global_PageName = 'pkg.pageName';
-const global_API_deialis = 'package' + '/GetPackage';
-const global_API_create = 'package' + '/CreatePackage';
-const global_API_update = 'package' + '/UpdatePackage';
-// const global_API_get_workTime =global_PageName+'/GetWorkTimeByPacakgeId/';
-const global_API_get_all_workTime = 'WorkingTime/GetAll'
+import { API } from '../../../core/api-endpoints';
 
 const global_routeUrl = 'package'
 
@@ -39,7 +31,7 @@ const global_routeUrl = 'package'
   styleUrl: './package-details.component.scss'
 })
 export class PackageDetailsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('pkg.pageName');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -169,7 +161,7 @@ export class PackageDetailsComponent {
     this.getAllServices()
     this.getAllWorkingTime()
     this.getAllCountry()
-    this.pageName.set(global_PageName)
+    this.pageName.set('pkg.pageName')
     if (this.tyepMode() !== 'Add') {
       // this.getWorkTimeByPkgId()
       this.API_getItemDetails()
@@ -178,7 +170,6 @@ export class PackageDetailsComponent {
     this.selectedLang = this.languageService.translationService.currentLang;
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
-      console.log("CityDetailsComponent  this.languageService.translationService.onLangChange.subscribe   this.selectedLang:", this.selectedLang)
       this.API_getItemDetails();
       this.getAllServices();
       this.getAllWorkingTime()
@@ -211,7 +202,7 @@ export class PackageDetailsComponent {
     }
   }
   getAllCountry(){
-    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.COUNTRIES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.countryList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,
@@ -243,7 +234,7 @@ export class PackageDetailsComponent {
   // }
 
   getAllWorkingTime() {
-    this.ApiService.get(global_API_get_all_workTime).subscribe((res: any) => {
+    this.ApiService.get(API.WORKING_TIMES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.workingTimeList = []
         res.data.map((item: any) => {
@@ -252,7 +243,6 @@ export class PackageDetailsComponent {
             code: item.workTimeId,
           })
         })
-        console.log(this.workingTimeList);
       }
     })
   }
@@ -270,7 +260,7 @@ export class PackageDetailsComponent {
 
    // Fetch all services
    getAllServices() {
-    this.ApiService.get('Service/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.SERVICES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.serviceTypeList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.nameAr : item.nameEn,
@@ -281,13 +271,11 @@ export class PackageDetailsComponent {
   }
 
   getAllContract(serviceId: any) {
-    console.log("Fetching contracts for serviceId:", serviceId);
-
     if (!serviceId) {
       this.contractTypeList = [];
       return;
     }
-    this.ApiService.get(`ContractType/GetByServiceIdDashboard/${serviceId}`).subscribe((res: any) => {
+    this.ApiService.get(API.CONTRACT_TYPES.BY_SERVICE(serviceId)).subscribe((res: any) => {
       if (res.data) {
         this.contractTypeList=[]
        res.data.map((item: any) => {
@@ -302,7 +290,6 @@ export class PackageDetailsComponent {
 
 
   onServiceChange(serviceId: any) {
-    console.log("Service changed to:", serviceId);
     if (!serviceId) {
       this.contractTypeList = []; // Clear contracts if no service is selected
       return;
@@ -334,7 +321,7 @@ export class PackageDetailsComponent {
 
   API_getItemDetails() {
     if (this.getID) {
-      this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+      this.ApiService.get(API.PACKAGES.BY_ID(this.getID)).subscribe((res: any) => {
         if (res) {
           let pkWorkingTime: number[] = [];
           let pkCities: number[] = [];
@@ -368,7 +355,6 @@ export class PackageDetailsComponent {
           // Trigger contract list update based on the existing serviceId
           const selectedServiceId = this.form.get('serviceId')?.value;
           if (selectedServiceId) {
-            console.log("Edit Mode - Fetching contracts for serviceId:", selectedServiceId);
             this.onServiceChange(selectedServiceId);  // Call onServiceChange
           }
           const selectedCountry = this.form.get('countryId')?.value;
@@ -458,14 +444,14 @@ export class PackageDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.PACKAGES.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.PACKAGES.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     },()=>{

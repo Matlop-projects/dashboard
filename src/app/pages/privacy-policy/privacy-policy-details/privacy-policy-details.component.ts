@@ -16,11 +16,9 @@ import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CountryService } from '../../../services/country.service';
 import { SelectComponent } from '../../../components/select/select.component';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName='privacy.pageName';
-const global_API_deialis='PrivacyPolicy'+'/GetById';
-const global_API_create='PrivacyPolicy'+'/Create';
-const global_API_update='PrivacyPolicy'+'/Update';
 const global_routeUrl ='/settings/privacy_policy'
 
 @Component({
@@ -137,7 +135,7 @@ export class PrivacyPolicyDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.PRIVACY_POLICIES.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -174,14 +172,14 @@ export class PrivacyPolicyDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.PRIVACY_POLICIES.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.PRIVACY_POLICIES.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

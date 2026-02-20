@@ -12,13 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-
-const global_pageName='contract.pageName'
-const global_router_add_url_in_Table ='/'+'contract-type'+'/add'
-const global_router_view_url ='contract-type'+'/view'
-const global_router_edit_url ='contract-type'+'/edit'
-const global_API_getAll ='contractType'+'/GetAllWithPagination'
-const global_API_delete='contractType'+'/Delete?requestId'
+import { API } from '../../../core/api-endpoints';
 @Component({
   selector: 'app-contract-type-table',
   standalone: true,
@@ -27,24 +21,24 @@ const global_API_delete='contractType'+'/Delete?requestId'
   styleUrl: './contract-type-table.component.scss'
 })
 export class ContractTypeTableComponent {
-  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName =signal<string>(global_pageName);
+  global_router_add_url_in_Table = '/contract-type/add'
+  pageName =signal<string>('contract.pageName');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.CONTRACT_TYPES.BASE,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route:  global_router_view_url,
+      apiName_or_route: 'contract-type/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url,
+      apiName_or_route: 'contract-type/edit',
       autoCall: true
     }
   ]
@@ -80,7 +74,7 @@ export class ContractTypeTableComponent {
   selectedLang: any;
 
   ngOnInit() {
-    this.pageName.set(global_pageName)
+    this.pageName.set('contract.pageName')
     this.API_getAll();
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -136,7 +130,7 @@ export class ContractTypeTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.CONTRACT_TYPES.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -147,7 +141,6 @@ export class ContractTypeTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

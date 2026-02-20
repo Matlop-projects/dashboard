@@ -1,142 +1,99 @@
-
 import { Component, Inject, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { DOCUMENT, NgIf } from '@angular/common';
-import { ToasterService } from '../../services/toaster.service'; // Import here
+import { ToasterService } from '../../services/toaster.service';
 import { ApiService } from '../../services/api.service';
 import { Router, RouterModule } from '@angular/router';
-import { OtpModalComponent } from '../../components/otp-modal/otp-modal.component';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../services/language.service';
-import { SelectComponent } from '../../components/select/select.component';
+import { API } from '../../core/api-endpoints';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [OtpModalComponent, TranslatePipe, NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule,SelectComponent],
+  imports: [TranslatePipe, NgIf, ReactiveFormsModule, InputTextModule, PasswordModule, ButtonModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  providers: [ApiService]
 })
-
 export class LoginComponent {
 
-
   loginForm: FormGroup;
-  toaster = inject(ToasterService);
-  countries: any = [];
-  otpValue: string = '';
-  selectedCountryId: number | null = null;
-  mobileNumber: string = '';
-  openOtpModal: boolean = false;
-  languageService = inject(LanguageService);
-  currentLang = 'en';
   selectedLang: string = localStorage.getItem('lang') || 'en';
 
-  onCountryChange(countryId: number) {
-    this.selectedCountryId = countryId;
-  }
+  private toaster = inject(ToasterService);
+  private languageService = inject(LanguageService);
+  private api = inject(ApiService);
+  private router = inject(Router);
 
-  constructor(private fb: FormBuilder, @Inject(DOCUMENT) private document: Document, private api: ApiService, private translate: TranslateService, private router: Router) {
+  constructor(private fb: FormBuilder, @Inject(DOCUMENT) private document: Document) {
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required]],
-      country: [null, [Validators.required]],
-      loginMethod: [2]
+      usernameOrEmail: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
-
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');  // You can change this dynamically
   }
 
   ngOnInit(): void {
     this.initAppTranslation();
-    this.getAllCountries();
-  }
 
-  onSubmit() {
-    if (this.loginForm.valid) {
-      this.onLogin(this.loginForm.value);
-    } else {
-      this.toaster.errorToaster('Please Complete All Feilds');
+    // If already logged in, redirect to dashboard
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.router.navigate(['/dashboard']);
     }
   }
 
-  toggleLanguage() {
-    this.selectedLang = this.selectedLang === 'en' ? 'ar' : 'en';
-    this.currentLang = this.selectedLang;
-    this.languageService.change(this.selectedLang);
-
-    this.document.body.dir = this.selectedLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.setAttribute('lang', this.selectedLang);
-    document.documentElement.setAttribute('dir', this.selectedLang === 'ar' ? 'rtl' : 'ltr');
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.onLogin();
+    } else {
+      this.loginForm.markAllAsTouched();
+    }
   }
 
+  toggleLanguage(): void {
+    this.selectedLang = this.selectedLang === 'en' ? 'ar' : 'en';
+    this.languageService.change(this.selectedLang);
+    this.document.body.dir = this.selectedLang === 'ar' ? 'rtl' : 'ltr';
+    this.document.documentElement.setAttribute('lang', this.selectedLang);
+    this.document.documentElement.setAttribute('dir', this.selectedLang === 'ar' ? 'rtl' : 'ltr');
+  }
 
-
-  public initAppTranslation() {
+  private initAppTranslation(): void {
     this.languageService.changeAppDirection(this.selectedLang);
     this.languageService.changeHtmlLang(this.selectedLang);
     this.languageService.use(this.selectedLang);
   }
 
-  onLogin(loginfrom: any) {
-    this.openOtpModal = false;
-    this.api.login(loginfrom).subscribe((res: any) => {
-      this.mobileNumber = res.mobilePhone;
-      this.openOtpModal = res.status;
-      if (!res.status) {
-        localStorage.removeItem('token');
-        this.toaster.errorToaster(res.message)
-      }
-    })
-  }
+  private onLogin(): void {
+    const body = {
+      usernameOrEmail: this.loginForm.value.usernameOrEmail,
+      password: this.loginForm.value.password,
+    };
 
-
-  getAllCountries() {
-    this.api.get('Country/GetAll').subscribe((res: any) => {
-      if (res.data) {
-        this.countries = [];
-        res.data.map((country: any) => {
-          this.countries.push({
-            name: this.selectedLang == 'en' ? country.enName : country.arName,
-            code: country.countryId,
-          });
-        });
+    this.api.post<any>(API.AUTH.ADMIN_LOGIN, body).subscribe({
+      next: (res) => {
+        if (res.isSuccess && res.data) {
+          const userData = {
+            id: res.data.userId,
+            fullName: res.data.fullName,
+            email: res.data.email,
+            roleId: res.data.roleId,
+            roleName: res.data.roleName,
+          };
+          localStorage.setItem('token', res.data.accessToken);
+          localStorage.setItem('userData', JSON.stringify(userData));
+          this.toaster.successToaster('Login successful');
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.toaster.errorToaster(res.message || 'Login failed');
+        }
+      },
+      error: () => {
+        // Error interceptor will handle the toast
       }
     });
   }
-  getOtpValue(e: any) {
-    let otpObject = {
-      "mobile": this.mobileNumber,
-      "otpCode": e.otpValue
-    }
-    this.api.post('Authentication/VerfiyOtp', otpObject).subscribe((data: any) => {
-      console.log(data.data);
-      if (data.message == 'Otp Is Not Valid') {
-        this.toaster.errorToaster(data.message)
-      } else {
-        let dataUser: any = {
-          img: data.data.imgSrc,
-          id: data.data.userId,
-          gender: data.data.gender
-        }
-        if (this.selectedCountryId) {
-          localStorage.setItem('countryId', this.selectedCountryId.toString());
-        } else {
-          localStorage.removeItem('countryId');
-        }
-        localStorage.setItem('userData', JSON.stringify(dataUser))
-        localStorage.setItem('token', data.data.accessToken);
-        this.router.navigate(['/dashboard']);
-      }
-    })
-  }
-
-  resendOtp(e: any) {
-    this.onSubmit();
-  }
-
 }

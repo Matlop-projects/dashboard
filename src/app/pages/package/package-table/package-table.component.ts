@@ -14,13 +14,7 @@ import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
-
-const global_pageName='package'
-const global_router_add_url_in_Table ='/'+global_pageName+'/add'
-const global_router_view_url =global_pageName+'/view'
-const global_router_edit_url =global_pageName+'/edit'
-const global_API_getAll =global_pageName+'/GetAllWithPagination'
-const global_API_delete=global_pageName+'/DeletePackage?id'
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-package-table',
@@ -30,24 +24,24 @@ const global_API_delete=global_pageName+'/DeletePackage?id'
   styleUrl: './package-table.component.scss'
 })
 export class PackageTableComponent {
-  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName =signal<string>(global_pageName);
+  global_router_add_url_in_Table = '/package/add'
+  pageName =signal<string>('package');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.PACKAGES.BASE,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route:  global_router_view_url,
+      apiName_or_route: 'package/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url,
+      apiName_or_route: 'package/edit',
       autoCall: true
     }
   ]
@@ -82,7 +76,7 @@ export class PackageTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName)
+    this.pageName.set('package')
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
@@ -139,7 +133,7 @@ export class PackageTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.PACKAGES.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -158,7 +152,6 @@ export class PackageTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

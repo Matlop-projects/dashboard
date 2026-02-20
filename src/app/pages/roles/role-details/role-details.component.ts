@@ -23,11 +23,9 @@ import { Checkbox } from 'primeng/checkbox';
 import { TranslatePipe } from '@ngx-translate/core';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'roles.pageName';
-const global_API_deialis = 'Role' + '/GetById';
-const global_API_create = 'Role' + '/Create';
-const global_API_update = 'Role' + '/Update';
 const global_routeUrl = '/settings/roles';
 @Component({
   selector: 'app-role-details',
@@ -192,7 +190,7 @@ export class RoleDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe(
+    this.ApiService.get(API.ROLES.BY_ID(this.getID)).subscribe(
       (res: any) => {
         if (res)
           this.form.patchValue({
@@ -327,13 +325,13 @@ export class RoleDetailsComponent {
   }
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe((res) => {
+    this.ApiService.post(API.ROLES.BASE, payload).subscribe((res) => {
       if (res) this.navigateToPageTable();
     });
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe((res) => {
+    this.ApiService.put(API.ROLES.BASE, payload).subscribe((res) => {
       if (res) this.navigateToPageTable();
     });
   }

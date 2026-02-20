@@ -31,14 +31,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { InputTextComponent } from '../../components/input-text/input-text.component';
 import { DialogModule } from 'primeng/dialog';
-
-const global_pageName = 'withdrawals_transaction.pageName';
-// const global_router_add_url_in_Table = '/' + global_API_Name + '/add';
-// const global_router_view_url = global_API_Name + '/view';
-// const global_router_edit_url = global_API_Name + '/edit';
-const global_API_getAll =
-  'RefundedWallet/GetAllWithDrawTransactionWithPagination';
-// const global_API_delete = global_API_Name + '/DeletepaymentWay?id';
+import { API } from '../../core/api-endpoints';
 @Component({
   selector: 'app-withdrawals-transaction',
   standalone: true,
@@ -62,7 +55,7 @@ const global_API_getAll =
 })
 export class WithdrawalsTransactionComponent {
   //  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName = signal<string>(global_pageName);
+  pageName = signal<string>('withdrawals_transaction.pageName');
   showRejectDialog = false;
   transactionId:number=0
   form = new FormGroup({
@@ -110,7 +103,7 @@ export class WithdrawalsTransactionComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName);
+    this.pageName.set('withdrawals_transaction.pageName');
     this.API_getAll();
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -233,7 +226,7 @@ export class WithdrawalsTransactionComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe(
+    this.ApiService.get(API.WALLET_WITHDRAWALS.SEARCH, this.objectSearch).subscribe(
       (res: any) => {
         if (res) {
           this.dataList = res.data.dataList;
@@ -245,7 +238,6 @@ export class WithdrawalsTransactionComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }
@@ -287,9 +279,7 @@ export class WithdrawalsTransactionComponent {
   }
 
   onActionCliked(event: any) {
-    console.log('ggg', event);
     this.transactionId=event.record.walletTransactionId
-    console.log("🚀 ~ WithdrawalsTransactionComponent ~ onActionCliked ~  this.transactionId:",  this.transactionId)
     if (event.action.name == 'approve') this.onRejectOrAcceoptAPI(1);
     else this.showRejectDialog = true;
   }
@@ -326,10 +316,9 @@ export class WithdrawalsTransactionComponent {
 
     };
     this.ApiService.post(
-      'RefundedWallet/ApprovedOrRejectedWalletTransaction',
+      API.WALLET_WITHDRAWALS.APPROVE,
       payload
     ).subscribe((res) => {
-      console.log("🚀 ~ WithdrawalsTransactionComponent ~ onRejectAPI ~ res:", res)
       if(res){
 this.showRejectDialog=false;
 this.API_getAll()

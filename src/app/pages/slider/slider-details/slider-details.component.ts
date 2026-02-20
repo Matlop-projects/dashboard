@@ -22,12 +22,9 @@ import { environment } from '../../../../environments/environment';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { CountryService } from '../../../services/country.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'slider.pageName';
-const global_API_deialis = 'Slider' + '/GetById';
-const global_API_create = 'Slider' + '/Create';
-const global_API_update = 'Slider' + '/Update';
-const global_routeUrl = 'settings/' + global_PageName
 
 @Component({
   selector: 'app-slider-details',
@@ -163,7 +160,6 @@ export class SliderDetailsComponent {
   }
 
   getCountries() {
-    debugger;
     this.countryService.getCountries().subscribe((res: any) => {
       if (res) {
         res.data.map((country: any) => {
@@ -191,7 +187,7 @@ export class SliderDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.SLIDERS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data)
         // this.form.get('countryId')?.setValue(res.data.countryId)
@@ -233,14 +229,14 @@ export class SliderDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.SLIDERS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.SLIDERS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

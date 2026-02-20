@@ -12,14 +12,7 @@ import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
-
-const global_pageName='payment.pageName'
-const global_API_Name='paymentWay'
-const global_router_add_url_in_Table ='/'+global_API_Name+'/add'
-const global_router_view_url =global_API_Name+'/view'
-const global_router_edit_url =global_API_Name+'/edit'
-const global_API_getAll =global_API_Name+'/GetAllWithPagination'
-const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-payment-way-table',
@@ -40,24 +33,24 @@ const global_API_delete=global_API_Name+'/DeletepaymentWay?id'
   styleUrl: './payment-way-table.component.scss'
 })
 export class PaymentWayTableComponent {
-  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName =signal<string>(global_pageName);
+  global_router_add_url_in_Table = '/paymentWay/add'
+  pageName =signal<string>('payment.pageName');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.PAYMENT_WAYS.BASE,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route:  global_router_view_url,
+      apiName_or_route: 'paymentWay/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url,
+      apiName_or_route: 'paymentWay/edit',
       autoCall: true
     }
   ]
@@ -90,7 +83,7 @@ export class PaymentWayTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName)
+    this.pageName.set('payment.pageName')
     this.API_getAll();
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -142,7 +135,7 @@ export class PaymentWayTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.PAYMENT_WAYS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -153,7 +146,6 @@ export class PaymentWayTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

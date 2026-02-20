@@ -11,8 +11,7 @@ import { ToasterService } from '../../../services/toaster.service';
 import { parseISO } from 'date-fns';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
-
-const global_PageName = 'working_hours.pageName';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-working-hours-details',
@@ -22,7 +21,7 @@ const global_PageName = 'working_hours.pageName';
   styleUrl: './working-hours-details.component.scss'
 })
 export class WorkingHoursDetailsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('working_hours.pageName');
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
@@ -52,7 +51,7 @@ export class WorkingHoursDetailsComponent {
 
 
   ngOnInit() {
-    this.pageName.set(global_PageName)
+    this.pageName.set('working_hours.pageName')
     this.getBreadCrumb()
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
@@ -85,7 +84,7 @@ export class WorkingHoursDetailsComponent {
   }
 
   getWorkingHours() {
-    this.ApiService.get(`WorkingTime/GetWorkingTime/${this.workingHoursId}`).subscribe((res: any) => {
+    this.ApiService.get(API.WORKING_TIMES.BY_ID(this.workingHoursId)).subscribe((res: any) => {
       if (res && res.data) {
         const { startDate, endDate, ...otherData } = res.data;
 
@@ -125,7 +124,7 @@ export class WorkingHoursDetailsComponent {
 
 
   addWorkingHour(payload: any) {
-    this.ApiService.post('WorkingTime/CreateWorkingTime', payload).subscribe(res => {
+    this.ApiService.post(API.WORKING_TIMES.BASE, payload).subscribe(res => {
       if (res){
         this.toaster.successToaster('Added Successfully');
         this.router.navigateByUrl('working_hours')
@@ -134,7 +133,7 @@ export class WorkingHoursDetailsComponent {
   }
 
   editWorkingHours(payload: any) {
-    this.ApiService.put('WorkingTime/UpdateWorkingTime', payload).subscribe(res => {
+    this.ApiService.put(API.WORKING_TIMES.BASE, payload).subscribe(res => {
       if (res){
         this.toaster.successToaster('Edited Successfully');
         this.router.navigateByUrl('working_hours')

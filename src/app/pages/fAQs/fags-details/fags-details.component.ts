@@ -17,6 +17,7 @@ import { SelectComponent } from '../../../components/select/select.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
 import { CountryService } from '../../../services/country.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'faqs.pageName';
 
@@ -132,7 +133,7 @@ export class FagsDetailsComponent implements OnInit {
   }
 
   getFaqsDetails() {
-    this.ApiService.get(`FAQs/GetById/${this.faqsID}`).subscribe((res: any) => {
+    this.ApiService.get(API.FAQS.BY_ID(this.faqsID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
         // this.form.get('countryId')?.setValue(res.data.countryId)
@@ -166,14 +167,14 @@ export class FagsDetailsComponent implements OnInit {
   }
 
   addFQS(payload: any) {
-    this.ApiService.post('FAQs/Create', payload).subscribe(res => {
+    this.ApiService.post(API.FAQS.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('settings/faqs')
     })
   }
 
   editFQS(payload: any) {
-    this.ApiService.put('FAQs/Update', payload).subscribe(res => {
+    this.ApiService.put(API.FAQS.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('settings/faqs')
     })

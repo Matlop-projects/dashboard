@@ -14,13 +14,12 @@ import { NgIf, TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SelectComponent } from '../../../components/select/select.component';
 import { special_order_enum, special_order_status } from '../../../conts';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName = 'special_order.pageName'
 const global_router_add_url_in_Table = '/special-order/add'
 const global_router_view_url = 'special-order/view'
 const global_router_edit_url = 'special-order/edit'
-const global_API_getAll = 'specialOrder/GetAllWitPagination'
-const global_API_delete = 'specialOrder/Delete?id'
 
 @Component({
   selector: 'app-special-order-table',
@@ -178,7 +177,7 @@ export class SpecialOrderTableComponent {
     }
   }
   getAllCountry(){
-    this.ApiService.get('Country/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.COUNTRIES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.countryList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.arName : item.enName,
@@ -239,9 +238,8 @@ export class SpecialOrderTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.SPECIAL_ORDERS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
-        debugger;
         this.dataList = res.data.dataList;
 
         this.totalCount = res.data.totalCount;
@@ -254,8 +252,6 @@ export class SpecialOrderTableComponent {
             data.orderStatusEn = statusObj.nameEn;
           }
         });
-        console.log(this.dataList);
-
         this.filteredData = [...this.dataList];
       }
 
@@ -263,7 +259,6 @@ export class SpecialOrderTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.saveFilterToStorage(); // Save filter when changing pages
     this.API_getAll();
@@ -301,7 +296,7 @@ export class SpecialOrderTableComponent {
 }
 
 getAllClients(){
-  this.ApiService.get('Client/GetAllActive').subscribe((res:any)=>{
+  this.ApiService.get(API.CLIENTS.BASE).subscribe((res:any)=>{
    this.clientList=[]
    if(res.data)
      res.data.map((item:any)=>{
@@ -318,7 +313,6 @@ getAllClients(){
   })
  }
   onSubmitFilter() {
-    debugger;
     let countryId:any =Number(this.objectSearch.countryId)
     this.objectSearch.countryId=countryId
     let specialOrderId:any =Number(this.objectSearch.specialOrderId)

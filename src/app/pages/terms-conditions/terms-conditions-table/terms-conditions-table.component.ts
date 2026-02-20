@@ -12,13 +12,12 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='termsAndConditions.pageName';
 const global_router_add_url_in_Table ='/settings/terms_conditions/add';
 const global_router_view_url ='/settings/terms_conditions/view';
 const global_router_edit_url ='/settings/terms_conditions/edit';
-const global_API_getAll ="TermsAndConditions"+'/GetAllWithPagination';
-const global_API_delete="TermsAndConditions"+'/DeleteTermsAndConditions?id';
 @Component({
   selector: 'app-terms-conditions-table',
   standalone: true,
@@ -35,7 +34,7 @@ export class TermsConditionsTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.TERMS_AND_CONDITIONS.BASE,
       autoCall: true
     },
     {
@@ -142,7 +141,7 @@ export class TermsConditionsTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.TERMS_AND_CONDITIONS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -153,7 +152,6 @@ export class TermsConditionsTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

@@ -24,10 +24,6 @@ import { OurClientService } from '../ourclient.service';
 import { CountryService } from '../../../services/country.service';
 
 const global_PageName = 'ourclients.pageName';
-const global_API_deialis = 'OurClients' + '/GetOurClient';
-const global_API_create = 'OurClients' + '/CreateOurClient';
-const global_API_update = 'OurClients' + '/UpdateOurClient';
-const global_routeUrl = 'settings/ourclient'
 
 @Component({
   selector: 'app-ourclient-details',

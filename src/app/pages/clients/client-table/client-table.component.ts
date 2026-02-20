@@ -12,15 +12,7 @@ import { ApiService } from '../../../services/api.service';
 import { IBreadcrumb } from '../../../components/breadcrump/cerqel-breadcrumb.interface';
 import { LanguageService } from '../../../services/language.service';
 import { TranslatePipe } from '@ngx-translate/core';
-
-const global_pageName = 'client.pageName';
-const global_API_Name = 'Client';
-const global_router_add_url_in_Table = '/client/add';
-const global_router_view_url = '/client/view';
-const global_router_edit_url = '/client/edit';
-const global_API_getAll = global_API_Name + '/GetAllWithPagination';
-const global_API_Active = global_API_Name + '/Activate?userId';
-const global_API_block = global_API_Name + '/Delete?userId';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-client-table',
@@ -43,34 +35,34 @@ const global_API_block = global_API_Name + '/Delete?userId';
 })
 export class ClientTableComponent {
 
-  global_router_add_url_in_Table = global_router_add_url_in_Table
-  pageName = signal<string>(global_pageName);
+  global_router_add_url_in_Table = '/client/add'
+  pageName = signal<string>('client.pageName');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'Client/Delete?userId',
+      apiName_or_route: API.CLIENTS.BASE,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route: global_router_view_url,
+      apiName_or_route: '/client/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url,
+      apiName_or_route: '/client/edit',
       autoCall: true
     },
     {
       name: EAction.active,
-      apiName_or_route: global_API_Active,
+      apiName_or_route: API.CLIENTS.BASE,
       autoCall: true
     },
     {
       name: EAction.block,
-      apiName_or_route: global_API_block,
+      apiName_or_route: API.CLIENTS.BASE,
       autoCall: true
     }
   ]
@@ -111,7 +103,7 @@ export class ClientTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName);
+    this.pageName.set('client.pageName');
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
@@ -165,7 +157,7 @@ export class ClientTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.CLIENTS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -175,7 +167,6 @@ export class ClientTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

@@ -19,6 +19,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { FloatLabel } from 'primeng/floatlabel';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 
 const global_PageName = 'special_order.pageName';
@@ -314,7 +315,6 @@ export class SpecialOrderDetailsComponent {
   }
 
   addUrltoMedia(list: any) {
-    console.log(this.imageList);
     list.forEach((data: any) => {
       data.src = this.imageUrl + data.src;
     });
@@ -340,8 +340,8 @@ export class SpecialOrderDetailsComponent {
 
   onStatusChange() {
     this.ApiService.put(
-      `SpecialOrder/ChangeStatus?SpecialOrderId=${this.orderId}&SpecialOrderStatus=${this.orderStatusValue.id}`,
-      {}
+      API.SPECIAL_ORDERS.BY_ID(this.orderId) + '/status',
+      { specialOrderStatus: this.orderStatusValue.id }
     ).subscribe(() => {
       this.getSpecialOrderDetails();
       this.checkOrderStatus = this.orderStatusValue.id;
@@ -380,8 +380,7 @@ export class SpecialOrderDetailsComponent {
   }
 
   getTechnicalList() {
-    debugger;
-     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
+    const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
     this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}`).subscribe((res: any) => {
       this.providerList = res.data;
     });
@@ -397,8 +396,7 @@ export class SpecialOrderDetailsComponent {
   }
 
   getDriversList() {
-    debugger;
-     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
+    const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
     this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}`).subscribe((res: any) => {
       this.driversList = res.data;
     });
@@ -406,7 +404,7 @@ export class SpecialOrderDetailsComponent {
 
   addNewTechnical() {
     this.providerObject.specialOrderTechnicalAssignmentId = 0;
-    this.ApiService.post('SpecialOrder/CreateAssignTechnical', this.providerObject).subscribe(() => {
+    this.ApiService.post(API.SPECIAL_ORDERS.ASSIGN_TECHNICAL(this.orderId), this.providerObject).subscribe(() => {
       this.getSpecialOrderDetails();
       this.dialogProps.props.visible = false;
       this.driverDialogProps.props.visible = false;
@@ -415,7 +413,7 @@ export class SpecialOrderDetailsComponent {
   }
 
   editTechnical() {
-    this.ApiService.put('SpecialOrder/UpdateAssignTechnical', this.providerObject).subscribe(() => {
+    this.ApiService.put(API.SPECIAL_ORDERS.ASSIGN_TECHNICAL(this.orderId), this.providerObject).subscribe(() => {
       this.getSpecialOrderDetails();
       this.dialogProps.props.visible = false;
       this.driverDialogProps.props.visible = false;
@@ -499,14 +497,14 @@ export class SpecialOrderDetailsComponent {
   }
 
   deleteOrder() {
-    this.ApiService.delete('SpecialOrder/Deleteorder', this.specialOrderId).subscribe((res: any) => {
+    this.ApiService.delete(API.SPECIAL_ORDERS.BASE, this.specialOrderId).subscribe((res: any) => {
       this.tosater.successToaster('Order Item Deleted Successfully');
       this.router.navigate(['/special-order']);
     })
   }
 
   deleteProvider() {
-    this.ApiService.delete('SpecialOrder/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
+    this.ApiService.delete(API.SPECIAL_ORDERS.DELETE_ASSIGN_TECHNICAL(this.orderId, this.deletedProviderId)).subscribe((res: any) => {
       this.tosater.successToaster('Provider Deleted Successfully');
     })
   }

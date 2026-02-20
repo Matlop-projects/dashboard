@@ -14,13 +14,9 @@ import { DialogComponent } from '../../../components/dialog/dialog.component';
 import { UploadFileComponent } from "../../../components/upload-file/upload-file.component";
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
-const global_PageName ='payment.pageName';
-const global_API_Name ='paymentWay';
-const global_API_deialis = global_API_Name + '/GetPaymentWay';
-const global_API_create = global_API_Name + '/CreatePaymentWay';
-const global_API_update = global_API_Name + '/UpdatePaymentWay';
-const global_routeUrl = global_API_Name
+const global_routeUrl = 'paymentWay'
 
 @Component({
   selector: 'app-payment-way-details',
@@ -30,7 +26,7 @@ const global_routeUrl = global_API_Name
   styleUrl: './payment-way-details.component.scss'
 })
 export class PaymentWayDetailsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('payment.pageName');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -74,7 +70,7 @@ export class PaymentWayDetailsComponent {
  selectedLang: any;
   languageService = inject(LanguageService);
   ngOnInit() {
-    this.pageName.set(global_PageName)
+    this.pageName.set('payment.pageName')
     this.getBreadCrumb()
     this.languageService.translationService.onLangChange.subscribe(() => {
       this.selectedLang = this.languageService.translationService.currentLang;
@@ -108,7 +104,7 @@ export class PaymentWayDetailsComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.PAYMENT_WAYS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -144,14 +140,14 @@ export class PaymentWayDetailsComponent {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.PAYMENT_WAYS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.PAYMENT_WAYS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

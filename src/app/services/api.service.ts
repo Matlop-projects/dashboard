@@ -13,7 +13,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   login<T>(body: any): Observable<T> {
-    return this.http.post<T>(`${baseUrl}Authentication/Login`, body);
+    return this.http.post<T>(`${baseUrl}auth/admin-login`, body);
   }
 
   post<T>(apiName: string, body: any): Observable<T> {
@@ -25,8 +25,8 @@ export class ApiService {
 
     if (params) {
       Object.keys(params).forEach(key => {
-        if (params[key] !== null && params[key] !== undefined) {
-          httpParams = httpParams.set(key, params[key]);
+        if (params[key] !== null && params[key] !== undefined && params[key] !== '') {
+          httpParams = httpParams.set(key, params[key].toString());
         }
       });
     }
@@ -38,7 +38,14 @@ export class ApiService {
     return this.http.put<T>(`${baseUrl}${apiName}`, body);
   }
 
-  delete<T>(apiName: string, id: string): Observable<T> {
-    return this.http.delete<T>(`${baseUrl}${apiName}=${id}`);
+  delete<T>(apiName: string, id?: string | number): Observable<T> {
+    const url = id !== undefined && id !== null
+      ? `${baseUrl}${apiName}/${id}`
+      : `${baseUrl}${apiName}`;
+    return this.http.delete<T>(url);
+  }
+
+  patch<T>(apiName: string, body: any): Observable<T> {
+    return this.http.patch<T>(`${baseUrl}${apiName}`, body);
   }
 }

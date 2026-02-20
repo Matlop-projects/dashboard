@@ -23,10 +23,7 @@ import { LanguageService } from '../../../services/language.service';
 import { DatePickerModule } from 'primeng/datepicker';
 import { Panel } from 'primeng/panel';
 import { WalletDialogComponent } from '../../../components/wallet-dialog/wallet-dialog.component';
-
-
-
-const global_PageName = 'client.pageName';
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-client-details',
@@ -36,7 +33,7 @@ const global_PageName = 'client.pageName';
   styleUrl: './client-details.component.scss'
 })
 export class ClientDetailsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('client.pageName');
   private ApiService = inject(ApiService)
   private router = inject(Router)
   private route = inject(ActivatedRoute)
@@ -102,8 +99,6 @@ form = new FormGroup({
       this.selectedLang = this.languageService.translationService.currentLang;
       this.getBreadCrumb();
     });
-    console.log(this.tyepMode());
-
     if (this.tyepMode() != 'Add') {
       this.clientid = this.route.snapshot.params['id']
       this.getClientsDetails();
@@ -142,7 +137,7 @@ form = new FormGroup({
   }
 
   getClientsDetails() {
-    this.ApiService.get(`Client/GetById/${this.userId}`).subscribe((res: any) => {
+    this.ApiService.get(API.CLIENTS.BY_ID(this.userId)).subscribe((res: any) => {
       if (res && res.data) {
         const clientData = res.data;
         this.userStatus = res.data.isActive;
@@ -153,7 +148,6 @@ form = new FormGroup({
         this.form.patchValue(clientData);
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
-        console.log("ClientDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc :", this.editImageProps.props.imgSrc)
         this.removeValidators()
       }
     });
@@ -191,34 +185,31 @@ form = new FormGroup({
   }
 
   addFQS(payload: any) {
-    this.ApiService.post('Client/Create', payload).subscribe(res => {
+    this.ApiService.post(API.CLIENTS.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('clients')
     })
   }
 
   editFQS(payload: any) {
-    this.ApiService.put('Client/Update', payload).subscribe(res => {
+    this.ApiService.put(API.CLIENTS.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('clients')
     })
   }
 
   getClientOrders() {
-    this.ApiService.get(`Order/GetOrdersByClientIdDashboard/${this.clientid}`).subscribe((res: any) => {
-      console.log(res);
+    this.ApiService.get(API.ORDERS.BY_CLIENT(this.clientid)).subscribe((res: any) => {
       this.clientOrdersList = res.data;
     })
   }
 
   goOrder(id: any) {
-    console.log(id);
     this.router.navigate(['/order/edit', id])
   }
 
   getClientWalletAmount() {
-    this.ApiService.get(`Wallet/GetBalanceClientId/${this.clientid}`).subscribe((data: any) => {
-      console.log(data.data.balance);
+    this.ApiService.get(API.WALLETS.BALANCE(this.clientid)).subscribe((data: any) => {
       this.clientWalletBalance = data.data.balance;
     })
   }

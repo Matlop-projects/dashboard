@@ -8,6 +8,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ApiService } from '../../services/api.service';
 import { ToasterService } from '../../services/toaster.service';
 import { LanguageService } from '../../services/language.service';
+import { API } from '../../core/api-endpoints';
 
 @Component({
   selector: 'app-wallet-dialog',
@@ -69,14 +70,11 @@ export class WalletDialogComponent {
       this.onWalletAction();
       this.amountAdded.emit(true);
       this.hideDialog(); // Close the dialog after submission
-    } else {
-      console.log('Form is invalid');
     }
   }
 
   onWalletAction() {
-    this.ApiService.post('Wallet/WalletTransaction' ,this.walletForm.value).subscribe((data: any) => {
-      console.log(data);
+    this.ApiService.post(API.WALLETS.TRANSACTIONS, this.walletForm.value).subscribe((data: any) => {
       if (this.transactionType === 1) {
         this.toaster.successToaster(this.languageService.translate('WALLET_DIALOG.successDeposit'));
       } else {

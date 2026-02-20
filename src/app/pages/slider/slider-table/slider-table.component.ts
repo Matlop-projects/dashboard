@@ -12,13 +12,12 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='slider.pageName'
 const global_router_add_url_in_Table ='/settings/'+"slider"+'/add'
 const global_router_view_url ='/settings/'+"slider"+'/view'
 const global_router_edit_url ='/settings/'+"slider"+'/edit'
-const global_API_getAll ="slider"+'/GetAll'
-const global_API_delete="slider"+'/Delete?requestId'
 @Component({
   selector: 'app-slider-table',
   standalone: true,
@@ -35,7 +34,7 @@ export class SliderTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.SLIDERS.BASE,
       autoCall: true
     },
     {
@@ -136,7 +135,7 @@ export class SliderTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.get(global_API_getAll).subscribe((res: any) => {
+    this.ApiService.get(API.SLIDERS.BASE).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data;
         this.totalCount = res.totalCount;
@@ -147,7 +146,6 @@ export class SliderTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

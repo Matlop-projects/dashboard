@@ -16,11 +16,9 @@ import { LanguageService } from '../../../services/language.service';
 import { CheckBoxComponent } from '../../../components/check-box/check-box.component';
 import { gender } from '../../../conts';
 import { Password } from 'primeng/password';
+import { API } from '../../../core/api-endpoints';
 
 const global_PageName = 'admin.pageName';
-const global_API_deialis =  'admin/GetById';
-const global_API_create =  'admin/Create';
-const global_API_update =  'admin/Update';
 const global_routeUrl = 'settings/admin'
 
 @Component({
@@ -132,8 +130,6 @@ pageName = signal<string>(global_PageName);
     if (this.tyepMode() !== 'Add'){
       this.API_getItemDetails()
       this.removePasswordValidation()
-    }else{
-      console.log('ggg',this.form.value)
     }
 
 
@@ -148,7 +144,7 @@ pageName = signal<string>(global_PageName);
         ctrlConfirm.updateValueAndValidity()
   }
   getAllRoles(){
-    this.ApiService.get('role/GetAll').subscribe((res:any)=>{
+    this.ApiService.get(API.ROLES.BASE).subscribe((res:any)=>{
        if(res.data){
           res.data.map((item:any) => {
              this.roleList.push({
@@ -196,7 +192,7 @@ pageName = signal<string>(global_PageName);
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.ADMINS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -235,14 +231,14 @@ pageName = signal<string>(global_PageName);
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.ADMINS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.ADMINS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })

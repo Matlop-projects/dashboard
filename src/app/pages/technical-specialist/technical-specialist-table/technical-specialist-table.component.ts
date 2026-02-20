@@ -13,14 +13,13 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 
 const global_pageName='Technical Specialist'
 const global_router_add_url_in_Table ='/technical-specialist/add'
 const global_router_view_url ='technical-specialist/view'
 const global_router_edit_url ='technical-specialist/edit'
-const global_API_getAll ='technicalSpecialist/GetAllWithPagination'
-const global_API_delete='technicalSpecialist/Delete?requestId'
 
 
 @Component({
@@ -40,7 +39,7 @@ export class TechnicalSpecialistTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.TECHNICAL_SPECIALISTS.BASE,
       autoCall: true
     },
     {
@@ -136,7 +135,7 @@ export class TechnicalSpecialistTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.TECHNICAL_SPECIALISTS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res.data.dataList) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -146,7 +145,6 @@ export class TechnicalSpecialistTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

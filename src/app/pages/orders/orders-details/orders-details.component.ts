@@ -15,6 +15,7 @@ import { FloatLabel } from 'primeng/floatlabel';
 import { environment } from '../../../../environments/environment';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
 
 @Component({
@@ -321,7 +322,6 @@ export class OrdersDetailsComponent {
 
 
   addUrltoMedia(list: any) {
-    console.log(this.imageList);
     list.forEach((data: any) => {
       data.src = this.imageUrl + data.src;
     });
@@ -347,26 +347,20 @@ export class OrdersDetailsComponent {
 
   onStatusChange() {
     this.ApiService.put(
-      `Order/ChangeStatus?OrderId=${this.orderId}&orderStatusEnum=${this.orderStatusValue.id}`,
-      {}
+      API.ORDERS.STATUS(this.orderId),
+      { orderStatusEnum: this.orderStatusValue.id }
     ).subscribe(() => {
       this.getOrderDetails();
-      // this.tosater.successToaster('Order Status Updated Successfully');
-      console.log(this.orderStatusValue);
       this.checkOrderStatus = this.orderStatusValue.id;
-      console.log(this.checkOrderStatus);
     });
   }
 
   setOrderStatusById(id: number): void {
     this.orderStatusValue = this.statuses.find(status => status.id === id);
-    this.checkOrderStatus = this.orderStatusValue.id
-    console.log(this.checkOrderStatus);
+    this.checkOrderStatus = this.orderStatusValue.id;
   }
 
   getColorById(id: number): string | null {
-    console.log(id);
-
     const status = this.statuses.find(s => s.id === id);
     return status ? status.color : null;
   }
@@ -401,7 +395,6 @@ export class OrdersDetailsComponent {
   }
 
   getTechnicalList(serviceId: number) {
-    debugger;
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
     this.ApiService.get(`Technical/GetAllTechnicalsByCountryId/${countryId}?serviceId=${serviceId}`).subscribe((res: any) => {
       this.providerList = res.data;
@@ -410,7 +403,6 @@ export class OrdersDetailsComponent {
 
 
   getDriversList(serviceId: number) {
-    debugger;
     const countryId = this.getCountryIdFromMobileNumber(this.clientDetails?.mobileNumber);
     this.ApiService.get(`Technical/GetAllDriversByCountryId/${countryId}?serviceId=${serviceId}`).subscribe((res: any) => {
       this.driversList = res.data;
@@ -419,7 +411,7 @@ export class OrdersDetailsComponent {
 
   addNewTechnical() {
     this.providerObject.orderTechnicalAssignmentId = 0;
-    this.ApiService.post('Order/CreateAssignTechnical', this.providerObject).subscribe(() => {
+    this.ApiService.post(API.ORDERS.ASSIGN_TECHNICAL(this.orderId), this.providerObject).subscribe(() => {
       this.getOrderDetails();
       this.dialogProps.props.visible = false;
       this.driverDialogProps.props.visible = false;
@@ -428,7 +420,7 @@ export class OrdersDetailsComponent {
   }
 
   editTechnical() {
-    this.ApiService.put('Order/UpdateAssignTechnical', this.providerObject).subscribe(() => {
+    this.ApiService.put(API.ORDERS.ASSIGN_TECHNICAL(this.orderId), this.providerObject).subscribe(() => {
       this.getOrderDetails();
       this.dialogProps.props.visible = false;
       this.driverDialogProps.props.visible = false;
@@ -496,8 +488,7 @@ export class OrdersDetailsComponent {
   }
 
   addAdditinalItem() {
-    this.ApiService.post('OrderAdditionalItems/Create', this.additionalObject).subscribe((res: any) => {
-      console.log(res);
+    this.ApiService.post(API.ORDER_ADDITIONAL_ITEMS.BASE, this.additionalObject).subscribe((res: any) => {
       this.getOrderDetails();
       this.additinalModal.props.visible = false;
       this.tosater.successToaster('Additinal Item Added Successfully')
@@ -505,8 +496,7 @@ export class OrdersDetailsComponent {
   }
 
   editAdditinalItem() {
-    this.ApiService.put('OrderAdditionalItems/Update', this.additionalObject).subscribe((res: any) => {
-      console.log(res);
+    this.ApiService.put(API.ORDER_ADDITIONAL_ITEMS.BASE, this.additionalObject).subscribe((res: any) => {
       this.getOrderDetails();
       this.additinalModal.props.visible = false;
       this.tosater.successToaster('Additinal Item Updated Successfully')
@@ -522,7 +512,6 @@ export class OrdersDetailsComponent {
 
   getOrderTimeSchedule() {
     this.ApiService.get(`Order/GetOrderSchedule/${this.orderId}`).subscribe((res: any) => {
-      console.log(res.data);
       this.orderTimeSchedule = res.data;
     })
   }
@@ -545,16 +534,12 @@ export class OrdersDetailsComponent {
   onSubmit(form: any) {
     this.additionalObject.orderId = this.orderId
     if (form.valid) {
-      console.log('Form Submitted:', this.additionalObject);
-
       if (this.additonalCase == 'new') {
         this.addAdditinalItem();
       } else {
         this.editAdditinalItem();
       }
       form.resetForm();
-    } else {
-      console.log('Form is invalid');
     }
   }
 
@@ -567,14 +552,14 @@ export class OrdersDetailsComponent {
   }
 
   deleteOrder() {
-    this.ApiService.delete('Order/Deleteorder', this.orderId.toString()).subscribe((res: any) => {
+    this.ApiService.delete(API.ORDERS.BASE, this.orderId.toString()).subscribe((res: any) => {
       this.tosater.successToaster('Order Item Deleted Successfully');
       this.router.navigate(['/orders']);
     })
   }
 
   deleteProvider() {
-    this.ApiService.delete('Order/DeleteAssignTechnical', this.deletedProviderId.toString()).subscribe((res: any) => {
+    this.ApiService.delete(API.ORDERS.DELETE_ASSIGN_TECHNICAL(this.orderId, this.deletedProviderId)).subscribe((res: any) => {
       this.tosater.successToaster('Provider Deleted Successfully');
       this.getOrderDetails();
       this.deleteModal.props.visible = false;
@@ -582,8 +567,6 @@ export class OrdersDetailsComponent {
   }
 
   calculateTotalEquipmentPrice(data: any): number {
-    console.log(data);
-
     if (!data?.orderEquipmentResponse || !Array.isArray(data.orderEquipmentResponse)) {
       return 0;
     }
@@ -594,8 +577,6 @@ export class OrdersDetailsComponent {
   }
 
   calculateTotalAdditionalItemsPrice(data: any): number {
-    console.log(data);
-
     if (!data?.orderAddtionalItem || !Array.isArray(data.orderAddtionalItem)) {
       return 0;
     }

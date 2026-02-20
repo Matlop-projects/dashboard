@@ -12,6 +12,7 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class CancelReasonTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: 'Cancelreason/DeleteCancelReason?id',
+      apiName_or_route: API.CANCEL_REASONS.BASE,
       autoCall: true
     },
     {
@@ -133,7 +134,7 @@ export class CancelReasonTableComponent {
   }
 
   getAllCancelReason() {
-    this.ApiService.post('CancelReason/GetAllCancelReason', this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.CANCEL_REASONS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -144,7 +145,6 @@ export class CancelReasonTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.getAllCancelReason();
   }
@@ -152,8 +152,6 @@ export class CancelReasonTableComponent {
   filterData() {
     this.dataList = this.filteredData;
     const search = this.searchValue.toLowerCase();
-    console.log(search);
-    console.log(this.searchValue.length);
 
 
     if (this.searchValue.length == 1) {

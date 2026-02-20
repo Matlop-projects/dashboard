@@ -24,6 +24,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Panel } from 'primeng/panel';
 import { WalletDialogComponent } from '../../../components/wallet-dialog/wallet-dialog.component';
 import { CountryService } from '../../../services/country.service';
+import { API } from '../../../core/api-endpoints';
 @Component({
   selector: 'app-technical-details',
   standalone: true,
@@ -53,7 +54,6 @@ export class TechnicalDetailsComponent {
   userTypeList = userType
   private confirm = inject(ConfirmMsgService)
   mobileNumberValidator = (control: AbstractControl): ValidationErrors | null => {
-    debugger;
     const mobileNumber = control.value;
     const countryId = Number(this.form?.get('countryId')?.value);
 
@@ -205,7 +205,7 @@ export class TechnicalDetailsComponent {
     return this.route.snapshot.params['id']
   }
      getAllServices() {
-    this.ApiService.get('Service/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.SERVICES.BASE).subscribe((res: any) => {
       if (res.data) {
         this.serviceTypeList = res.data.map((item: any) => ({
           name: this.selectedLang == 'ar' ? item.nameAr : item.nameEn,
@@ -284,7 +284,7 @@ export class TechnicalDetailsComponent {
 
 
   getTechnicalsDetails() {
-    this.ApiService.get(`Technical/GetById/${this.userId}`).subscribe((res: any) => {
+    this.ApiService.get(API.TECHNICALS.BY_ID(this.userId)).subscribe((res: any) => {
       if (res && res.data) {
         const technicalData = res.data;
         this.userStatus = res.data.isActive;
@@ -298,7 +298,6 @@ export class TechnicalDetailsComponent {
         this.form.get('technicalServiceIds')?.patchValue(technicalData.technicalServiceIds || []); // Populate technicalServiceIds
         this.editMode = true;
         this.editImageProps.props.imgSrc = environment.baseImageUrl + res.data.imgSrc;
-        console.log("TechnicalDetailsComponent  this.ApiService.get  this.editImageProps.props.imgSrc:", this.editImageProps.props.imgSrc)
         this.removeValidators()
       }
 
@@ -312,9 +311,8 @@ export class TechnicalDetailsComponent {
     ctrlform.pinCode.updateValueAndValidity()
   }
   getTechnicalSpecialist() {
-    this.ApiService.get(`TechnicalSpecialist/GetAll`).subscribe((res: any) => {
+    this.ApiService.get(API.TECHNICAL_SPECIALISTS.BASE).subscribe((res: any) => {
       if (res && res.data) {
-        console.log(res);
         this.specialistOriginal = res.data
         this.technicalSpecialist = res.data;
 
@@ -356,14 +354,14 @@ export class TechnicalDetailsComponent {
   }
 
   addFQS(payload: any) {
-    this.ApiService.post('Technical/Create', payload).subscribe(res => {
+    this.ApiService.post(API.TECHNICALS.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('technicals')
     })
   }
 
   editFQS(payload: any) {
-    this.ApiService.put('Technical/Update', payload).subscribe(res => {
+    this.ApiService.put(API.TECHNICALS.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('technicals')
     })
@@ -371,20 +369,17 @@ export class TechnicalDetailsComponent {
 
 
   getClientOrders() {
-    this.ApiService.get(`Order/GetOrdersByTechnicalIdDashboard/${this.technicalId}`).subscribe((res: any) => {
-      console.log(res);
+    this.ApiService.get(API.ORDERS.BY_TECHNICAL(this.technicalId)).subscribe((res: any) => {
       this.technicalOrdersList = res.data;
     })
   }
 
   goOrder(id: any) {
-    console.log(id);
     this.router.navigate(['/order/edit', id])
   }
 
   getClientWalletAmount() {
-    this.ApiService.get(`Wallet/GetBalanceClientId/${this.technicalId}`).subscribe((data: any) => {
-      console.log(data.data.balance);
+    this.ApiService.get(API.WALLETS.BALANCE(this.technicalId)).subscribe((data: any) => {
       this.clientWalletBalance = data.data.balance;
     })
   }

@@ -12,16 +12,14 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='admin.pageName'
 const global_router_add_url_in_Table ='/settings/admin/add'
 const global_router_view_url ='settings/admin/view'
 const global_router_edit_url ='settings/admin/edit'
-const global_API_getAll ='admin/GetAllWithPagination'
-const global_API_deialis =  'admin/GetById';
-const global_API_delete='admin/delete?requestId'
 const global_toggleOptions:IToggleOptions={
-apiName:"Admin"+'/Update',
+apiName: API.ADMINS.BASE,
 autoCall:true,
 }
 @Component({
@@ -39,7 +37,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.ADMINS.BASE,
       autoCall: true
     },
     {
@@ -145,7 +143,7 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
   // }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll,this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.ADMINS.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -156,7 +154,6 @@ global_router_add_url_in_Table =global_router_add_url_in_Table
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

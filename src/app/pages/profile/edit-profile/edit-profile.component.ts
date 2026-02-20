@@ -19,10 +19,8 @@ import { UploadFileComponent } from '../../../components/upload-file/upload-file
 import { IEditImage } from '../../../components/edit-mode-image/editImage.interface';
 import { environment } from '../../../../environments/environment.prod';
 import { BreadcrumpComponent } from '../../../components/breadcrump/breadcrump.component';
+import { API } from '../../../core/api-endpoints';
 
-const global_PageName = 'profile.pageName';
-const global_API_deialis = 'admin/GetById';
-const global_API_update = 'admin/Update';
 const global_routeUrl = '/profile'
 @Component({
   selector: 'app-edit-profile',
@@ -47,11 +45,11 @@ const global_routeUrl = '/profile'
 })
 export class EditProfileComponent {
 
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('profile.pageName');
 
-  userDate = JSON.parse(localStorage.getItem('userData') as any);
-  defaultImage = this.userDate.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png'
-  userId = this.userDate.id
+  userDate = JSON.parse(localStorage.getItem('userData') || '{}');
+  defaultImage = this.userDate?.gender == 1 ? 'assets/images/arabian-man.png' : 'assets/images/arabian-woman.png';
+  userId = this.userDate?.id;
   imgUrl: any = null
   private ApiService = inject(ApiService)
   private router = inject(Router)
@@ -130,7 +128,7 @@ export class EditProfileComponent {
 
 
   ngOnInit() {
-    this.pageName.set(global_PageName)
+    this.pageName.set('profile.pageName')
     this.getAllRoles()
     this.getBreadCrumb()
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -174,7 +172,7 @@ export class EditProfileComponent {
   };
 
   getAllRoles() {
-    this.ApiService.get('role/GetAll').subscribe((res: any) => {
+    this.ApiService.get(API.ROLES.BASE).subscribe((res: any) => {
       if (res.data) {
         res.data.map((item: any) => {
           this.roleList.push({
@@ -201,7 +199,7 @@ export class EditProfileComponent {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.userId}`).subscribe((res: any) => {
+    this.ApiService.get(API.ADMINS.BY_ID(this.userId)).subscribe((res: any) => {
       if (res) {
         this.form.patchValue(res.data)
         this.imgUrl = res.data.imgSrc ? environment.baseImageUrl + res.data.imgSrc : this.defaultImage
@@ -235,7 +233,7 @@ export class EditProfileComponent {
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.ADMINS.BASE, payload).subscribe(res => {
       if (res) {
         this.navigateToPageTable()
       }

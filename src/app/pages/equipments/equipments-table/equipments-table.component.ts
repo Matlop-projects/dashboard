@@ -14,13 +14,7 @@ import { TitleCasePipe } from '@angular/common';
 import { SelectComponent } from '../../../components/select/select.component';
 import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { TranslatePipe } from '@ngx-translate/core';
-
-const global_pageName='equipments.pageName'
-const global_router_add_url_in_Table ='/'+'equipment'+'/add'
-const global_router_view_url ='equipment'+'/view'
-const global_router_edit_url ='equipment'+'/edit'
-const global_API_getAll ='equipment'+'/GetAllWithPagination'
-const global_API_delete='equipment'+'/Delete?id'
+import { API } from '../../../core/api-endpoints';
 
 @Component({
   selector: 'app-equipments-table',
@@ -30,24 +24,24 @@ const global_API_delete='equipment'+'/Delete?id'
   styleUrl: './equipments-table.component.scss'
 })
 export class EquipmentsTableComponent {
- global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName =signal<string>(global_pageName);
+ global_router_add_url_in_Table = '/equipment/add'
+  pageName =signal<string>('equipments.pageName');
 
   showFilter: boolean = false
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.EQUIPMENT.BASE,
       autoCall: true
     },
     {
       name: EAction.view,
-      apiName_or_route:  global_router_view_url,
+      apiName_or_route: 'equipment/view',
       autoCall: true
     },
     {
       name: EAction.edit,
-      apiName_or_route: global_router_edit_url,
+      apiName_or_route: 'equipment/edit',
       autoCall: true
     }
   ]
@@ -83,7 +77,7 @@ export class EquipmentsTableComponent {
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName)
+    this.pageName.set('equipments.pageName')
     this.API_getAll();
     this.selectedLang = this.languageService.translationService.currentLang;
     this.displayTableCols(this.selectedLang);
@@ -137,7 +131,7 @@ export class EquipmentsTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe((res: any) => {
+    this.ApiService.get(API.EQUIPMENT.SEARCH, this.objectSearch).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data.dataList;
         this.totalCount = res.data.totalCount;
@@ -156,7 +150,6 @@ export class EquipmentsTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

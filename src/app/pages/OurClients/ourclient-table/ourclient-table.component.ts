@@ -12,13 +12,12 @@ import { PaginationComponent } from '../../../components/pagination/pagination.c
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { OurClientService } from '../ourclient.service';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='ourclients.pageName'
 const global_router_add_url_in_Table ='/settings/'+"ourclient"+'/add'
 const global_router_view_url ='/settings/'+"ourclient"+'/view'
 const global_router_edit_url ='/settings/'+"ourclient"+'/edit'
-const global_API_getAll ="OurClients"+'/GetAllWithPagination'
-const global_API_delete="OurClients"+'/DeleteOurClient?id'
 @Component({
   selector: 'app-ourclient-table',
   standalone: true,
@@ -35,7 +34,7 @@ export class OurClientTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.OUR_CLIENTS.BASE,
       autoCall: true
     },
     {
@@ -140,7 +139,6 @@ export class OurClientTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

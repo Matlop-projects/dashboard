@@ -12,13 +12,12 @@ import { DrawerComponent } from '../../../components/drawer/drawer.component';
 import { PaginationComponent } from '../../../components/pagination/pagination.component';
 import { TitleCasePipe } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
+import { API } from '../../../core/api-endpoints';
 
 const global_pageName='district.pageName'
 const global_router_add_url_in_Table ='/settings/district/add'
 const global_router_view_url ='settings/district/view'
 const global_router_edit_url ='settings/district/edit'
-const global_API_getAll ='district/GetAll'
-const global_API_delete='district/Delete?requestId'
 
 @Component({
   selector: 'app-district-table',
@@ -35,7 +34,7 @@ export class DistrictTableComponent {
   tableActions: ITableAction[] = [
     {
       name: EAction.delete,
-      apiName_or_route: global_API_delete,
+      apiName_or_route: API.DISTRICTS.BASE,
       autoCall: true
     },
     {
@@ -131,7 +130,7 @@ export class DistrictTableComponent {
   }
 
   API_getAll() {
-    this.ApiService.get(global_API_getAll).subscribe((res: any) => {
+    this.ApiService.get(API.DISTRICTS.BASE).subscribe((res: any) => {
       if (res) {
         this.dataList = res.data;
         // this.totalCount = res.data.totalCount;
@@ -142,7 +141,6 @@ export class DistrictTableComponent {
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

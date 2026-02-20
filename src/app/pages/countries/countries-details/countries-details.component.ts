@@ -17,6 +17,7 @@ import { EditModeImageComponent } from '../../../components/edit-mode-image/edit
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment.prod';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 @Component({
   selector: 'app-countries-details',
   standalone: true,
@@ -143,7 +144,7 @@ export class CountriesDetailsComponent implements OnInit {
     }
   };
   getCountryDetails() {
-    this.ApiService.get(`Country/GetCountry/${this.countryID}`).subscribe((res: any) => {
+    this.ApiService.get(API.COUNTRIES.BY_ID(this.countryID)).subscribe((res: any) => {
       if (res){
         this.form.patchValue(res.data)
         this.editImageProps.props.imgSrc = environment.baseImageUrl+res.data.img;
@@ -153,7 +154,6 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('ff', this.form.value)
     const payload = {
       ...this.form.value,
       countryId: this.countryID||0,
@@ -166,13 +166,13 @@ export class CountriesDetailsComponent implements OnInit {
   }
 
   addCountry(payload: any) {
-    this.ApiService.post('Country/CreateCountry', payload).subscribe(res => {
+    this.ApiService.post(API.COUNTRIES.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('country')
     })
   }
   editCountry(payload: any) {
-    this.ApiService.put('Country/UpdateCountry', payload).subscribe(res => {
+    this.ApiService.put(API.COUNTRIES.BASE, payload).subscribe(res => {
       if (res)
         this.router.navigateByUrl('country')
     })

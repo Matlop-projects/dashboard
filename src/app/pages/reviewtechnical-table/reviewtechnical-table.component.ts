@@ -30,15 +30,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { InputTextComponent } from '../../components/input-text/input-text.component';
 import { DialogModule } from 'primeng/dialog';
-
-const global_pageName = 'tech_reviews.pageName';
-// const global_router_add_url_in_Table = '/' + global_API_Name + '/add';
-const global_router_view_url = '/reviewDetails';
-const global_API_delete='ClientTechnicalReview/DeleteTechnicalReview'
-// const global_router_edit_url = global_API_Name + '/edit';
-const global_API_getAll =
-  'ClientTechnicalReview/GetAllTechnicalReviewByPagination';
-// const global_API_delete = global_API_Name + '/DeletepaymentWay?id';
+import { API } from '../../core/api-endpoints';
 @Component({
   selector: 'app-reviewtechnical-table',
   standalone: true,
@@ -61,7 +53,7 @@ const global_API_getAll =
 })
 export class ReviewtechnicalTableComponent {
  //  global_router_add_url_in_Table =global_router_add_url_in_Table
-  pageName = signal<string>(global_pageName);
+  pageName = signal<string>('tech_reviews.pageName');
   showRejectDialog = false;
   commentValue=''
   transactionId:number=0
@@ -106,7 +98,7 @@ showCommentMessage=false
   languageService = inject(LanguageService);
 
   ngOnInit() {
-    this.pageName.set(global_pageName);
+    this.pageName.set('tech_reviews.pageName');
     this.API_getAll();
     this.getBreadCrumb();
     this.selectedLang = this.languageService.translationService.currentLang;
@@ -265,7 +257,6 @@ showCommentMessage=false
   }
 
     onActionCliked(event:any){
-    console.log('ggg',event)
     if(event.action.name=='delete'){
       this.showConfirmMessage = true;
         this.onConfirmMessage(event.record)
@@ -273,14 +264,14 @@ showCommentMessage=false
 
 }
 callDeleteApi(record:any){
-  this.ApiService.delete(global_API_delete,record.clientTechnicalReviewId.toString()).subscribe(res=>{
+  this.ApiService.delete(API.TECHNICAL_REVIEWS.BASE,record.clientTechnicalReviewId.toString()).subscribe(res=>{
     if(res){
       this.API_getAll()
     }
   })
 }
   API_getAll() {
-    this.ApiService.post(global_API_getAll, this.objectSearch).subscribe(
+    this.ApiService.get(API.TECHNICAL_REVIEWS.SEARCH, this.objectSearch).subscribe(
       (res: any) => {
         if (res) {
           this.dataList = res.data.dataList;
@@ -292,7 +283,6 @@ callDeleteApi(record:any){
   }
 
   onPageChange(event: any) {
-    console.log(event);
     this.objectSearch.pageNumber = event;
     this.API_getAll();
   }

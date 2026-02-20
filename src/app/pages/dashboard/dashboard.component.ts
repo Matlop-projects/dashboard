@@ -7,6 +7,7 @@ import { Knob } from 'primeng/knob';
 import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { DatePickerModule } from 'primeng/datepicker';
+import { API } from '../../core/api-endpoints';
 
 @Component({
   selector: 'app-dashboard',
@@ -168,13 +169,13 @@ export class DashboardComponent {
   ];
 
   getDashboardDetails() {
-    this.apiService.get('Dashborad/GetAll').subscribe((res: any) => {
+    this.apiService.get(API.DASHBOARD.BASE).subscribe((res: any) => {
       this.updateItemsWithData(res.data);
     });
   }
 
   getStaticData() {
-    this.apiService.get('Dashborad/GetAllOrderStatistics').subscribe(
+    this.apiService.get(API.DASHBOARD.ORDER_STATISTICS).subscribe(
       (res: any) => {
         this.staticDetails = res.data;
       }
@@ -187,9 +188,7 @@ export class DashboardComponent {
     to: new Date(this.toDate + 'T00:00:00Z').toISOString(),
   };
 
-  this.apiService.get('Order/ExportExcel', params).subscribe((res: any) => {
-    console.log(res);
-
+  this.apiService.get(API.ORDERS.EXPORT_EXCEL, params).subscribe((res: any) => {
     if (res?.message) {
       const base64Data = res.message;
       const cleanedBase64 = base64Data.includes('base64,')
@@ -215,8 +214,6 @@ export class DashboardComponent {
       document.body.removeChild(link);
 
       this.showExelDialog = false;
-    } else {
-      console.error('No data received for Excel download.');
     }
   });
 }
@@ -244,7 +241,6 @@ export class DashboardComponent {
       document.body.removeChild(link);
       URL.revokeObjectURL(link.href);
     } catch (error) {
-      console.error('Error decoding base64 or creating blob:', error);
     }
   }
 

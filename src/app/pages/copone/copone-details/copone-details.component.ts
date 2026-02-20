@@ -18,11 +18,8 @@ import { coponeOfferTypeList, coponeTypeList } from '../../../conts';
 import { SelectComponent } from '../../../components/select/select.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LanguageService } from '../../../services/language.service';
+import { API } from '../../../core/api-endpoints';
 
-const global_PageName = 'copone.pageName';
-const global_API_deialis = 'copone' + '/GetById';
-const global_API_create = 'copone' + '/Create';
-const global_API_update = 'copone' + '/Update';
 const global_routeUrl = 'copone'
 
 @Component({
@@ -33,7 +30,7 @@ const global_routeUrl = 'copone'
   styleUrl: './copone-details.component.scss'
 })
 export class CoponeDetailsComponent {
-  pageName = signal<string>(global_PageName);
+  pageName = signal<string>('copone.pageName');
   private ApiService = inject(ApiService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
@@ -93,7 +90,7 @@ export class CoponeDetailsComponent {
   languageService = inject(LanguageService);
 
 ngOnInit() {
-  this.pageName.set(global_PageName);
+  this.pageName.set('copone.pageName');
   this.getBreadCrumb();
 
   this.languageService.translationService.onLangChange.subscribe(() => {
@@ -155,7 +152,7 @@ ngOnInit() {
   }
 
   API_getItemDetails() {
-    this.ApiService.get(`${global_API_deialis}/${this.getID}`).subscribe((res: any) => {
+    this.ApiService.get(API.COUPONS.BY_ID(this.getID)).subscribe((res: any) => {
       if (res)
         this.form.patchValue(res.data)
     })
@@ -194,14 +191,14 @@ ngOnInit() {
 
 
   API_forAddItem(payload: any) {
-    this.ApiService.post(global_API_create, payload).subscribe(res => {
+    this.ApiService.post(API.COUPONS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
   }
 
   API_forEditItem(payload: any) {
-    this.ApiService.put(global_API_update, payload).subscribe(res => {
+    this.ApiService.put(API.COUPONS.BASE, payload).subscribe(res => {
       if (res)
         this.navigateToPageTable()
     })
