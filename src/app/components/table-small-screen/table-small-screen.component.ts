@@ -29,6 +29,7 @@ export class TableSmallScreenComponent implements OnInit, OnChanges {
   @Input() actions: ITableAction[] = []
   @Output() onActionCliked = new EventEmitter()
   @Output() commentValue=new EventEmitter()
+  @Output() reloadGetAllApi = new EventEmitter()
   showConfirmMessage:boolean=false
   ApiService = inject(ApiService)
   router = inject(Router)
@@ -79,8 +80,10 @@ onclickComment(comment:string){
   }
   callDeleteAction(action: ITableAction, id: any) {
     this.ApiService.delete(action.apiName_or_route, id).subscribe(res => {
-      if (res)
+      if (res) {
         this.filterdRecords = this.records.filter((item: any) => item[this.getNameOfIDHeader()] != id)
+        this.reloadGetAllApi.emit(true)
+      }
     })
   }
  convertDate(originalDate: string) {

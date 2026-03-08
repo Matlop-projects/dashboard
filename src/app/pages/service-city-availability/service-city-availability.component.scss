@@ -1,0 +1,9 @@
+// Uses global .form-container and .reactive-form styles from styles.scss
+
+.form-container {
+  .reactive-form {
+    .actions {
+      justify-content: center;
+    }
+  }
+}

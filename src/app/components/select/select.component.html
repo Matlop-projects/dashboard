@@ -6,6 +6,7 @@
             [options]="list" 
             optionLabel="name"
             optionValue="code"
+            dataKey="code"
             [disabled]="disabled"
             [readonly]="readOnly"
              (onChange)="onChange($event)" 
@@ -19,7 +20,8 @@
     <p-multiselect 
     [options]="list"
     optionLabel="name"
-    optionValue="code"  
+    optionValue="code"
+    dataKey="code"
     [placeholder]="placeholder"  
     [formControl]="control" 
     [disabled]="disabled"

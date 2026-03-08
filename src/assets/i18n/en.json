@@ -636,7 +636,25 @@
     "admin": "Admin",
     "addNotification": "Add Notification",
     "emergncy_order_image": "Emergency Order Image",
-    "special_order_image": "Special Order Image"
+    "special_order_image": "Special Order Image",
+    "serviceCityAvailability": "Service City Availability"
+  },
+  "serviceCityAvailability": {
+    "pageName": "Service City Availability",
+    "addNew": "Add new configuration",
+    "list": "Existing configurations",
+    "country": "Country",
+    "wholeCountry": "Whole country",
+    "allServices": "All services",
+    "service": "Service",
+    "city": "City",
+    "ordersAvailable": "Orders available",
+    "messageAr": "Unavailable message (Arabic)",
+    "messageEn": "Unavailable message (English)",
+    "messageArPlaceholder": "e.g. الحجز مليان حالياً",
+    "messageEnPlaceholder": "e.g. Fully booked at the moment",
+    "saved": "Saved successfully",
+    "editMessage": "Edit unavailable message"
   },
   "complaint": {
     "pageName": "Complaint",

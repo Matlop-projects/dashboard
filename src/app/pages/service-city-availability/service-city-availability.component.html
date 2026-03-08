@@ -1,0 +1,145 @@
+<div class="table-container">
+  <div class="content">
+    <div class="title-bredcrumb-section">
+      <div class="title">
+        <h2>{{ 'serviceCityAvailability.pageName' | translate | titlecase }}</h2>
+      </div>
+      <div class="breadcrumb">
+        <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+      </div>
+    </div>
+
+    <!-- Add new form -->
+    <div id="addFormSection" class="form-container mt-4">
+      <div class="reactive-form">
+        <h5 class="mb-4">{{ 'serviceCityAvailability.addNew' | translate | titlecase }}</h5>
+        <form [formGroup]="form" class="w-100" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-select
+                class="w-100"
+                [label]="'serviceCityAvailability.country'"
+                [control]="form.get('countryId')"
+                [list]="countriesList"
+                placeholder="{{ 'shared.select' | translate }}"
+                (onSelectedValue)="onCountryChange($event)"
+              ></app-select>
+            </div>
+            <!-- city - commented: نشتغل على مستوى الدولة دلوقتي، لو رجعنا للمدينة نرجعها -->
+            <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-select
+                class="w-100"
+                [label]="'serviceCityAvailability.city'"
+                [control]="form.get('cityId')"
+                [list]="citiesList"
+                placeholder="{{ 'shared.select' | translate }}"
+              ></app-select>
+            </div> -->
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-select
+                class="w-100"
+                [label]="'serviceCityAvailability.service'"
+                [control]="form.get('serviceId')"
+                [list]="servicesList"
+                placeholder="{{ 'shared.select' | translate }}"
+              ></app-select>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-input-text
+                [label]="'serviceCityAvailability.messageAr'"
+                [control]="form.get('unavailableMessageAr')"
+                [placeholder]="'serviceCityAvailability.messageArPlaceholder'"
+              ></app-input-text>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-input-text
+                [label]="'serviceCityAvailability.messageEn'"
+                [control]="form.get('unavailableMessageEn')"
+                [placeholder]="'serviceCityAvailability.messageEnPlaceholder'"
+              ></app-input-text>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+              <app-check-box
+                [isToggle]="true"
+                [label]="'serviceCityAvailability.ordersAvailable'"
+                [control]="form.get('isOrdersAvailable')"
+              ></app-check-box>
+            </div>
+          </div>
+          <div class="actions mt-5 text-center">
+            <button type="submit" class="submit-btn" [disabled]="!form.get('countryId')?.value">
+              {{ 'actions.add' | translate }}
+            </button>
+            <button type="button" class="cancel-btn" (click)="onFormReset()">
+              {{ 'actions.reset' | translate }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="details-container">
+      <div class="action-filter">
+        <a href="javascript:void(0)" (click)="scrollToForm()">+{{ 'shared.add_new' | translate }}</a>
+      </div>
+      <div class="table-view" *ngIf="dataList.length > 0">
+        <app-table
+          [colsHeader]="columns"
+          [records]="dataList"
+          [showrecordIndex]="true"
+          [actions]="tableActions"
+          (onActionCliked)="onActionCliked($event)"
+          (onstatusChanged)="onToggleChange($event)"
+          (reloadGetAllApi)="loadData()"
+        ></app-table>
+      </div>
+      <div class="responsive-accordions" *ngIf="dataList.length > 0">
+        <app-table-small-screen
+          [colsHeaderSmallTable]="columnsSmallTable"
+          [records]="dataList"
+          [actions]="tableActions"
+          (onActionCliked)="onActionCliked($event)"
+          (reloadGetAllApi)="loadData()"
+        ></app-table-small-screen>
+      </div>
+      <div *ngIf="dataList.length === 0" class="text-muted p-4 text-center">
+        {{ 'shared.no_data_found' | translate }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit message drawer -->
+  <app-drawer
+    [visible]="editDrawerVisible"
+    [header]="'serviceCityAvailability.editMessage'"
+    (onClose)="closeEditDrawer()"
+  >
+    <form body [formGroup]="editForm" class="h-100 d-flex flex-column" (ngSubmit)="onSaveEdit()">
+      <div class="form-content flex-grow-1">
+        <div class="form-group mb-3">
+          <label class="mb-1">{{ 'serviceCityAvailability.messageAr' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="unavailableMessageAr"
+            [placeholder]="'serviceCityAvailability.messageArPlaceholder' | translate"
+          />
+        </div>
+        <div class="form-group mb-3">
+          <label class="mb-1">{{ 'serviceCityAvailability.messageEn' | translate }}</label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="unavailableMessageEn"
+            [placeholder]="'serviceCityAvailability.messageEnPlaceholder' | translate"
+          />
+        </div>
+      </div>
+      <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="btn btn-primary">{{ 'actions.update' | translate }}</button>
+        <button type="button" class="btn btn-secondary" (click)="closeEditDrawer()">{{ 'actions.cancel' | translate }}</button>
+      </div>
+    </form>
+  </app-drawer>
+</div>

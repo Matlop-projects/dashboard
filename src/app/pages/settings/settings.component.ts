@@ -76,6 +76,11 @@ export class SettingsComponent {
         routerLink: '/settings/district'
       },
       {
+        label: this.languageService.translate('settings.serviceCityAvailability'),
+        icon: 'pi pi-map-marker',
+        routerLink: '/settings/service_city_availability'
+      },
+      {
         label: this.languageService.translate('settings.admin'),
         icon: 'pi pi-users',
         routerLink: '/settings/admin'

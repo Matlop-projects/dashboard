@@ -636,7 +636,25 @@
     "admin": "الإدارة",
     "addNotification": "إضافة إشعار",
     "emergncy_order_image": "صوره الطلبات الطارئة",
-    "special_order_image": "صوره الطلبات الخاصة"
+    "special_order_image": "صوره الطلبات الخاصة",
+    "serviceCityAvailability": "توفر الطلبات حسب الخدمة والمدينة"
+  },
+  "serviceCityAvailability": {
+    "pageName": "توفر الطلبات حسب الخدمة والمدينة",
+    "addNew": "إضافة إعداد جديد",
+    "list": "الإعدادات الحالية",
+    "country": "الدولة",
+    "wholeCountry": "الدولة كلها",
+    "allServices": "كل الخدمات",
+    "service": "الخدمة",
+    "city": "المدينة",
+    "ordersAvailable": "الطلبات متاحة",
+    "messageAr": "رسالة التعطيل (عربي)",
+    "messageEn": "رسالة التعطيل (إنجليزي)",
+    "messageArPlaceholder": "مثال: الحجز مليان حالياً",
+    "messageEnPlaceholder": "e.g. Fully booked at the moment",
+    "saved": "تم الحفظ بنجاح",
+    "editMessage": "تعديل رسالة التعطيل"
   },
   "complaint": {
     "pageName": "الشكاوى",

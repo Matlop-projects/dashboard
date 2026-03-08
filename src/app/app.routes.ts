@@ -63,6 +63,7 @@ import { AddNotificationsComponent } from './pages/add-notifications/add-notific
 import { EquipmentsTableComponent } from './pages/equipments/equipments-table/equipments-table.component';
 import { EquipmentsDetailsComponent } from './pages/equipments/equipments-details/equipments-details.component';
 import { OrderImagesComponent } from './pages/order-images/order-images.component';
+import { ServiceCityAvailabilityComponent } from './pages/service-city-availability/service-city-availability.component';
 import { WithdrawalsTransactionComponent } from './pages/withdrawals-transaction/withdrawals-transaction.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewDetailsComponent } from './pages/reviews/review-details/review-details.component';
@@ -150,6 +151,7 @@ export const routes: Routes = [
 
           { path: 'add_notification', component: AddNotificationsComponent },
           { path: 'order_images/:type', component: OrderImagesComponent },
+          { path: 'service_city_availability', component: ServiceCityAvailabilityComponent },
         ]
       },
       { path: 'profile', component: ProfileComponent },
