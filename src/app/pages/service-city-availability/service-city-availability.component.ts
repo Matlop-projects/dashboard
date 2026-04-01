@@ -94,6 +94,10 @@ export class ServiceCityAvailabilityComponent {
       this.loadData();
       this.getBreadCrumb();
       this.displayTableCols();
+      const cid = this.form.get('countryId')?.value;
+      if (cid) {
+        this.onCountryChange(cid);
+      }
     });
   }
 
@@ -108,22 +112,25 @@ export class ServiceCityAvailabilityComponent {
     });
   }
 
-  // city - commented: نشتغل على مستوى الدولة دلوقتي، لو رجعنا للمدينة نرجعها
-  // onCountryChange(countryId: number | null) {
-  //   this.citiesList = [];
-  //   this.form.patchValue({ cityId: null });
-  //   if (countryId && countryId > 0) {
-  //     this.apiService.get(`city/getByCountryId/${countryId}`).subscribe((res: any) => {
-  //       if (res?.data) {
-  //         const wholeCountryOption = { name: this.selectedLang === 'ar' ? 'الدولة كلها' : 'Whole country', code: WHOLE_COUNTRY_CODE };
-  //         const cityOptions = res.data.map((item: any) => ({ name: this.selectedLang === 'ar' ? item.arName : item.enName, code: item.cityId }));
-  //         this.citiesList = [wholeCountryOption, ...cityOptions];
-  //       }
-  //     });
-  //   }
-  // }
-  onCountryChange(_countryId: number | null) {
-    // لا حاجة لتحميل المدن - نشتغل على مستوى الدولة فقط
+  onCountryChange(countryId: number | null) {
+    this.citiesList = [];
+    this.form.patchValue({ cityId: null });
+    if (countryId == null || countryId <= 0) {
+      return;
+    }
+    this.apiService.get(`city/getByCountryId/${countryId}`).subscribe((res: any) => {
+      const wholeCountryOption = {
+        name: this.selectedLang === 'ar' ? 'الدولة كلها' : 'Whole country',
+        code: WHOLE_COUNTRY_CODE
+      };
+      const rows = res?.data ?? [];
+      const cityOptions = rows.map((item: any) => ({
+        name: this.selectedLang === 'ar' ? item.arName : item.enName,
+        code: item.cityId
+      }));
+      this.citiesList = [wholeCountryOption, ...cityOptions];
+      this.form.patchValue({ cityId: WHOLE_COUNTRY_CODE });
+    });
   }
 
   loadServices() {
@@ -166,8 +173,7 @@ export class ServiceCityAvailabilityComponent {
     this.columns = [
       { keyName: 'serviceCityAvailabilityId', header: this.languageService.translate('Id'), type: EType.id, show: true },
       { keyName: countryNameKey, header: this.languageService.translate('serviceCityAvailability.country'), type: EType.text, show: true },
-      // city - commented: نشتغل على مستوى الدولة دلوقتي، لو رجعنا للمدينة نرجعها
-      // { keyName: cityNameKey, header: this.languageService.translate('serviceCityAvailability.city'), type: EType.text, show: true },
+      { keyName: cityNameKey, header: this.languageService.translate('serviceCityAvailability.city'), type: EType.text, show: true },
       { keyName: serviceNameKey, header: this.languageService.translate('serviceCityAvailability.service'), type: EType.text, show: true },
       {
         keyName: 'isOrdersAvailable',
@@ -182,8 +188,7 @@ export class ServiceCityAvailabilityComponent {
     this.columnsSmallTable = [
       { keyName: 'serviceCityAvailabilityId', header: 'Id', type: EType.id },
       { keyName: countryNameKey, header: this.languageService.translate('serviceCityAvailability.country'), type: EType.text, showAs: ETableShow.header },
-      // city - commented: نشتغل على مستوى الدولة دلوقتي، لو رجعنا للمدينة نرجعها
-      // { keyName: cityNameKey, header: this.languageService.translate('serviceCityAvailability.city'), type: EType.text, showAs: ETableShow.content },
+      { keyName: cityNameKey, header: this.languageService.translate('serviceCityAvailability.city'), type: EType.text, showAs: ETableShow.content },
       { keyName: serviceNameKey, header: this.languageService.translate('serviceCityAvailability.service'), type: EType.text, showAs: ETableShow.content },
       { keyName: 'isOrdersAvailable', header: this.languageService.translate('serviceCityAvailability.ordersAvailable'), type: EType.status, showAs: ETableShow.content }
     ];
@@ -202,12 +207,12 @@ export class ServiceCityAvailabilityComponent {
     if (!this.form.valid || !this.form.value.countryId) return;
 
     const countryId = this.form.value.countryId;
-    // cityId دائماً null - نشتغل على مستوى الدولة فقط
+    const cityIdVal = this.form.value.cityId;
     const serviceIdVal = this.form.value.serviceId;
 
     const payload = {
       countryId,
-      cityId: null, // city - commented: كان cityIdVal === WHOLE_COUNTRY_CODE || !cityIdVal ? null : cityIdVal
+      cityId: cityIdVal === WHOLE_COUNTRY_CODE || cityIdVal == null ? null : cityIdVal,
       serviceId: serviceIdVal === ALL_SERVICES_CODE || !serviceIdVal ? null : serviceIdVal,
       isOrdersAvailable: this.form.value.isOrdersAvailable ?? true,
       unavailableMessageAr: this.form.value.unavailableMessageAr || null,

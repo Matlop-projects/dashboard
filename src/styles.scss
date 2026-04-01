@@ -8,6 +8,32 @@
   --main-text-color: redF2F3E;
 }
 
+/* Light UI: PrimeNG Aura + OS dark preference no longer applies (see app.config darkModeSelector).
+   Extra safety for selects / text fields inside forms. */
+html {
+  color-scheme: light;
+}
+
+.form-container,
+.table-container {
+  .p-select,
+  .p-multiselect {
+    --p-select-background: #ffffff;
+    --p-select-border-color: #ced4da;
+    --p-select-color: #212529;
+    --p-multiselect-background: #ffffff;
+    --p-multiselect-border-color: #ced4da;
+    --p-multiselect-color: #212529;
+  }
+
+  .p-inputtext,
+  input.p-inputtext {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #ced4da !important;
+  }
+}
+
 .toast-success {
   width:400px!important;
   background-color: #F1FDF5 !important;

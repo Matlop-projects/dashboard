@@ -40,7 +40,8 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
         options: {
           prefix: 'p',
-          darkModeSelector: 'system',
+          // Avoid OS dark mode turning selects/inputs black; dashboard stays light by default
+          darkModeSelector: false,
           cssLayer: false
         },
       }

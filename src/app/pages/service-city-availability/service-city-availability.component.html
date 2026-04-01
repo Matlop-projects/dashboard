@@ -25,16 +25,16 @@
                 (onSelectedValue)="onCountryChange($event)"
               ></app-select>
             </div>
-            <!-- city - commented: نشتغل على مستوى الدولة دلوقتي، لو رجعنا للمدينة نرجعها -->
-            <!-- <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
+            <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
               <app-select
                 class="w-100"
                 [label]="'serviceCityAvailability.city'"
                 [control]="form.get('cityId')"
                 [list]="citiesList"
+                [disabled]="!form.get('countryId')?.value || citiesList.length === 0"
                 placeholder="{{ 'shared.select' | translate }}"
               ></app-select>
-            </div> -->
+            </div>
             <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
               <app-select
                 class="w-100"
