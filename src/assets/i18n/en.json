@@ -281,6 +281,7 @@
     "admin": "Admin Count",
     "driver": "Driver Count",
     "specialOrder": "Special Order Count",
+    "otpSmsToday": "Successful OTP SMS today",
     "ORDERS_DETAILS": "Orders Details",
     "TOTAL_ORDERS_AMOUNT": "Total Orders Amount",
     "TOTAL_ORDERS_PER_DAY_AMOUNT": "Total Orders per Day Amount",

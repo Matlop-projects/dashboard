@@ -281,6 +281,7 @@
     "admin": "عدد المديريين",
     "driver": "عدد السائقين",
     "specialOrder": "عدد الطلبات الخاص",
+    "otpSmsToday": "رسائل OTP الناجحة اليوم",
     "ORDERS_DETAILS": "تفاصيل الطلبات",
     "TOTAL_ORDERS_AMOUNT": "إجمالي مبلغ الطلبات",
     "TOTAL_ORDERS_PER_DAY_AMOUNT": "إجمالي مبلغ الطلبات في اليوم",

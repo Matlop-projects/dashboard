@@ -60,6 +60,13 @@ export class DashboardComponent {
       id: 'orderCount',
     },
     {
+      name: 'dashboard.otpSmsToday',
+      value: 0,
+      img: 'assets/images/dashboard/timetable.png',
+      route: '/dashboard',
+      id: 'otpSmsSuccessCountToday',
+    },
+    {
       name: 'dashboard.contractType',
       value: 0,
       img: 'assets/images/dashboard/contract.png',
