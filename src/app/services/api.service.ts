@@ -31,6 +31,17 @@ export class ApiService {
     );
   }
 
+  /** Dashboard: username + password, no OTP. Uses api Authentication/AdminLogin (JWT). */
+  adminLogin(body: { userName: string; password: string; loginMethod: number }): Observable<any> {
+    return this.http.post(baseUrl + `Authentication/AdminLogin`, body).pipe(
+      take(1),
+      catchError((error) => {
+        this.toaster.errorToaster(error?.error?.message || 'shared.errors.login');
+        return throwError(() => error);
+      })
+    );
+  }
+
   post<T>(APIName: string, body: any, options: IOptions = { showAlert: false, message: '' }): Observable<T> {
     return this.http.post(`${baseUrl}${APIName}`, body).pipe(
       take(1),
