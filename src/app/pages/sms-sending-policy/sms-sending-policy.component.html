@@ -1,0 +1,58 @@
+<div class="sms-policy-page">
+  <div class="title-bredcrumb-section">
+    <div class="title">
+      <h2>{{ 'smsSendingPolicy.pageName' | translate | titlecase }}</h2>
+    </div>
+    <div class="breadcrumb">
+      <app-breadcrump [breadcrumbProps]="bredCrumb"></app-breadcrump>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="mt-4 p-4">{{ 'smsSendingPolicy.loading' | translate }}</div>
+  } @else {
+
+  <div class="form-container card mt-4 p-4">
+
+    <form [formGroup]="form" (ngSubmit)="save()">
+      <div class="row mb-3">
+        <div class="col-12 mt-2">
+          <app-check-box
+            [control]="form.get('smsSendingEnabled')!"
+            [label]="'smsSendingPolicy.fields.smsSendingEnabled'"
+            [isToggle]="true"
+          ></app-check-box>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-12 col-md-8 col-lg-6">
+          <app-input-text
+            [label]="'smsSendingPolicy.fields.maxSmsGloballyPerDay'"
+            [control]="form.get('maxSmsGloballyPerDay')"
+            type="number"
+          ></app-input-text>
+        </div>
+      </div>
+
+      <div class="mt-4 d-flex flex-wrap gap-2 justify-content-end">
+        <p-button
+          type="button"
+          [label]="'smsSendingPolicy.actions.reload' | translate"
+          severity="secondary"
+          [disabled]="loading || saving"
+          (onClick)="load()"
+          icon="pi pi-refresh"
+        />
+        <p-button
+          type="submit"
+          [label]="'smsSendingPolicy.actions.save' | translate"
+          [disabled]="saving || form.invalid || loading"
+          icon="pi pi-save"
+          [loading]="saving"
+        />
+      </div>
+    </form>
+  </div>
+  }
+</div>

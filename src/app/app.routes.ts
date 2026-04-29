@@ -73,6 +73,7 @@ import { OurClientTableComponent } from './pages/OurClients/ourclient-table/ourc
 import { OurClientDetailsComponent } from './pages/OurClients/ourclient-details/ourclient-details.component';
 import { BlogTableComponent } from './pages/blog/blog-table/blog-table.component';
 import { BlogDetailsComponent } from './pages/blog/blog-details/blog-details.component';
+import { SmsSendingPolicyComponent } from './pages/sms-sending-policy/sms-sending-policy.component';
 
 export const routes: Routes = [
   {
@@ -152,6 +153,7 @@ export const routes: Routes = [
           { path: 'add_notification', component: AddNotificationsComponent },
           { path: 'order_images/:type', component: OrderImagesComponent },
           { path: 'service_city_availability', component: ServiceCityAvailabilityComponent },
+          { path: 'sms_sending_policy', component: SmsSendingPolicyComponent },
         ]
       },
       { path: 'profile', component: ProfileComponent },

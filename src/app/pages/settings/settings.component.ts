@@ -81,6 +81,11 @@ export class SettingsComponent {
         routerLink: '/settings/service_city_availability'
       },
       {
+        label: this.languageService.translate('settings.smsSendingPolicy'),
+        icon: 'pi pi-shield',
+        routerLink: '/settings/sms_sending_policy'
+      },
+      {
         label: this.languageService.translate('settings.admin'),
         icon: 'pi pi-users',
         routerLink: '/settings/admin'

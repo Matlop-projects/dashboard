@@ -638,7 +638,21 @@
     "addNotification": "إضافة إشعار",
     "emergncy_order_image": "صوره الطلبات الطارئة",
     "special_order_image": "صوره الطلبات الخاصة",
-    "serviceCityAvailability": "توفر الطلبات حسب الخدمة والمدينة"
+    "serviceCityAvailability": "توفر الطلبات حسب الخدمة والمدينة",
+    "smsSendingPolicy": "سياسة OTP / SMS"
+  },
+  "smsSendingPolicy": {
+    "pageName": "سياسة إرسال OTP و SMS",
+    "crumb": "سياسة OTP / SMS",
+    "loading": "جاري التحميل…",
+    "fields": {
+      "smsSendingEnabled": "السماح بإرسال رسائل OTP عبر مزود الرسائل",
+      "maxSmsGloballyPerDay": "الحد اليومي لجميع النظام للرسائل الناجحة (0 = بدون حد)"
+    },
+    "actions": {
+      "reload": "إعادة التحميل",
+      "save": "حفظ"
+    }
   },
   "serviceCityAvailability": {
     "pageName": "توفر الطلبات حسب الخدمة والمدينة",

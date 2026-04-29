@@ -638,7 +638,21 @@
     "addNotification": "Add Notification",
     "emergncy_order_image": "Emergency Order Image",
     "special_order_image": "Special Order Image",
-    "serviceCityAvailability": "Service City Availability"
+    "serviceCityAvailability": "Service City Availability",
+    "smsSendingPolicy": "OTP / SMS policy"
+  },
+  "smsSendingPolicy": {
+    "pageName": "OTP & SMS sending policy",
+    "crumb": "OTP / SMS policy",
+    "loading": "Loading…",
+    "fields": {
+      "smsSendingEnabled": "Allow OTP SMS sending via SMS provider",
+      "maxSmsGloballyPerDay": "Global daily cap for successful OTP SMS (0 = unlimited)"
+    },
+    "actions": {
+      "reload": "Reload",
+      "save": "Save"
+    }
   },
   "serviceCityAvailability": {
     "pageName": "Service City Availability",
